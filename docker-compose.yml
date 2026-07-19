@@ -22,16 +22,9 @@ services:
     container_name: evav_nextjs_app_prod
     environment:
       - NODE_ENV=production
-      # NOTE: Berikut adalah env untuk masa depan (CMS/DB/MinIO) — belum dipakai kode saat ini.
-      # Database connection string
-      - DATABASE_URL=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}?schema=public
-      # MinIO configs
-      - MINIO_ENDPOINT=minio
-      - MINIO_PORT=9000
-      - MINIO_ACCESS_KEY=${MINIO_ROOT_USER}
-      - MINIO_SECRET_KEY=${MINIO_ROOT_PASSWORD}
-    # depends_on diabaikan untuk db/minio karena service tersebut di-disable (lihat bawah).
-    # Jika diaktifkan kembali, tambahkan kembali: db, minio.
+      # NOTE: Env untuk masa depan (CMS/DB/MinIO) sengaja DIHAPUS dari sini
+      # agar Docker Compose tidak meminta variabel yang belum didefinisikan
+      # di .env (menghindari warning). Akan ditambahkan saat integrasi siap.
     restart: always
 
   # Development Service (Accessed on port 3001 with hot-reloading)
@@ -101,9 +94,10 @@ services:
   cloudflared:
     image: cloudflare/cloudflared:latest
     container_name: evav_cloudflared
-    command: tunnel --no-autoupdate run
+    # Token penuh Cloudflare berisi credential tunnel; jalankan dengan --token.
+    command: tunnel --no-autoupdate run --token ${CLOUDFLARE_TUNNEL_TOKEN}
     environment:
-      - TUNNEL_TOKEN=${CLOUDFLARE_TUNNEL_TOKEN}
+      - CLOUDFLARE_TUNNEL_TOKEN=${CLOUDFLARE_TUNNEL_TOKEN}
     restart: unless-stopped
     depends_on:
       - nginx

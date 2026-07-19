@@ -68,11 +68,13 @@ jobs:
           # agar tidak bentrok dengan folder hmftweb milik repo lain.
           path: discover_evav
 
-      # Semua perintah di bawah dijalankan dari folder checkout `discover_evav/`
+      # .env harus dibuat di ROOT checkout (tempat docker-compose.yml berada),
+      # karena Docker Compose hanya membaca .env dari direktori yang sama
+      # dengan file compose-nya, bukan dari sub-folder web/.
       - name: Set up Environment Variables from Secrets
-        working-directory: discover_evav/web
+        working-directory: discover_evav
         run: |
-          echo "Membuat file .env dari GitHub Secrets..."
+          echo "Membuat file .env (root) dari GitHub Secrets..."
           touch .env
           echo "NODE_ENV=production" >> .env
           echo "CLOUDFLARE_TUNNEL_TOKEN=${{ secrets.CLOUDFLARE_TUNNEL_TOKEN }}" >> .env
