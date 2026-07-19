@@ -111,7 +111,7 @@ export default function PerahuBelanSection() {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 min-h-screen">
         <div
           ref={fotoRef}
-          className="relative w-full min-h-[55vh] lg:min-h-screen overflow-hidden lg:col-span-1 order-1"
+          className="relative w-full min-h-[45vh] sm:min-h-[55vh] lg:min-h-screen overflow-hidden lg:col-span-1 order-1"
         >
           {PERAHU_PHOTOS.map((photo, i) => (
             <Image
@@ -137,12 +137,12 @@ export default function PerahuBelanSection() {
                 Menjelajahi Laut Kei
               </span>
 
-              <h2 className="font-serif text-fluid-h1 md:text-6xl leading-tight text-black break-words">
+              <h2 className="font-serif text-fluid-h2 md:text-6xl leading-tight text-black break-words">
                 Perahu Belan,{" "}
                 <span className="text-brand">Menyusuri Samudera</span>
               </h2>
 
-              <p className="mt-6 md:mt-8 font-serif text-lg md:text-2xl leading-relaxed text-black/80">
+              <p className="mt-6 md:mt-8 font-serif text-base sm:text-lg md:text-2xl leading-relaxed text-black/80">
                 Dari Pantai Ngurbloat hingga Pulau Bair, perairan Kei adalah
                 surga bahari yang masih murni — air toska jernih, terumbu
                 karang bermekaran, dan gugusan pulau bagai permata di Banda.
@@ -151,11 +151,11 @@ export default function PerahuBelanSection() {
                 merajut pulau-pulau dengan sentuhan dayung, bukan penaklukan.
               </p>
 
-              <div className="mt-8 flex flex-wrap items-center gap-3 md:gap-4">
+              <div className="mt-8 flex flex-wrap items-center gap-2 sm:gap-3 gap-y-2 md:gap-4">
                 {nilaiPerahu.map(({ label, Icon }) => (
                   <span
                     key={label}
-                    className="inline-flex items-center gap-2 rounded-full bg-brand/10 px-4 py-2 font-sans text-sm md:text-base font-medium text-brand"
+                    className="inline-flex items-center gap-2 rounded-full bg-brand/10 px-3 py-1.5 sm:px-4 sm:py-2 font-sans text-sm md:text-base font-medium text-brand"
                   >
                     <Icon
                       className="h-5 w-5 md:h-6 md:w-6 text-brand"

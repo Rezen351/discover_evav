@@ -139,8 +139,8 @@ export default function HeroMetiSection() {
         className="absolute inset-0 z-[1] bg-gradient-to-b from-black/85 via-black/45 to-black/30"
       />
 
-      <div className="relative z-[2] max-w-[98%] xl:max-w-[1600px] mx-auto px-4 md:px-8 w-full">
-        <p className="meti-reveal text-fluid-eyebrow uppercase tracking-[0.35em] text-white/60 font-sans">
+      <div className="relative z-[2] max-w-[98%] xl:max-w-[1600px] mx-auto px-4 md:px-8 w-full pt-20 sm:pt-0">
+        <p className="meti-reveal text-fluid-eyebrow uppercase tracking-[0.2em] sm:tracking-[0.35em] text-white/60 font-sans">
           Festival Pesona Meti Kei
         </p>
 

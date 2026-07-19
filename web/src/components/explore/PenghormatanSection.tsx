@@ -57,7 +57,7 @@ export default function PenghormatanSection() {
       <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/65 to-black/70" />
 
       <div className="relative z-[1] max-w-[98%] xl:max-w-[1600px] mx-auto px-4 md:px-8 w-full flex justify-center">
-        <div className="max-w-3xl text-center py-24 md:py-32">
+        <div className="max-w-3xl text-center py-16 sm:py-24 md:py-32">
           <p className="penghormatan-fade font-sans text-sm md:text-base uppercase tracking-[0.35em] text-white/60 mb-6">
             Menjaga Keindahan Alam
           </p>

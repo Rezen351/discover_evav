@@ -116,7 +116,7 @@ export default function PentasSeniSection() {
               <span className="text-brand">Alam Menari</span>
             </h2>
 
-            <p className="mt-6 md:mt-8 font-serif text-lg md:text-2xl leading-relaxed text-black/80">
+            <p className="mt-6 md:mt-8 font-serif text-base sm:text-lg md:text-2xl leading-relaxed text-black/80">
               Tak perlu panggung buatan. Di Kepulauan Kei, alam adalah
               pentasnya — hamparan pasir putih, tebing kapur, dan laut jernih
               menjadi latar Tari Belan dan Tari Sariat yang agung. Dentuman Tifa
@@ -152,7 +152,7 @@ export default function PentasSeniSection() {
                 rel="noopener noreferrer"
                 onMouseMove={onMouseMove}
                 onMouseLeave={onMouseLeave}
-                className="btn-spotlight btn-cta inline-flex items-center gap-2 font-sans text-sm md:text-base font-medium focus-ring rounded-full px-6 py-3"
+                className="btn-spotlight btn-cta w-full sm:w-auto justify-center text-center inline-flex items-center gap-2 font-sans text-sm md:text-base font-medium focus-ring rounded-full px-6 py-3"
                 aria-label="Lihat lokasi Pentas Seni di Google Maps"
               >
                 <MapPinIcon className="h-4 w-4 md:h-5 md:w-5 text-current" />

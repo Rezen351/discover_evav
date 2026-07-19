@@ -119,7 +119,7 @@ export default function WerWaratSection() {
               <span className="text-brand">Hamparan Surga Terbuka</span>
             </h2>
 
-            <blockquote className="mt-6 md:mt-8 font-serif text-lg md:text-2xl leading-relaxed text-black/80 border-l-2 border-brand pl-5 md:pl-6">
+            <blockquote className="mt-6 md:mt-8 font-serif text-base sm:text-lg md:text-2xl leading-relaxed text-black/80 border-l-2 border-brand pl-5 md:pl-6">
               &ldquo;Saat air surut bermil-mil jauhnya, laut membuka gerbangnya —
               hamparan pasir putih sehalus tepung yang membelah birunya samudera.
               Di Pantai Ngurbloat dan Pasir Timbul Ngurtavur, alam Kei

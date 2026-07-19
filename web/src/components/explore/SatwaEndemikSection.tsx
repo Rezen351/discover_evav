@@ -60,7 +60,7 @@ export default function SatwaEndemikSection() {
     <section
       id="satwa-endemik"
       ref={ref}
-      className="relative w-full min-h-screen snap-start snap-always flex items-center bg-section z-[3] overflow-hidden py-20"
+      className="relative w-full min-h-screen snap-start snap-always flex items-center bg-section z-[3] overflow-hidden py-16 sm:py-20"
     >
       <div className="max-w-[98%] xl:max-w-[1600px] mx-auto px-4 md:px-8 w-full">
         {/* Header editorial asimetris */}
@@ -75,7 +75,7 @@ export default function SatwaEndemikSection() {
               <span className="text-brand">Asli Evav</span>
             </h2>
 
-            <p className="mt-6 md:mt-8 font-serif text-lg md:text-2xl leading-relaxed text-black/80">
+            <p className="mt-6 md:mt-8 font-serif text-base sm:text-lg md:text-2xl leading-relaxed text-black/80">
               Keindahan Kei tidak hanya ada di pasir dan lautnya, tapi juga pada
               napas-napas kecil yang menghuninya. Dari pelikan Australia yang
               datang saat pasir timbul membentang, hingga burung dan satwa hutan
@@ -108,7 +108,7 @@ export default function SatwaEndemikSection() {
                       src={satwa.gambar}
                       alt={satwa.alt}
                       fill
-                      sizes="(max-width: 640px) 78vw, (max-width: 1024px) 31vw, 23vw"
+                      sizes="(max-width: 640px) 86vw, (max-width: 1024px) 31vw, 23vw"
                       className="object-cover transition-transform duration-500 group-hover:scale-105"
                     />
                     {satwa.status && (

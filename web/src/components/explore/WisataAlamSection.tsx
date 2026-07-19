@@ -3,7 +3,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
 import {
-  ArrowRightIcon,
   MapPinIcon,
   FunnelIcon,
   ChevronDownIcon,
@@ -11,7 +10,12 @@ import {
 } from "@heroicons/react/24/outline";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Pagination, A11y, Keyboard } from "swiper/modules";
 import { useSpotlight } from "@/hooks/useSpotlight";
+
+import "swiper/css";
+import "swiper/css/pagination";
 import {
   spotAlam,
   kategoriAlam,
@@ -96,7 +100,7 @@ export default function WisataAlamSection() {
     <section
       id="wisata-alam"
       ref={ref}
-      className="relative w-full min-h-screen snap-start snap-always flex items-center bg-section z-[4] overflow-hidden py-20"
+      className="relative w-full min-h-screen snap-start snap-always flex items-center bg-section z-[4] overflow-hidden py-16 sm:py-20"
     >
       <div className="max-w-[98%] xl:max-w-[1600px] mx-auto px-4 md:px-8 w-full">
         {/* Header editorial asimetris */}
@@ -111,7 +115,7 @@ export default function WisataAlamSection() {
               <span className="text-black">yang Masih Murni</span>
             </h2>
 
-            <p className="mt-6 md:mt-8 font-serif  text-lg md:text-2xl leading-relaxed text-black/80 w-full">
+            <p className="mt-6 md:mt-8 font-serif text-base sm:text-lg md:text-2xl leading-relaxed text-black/80 w-full">
               Di balik Festival Meti, Kepulauan Kei menyimpan surga yang tak pernah tidur: pasir terhalus di dunia, laut sebening kaca, gugusan pulau bagai permata, dan goa-gua yang menyimpan misteri. Jelajahi keindahan alam Evav — pilih kategori, temukan spot, lalu rancang petualanganmu.
             </p>
           </div>
@@ -119,11 +123,11 @@ export default function WisataAlamSection() {
           {/* Ringkasan jumlah spot + Filter Kategori (Dropdown) */}
           <div className="alam-fade lg:col-span-4 flex flex-col gap-4 lg:items-end lg:pt-2">
             {/* Ringkasan jumlah spot — di atas filter */}
-            <div className="relative z-0 inline-flex items-center gap-4 self-start lg:self-end rounded-lg-design border border-brand/10 bg-white/70 px-6 py-4 shadow-soft">
+            <div className="relative z-0 inline-flex items-center gap-4 self-start lg:self-end rounded-lg-design border border-brand/10 bg-white/70 px-4 py-3 sm:px-6 sm:py-4 shadow-soft">
               <span className="font-serif text-4xl md:text-5xl leading-none text-brand">
                 {filtered.length}
               </span>
-              <span className="font-sans text-sm md:text-base leading-snug text-black/60 whitespace-nowrap">
+              <span className="font-sans text-sm md:text-base leading-snug text-black/60 break-words">
                 spot
                 <br />
                 {filter === "Semua" ? "tersedia" : filter.toLowerCase()}
@@ -184,13 +188,10 @@ export default function WisataAlamSection() {
           </div>
         </div>
 
-        {/* Grid kartu spot alam */}
-        <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-          {filtered.map((spot) => (
-            <article
-              key={spot.id}
-              className="alam-fade group flex flex-col bg-white border border-brand/10 rounded-xl-design shadow-soft hover:border-brand/30 transition-colors overflow-hidden"
-            >
+        {/* Kartu spot alam */}
+        {(() => {
+          const SpotCard = ({ spot }: { spot: (typeof spotAlam)[number] }) => (
+            <article className="group flex flex-col h-full bg-white border border-brand/10 rounded-xl-design shadow-soft hover:border-brand/30 transition-colors overflow-hidden">
               <div className="relative w-full h-[200px] md:h-[240px] overflow-hidden">
                 <Image
                   src={spot.gambar}
@@ -226,8 +227,41 @@ export default function WisataAlamSection() {
                 </a>
               </div>
             </article>
-          ))}
-        </div>
+          );
+
+          return (
+            <>
+              {/* Desktop/Tablet: grid multi-kolom */}
+              <div className="relative z-10 hidden md:grid grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+                {filtered.map((spot) => (
+                  <div key={spot.id} className="alam-fade">
+                    <SpotCard spot={spot} />
+                  </div>
+                ))}
+              </div>
+
+              {/* Mobile: Swiper slider + pagination */}
+              <div className="relative z-10 md:hidden alam-fade">
+                <Swiper
+                  modules={[Pagination, A11y, Keyboard]}
+                  spaceBetween={16}
+                  slidesPerView={1.1}
+                  grabCursor
+                  keyboard={{ enabled: true }}
+                  pagination={{ clickable: true }}
+                  aria-label="Galeri wisata alam Evav"
+                  className="!pb-12 alam-swiper"
+                >
+                  {filtered.map((spot) => (
+                    <SwiperSlide key={spot.id} className="!h-auto">
+                      <SpotCard spot={spot} />
+                    </SwiperSlide>
+                  ))}
+                </Swiper>
+              </div>
+            </>
+          );
+        })()}
 
         {/* CTA penutup section */}
         {/* <div className="alam-fade mt-12 md:mt-16 flex flex-wrap items-center gap-4 md:gap-6">

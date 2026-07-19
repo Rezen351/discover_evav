@@ -119,7 +119,7 @@ export default function InformasiPenutupSection() {
         id="informasi-penutup"
         ref={sectionRef}
         aria-label="Informasi dan penutup Festival Pesona Meti Kei"
-        className="relative w-full min-h-screen snap-start snap-always flex items-center bg-[#0C121D] z-[2] py-20 md:py-28"
+        className="relative w-full min-h-screen snap-start snap-always flex items-center bg-[#0C121D] z-[2] py-16 sm:py-20 md:py-28"
       >
         <div className="max-w-[98%] xl:max-w-[1600px] mx-auto px-4 md:px-8 w-full">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
@@ -229,14 +229,26 @@ export default function InformasiPenutupSection() {
         ref={barRef}
         role="region"
         aria-label="Aksi cepat Festival Meti"
-        className={`fixed bottom-4 left-4 w-[calc(100%-2rem)] sm:w-auto max-w-4xl z-[90] backdrop-blur-md rounded-xl-design shadow-float py-3.5 px-6 md:px-8 transition-all duration-300 ${isLightSection
-          ? "bg-white/95 text-black border border-brand/25"
-          : "bg-tropical-dark/90 text-white border border-white/15"
+        className={`fixed bottom-0 left-0 right-0 z-[90] backdrop-blur-md border-t transition-all duration-300 ${isLightSection
+          ? "bg-white/80 text-black border-brand/20"
+          : "bg-tropical-dark/80 text-white border-white/15"
           }`}
       >
-        <div className="flex items-center justify-between gap-4">
+        <div className="max-w-[98%] xl:max-w-[1600px] mx-auto px-4 md:px-8 w-full py-1 sm:py-4 flex items-center justify-start gap-4">
+          <button
+            type="button"
+            onClick={() => setDismissed(true)}
+            aria-label="Tutup aksi cepat"
+            className={`focus-ring shrink-0 rounded-full p-2.5 min-h-11 min-w-11 flex items-center justify-center transition-colors cursor-pointer ${isLightSection
+              ? "text-black/55 hover:text-black"
+              : "text-white/70 hover:text-white"
+              }`}
+          >
+            <XMarkIcon className="h-5 w-5" aria-hidden="true" />
+          </button>
+
           <p className="font-sans text-sm md:text-base flex flex-wrap items-center gap-3 md:gap-4">
-            <span className={isLightSection ? "text-black/80" : "text-white/95"}>
+            <span className={`hidden sm:inline ${isLightSection ? "text-black/70" : "text-white/80"}`}>
               Meti hanya setahun sekali —
             </span>
             <a
@@ -251,18 +263,6 @@ export default function InformasiPenutupSection() {
               <ArrowRightIcon className="h-4 w-4 text-current" aria-hidden="true" />
             </a>
           </p>
-
-          <button
-            type="button"
-            onClick={() => setDismissed(true)}
-            aria-label="Tutup aksi cepat"
-            className={`focus-ring shrink-0 rounded-full p-2 transition-colors cursor-pointer ${isLightSection
-              ? "text-black/55 hover:text-black"
-              : "text-white/70 hover:text-white"
-              }`}
-          >
-            <XMarkIcon className="h-5 w-5" aria-hidden="true" />
-          </button>
         </div>
       </div>
     </>

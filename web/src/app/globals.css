@@ -89,6 +89,10 @@ html.snap-active {
   scroll-behavior: smooth;
 }
 
+@media (max-width: 640px) {
+  html.snap-active { scroll-snap-type: none; }
+}
+
 body {
   background: var(--background);
   color: var(--foreground);
@@ -327,6 +331,20 @@ body {
   transition: width 0.3s ease, background-color 0.3s ease;
 }
 .satwa-swiper .swiper-pagination-bullet-active {
+  background: var(--color-primary-pink) !important;
+}
+
+/* Wisata Alam Evav pagination dots — aksen brand pink */
+.alam-swiper {
+  --swiper-theme-color: var(--color-primary-pink);
+  --swiper-pagination-color: var(--color-primary-pink);
+}
+.alam-swiper .swiper-pagination-bullet {
+  background: color-mix(in srgb, var(--color-primary-pink) 30%, transparent) !important;
+  opacity: 1;
+  transition: width 0.3s ease, background-color 0.3s ease;
+}
+.alam-swiper .swiper-pagination-bullet-active {
   background: var(--color-primary-pink) !important;
 }
 
