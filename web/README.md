@@ -1,36 +1,46 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Simfoni Evav — Discover Evav (Web)
 
-## Getting Started
+Website pariwisata *storytelling* Kepulauan Kei, Maluku Tenggara. Next.js 16 (App Router) · React 19 · TypeScript · Tailwind CSS v4 · GSAP · MapLibre GL.
 
-First, run the development server:
+## Menjalankan Secara Lokal
+
+> **Catatan:** Proyek ini membutuhkan **Node.js >= 20.9.0**. Jika default `node` di sistem adalah v18, gunakan versi 20 (mis. via nvm: `nvm use 20`).
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Buka [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Perintah lainnya:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run build   # production build (implisit typecheck)
+npm run lint    # ESLint (eslint-config-next)
+```
 
-## Learn More
+## Struktur Rute (`src/app/`)
 
-To learn more about Next.js, take a look at the following resources:
+| Rute | Isi |
+|------|-----|
+| `/` | Halaman utama (Hero, FunFact, JourneyMap, BudayaAdat, DestinasiTerbaik, BeritaUmkm, Contact, Footer) |
+| `/destinasi` | Halaman destinasi wisata alam (Pantai Ngurbloat, Gua Hawang, Pulau Bair, Ngurtafur, Kei Besar, Petroglyph) |
+| `/budaya` | Halaman budaya & sejarah (Larvul Ngabal, Ain Ni Ain, Belis, Tenun Ikat, Islam 1252 M) |
+| `/kuliner` | Halaman kuliner (Papeda, Sagu Kasbi, Enbal, Terasi Dobo, Tumis Sirsir, Lompa-lompa, dll) |
+| `/admin` | Dashboard CMS sederhana (statistik, tabel data, status publikasi) |
+| `/keterhubungan` | Halaman keterhubungan / community-based tourism |
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Konvensi Desain
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Semua keputusan desain (tipografi, warna, radius, animasi, aksesibilitas) **terpusat** di [`docs/GRAND_DESIGN.md`](../docs/GRAND_DESIGN.md). Aturan project (bahasa, arsitektur, keamanan) ada di [`AGENTS.md`](../AGENTS.md).
 
-## Deploy on Vercel
+Singkatnya:
+- Teks UI berbahasa Indonesia; nama variabel/fungsi bahasa Inggris.
+- Gunakan utility class terpusat (`text-brand`, `bg-section`, `bg-tropical-dark`) — jangan hardcode hex.
+- Konten statis dipusatkan di `src/content/*`.
+- Gambar wajib `next/image`; hostname eksternal didaftar di `next.config.ts`.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Catatan Build
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Lint mungkin menampilkan error pre-existing di `src/components/Navbar.tsx` (terkait React Compiler / hook rules) yang berada di luar scope pengembangan halaman ini. Build (`next build`) tetap lolos.

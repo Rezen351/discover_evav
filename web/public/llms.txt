@@ -1,0 +1,20 @@
+# Simfoni Evav — Discover Evav
+
+> Simfoni Evav (Discover Evav) adalah situs cerita pariwisata untuk Kepulauan Kei, Maluku Tenggara, Maluku, Indonesia. Situs ini memperkenalkan keindahan alam, sejarah, budaya, dan kuliner Kei — peradaban yang berdiri megah di atas hamparan pasir putih.
+
+## Halaman Utama
+
+- [Beranda](https://discoverevav.id/) — Peradaban di Atas Pasir Putih: gerbang utama mengeksplorasi Kepulauan Kei dan keajaiban budayanya.
+- [Eksplorasi](https://discoverevav.id/eksplorasi) — Festival Pesona Meti Kei serta wisata alam: Pantai Ngurbloat, Pulau Bair, Goa Hawang, dan Ngurtavur.
+- [Budaya](https://discoverevav.id/budaya) — Larvul Ngabal, Ain Ni Ain, dan tenun ikat Elat sebagai warisan budaya Kei.
+- [Heritage](https://discoverevav.id/heritage) — Jejak sejarah Kepulauan Kei: Karel Sadsuitubun dan Ratskap Manyeuw.
+- [Taste](https://discoverevav.id/taste) — Kuliner Kei: Enbal, Colo-colo, dan sagu sebagai cita rasa lokal.
+- [Interaction](https://discoverevav.id/interaction) — Halaman kontak dan FAQ untuk berhubungan dengan tim Simfoni Evav.
+
+## Fakta Singkat
+
+- Lokasi: Kepulauan Kei, Maluku Tenggara, Maluku, Indonesia.
+- Pantai Ngurbloat dikenal sebagai pantai dengan pasir terhalus di Asia menurut National Geographic.
+- Festival Meti Kei adalah perayaan pasang surut laut yang menjadi daya tarik wisata utama.
+- Larvul Ngabal adalah hukum adat leluhur masyarakat Kei yang mengatur tata kehidupan.
+- Kuliner khas Kei meliputi Enbal, Colo-colo, dan sagu.

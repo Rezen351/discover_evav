@@ -1,0 +1,18 @@
+# UI Layout Rules
+
+Selalu patuhi aturan tata letak berikut saat membuat atau memodifikasi *section* (komponen bagian halaman) baru agar konsistensi desain dari atas ke bawah tetap terjaga dengan sempurna.
+
+## Standard Container Margin & Padding
+Untuk semua *section* utama, pembungkus (*wrapper*) terluar yang berisi konten **wajib** menggunakan rangkaian kelas utilitas ini untuk mengontrol lebar maksimum, perataan tengah, dan bantalan sisi (margin/padding):
+
+```tsx
+className="max-w-[98%] xl:max-w-[1600px] mx-auto px-4 md:px-8 w-full"
+```
+
+### Penjelasan:
+- `max-w-[98%] xl:max-w-[1600px]`: Memberikan jarak 1% di kiri-kanan pada layar kecil/menengah, dan mengunci lebar maksimal di 1600px untuk monitor ultra lebar.
+- `mx-auto`: Memusatkan konten di tengah layar.
+- `px-4 md:px-8`: Memberikan padding horizontal (margin dalam) yang aman agar konten tidak menempel ke tepi layar pada *mobile* (4) dan *desktop* (8).
+- `w-full`: Memastikan blok merentang sesuai parent.
+
+*Aturan ini diterapkan untuk memastikan perataan (alignment) mulai dari Navbar di paling atas hingga Footer di paling bawah terlihat sejajar sempurna (rata tepi).*

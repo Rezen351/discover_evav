@@ -1,12 +1,15 @@
 import { MetadataRoute } from 'next';
 
+const SITE_URL = 'https://discoverevav.id';
+
 export default function robots(): MetadataRoute.Robots {
   return {
     rules: {
       userAgent: '*',
       allow: '/',
-      disallow: '/private/',
+      disallow: ['/admin/', '/private/'],
     },
-    sitemap: 'https://discoverevav.id/sitemap.xml',
+    sitemap: `${SITE_URL}/sitemap.xml`,
+    host: SITE_URL,
   };
 }

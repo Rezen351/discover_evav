@@ -1,3 +1,13 @@
+# Environment
 .env
 .env.*
+!.env.example
+
+# macOS
 .DS_Store
+
+# Next.js / Node
+.next/
+node_modules/
+*.tsbuildinfo
+next-env.d.ts

@@ -10,6 +10,7 @@ The application uses **PostgreSQL** for the database, **MinIO** for S3-compatibl
 - **Database:** PostgreSQL 15
 - **Object Storage:** MinIO
 - **Reverse Proxy:** Nginx (Alpine)
+- **Admin/CMS:** Panel admin sederhana untuk kelola konten (UMKM & katalog produk, berita/artikel, destinasi, event, media, pengaturan situs)
 - **Tunnel/Security:** Cloudflare Tunnel (`cloudflared`)
 - **Containerization:** Docker & Docker Compose
 

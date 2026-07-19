@@ -1,15 +1,28 @@
+# ============================================================================
+# Discover Evav — Docker Compose
+# ----------------------------------------------------------------------------
+# STATUS: Aplikasi saat ini berjalan sebagai FRONTEND-ONLY (tanpa DB/MinIO).
+# Konten statis berada di `web/src/content/*.ts` dan belum ada integrasi
+# DATABASE_URL / Prisma / MinIO di kode (`web/src`). CMS & storage adalah
+# RENCANA sesuai `docs/spesification.md` §3 (belum dibuat).
+#
+# Oleh karena itu service `db`, `minio`, dan `cloudflared` DINONAKTIFKAN
+# (di-comment) agar `docker-compose up` hanya menjalankan infrastruktur yang
+# benar-benar dipakai. Definisi volume tetap dipertahankan agar tidak breaking.
+# Service yang dinonaktifkan dapat diaktifkan kembali saat integrasi CMS/storage
+# sudah diimplementasikan.
+# ============================================================================
+
 services:
+  # Production Service (Accessed via Nginx on port 81)
   web:
     build:
       context: ./web
       dockerfile: Dockerfile
-    container_name: evav_nextjs_app
-    volumes:
-      - ./web:/app
-      - /app/node_modules
-      - /app/.next
+    container_name: evav_nextjs_app_prod
     environment:
-      - NODE_ENV=development
+      - NODE_ENV=production
+      # NOTE: Berikut adalah env untuk masa depan (CMS/DB/MinIO) — belum dipakai kode saat ini.
       # Database connection string
       - DATABASE_URL=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}?schema=public
       # MinIO configs
@@ -17,9 +30,33 @@ services:
       - MINIO_PORT=9000
       - MINIO_ACCESS_KEY=${MINIO_ROOT_USER}
       - MINIO_SECRET_KEY=${MINIO_ROOT_PASSWORD}
-    depends_on:
-      - db
-      - minio
+    # depends_on diabaikan untuk db/minio karena service tersebut di-disable (lihat bawah).
+    # Jika diaktifkan kembali, tambahkan kembali: db, minio.
+    restart: always
+
+  # Development Service (Accessed on port 3001 with hot-reloading)
+  web-dev:
+    build:
+      context: ./web
+      dockerfile: Dockerfile.dev
+    container_name: evav_nextjs_app_dev
+    ports:
+      - "3001:3000"
+    volumes:
+      - ./web:/app
+      - ./web/node_modules:/app/node_modules
+      - /app/.next
+    environment:
+      - NODE_ENV=development
+      # NOTE: Env masa depan (CMS/DB/MinIO) — belum dipakai kode saat ini.
+      # Database connection string
+      - DATABASE_URL=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}?schema=public
+      # MinIO configs
+      - MINIO_ENDPOINT=minio
+      - MINIO_PORT=9000
+      - MINIO_ACCESS_KEY=${MINIO_ROOT_USER}
+      - MINIO_SECRET_KEY=${MINIO_ROOT_PASSWORD}
+    # depends_on diabaikan untuk db/minio karena service tersebut di-disable (lihat bawah).
 
   nginx:
     image: nginx:alpine
@@ -31,26 +68,35 @@ services:
     ports:
       - "81:80"
 
-  db:
-    image: postgres:15-alpine
-    container_name: evav_postgres_db
-    environment:
-      - POSTGRES_USER=${POSTGRES_USER}
-      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-      - POSTGRES_DB=${POSTGRES_DB}
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
+  # ==========================================================================
+  # PLANNED INFRASTRUCTURE — currently UNUSED by frontend code.
+  # Sesuai docs/spesification.md §3 (CMS & storage). Di-comment agar tidak
+  # dijalankan oleh `docker-compose up`. Hapus comment untuk mengaktifkan saat
+  # integrasi sudah siap. Definisi volume tetap ada di bawah (tidak dihapus).
+  # ==========================================================================
+  # PLANNED — not yet integrated by code (see docs/spesification.md §3). Currently unused.
+  # db:
+  #   image: postgres:15-alpine
+  #   container_name: evav_postgres_db
+  #   environment:
+  #     - POSTGRES_USER=${POSTGRES_USER}
+  #     - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+  #     - POSTGRES_DB=${POSTGRES_DB}
+  #   volumes:
+  #     - postgres_data:/var/lib/postgresql/data
 
-  minio:
-    image: minio/minio
-    container_name: evav_minio_storage
-    environment:
-      - MINIO_ROOT_USER=${MINIO_ROOT_USER}
-      - MINIO_ROOT_PASSWORD=${MINIO_ROOT_PASSWORD}
-    command: server /data --console-address ":9001"
-    volumes:
-      - minio_data:/data
+  # PLANNED — not yet integrated by code (see docs/spesification.md §3). Currently unused.
+  # minio:
+  #   image: minio/minio
+  #   container_name: evav_minio_storage
+  #   environment:
+  #     - MINIO_ROOT_USER=${MINIO_ROOT_USER}
+  #     - MINIO_ROOT_PASSWORD=${MINIO_ROOT_PASSWORD}
+  #   command: server /data --console-address ":9001"
+  #   volumes:
+  #     - minio_data:/data
 
+  # Cloudflare Zero Trust Tunnel — exposes nginx publicly on discoverevav.id
   cloudflared:
     image: cloudflare/cloudflared:latest
     container_name: evav_cloudflared

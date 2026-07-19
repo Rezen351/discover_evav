@@ -1,7 +1,19 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  // Izinkan domain development mengakses Next.js dev resources (webpack HMR)
+  // tanpa ini, JavaScript hydration gagal dan loading screen stuck
+  allowedDevOrigins: ["dev.discoverevav.id"],
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'images.unsplash.com',
+        port: '',
+        pathname: '/**',
+      },
+    ],
+  },
 };
 
 export default nextConfig;
