@@ -62,35 +62,35 @@ services:
     # Cloudflare Tunnel (service `cloudflared`) via jaringan internal compose.
     # Port 80 hanya listen di dalam network container.
 
-  # ==========================================================================
-  # PLANNED INFRASTRUCTURE — currently UNUSED by frontend code.
-  # Sesuai docs/spesification.md §3 (CMS & storage). Di-comment agar tidak
-  # dijalankan oleh `docker-compose up`. Hapus comment untuk mengaktifkan saat
-  # integrasi sudah siap. Definisi volume tetap ada di bawah (tidak dihapus).
-  # ==========================================================================
-  # PLANNED — not yet integrated by code (see docs/spesification.md §3). Currently unused.
-  # db:
-  #   image: postgres:15-alpine
-  #   container_name: evav_postgres_db
-  #   environment:
-  #     - POSTGRES_USER=${POSTGRES_USER}
-  #     - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-  #     - POSTGRES_DB=${POSTGRES_DB}
-  #   volumes:
-  #     - postgres_data:/var/lib/postgresql/data
+    # ==========================================================================
+    # PLANNED INFRASTRUCTURE — currently UNUSED by frontend code.
+    # Sesuai docs/spesification.md §3 (CMS & storage). Di-comment agar tidak
+    # dijalankan oleh `docker-compose up`. Hapus comment untuk mengaktifkan saat
+    # integrasi sudah siap. Definisi volume tetap ada di bawah (tidak dihapus).
+    # ==========================================================================
+    # PLANNED — not yet integrated by code (see docs/spesification.md §3). Currently unused.
+    # db:
+    #   image: postgres:15-alpine
+    #   container_name: evav_postgres_db
+    #   environment:
+    #     - POSTGRES_USER=${POSTGRES_USER}
+    #     - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    #     - POSTGRES_DB=${POSTGRES_DB}
+    #   volumes:
+    #     - postgres_data:/var/lib/postgresql/data
 
-  # PLANNED — not yet integrated by code (see docs/spesification.md §3). Currently unused.
-  # minio:
-  #   image: minio/minio
-  #   container_name: evav_minio_storage
-  #   environment:
-  #     - MINIO_ROOT_USER=${MINIO_ROOT_USER}
-  #     - MINIO_ROOT_PASSWORD=${MINIO_ROOT_PASSWORD}
-  #   command: server /data --console-address ":9001"
-  #   volumes:
-  #     - minio_data:/data
+    # PLANNED — not yet integrated by code (see docs/spesification.md §3). Currently unused.
+    # minio:
+    #   image: minio/minio
+    #   container_name: evav_minio_storage
+    #   environment:
+    #     - MINIO_ROOT_USER=${MINIO_ROOT_USER}
+    #     - MINIO_ROOT_PASSWORD=${MINIO_ROOT_PASSWORD}
+    #   command: server /data --console-address ":9001"
+    #   volumes:
+    #     - minio_data:/data
 
-  # Cloudflare Zero Trust Tunnel — exposes nginx publicly on discoverevav.id
+    # Cloudflare Zero Trust Tunnel — exposes nginx publicly on discoverevav.id
   cloudflared:
     image: cloudflare/cloudflared:latest
     container_name: evav_cloudflared

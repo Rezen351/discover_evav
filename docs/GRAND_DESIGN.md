@@ -142,7 +142,7 @@ Ini adalah **hukum tertinggi desain** Simfoni Evav. Bukan sekadar tagline — in
 
 | Level | Class | Token CSS | Weight | Contoh Pemakaian |
 |-------|-------|-----------|--------|-----------------|
-| **H1** | `.text-fluid-h1` | `clamp(2.5rem, 1.8rem + 3.5vw, 4.75rem)` | 400 | Hero title |
+| **H1** | `.text-fluid-h1` | `clamp(2rem, 1.6rem + 3vw, 4.75rem)` | 400 | Hero title |
 | **H2** | `.text-fluid-h2` | `clamp(2rem, 1.4rem + 2.6vw, 3.25rem)` | 400 | Section titles |
 | **H3** | `.text-fluid-h3` | `clamp(1.5rem, 1.2rem + 1.4vw, 2.25rem)` | 400 | Card titles |
 | **H4** | `.text-fluid-h4` | `clamp(1.15rem, 1rem + 0.7vw, 1.5rem)` | 400 | Sub-title |
