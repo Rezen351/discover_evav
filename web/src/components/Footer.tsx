@@ -198,6 +198,42 @@ export default function Footer() {
 
       {/* COPYRIGHT FOOTNOTE */}
       <div className="relative z-[2] mt-6 border-t border-white/5 pt-4 text-center">
+        <nav
+          aria-label="Halaman legal"
+          className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1 mb-2"
+        >
+          <a
+            href="/kebijakan-privasi"
+            className="text-[10px] md:text-xs text-white/40 font-light tracking-widest hover:text-brand transition-colors"
+            style={{ fontFamily: "var(--font-sans)" }}
+          >
+            Kebijakan Privasi
+          </a>
+          <span className="text-white/15 text-[10px]">·</span>
+          <a
+            href="/syarat-ketentuan"
+            className="text-[10px] md:text-xs text-white/40 font-light tracking-widest hover:text-brand transition-colors"
+            style={{ fontFamily: "var(--font-sans)" }}
+          >
+            Syarat &amp; Ketentuan
+          </a>
+          <span className="text-white/15 text-[10px]">·</span>
+          <a
+            href="/disclaimer"
+            className="text-[10px] md:text-xs text-white/40 font-light tracking-widest hover:text-brand transition-colors"
+            style={{ fontFamily: "var(--font-sans)" }}
+          >
+            Disclaimer
+          </a>
+          <span className="text-white/15 text-[10px]">·</span>
+          <a
+            href="/kebijakan-cookie"
+            className="text-[10px] md:text-xs text-white/40 font-light tracking-widest hover:text-brand transition-colors"
+            style={{ fontFamily: "var(--font-sans)" }}
+          >
+            Kebijakan Cookie
+          </a>
+        </nav>
         <p className="text-[10px] md:text-xs text-white/35 font-light tracking-widest" style={{ fontFamily: "var(--font-sans)" }}>
           &copy; 2026 Simfoni Evav. Semua Hak Dilindungi.
         </p>

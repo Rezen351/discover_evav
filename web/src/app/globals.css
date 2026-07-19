@@ -373,6 +373,40 @@ body {
 .prose-editor blockquote { border-left: 3px solid var(--color-primary-pink); padding-left: 1rem; margin: 0.875rem 0; color: rgb(0 0 0 / 0.6); font-style: italic; }
 .prose-editor a { color: var(--color-primary-pink); text-decoration: underline; }
 
+/* Halaman legal (minimalis) */
+.legal-prose { color: rgb(26 26 26 / 0.85); line-height: 1.75; font-size: var(--text-fluid-body); }
+.legal-prose h2 {
+  font-size: var(--text-fluid-h4);
+  font-weight: 600;
+  margin: 2.5rem 0 0.75rem;
+  color: var(--color-text-black);
+  font-family: var(--font-serif);
+  scroll-margin-top: 6rem;
+}
+.legal-prose h3 {
+  font-size: 1.05rem;
+  font-weight: 600;
+  margin: 1.5rem 0 0.5rem;
+  color: var(--color-text-black);
+}
+.legal-prose p { margin: 0.85rem 0; }
+.legal-prose ul { list-style: disc; padding-left: 1.4rem; margin: 0.85rem 0; }
+.legal-prose ol { list-style: decimal; padding-left: 1.4rem; margin: 0.85rem 0; }
+.legal-prose li { margin: 0.4rem 0; }
+.legal-prose a { color: var(--color-primary-pink); text-decoration: underline; text-underline-offset: 2px; }
+.legal-prose strong { color: var(--color-text-black); font-weight: 600; }
+.legal-prose blockquote {
+  border-left: 3px solid var(--color-primary-pink);
+  padding-left: 1rem;
+  margin: 1.25rem 0;
+  color: rgb(26 26 26 / 0.6);
+  font-style: italic;
+}
+.legal-prose hr { border: none; border-top: 1px solid rgb(0 0 0 / 0.08); margin: 2rem 0; }
+.legal-prose table { width: 100%; border-collapse: collapse; margin: 1.25rem 0; font-size: 0.9rem; }
+.legal-prose th, .legal-prose td { border: 1px solid rgb(0 0 0 / 0.1); padding: 0.6rem 0.75rem; text-align: left; vertical-align: top; }
+.legal-prose th { background: rgb(0 0 0 / 0.03); font-weight: 600; }
+
 /* Kapal & ombak & awan (hero/footer decorative) */
 .boat-anim { animation: boatBob 6s ease-in-out infinite; transform-origin: 50% 90%; will-change: transform; }
 .wave-scroll { animation: waveScroll 9s linear infinite; will-change: transform; }
