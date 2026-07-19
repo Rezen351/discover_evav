@@ -143,10 +143,13 @@ export const tasteStory = {
 // ── Bento (light, bg-section) ─────────────────────────────────────────────────
 export type BentoItem = {
   id: string;
-  icon: "Fish" | "Wheat" | "Flame" | "CakeSlice";
+  icon: "Fish" | "Wheat" | "Flame" | "CakeSlice" | "Coconut";
   title: string;
   desc: string;
+  image: string;
+  imageAlt: string;
   hero?: boolean;
+  tall?: boolean;
 };
 
 export const bentoTaste = {
@@ -158,25 +161,42 @@ export const bentoTaste = {
       icon: "Fish",
       title: "Laut & Sasi",
       desc: "Hasil laut yang dijaga adat. Sasi memberi waktu alam pulih, sehingga ikan, cumi, dan kerang selalu segar dan cukup saat tiba di meja.",
+      image: "/images/kuliner/kei_culinary_fish.png",
+      imageAlt: "Hasil laut segar Kepulauan Kei yang dijaga lewat adat sasi",
       hero: true,
+    },
+    {
+      id: "umbi-santan",
+      icon: "Coconut",
+      title: "Umbi & Santan Gurih",
+      desc: "Santan segar yang kental dan umbi-umbian lokal (seperti singkong dan ubi jalar) memberikan kelembutan yang kaya. Mereka menyeimbangkan ketajaman rempah dan rasa laut yang segar.",
+      image: "/images/kuliner/kei_culinary_sirsir.png",
+      imageAlt: "Umbi-umbian dan santan gurih khas Kepulauan Kei",
+      tall: true,
     },
     {
       id: "sagu",
       icon: "Wheat",
       title: "Sagu",
       desc: "Makanan pokok pengikat keluarga — lembut, netral, siap menyerap rasa laut di setiap piring.",
+      image: "/images/kuliner/kei_sagu_process.png",
+      imageAlt: "Proses sagu — makanan pokok masyarakat Kepulauan Kei",
     },
     {
       id: "rempah-colocolo",
       icon: "Flame",
       title: "Rempah & Colo-colo",
       desc: "Cuka, cabai, dan bawang segar memberi kehidupan. Colo-colo adalah tanda tangan keasaman Kei.",
+      image: "/images/kuliner/kei_ikan_colocolo.png",
+      imageAlt: "Colo-colo — sambal cuka segar khas Kepulauan Kei",
     },
     {
       id: "manis-pisang",
       icon: "CakeSlice",
       title: "Manis & Pisang",
       desc: "Pisang lokal dan camilan panggang menutup makan dengan hangat — manis yang tidak berlebihan, seperti sambutan Kei.",
+      image: "/images/kuliner/kei_pisang_enbal.png",
+      imageAlt: "Pisang Enbal — camilan pisang khas Kepulauan Kei",
     },
   ] satisfies BentoItem[],
 } as const;
@@ -188,6 +208,6 @@ export const tasteClosing = {
   quote:
     "Rasa yang paling kerasa bukan yang paling pedas, melainkan yang paling hangat saat dibagikan.",
   attribution: "Filosofi meja makan masyarakat Kepulauan Kei",
-  ctaLabel: "Jelajahi Kei",
-  ctaHref: "/eksplorasi",
+  ctaLabel: "Ceritakan Keinginanmu",
+  ctaHref: "/interaction",
 } as const;

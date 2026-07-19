@@ -3,8 +3,9 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { ChevronRight } from "lucide-react";
-import { breather } from "@/content/budaya";
+import { ChevronRightIcon } from "@heroicons/react/24/outline";
+import { breather } from "@/content/culture";
+import { useSpotlight } from "@/hooks/useSpotlight";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -12,6 +13,7 @@ if (typeof window !== "undefined") {
 
 export default function BreatherSection() {
   const sectionRef = useRef<HTMLElement>(null);
+  const { onMouseMove, onMouseLeave } = useSpotlight();
 
   useEffect(() => {
     const section = sectionRef.current;
@@ -62,11 +64,13 @@ export default function BreatherSection() {
           <div className="breather-reveal mt-10">
             <a
               href={breather.ctaHref}
-              className="group inline-flex items-center gap-2 rounded-xl bg-nav-gradient px-6 py-3 font-sans text-fluid-small font-semibold text-black transition-all hover:brightness-105 focus-ring active:press"
+              onMouseMove={onMouseMove}
+              onMouseLeave={onMouseLeave}
+              className="btn-spotlight btn-cta hover:text-brand border hover:border-brand/100 group inline-flex items-center gap-2 rounded-xl bg-nav-gradient px-6 py-3 font-sans text-fluid-small font-semibold text-black transition-all hover:brightness-105 focus-ring active:press"
               aria-label={breather.ctaLabel}
             >
               {breather.ctaLabel}
-              <ChevronRight
+              <ChevronRightIcon
                 className="h-4 w-4 transition-transform group-hover:translate-x-1"
                 aria-hidden="true"
               />

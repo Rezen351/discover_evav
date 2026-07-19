@@ -443,7 +443,7 @@ export default function FunFactSection() {
         </div>
       </div>
 
-      <div className="max-w-[98%] xl:max-w-[1600px] mx-auto px-4 md:px-8 w-full flex flex-col gap-4 md:gap-6 relative z-10">
+      <div className="max-w-[98%] xl:max-w-[1600px] mx-auto px-4 md:px-8 w-full flex flex-col gap-4 md:gap-6 relative z-10 self-start lg:self-center">
 
         {/* ROW 1: Header (Headline & Tabs Aligned) */}
         <div className="flex flex-col xl:flex-row justify-between items-end gap-4 w-full fade-up-item">
@@ -459,7 +459,7 @@ export default function FunFactSection() {
 
           {/* Right: Navigation Tabs — pill style, wrappable di mobile */}
           <div className="w-full xl:w-[65%]">
-            <div className="flex items-center flex-wrap gap-2 xl:gap-3">
+            <div className="flex items-center flex-wrap justify-start xl:justify-end gap-2 xl:gap-3">
             {tabs.map((tab) => (
               <button
                 key={tab.name}
@@ -487,7 +487,7 @@ export default function FunFactSection() {
           {/* Left Column: Big Card */}
           <div className="w-full xl:w-[35%] flex-none fade-up-item">
             {/* Big Pink Box below headline - Fixed landscape height */}
-            <div key={`main-${activeTab}-${activeDest}`} className="w-full h-[260px] md:h-[280px] lg:h-[310px] bg-white/10 rounded-lg-design overflow-hidden shadow-card relative group cursor-pointer active:press animate-[fadeSlideUp_0.5s_ease-out]">
+            <div key={`main-${activeTab}-${activeDest}`} className="w-full h-[220px] md:h-[280px] lg:h-[310px] bg-white/10 rounded-lg-design overflow-hidden shadow-card relative group cursor-pointer active:press animate-[fadeSlideUp_0.5s_ease-out]">
               <Image src={activeItem.image} alt={activeItem.title} fill sizes="(max-width: 768px) 100vw, 40vw" className="object-cover transition-transform duration-700 group-hover:scale-105" />
               <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent"></div>
               <div className="absolute bottom-4 left-4 md:bottom-6 md:left-6 pr-4">
@@ -523,38 +523,45 @@ export default function FunFactSection() {
             </div>
 
             {/* 3 Right Boxes Grid */}
-            <div className="flex flex-col w-full md:w-[55%] gap-3 h-[260px] md:h-[280px] lg:h-[310px]">
+            <div className="flex flex-col w-full md:w-[55%] gap-3 h-[220px] md:h-[280px] lg:h-[310px]">
               {/* Top wide box - Click to Select */}
-              <div
-                ref={(el) => { boxesRef.current[0] = el; }}
-                onClick={() => goToDest(inactiveIndices[0])}
-                className="w-full flex-[1.2] min-h-0 bg-white/10 rounded-lg-design shadow-soft relative overflow-hidden group cursor-pointer transition-all active:press"
-              >
-                <Image src={rightTopItem.image} alt={rightTopItem.title} fill sizes="(max-width: 768px) 100vw, 30vw" className="object-cover transition-transform duration-700 group-hover:scale-105" />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent"></div>
-                <div className="absolute bottom-4 left-5 right-5">
-                  <h4 className="text-xl md:text-2xl text-white font-normal drop-shadow-md" style={{ fontFamily: "var(--font-serif)" }}>{rightTopItem.title}</h4>
-                  <p className="text-white/80 text-xs mt-0.5 font-light" style={{ fontFamily: "var(--font-sans)" }}>{rightTopItem.subtitle}</p>
+              {rightTopItem && (
+                <div
+                  key={`box-top-${activeTab}-${inactiveIndices[0]}`}
+                  ref={(el) => { boxesRef.current[0] = el; }}
+                  onClick={() => goToDest(inactiveIndices[0])}
+                  className="w-full flex-[1.2] min-h-0 bg-white/10 rounded-lg-design shadow-soft relative overflow-hidden group cursor-pointer transition-all active:press"
+                >
+                  <Image src={rightTopItem.image} alt={rightTopItem.title} fill sizes="(max-width: 768px) 100vw, 30vw" className="object-cover transition-transform duration-700 group-hover:scale-105" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent"></div>
+                  <div className="absolute bottom-4 left-5 right-5">
+                    <h4 className="text-xl md:text-2xl text-white font-normal drop-shadow-md" style={{ fontFamily: "var(--font-serif)" }}>{rightTopItem.title}</h4>
+                    <p className="text-white/80 text-xs mt-0.5 font-light" style={{ fontFamily: "var(--font-sans)" }}>{rightTopItem.subtitle}</p>
+                  </div>
                 </div>
-              </div>
+              )}
 
               {/* Bottom 2 boxes */}
               <div className="flex flex-row gap-3 flex-1 min-h-0">
                 {/* Bottom Left: Click to Select */}
-                <div
-                  ref={(el) => { boxesRef.current[1] = el; }}
-                  onClick={() => goToDest(inactiveIndices[1])}
-                  className="w-1/2 h-full bg-white/10 rounded-lg-design shadow-soft relative overflow-hidden group cursor-pointer transition-all active:press"
-                >
-                  <Image src={rightLeftItem.image} alt={rightLeftItem.title} fill sizes="(max-width: 768px) 50vw, 15vw" className="object-cover transition-transform duration-700 group-hover:scale-105" />
-                  <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors duration-500"></div>
-                  <div className="absolute inset-0 flex flex-col items-center justify-center p-3 text-center">
-                    <span className="text-white font-normal text-lg md:text-xl drop-shadow-md" style={{ fontFamily: "var(--font-serif)" }}>{rightLeftItem.title}</span>
+                {rightLeftItem && (
+                  <div
+                    key={`box-left-${activeTab}-${inactiveIndices[1]}`}
+                    ref={(el) => { boxesRef.current[1] = el; }}
+                    onClick={() => goToDest(inactiveIndices[1])}
+                    className="w-1/2 h-full bg-white/10 rounded-lg-design shadow-soft relative overflow-hidden group cursor-pointer transition-all active:press"
+                  >
+                    <Image src={rightLeftItem.image} alt={rightLeftItem.title} fill sizes="(max-width: 768px) 50vw, 15vw" className="object-cover transition-transform duration-700 group-hover:scale-105" />
+                    <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors duration-500"></div>
+                    <div className="absolute inset-0 flex flex-col items-center justify-center p-3 text-center">
+                      <span className="text-white font-normal text-lg md:text-xl drop-shadow-md" style={{ fontFamily: "var(--font-serif)" }}>{rightLeftItem.title}</span>
+                    </div>
                   </div>
-                </div>
+                )}
 
                 {/* Bottom Right: Call to action */}
                 <button
+                  key={`box-right-${activeTab}-${activeDest}`}
                   ref={(el) => { boxesRef.current[2] = el; }}
                   onMouseMove={onMouseMove}
                   onMouseLeave={onMouseLeave}

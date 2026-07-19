@@ -1,26 +1,26 @@
 import type { Metadata } from "next";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import HeroBudayaSection from "@/components/budaya/HeroBudayaSection";
-import LarvulNgabalSection from "@/components/budaya/LarvulNgabalSection";
-import FilosofiSection from "@/components/budaya/FilosofiSection";
-import EkspresiBudayaSection from "@/components/budaya/EkspresiBudayaSection";
-import BreatherSection from "@/components/budaya/BreatherSection";
-import WarisanTakbendaSection from "@/components/budaya/WarisanTakbendaSection";
-import BudayaTimelineSection from "@/components/budaya/BudayaTimelineSection";
+import HeroBudayaSection from "@/components/culture/HeroBudayaSection";
+import LarvulNgabalSection from "@/components/culture/LarvulNgabalSection";
+import FilosofiSection from "@/components/culture/FilosofiSection";
+import EkspresiBudayaSection from "@/components/culture/EkspresiBudayaSection";
+import BreatherSection from "@/components/culture/BreatherSection";
+import WarisanTakbendaSection from "@/components/culture/WarisanTakbendaSection";
+import BudayaTimelineSection from "@/components/culture/BudayaTimelineSection";
 
 export const metadata: Metadata = {
   title: "Jiwa Kei — Budaya & Sejarah Kepulauan Kei | Simfoni Evav",
   description:
     "Selami jiwa Kepulauan Kei: hukum adat lisan Larvul Ngabal, falsafah Ain Ni Ain, belis, tenun ikat Elat, dan harmoni lintas iman sejak Islam masuk 1252 M. Budaya yang ditarikan, dinyanyikan, dan dikenakan di Tanah Evav.",
   alternates: {
-    canonical: "/budaya",
+    canonical: "/culture",
   },
   openGraph: {
     title: "Jiwa Kei — Budaya & Sejarah Kepulauan Kei",
     description:
       "Simfoni kehidupan di atas pasir putih: Larvul Ngabal, Ain Ni Ain, tari Sawat, busana adat, tenun ikat Elat, dan tradisi Meti Kepulauan Kei.",
-    url: "/budaya",
+    url: "/culture",
     type: "website",
   },
 };

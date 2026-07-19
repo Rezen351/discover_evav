@@ -11,6 +11,7 @@ import {
   MapPinIcon,
 } from "@heroicons/react/24/outline";
 import { useSpotlight } from "@/hooks/useSpotlight";
+import { useSlideshow } from "@/hooks/useSlideshow";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -30,10 +31,30 @@ const nilaiPerahu = [
   { label: "Kekompakan", Icon: UserGroupIcon },
 ];
 
+// Slideshow perahu layar tradisional Belan & bahari Kei (autoplay 5s, §7.3).
+const PERAHU_PHOTOS: { src: string; alt: string }[] = [
+  {
+    src: "/images/meti/perahu_belan.png",
+    alt: "Perahu layar tradisional Belan berlomba membelah air dalam Festival Pesona Meti Kei",
+  },
+  {
+    src: "/images/meti/kei_bair.png",
+    alt: "Pulau Bair dengan tebing karang dan lorong air jernih di Kepulauan Kei",
+  },
+  {
+    src: "/images/meti/kei_snorkeling.png",
+    alt: "Perairan jernih Kepulauan Kei dengan terumbu karang bermekaran",
+  },
+];
+
 export default function PerahuBelanSection() {
   const ref = useRef<HTMLElement>(null);
   const fotoRef = useRef<HTMLDivElement>(null);
   const { onMouseMove, onMouseLeave } = useSpotlight();
+  const { index: perahuIndex } = useSlideshow({
+    count: PERAHU_PHOTOS.length,
+    interval: 5000,
+  });
 
   useEffect(() => {
     const prefersReduced = window.matchMedia(
@@ -92,48 +113,52 @@ export default function PerahuBelanSection() {
           ref={fotoRef}
           className="relative w-full min-h-[55vh] lg:min-h-screen overflow-hidden lg:col-span-1 order-1"
         >
-          <Image
-            src="/images/meti/kei_bair.png"
-            alt="Perahu layar tradisional Belan melaju cepat membelah air dengan ornamen adat Kei"
-            fill
-            className="object-cover"
-            sizes="(max-width: 1024px) 100vw, 50vw"
-          />
+          {PERAHU_PHOTOS.map((photo, i) => (
+            <Image
+              key={photo.src}
+              src={photo.src}
+              alt={photo.alt}
+              fill
+              sizes="(max-width: 1024px) 100vw, 50vw"
+              className={`object-cover transition-opacity duration-1000 ease-in-out ${i === perahuIndex ? "opacity-100" : "opacity-0"
+                }`}
+            />
+          ))}
           <div
             className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent lg:hidden"
             aria-hidden="true"
           />
         </div>
 
-          <div className="relative flex items-end lg:items-center order-2 bg-section">
-            <div className="max-w-[98%] xl:max-w-[1600px] mx-auto px-4 md:px-8 w-full py-16 md:py-24">
-              <div className="perahu-fade max-w-xl">
-                <span className="font-sans uppercase tracking-[0.25em] text-brand text-xs md:text-sm font-semibold mb-4 block">
-                  Menjelajahi Laut Kei
-                </span>
+        <div className="relative flex items-end lg:items-center order-2 bg-section">
+          <div className="max-w-[98%] xl:max-w-[1600px] mx-auto px-4 md:px-8 w-full py-16 md:py-24">
+            <div className="perahu-fade w-full">
+              <span className="font-sans uppercase tracking-[0.25em] text-brand text-xs md:text-sm font-semibold mb-4 block">
+                Menjelajahi Laut Kei
+              </span>
 
-                <h2 className="font-serif text-fluid-h1 md:text-6xl leading-tight text-black break-words">
-                  Perahu Belan,{" "}
-                  <span className="text-brand">Menyusuri Samudera</span>
-                </h2>
+              <h2 className="font-serif text-fluid-h1 md:text-6xl leading-tight text-black break-words">
+                Perahu Belan,{" "}
+                <span className="text-brand">Menyusuri Samudera</span>
+              </h2>
 
-                <p className="mt-6 md:mt-8 font-serif text-lg md:text-2xl leading-relaxed text-black/80">
-                  Dari Pantai Ngurbloat hingga Pulau Bair, perairan Kei adalah
-                  surga bahari yang masih murni — air toska jernih, terumbu
-                  karang bermekaran, dan gugusan pulau bagai permata di Banda.
-                  Lomba perahu layar tradisional Belan merayakan keberanian
-                  menjelajahi laut ini, mengingatkan kita pada leluhur Kei yang
-                  merajut pulau-pulau dengan sentuhan dayung, bukan penaklukan.
-                </p>
+              <p className="mt-6 md:mt-8 font-serif text-lg md:text-2xl leading-relaxed text-black/80">
+                Dari Pantai Ngurbloat hingga Pulau Bair, perairan Kei adalah
+                surga bahari yang masih murni — air toska jernih, terumbu
+                karang bermekaran, dan gugusan pulau bagai permata di Banda.
+                Lomba perahu layar tradisional Belan merayakan keberanian
+                menjelajahi laut ini, mengingatkan kita pada leluhur Kei yang
+                merajut pulau-pulau dengan sentuhan dayung, bukan penaklukan.
+              </p>
 
               <div className="mt-8 flex flex-wrap items-center gap-3 md:gap-4">
                 {nilaiPerahu.map(({ label, Icon }) => (
                   <span
                     key={label}
-                    className="inline-flex items-center gap-2 rounded-full bg-brand/10 px-4 py-2 font-sans text-sm md:text-base font-medium text-brand-navy"
+                    className="inline-flex items-center gap-2 rounded-full bg-brand/10 px-4 py-2 font-sans text-sm md:text-base font-medium text-brand"
                   >
                     <Icon
-                      className="h-5 w-5 md:h-6 md:w-6 text-brand-navy"
+                      className="h-5 w-5 md:h-6 md:w-6 text-brand"
                       aria-hidden="true"
                     />
                     <span aria-label={`Nilai lomba perahu Belan: ${label}`}>
@@ -143,9 +168,9 @@ export default function PerahuBelanSection() {
                 ))}
               </div>
 
-              <p className="mt-5 font-sans text-sm md:text-base text-black/70">
-                <span className="text-brand font-semibold">Lokasi:</span>{" "}
-                {EVENT_LOKASI}
+              <p className="mt-5 font-sans text-sm md:text-base text-black/70 flex items-center gap-2">
+                <MapPinIcon className="h-4 w-4 md:h-5 md:w-5 text-brand shrink-0" aria-hidden="true" />
+                <span>{EVENT_LOKASI}</span>
               </p>
 
               <div className="mt-4">

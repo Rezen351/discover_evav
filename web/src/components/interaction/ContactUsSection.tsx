@@ -7,12 +7,18 @@ import {
   PhoneIcon,
   MapPinIcon,
   ChevronRightIcon,
-  PhotoIcon,
-  PlayIcon,
-  PlayCircleIcon,
 } from "@heroicons/react/24/outline";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import SocialIcon from "@/components/SocialIcon";
+import { useSpotlight } from "@/hooks/useSpotlight";
+import {
+  CONTACT_EMAIL,
+  EMAIL_URL,
+  WHATSAPP_URL,
+  SOCIAL_LINKS,
+} from "@/content/social";
+
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -28,14 +34,14 @@ interface ChannelItem {
 const channels: ChannelItem[] = [
   {
     label: "Email",
-    value: "keluarga@evav.id",
-    href: "mailto:keluarga@evav.id",
+    value: CONTACT_EMAIL,
+    href: EMAIL_URL,
     Icon: EnvelopeIcon,
   },
   {
     label: "Telepon & WhatsApp",
     value: "+62 821-1234-5678",
-    href: "https://wa.me/6282112345678",
+    href: WHATSAPP_URL,
     Icon: PhoneIcon,
   },
   {
@@ -46,14 +52,11 @@ const channels: ChannelItem[] = [
   },
 ];
 
-const socials = [
-  { label: "Instagram Keluarga Evav", href: "https://instagram.com/evav.id", Icon: PhotoIcon },
-  { label: "TikTok Keluarga Evav", href: "https://tiktok.com/@evav.id", Icon: PlayIcon },
-  { label: "YouTube Keluarga Evav", href: "https://youtube.com/@evav.id", Icon: PlayCircleIcon },
-];
+const socials = SOCIAL_LINKS;
 
 export default function ContactUsSection() {
   const sectionRef = useRef<HTMLElement>(null);
+  const { onMouseMove, onMouseLeave } = useSpotlight();
 
   useEffect(() => {
     const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -179,7 +182,7 @@ export default function ContactUsSection() {
                       Media Sosial
                     </span>
                     <div className="flex items-center gap-3">
-                      {socials.map(({ label, href, Icon }) => (
+                      {socials.map(({ label, href, platform }) => (
                         <a
                           key={label}
                           href={href}
@@ -188,7 +191,7 @@ export default function ContactUsSection() {
                           aria-label={label}
                           className="w-10 h-10 flex items-center justify-center rounded-full border border-white/10 text-white/60 hover:text-brand hover:border-brand transition-colors focus-ring"
                         >
-                          <Icon className="w-5 h-5" aria-hidden="true" />
+                          <SocialIcon platform={platform} className="w-5 h-5" />
                         </a>
                       ))}
                     </div>
@@ -199,8 +202,10 @@ export default function ContactUsSection() {
 
             <div className="fade-up mt-8">
               <a
-                href="mailto:keluarga@evav.id"
-                className="btn-glass-dark group inline-flex items-center justify-center gap-2 rounded-xl py-3.5 px-6 text-sm md:text-base font-semibold active:press focus-ring"
+                href={EMAIL_URL}
+                onMouseMove={onMouseMove}
+                onMouseLeave={onMouseLeave}
+                className="btn-cta-dark btn-cta-dark:hover group inline-flex items-center justify-center gap-2 rounded-xl py-3.5 px-6 text-sm md:text-base font-semibold active:press focus-ring"
                 style={{ fontFamily: "var(--font-sans)" }}
               >
                 Sapa Kami

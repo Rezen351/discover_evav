@@ -10,6 +10,8 @@ import {
 } from "@heroicons/react/24/outline";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useSpotlight } from "@/hooks/useSpotlight";
+import { WHATSAPP_URL, EMAIL_URL, CONTACT_EMAIL } from "@/content/social";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -33,6 +35,7 @@ const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 export default function KeterhubunganFormSection() {
   const sectionRef = useRef<HTMLElement>(null);
   const formPanelRef = useRef<HTMLDivElement>(null);
+  const { onMouseMove, onMouseLeave } = useSpotlight();
 
   const [activeTab, setActiveTab] = useState<string>(TOPIC_TABS[0].id);
   const [formData, setFormData] = useState({ name: "", email: "", message: "" });
@@ -134,7 +137,7 @@ export default function KeterhubunganFormSection() {
               </p>
 
               <a
-                href="https://wa.me/6282112345678"
+                href={WHATSAPP_URL}
                 className="group flex items-center gap-4 bg-white/70 border border-brand/20 rounded-md-design p-4 hover:border-brand transition-colors focus-ring"
                 style={{ fontFamily: "var(--font-sans)" }}
                 aria-label="Hubungi kami lewat WhatsApp dan telepon di nomor +62 821-1234-5678"
@@ -149,10 +152,10 @@ export default function KeterhubunganFormSection() {
               </a>
 
               <a
-                href="mailto:keluarga@evav.id"
+                href={EMAIL_URL}
                 className="group flex items-center gap-4 bg-white/70 border border-brand/20 rounded-md-design p-4 hover:border-brand transition-colors focus-ring"
                 style={{ fontFamily: "var(--font-sans)" }}
-                aria-label="Kirim surel langsung ke keluarga@evav.id"
+                aria-label={`Kirim surel langsung ke ${CONTACT_EMAIL}`}
               >
                 <EnvelopeIcon className="w-6 h-6 text-brand shrink-0" />
                 <span className="flex flex-col">
@@ -243,7 +246,7 @@ export default function KeterhubunganFormSection() {
                           className={[
                             "px-3.5 py-2 rounded-md-design text-xs md:text-sm font-medium transition-colors focus-ring",
                             active
-                              ? "bg-nav-gradient text-black"
+                              ? "bg-nav-gradient text-brand border border-brand/100"
                               : "text-black/60 hover:text-brand bg-white/70 border border-brand/20",
                           ].join(" ")}
                           style={{ fontFamily: "var(--font-sans)" }}
@@ -340,6 +343,8 @@ export default function KeterhubunganFormSection() {
 
                   <button
                     type="submit"
+                    onMouseMove={onMouseMove}
+                    onMouseLeave={onMouseLeave}
                     className="btn-cta group/btn w-full rounded-xl py-3.5 font-semibold text-sm md:text-base active:press focus-ring"
                     style={{ fontFamily: "var(--font-sans)" }}
                   >

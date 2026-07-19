@@ -59,6 +59,20 @@ export default function JedaJiwaSection() {
         className="object-cover object-center brightness-110 contrast-105"
         priority
       />
+      {/* Tint senja pink-biru (token §3.1) agar nuansa sunset Kei lebih terasa */}
+      <div
+        className="absolute inset-0 z-[3] pointer-events-none mix-blend-soft-light"
+        style={{
+          background:
+            "linear-gradient(135deg, var(--color-ocean-indigo) 0%, rgba(27,58,107,0.2) 45%, var(--color-primary-pink) 100%)",
+        }}
+        aria-hidden="true"
+      />
+      {/* Overlay gelap agar teks putih kontras kuat (§19.1) — gradien senja pink-biru */}
+      <div
+        className="absolute inset-0 z-[5] pointer-events-none bg-gradient-to-t from-black/80 via-black/40 to-black/20"
+        aria-hidden="true"
+      />
       {/* Halo blur lembut di belakang teks (magnetik mengikuti kursor, konsisten dengan section lain) */}
       <div
         className="jeda-jiwa-fade absolute z-[9] left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] max-w-[820px] aspect-[2/1] pointer-events-none"

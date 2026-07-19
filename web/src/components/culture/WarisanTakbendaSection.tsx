@@ -4,16 +4,20 @@ import { useEffect, useRef } from "react";
 import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { Languages, BookOpen, Fish, type LucideIcon } from "lucide-react";
-import { warisanTakbenda, type WarisanItem } from "@/content/budaya";
+import { LanguageIcon, BookOpenIcon } from "@heroicons/react/24/outline";
+import { Fish } from "lucide-react";
+import { warisanTakbenda, type WarisanItem } from "@/content/culture";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
 }
 
-const ICONS: Record<WarisanItem["icon"], LucideIcon> = {
-  Languages,
-  BookOpen,
+const ICONS: Record<
+  WarisanItem["icon"],
+  React.ComponentType<React.SVGProps<SVGSVGElement>>
+> = {
+  Languages: LanguageIcon,
+  BookOpen: BookOpenIcon,
   Fish,
 };
 

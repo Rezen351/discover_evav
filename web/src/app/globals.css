@@ -34,7 +34,7 @@
 
   /* FLUID TYPE SCALE (clamp: min, preferred-vw, max) — GRAND_DESIGN.md §2.2 */
   --text-fluid-eyebrow: clamp(0.7rem, 0.66rem + 0.2vw, 0.875rem);
-  --text-fluid-h1: clamp(2.5rem, 1.8rem + 3.5vw, 4.75rem);
+  --text-fluid-h1: clamp(2rem, 1.6rem + 3vw, 4.75rem);
   --text-fluid-h2: clamp(2rem, 1.4rem + 2.6vw, 3.25rem);
   --text-fluid-h3: clamp(1.5rem, 1.2rem + 1.4vw, 2.25rem);
   --text-fluid-h4: clamp(1.15rem, 1rem + 0.7vw, 1.5rem);
@@ -73,6 +73,22 @@
   }
 }
 
+html, body {
+  max-width: 100%;
+  /* clip (bukan hidden) agar scroll horizontal tercegah TANPA membatalkan
+     scroll-snap vertical pada <html> (hidden mengubah overflow-y jadi auto
+     dan membatalkan snap di beberapa browser desktop). */
+  overflow-x: clip;
+}
+
+/* Scroll-snap magnetik landing page — diaktifkan via class .snap-active
+   (ScrollSnapController). Didefinisikan eksplisit di CSS agar tidak bergantung
+   utility Tailwind yang di-inject lewat JS. */
+html.snap-active {
+  scroll-snap-type: y mandatory;
+  scroll-behavior: smooth;
+}
+
 body {
   background: var(--background);
   color: var(--foreground);
@@ -100,6 +116,7 @@ body {
 @keyframes blob { 0% { transform: translate(0, 0) scale(1); } 33% { transform: translate(40px, -60px) scale(1.1); } 66% { transform: translate(-30px, 30px) scale(0.9); } 100% { transform: translate(0, 0) scale(1); } }
 @keyframes scrolldown { 0% { transform: translateY(-100%); } 50% { transform: translateY(100%); } 100% { transform: translateY(200%); } }
 @keyframes fadeSlideUp { 0% { opacity: 0; transform: translateY(10px); } 100% { opacity: 1; transform: translateY(0); } }
+@keyframes tileFadeIn { 0% { opacity: 0; } 100% { opacity: 1; } }
 @keyframes zoomFadeIn { 0% { opacity: 0; transform: scale(1.08); } 100% { opacity: 1; transform: scale(1); } }
 @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 @keyframes gradientMove { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
@@ -242,6 +259,89 @@ body {
   .btn-cta:hover { border-color: var(--color-primary-pink); color: var(--color-primary-pink); transform: scale(1.02); }
   .btn-cta:active { transform: scale(0.97); }
   .btn-cta:focus-visible { outline: none; box-shadow: var(--focus-ring); }
+
+  /* CTA outline dark — border & teks putih, hover ke aksen pink */
+  .btn-cta-dark {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    background-color: transparent;
+    border: 1px solid #ffffff;
+    color: #ffffff;
+    box-shadow: none;
+    cursor: pointer;
+    transition: border-color 0.3s ease, color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .btn-cta-dark:hover { border-color: var(--color-primary-pink); color: var(--color-primary-pink); transform: scale(1.02); }
+  .btn-cta-dark:active { transform: scale(0.97); }
+  .btn-cta-dark:focus-visible { outline: none; box-shadow: var(--focus-ring); }
+}
+
+/* Heritage pagination dots (Warisan Leluhur) — aktif memakai aksen brand pink (§3.1) */
+.heritage-pagination {
+  --swiper-theme-color: var(--color-primary-pink);
+  --swiper-pagination-color: var(--color-primary-pink);
+}
+.heritage-pagination .swiper-pagination-bullet {
+  background: color-mix(in srgb, var(--color-primary-pink) 30%, transparent) !important;
+  opacity: 1;
+  transition: width 0.3s ease, background-color 0.3s ease;
+}
+.heritage-pagination .swiper-pagination-bullet-active {
+  background: var(--color-primary-pink) !important;
+}
+
+/* Budaya Adat (Larvul Ngabal) pagination dots — aksen brand pink (§3.1) */
+.budaya-swiper .swiper-pagination-bullet {
+  background: color-mix(in srgb, var(--color-primary-pink) 30%, transparent) !important;
+  opacity: 1;
+  transition: width 0.3s ease, background-color 0.3s ease;
+}
+.budaya-swiper .swiper-pagination-bullet-active {
+  background: var(--color-primary-pink) !important;
+}
+
+/* UMKM pagination dots (Berita & UMKM) — aksen teal terang (§3.1) */
+.umkm-swiper {
+  --swiper-theme-color: var(--color-primary-pink);
+  --swiper-pagination-color: var(--color-primary-pink);
+}
+.umkm-swiper .swiper-pagination-bullet {
+  background: color-mix(in srgb, var(--color-primary-pink) 30%, transparent) !important;
+  opacity: 1;
+  transition: width 0.3s ease, background-color 0.3s ease;
+}
+.umkm-swiper .swiper-pagination-bullet-active {
+  background: var(--color-primary-pink) !important;
+}
+
+/* Satwa Endemik Kei pagination dots — aksen brand pink (§3.1) */
+.satwa-swiper {
+  --swiper-theme-color: var(--color-primary-pink);
+  --swiper-pagination-color: var(--color-primary-pink);
+}
+.satwa-swiper .swiper-pagination-bullet {
+  background: color-mix(in srgb, var(--color-primary-pink) 30%, transparent) !important;
+  opacity: 1;
+  transition: width 0.3s ease, background-color 0.3s ease;
+}
+.satwa-swiper .swiper-pagination-bullet-active {
+  background: var(--color-primary-pink) !important;
+}
+
+/* Destinasi Terbaik pagination dots — aksen brand pink */
+.destinasi-swiper {
+  --swiper-theme-color: var(--color-primary-pink);
+  --swiper-pagination-color: var(--color-primary-pink);
+}
+.destinasi-swiper .swiper-pagination-bullet {
+  background: color-mix(in srgb, var(--color-primary-pink) 30%, transparent) !important;
+  opacity: 1;
+  transition: width 0.3s ease, background-color 0.3s ease;
+}
+.destinasi-swiper .swiper-pagination-bullet-active {
+  background: var(--color-primary-pink) !important;
 }
 
 /* Navbar gradient */
@@ -255,6 +355,7 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .animate-\[zoomFadeIn_0\.9s_cubic-bezier\(0\.16\2c 1\2c 0\.3\2c 1\)_forwards\],
   .animate-\[marquee_38s_linear_infinite\],
+  .animate-\[tileFadeIn_0\.7s_ease-out_forwards\],
   .boat-anim, .wave-scroll, .wave-scroll-slow, .wave-bob, .cloud-scroll, .cloud-scroll-slow {
     animation: none;
   }
@@ -279,3 +380,31 @@ body {
 .wave-bob { animation: waveBob 5s ease-in-out infinite; will-change: transform; }
 .cloud-scroll { animation: cloudScroll 11s linear infinite; will-change: transform; }
 .cloud-scroll-slow { animation: cloudScroll 18s linear infinite reverse; will-change: transform; }
+
+/* Ekspresi audio player — range slider (Spotify-style) */
+.ekspresi-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 12px;
+  height: 12px;
+  border-radius: 9999px;
+  background: #ffffff;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgb(0 0 0 / 0.4);
+}
+.ekspresi-range::-moz-range-thumb {
+  width: 12px;
+  height: 12px;
+  border-radius: 9999px;
+  background: #ffffff;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgb(0 0 0 / 0.4);
+}
+.ekspresi-range::-moz-range-track {
+  height: 6px;
+  border-radius: 9999px;
+  background: transparent;
+}
+

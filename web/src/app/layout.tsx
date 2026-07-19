@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Montserrat, Montaga, Ephesis } from "next/font/google";
 import "./globals.css";
+import { INSTAGRAM_URL, TIKTOK_URL, YOUTUBE_URL, FACEBOOK_URL } from "@/content/social";
 import AppShell from "@/components/AppShell";
 import AmbientSound from "@/components/AmbientSound";
 import ScrollSnapController from "@/components/ScrollSnapController";
@@ -122,7 +123,7 @@ export default function RootLayout({
         description:
           "Simfoni Evav memperkenalkan keindahan, sejarah, dan kebudayaan Kepulauan Kei, Maluku Tenggara kepada dunia.",
         areaServed: "Kepulauan Kei, Maluku Tenggara, Indonesia",
-        sameAs: ["https://instagram.com/discoverevav"],
+        sameAs: [INSTAGRAM_URL, TIKTOK_URL, YOUTUBE_URL, FACEBOOK_URL],
       },
       {
         "@type": "WebSite",

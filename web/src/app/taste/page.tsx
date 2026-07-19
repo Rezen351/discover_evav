@@ -5,6 +5,7 @@ import HeroTasteSection from "@/components/taste/HeroTasteSection";
 import SignatureDishesSection from "@/components/taste/SignatureDishesSection";
 import StorySection from "@/components/taste/StorySection";
 import BentoSection from "@/components/taste/BentoSection";
+import UmkmCatalogSection from "@/components/taste/UmkmCatalogSection";
 import ClosingSection from "@/components/taste/ClosingSection";
 
 export const metadata: Metadata = {
@@ -32,6 +33,7 @@ export default function TastePage() {
         <SignatureDishesSection />
         <StorySection />
         <BentoSection />
+        <UmkmCatalogSection />
         <ClosingSection />
       </main>
       <Footer />

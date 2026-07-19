@@ -5,16 +5,27 @@ import Image from "next/image";
 import { MapPinIcon, ArrowLongRightIcon } from "@heroicons/react/24/outline";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Pagination, A11y } from "swiper/modules";
+import type { SwiperOptions } from "swiper/types";
 import { heritageIntro, heritageItems } from "@/content/heritage";
+
+import "swiper/css";
+import "swiper/css/pagination";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
 }
 
+const breakpoints: SwiperOptions["breakpoints"] = {
+  0: { slidesPerView: 1.15, spaceBetween: 16 },
+  640: { slidesPerView: 2.2, spaceBetween: 20 },
+  1024: { slidesPerView: 3.2, spaceBetween: 24 },
+  1280: { slidesPerView: 4, spaceBetween: 24 },
+};
+
 export default function HeritageSection() {
   const sectionRef = useRef<HTMLElement>(null);
-  const trackRef = useRef<HTMLDivElement>(null);
-
   useEffect(() => {
     const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const ctx = gsap.context(() => {
@@ -31,7 +42,7 @@ export default function HeritageSection() {
         scrollTrigger: {
           trigger: sectionRef.current,
           start: "top 80%",
-          toggleActions: "play none none reverse",
+          once: true,
         },
       });
       gsap.from(".heritage-card", {
@@ -41,9 +52,9 @@ export default function HeritageSection() {
         stagger: 0.1,
         ease: "power2.out",
         scrollTrigger: {
-          trigger: trackRef.current,
-          start: "top 85%",
-          toggleActions: "play none none reverse",
+          trigger: sectionRef.current,
+          start: "top 70%",
+          once: true,
         },
       });
     }, sectionRef);
@@ -77,7 +88,7 @@ export default function HeritageSection() {
       <div className="max-w-[98%] xl:max-w-[1600px] mx-auto px-4 md:px-8 w-full flex flex-col gap-10 md:gap-12 relative z-10">
         {/* HEADER */}
         <div className="w-full heritage-fade flex flex-col md:flex-row md:items-end md:justify-between gap-4">
-          <div className="max-w-2xl">
+          <div className="max-w-4xl">
             <div
               className="text-brand font-bold tracking-[0.2em] uppercase text-xs md:text-sm mb-2"
               style={{ fontFamily: "var(--font-sans)" }}
@@ -93,69 +104,73 @@ export default function HeritageSection() {
             </h2>
           </div>
           <p
-            className="text-black/60 text-base md:text-lg max-w-sm md:text-right"
+            className="text-black/60 text-sm md:text-base max-w-xs md:text-right leading-snug line-clamp-3 md:line-clamp-2"
             style={{ fontFamily: "var(--font-sans)" }}
           >
             {heritageIntro.subtitle}
           </p>
         </div>
 
-        {/* GALLERY — horizontal scroll, snap per card */}
-        <div
-          ref={trackRef}
-          className="w-full flex gap-5 md:gap-6 overflow-x-auto snap-x snap-mandatory pb-4 heritage-fade [scrollbar-width:thin]"
-          style={{ scrollbarColor: "var(--color-primary-pink) transparent" }}
-          aria-label="Galeri warisan leluhur Kepulauan Kei"
-        >
-          {heritageItems.map((item) => (
-            <article
-              key={item.id}
-              className="heritage-card group relative flex-none w-[78%] sm:w-[48%] lg:w-[31%] xl:w-[23%] aspect-[3/4] rounded-lg-design overflow-hidden shadow-soft cursor-pointer active:press snap-start"
-            >
-              <Image
-                src={item.image}
-                alt={item.imageAlt}
-                fill
-                sizes="(max-width: 640px) 78vw, (max-width: 1024px) 31vw, 23vw"
-                className="object-cover transition-transform duration-700 group-hover:scale-105"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
-              <span
-                className="absolute top-3 left-3 bg-white/90 text-black text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider"
-                style={{ fontFamily: "var(--font-sans)" }}
-              >
-                {item.era}
-              </span>
-              <div className="absolute bottom-4 left-4 right-4">
-                <h3
-                  className="text-white text-lg md:text-xl font-normal leading-snug drop-shadow-md"
-                  style={{ fontFamily: "var(--font-serif)" }}
-                >
-                  {item.title}
-                </h3>
-                <div
-                  className="flex items-center gap-1.5 text-white/80 text-xs mt-1.5"
+        {/* GALLERY — Swiper slider (geser mouse + dots pink) */}
+        <div className="relative heritage-fade">
+          <Swiper
+            modules={[Pagination, A11y]}
+            breakpoints={breakpoints}
+            spaceBetween={24}
+            grabCursor
+            pagination={{ clickable: true, el: ".heritage-pagination" }}
+            className="!pb-0 md:!pb-12"
+          >
+            {heritageItems.map((item) => (
+              <SwiperSlide key={item.id} className="heritage-card group relative aspect-[3/4] rounded-lg-design overflow-hidden shadow-soft cursor-pointer active:press">
+                <Image
+                  src={item.image}
+                  alt={item.imageAlt}
+                  fill
+                  sizes="(max-width: 640px) 78vw, (max-width: 1024px) 31vw, 23vw"
+                  className="object-cover transition-transform duration-700 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
+                <span
+                  className="absolute top-3 left-3 bg-white/90 text-black text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider"
                   style={{ fontFamily: "var(--font-sans)" }}
                 >
-                  <MapPinIcon className="w-3.5 h-3.5 text-brand" />
-                  {item.location}
+                  {item.era}
+                </span>
+                <div className="absolute bottom-4 left-4 right-4">
+                  <h3
+                    className="text-white text-lg md:text-xl font-normal leading-snug drop-shadow-md"
+                    style={{ fontFamily: "var(--font-serif)" }}
+                  >
+                    {item.title}
+                  </h3>
+                  <div
+                    className="flex items-center gap-1.5 text-white/80 text-xs mt-1.5"
+                    style={{ fontFamily: "var(--font-sans)" }}
+                  >
+                    <MapPinIcon className="w-3.5 h-3.5 text-brand" />
+                    {item.location}
+                  </div>
+                  <p
+                    className="text-white/75 text-xs mt-2 leading-relaxed line-clamp-3 opacity-0 max-h-0 group-hover:opacity-100 group-hover:max-h-24 transition-all duration-500"
+                    style={{ fontFamily: "var(--font-sans)" }}
+                  >
+                    {item.desc}
+                  </p>
+                  <div
+                    className="flex items-center gap-1.5 text-brand text-xs font-semibold mt-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                    style={{ fontFamily: "var(--font-sans)" }}
+                  >
+                    Telusuri
+                    <ArrowLongRightIcon className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                  </div>
                 </div>
-                <p
-                  className="text-white/75 text-xs mt-2 leading-relaxed line-clamp-3 opacity-0 max-h-0 group-hover:opacity-100 group-hover:max-h-24 transition-all duration-500"
-                  style={{ fontFamily: "var(--font-sans)" }}
-                >
-                  {item.desc}
-                </p>
-                <div
-                  className="flex items-center gap-1.5 text-brand text-xs font-semibold mt-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                  style={{ fontFamily: "var(--font-sans)" }}
-                >
-                  Telusuri
-                  <ArrowLongRightIcon className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-                </div>
-              </div>
-            </article>
-          ))}
+              </SwiperSlide>
+            ))}
+          </Swiper>
+
+          {/* Dots indikator — Desktop only */}
+          <div className="heritage-pagination mt-2 hidden md:flex items-center justify-center gap-2" />
         </div>
 
         {/* QUOTE PENUTUP */}

@@ -4,7 +4,7 @@ import { useEffect, useRef } from "react";
 import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { ChevronDown } from "lucide-react";
+import { ChevronDownIcon } from "@heroicons/react/24/outline";
 import { heroTaste } from "@/content/taste";
 
 if (typeof window !== "undefined") {
@@ -94,7 +94,7 @@ export default function HeroTasteSection() {
               aria-label={heroTaste.scrollHint}
             >
               <span>{heroTaste.scrollHint}</span>
-              <ChevronDown
+              <ChevronDownIcon
                 className="h-4 w-4 transition-transform duration-300 group-hover:translate-y-1"
                 aria-hidden="true"
               />

@@ -56,7 +56,7 @@ export default function HeroHeritageSection() {
           fill
           priority
           sizes="100vw"
-          className="object-cover object-center"
+          className="object-cover object-[center_30%] brightness-110 contrast-105"
         />
       </div>
 

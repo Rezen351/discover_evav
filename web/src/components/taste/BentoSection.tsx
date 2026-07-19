@@ -1,9 +1,10 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { Fish, Wheat, Flame, CakeSlice, type LucideIcon } from "lucide-react";
+import { Fish, Wheat, Flame, CakeSlice, Nut, type LucideIcon } from "lucide-react";
 import { bentoTaste, type BentoItem } from "@/content/taste";
 
 if (typeof window !== "undefined") {
@@ -15,6 +16,7 @@ const ICONS: Record<BentoItem["icon"], LucideIcon> = {
   Wheat,
   Flame,
   CakeSlice,
+  Coconut: Nut,
 };
 
 export default function BentoSection() {
@@ -77,34 +79,54 @@ export default function BentoSection() {
             return (
               <article
                 key={item.id}
-                className={`taste-bento-reveal relative w-full rounded-lg-design overflow-hidden shadow-card border border-brand/10 hover:border-brand/30 transition-colors bg-white p-6 md:p-8 flex flex-col justify-end ${
+                className={`taste-bento-reveal group relative w-full rounded-lg-design overflow-hidden shadow-card border border-brand/10 hover:border-brand/30 transition-colors ${
                   item.hero
                     ? "md:col-span-2 md:row-span-2 h-[340px] md:h-full"
-                    : "h-[240px] md:h-full"
+                    : item.tall
+                      ? "md:row-span-2 h-[340px] md:h-full"
+                      : "h-[240px] md:h-full"
                 }`}
               >
-                <span
-                  className="flex h-12 w-12 items-center justify-center rounded-full bg-brand/10 text-brand mb-4"
-                  aria-hidden="true"
-                >
-                  <Icon className="h-6 w-6" />
-                </span>
-                <h3
-                  className={`font-serif text-black break-words ${
-                    item.hero ? "text-fluid-h3" : "text-fluid-h4"
-                  }`}
-                >
-                  {item.title}
-                </h3>
-                <p
-                  className={`mt-2 font-sans text-black/70 leading-relaxed break-words ${
+                {/* Foto background */}
+                <Image
+                  src={item.image}
+                  alt={item.imageAlt}
+                  fill
+                  sizes={
                     item.hero
-                      ? "text-fluid-small md:text-fluid-body max-w-xl"
-                      : "text-fluid-small"
-                  }`}
-                >
-                  {item.desc}
-                </p>
+                      ? "(max-width: 1024px) 100vw, 66vw"
+                      : "(max-width: 768px) 100vw, 33vw"
+                  }
+                  className="object-cover transition-transform duration-700 group-hover:scale-105"
+                />
+                {/* Overlay agar teks terbaca */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/10" />
+
+                {/* Konten overlay */}
+                <div className="relative h-full p-6 md:p-8 flex flex-col justify-end">
+                  <span
+                    className="flex h-12 w-12 items-center justify-center rounded-full bg-white/90 text-brand mb-4"
+                    aria-hidden="true"
+                  >
+                    <Icon className="h-6 w-6" />
+                  </span>
+                  <h3
+                    className={`font-serif text-white break-words ${
+                      item.hero ? "text-fluid-h3" : "text-fluid-h4"
+                    }`}
+                  >
+                    {item.title}
+                  </h3>
+                  <p
+                    className={`mt-2 font-sans text-white/85 leading-relaxed break-words ${
+                      item.hero
+                        ? "text-fluid-small md:text-fluid-body max-w-xl"
+                        : "text-fluid-small"
+                    }`}
+                  >
+                    {item.desc}
+                  </p>
+                </div>
               </article>
             );
           })}

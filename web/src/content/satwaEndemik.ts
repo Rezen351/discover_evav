@@ -1,5 +1,5 @@
 // Data terpusat satwa khas/typical Kepulauan Kei untuk Bagian "Satwa Endemik Kei"
-// di halaman /eksplorasi. Tidak di-hardcode di komponen (sentralisasi §4.10).
+// di halaman /explore. Tidak di-hardcode di komponen (sentralisasi §4.10).
 //
 // SUMBER RISet (web search, 2026-07-18):
 //  - Pelikan Australia (Pelecanus conspicillatus): Liputan6 (2023), Kompas (2020),
@@ -24,6 +24,7 @@ export interface SatwaEndemik {
   namaLatin?: string;
   status?: string;
   habitat: string;
+  lokasi: string;
   deskripsi: string;
   gambar: string;
   alt: string;
@@ -36,6 +37,7 @@ export const satwaEndemik: SatwaEndemik[] = [
     namaLatin: "Pelecanus conspicillatus",
     status: "Migran musiman",
     habitat: "Pasir Timbul Ngurtavur saat surut (meti)",
+    lokasi: "Pasir Timbul Ngurtavur, Pulau Woha, Kei Kecil",
     deskripsi:
       "Setiap meti, kawanan pelikan Australia datang dari benua selatan dan singgah di Pasir Timbul Ngurtavur, menjadikan hamparan pasir putih di tengah laut sebagai rumah singgahnya yang tenang.",
     gambar: "/images/satwa/kei_endemic_bird.png",
@@ -47,6 +49,7 @@ export const satwaEndemik: SatwaEndemik[] = [
     namaLatin: "Phalanger spp.",
     status: "Endemik",
     habitat: "Hutan pantai & kebun kelapa Kei",
+    lokasi: "Hutan pantai & kebun kelapa, Pulau Kei Kecil",
     deskripsi:
       "Penghuni pepohonan yang malu-malu ini aktif saat rembulan terbit, merayap pelan di dahan kelapa. Bagi masyarakat Kei, kuskus adalah saudara hutan yang dijaga, bukan sekadar buruan.",
     gambar: "/images/satwa/kei_wildlife.png",
@@ -58,6 +61,7 @@ export const satwaEndemik: SatwaEndemik[] = [
     namaLatin: "Cheloniidae",
     status: "Lokal & Migran",
     habitat: "Pesisir pasir & terumbu Kei",
+    lokasi: "Pantai peneluran Pulau Hoat & perairan Kei Kecil Barat",
     deskripsi:
       "Penyu kembali ke pasir Kei untuk bertelur pada musim tertentu. Laut yang dijaga dengan sasi membuat mereka tetap merasa pulang ke rumah yang aman.",
     gambar: "/images/satwa/kei_seaturtle.png",
@@ -69,6 +73,7 @@ export const satwaEndemik: SatwaEndemik[] = [
     namaLatin: "Delphinidae",
     status: "Lokal",
     habitat: "Perairan Laut Banda Kei",
+    lokasi: "Perairan Laut Banda, selat Kei Kecil–Dullah",
     deskripsi:
       "Di selat biru Laut Banda, lumba-lumba kerap menemani perahu nelayan bermain ombak. Kehadiran mereka menjadi tanda laut yang masih sehat dan penuh kehidupan.",
     gambar: "/images/satwa/kei_dolphin.png",
@@ -80,6 +85,7 @@ export const satwaEndemik: SatwaEndemik[] = [
     namaLatin: "Pomacentridae & sp.",
     status: "Lokal",
     habitat: "Terumbu karang Ngurtavur & Pulau Bair",
+    lokasi: "Terumbu karang Ngurtavur & Pulau Bair",
     deskripsi:
       "Ribuan ikan berwarna menghuni taman karang Kei yang masih perawan. Mereka adalah jiwa terumbu yang memberi makan dan kehidupan bagi seluruh ekosistem pesisir.",
     gambar: "/images/satwa/kei_reef_fish.png",
@@ -91,6 +97,7 @@ export const satwaEndemik: SatwaEndemik[] = [
     namaLatin: "Centropus spilopterus",
     status: "Endemik",
     habitat: "Hutan pamah & semak Kei Besar–Kei Kecil",
+    lokasi: "Hutan pamah Pulau Kai Besar & Kei Kecil",
     deskripsi:
       "Kepulauan Kai memelihara belasan spesies burung yang tak ditemukan di tempat lain, seperti Kai Coucal dan Kai White-eye. Kicauan mereka adalah suara asli hutan Evav.",
     gambar: "/images/satwa/kei_underwater.png",

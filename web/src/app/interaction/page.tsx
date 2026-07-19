@@ -6,7 +6,6 @@ import { faqItems } from "@/content/keterhubungan";
 import InteractionHeroSection from "@/components/interaction/InteractionHeroSection";
 import KeterhubunganIntroSection from "@/components/interaction/KeterhubunganIntroSection";
 import KeterhubunganFormSection from "@/components/interaction/KeterhubunganFormSection";
-import JourneyMapSection from "@/components/JourneyMapSection";
 import FaqAccordionSection from "@/components/interaction/FaqAccordionSection";
 import SocialMosaicSection from "@/components/interaction/SocialMosaicSection";
 import ContactUsSection from "@/components/interaction/ContactUsSection";
@@ -49,7 +48,6 @@ export default function InteractionPage() {
         <InteractionHeroSection />
         <KeterhubunganIntroSection />
         <KeterhubunganFormSection />
-        <JourneyMapSection />
         <FaqAccordionSection />
         <SocialMosaicSection />
         <ContactUsSection />

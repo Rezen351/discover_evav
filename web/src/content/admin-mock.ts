@@ -77,13 +77,13 @@ export interface SeriesPoint {
 
 export const adminMenu: AdminMenuItem[] = [
   { key: "dashboard", label: "Dashboard", icon: "dashboard", href: "/admin" },
-  { key: "berita", label: "Berita", icon: "berita", href: "/admin/berita" },
+  { key: "berita", label: "Berita", icon: "berita", href: "/admin/news" },
   { key: "umkm", label: "UMKM", icon: "umkm", href: "/admin/umkm" },
-  { key: "produk", label: "Produk", icon: "produk", href: "/admin/produk" },
-  { key: "destinasi", label: "Destinasi", icon: "destinasi", href: "/admin/destinasi" },
-  { key: "event", label: "Event", icon: "event", href: "/admin/event" },
+  { key: "produk", label: "Produk", icon: "produk", href: "/admin/products" },
+  { key: "destinasi", label: "Destinasi", icon: "destinasi", href: "/admin/destinations" },
+  { key: "event", label: "Event", icon: "event", href: "/admin/events" },
   { key: "media", label: "Media", icon: "media", href: "/admin/media" },
-  { key: "pengaturan", label: "Pengaturan", icon: "pengaturan", href: "/admin/pengaturan" },
+  { key: "pengaturan", label: "Pengaturan", icon: "pengaturan", href: "/admin/settings" },
 ];
 
 /* ============================================================

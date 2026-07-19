@@ -15,9 +15,11 @@ export default function ScrollSnapController() {
   useEffect(() => {
     const root = document.documentElement;
     if (isLanding) {
-      root.classList.add("snap-y", "snap-mandatory");
+      // Aktifkan scroll-snap magnetik (GRAND_DESIGN §4.2). Styling snap ada di
+      // globals.css (.snap-active) agar tidak bergantung utility Tailwind dari JS.
+      root.classList.add("snap-active");
     } else {
-      root.classList.remove("snap-y", "snap-mandatory");
+      root.classList.remove("snap-active");
     }
   }, [isLanding]);
 

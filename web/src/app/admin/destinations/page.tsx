@@ -36,7 +36,7 @@ export default function AdminDestinasiPage() {
         title="Destinasi"
         description="Kelola pantai, budaya, alam, dan situs sejarah di Kepulauan Kei."
         action={
-          <AdminButton href="/admin/destinasi/baru" ariaLabel="Tambah destinasi">
+          <AdminButton href="/admin/destinations/baru" ariaLabel="Tambah destinasi">
             <PlusIcon className="w-4 h-4" /> Tambah Destinasi
           </AdminButton>
         }

@@ -2,7 +2,13 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
-import { ArrowRightIcon, MapPinIcon } from "@heroicons/react/24/outline";
+import {
+  ArrowRightIcon,
+  MapPinIcon,
+  FunnelIcon,
+  ChevronDownIcon,
+  CheckIcon,
+} from "@heroicons/react/24/outline";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useSpotlight } from "@/hooks/useSpotlight";
@@ -10,7 +16,7 @@ import {
   spotAlam,
   kategoriAlam,
   type KategoriAlam,
-} from "@/content/eksplorasi";
+} from "@/content/explore";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -18,8 +24,38 @@ if (typeof window !== "undefined") {
 
 export default function WisataAlamSection() {
   const ref = useRef<HTMLElement>(null);
+  const dropdownRef = useRef<HTMLDivElement>(null);
   const [filter, setFilter] = useState<"Semua" | KategoriAlam>("Semua");
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const { onMouseMove, onMouseLeave } = useSpotlight();
+
+  // Tutup dropdown saat klik di luar area atau menekan Escape
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent | TouchEvent) {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
+        setIsDropdownOpen(false);
+      }
+    }
+
+    function handleKeyDown(event: KeyboardEvent) {
+      if (event.key === "Escape") {
+        setIsDropdownOpen(false);
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("touchstart", handleClickOutside);
+    document.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("touchstart", handleClickOutside);
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, []);
 
   const filtered = useMemo(
     () =>
@@ -64,55 +100,92 @@ export default function WisataAlamSection() {
     >
       <div className="max-w-[98%] xl:max-w-[1600px] mx-auto px-4 md:px-8 w-full">
         {/* Header editorial asimetris */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-end mb-10 md:mb-14">
-          <div className="alam-fade lg:col-span-7 flex flex-col">
+        <div className="relative z-30 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start mb-8 md:mb-10">
+          <div className="alam-fade lg:col-span-8 flex flex-col">
             <span className="font-sans uppercase tracking-[0.25em] text-brand text-xs md:text-sm font-semibold mb-4">
               Wisata Alam EVAv
             </span>
 
             <h2 className="font-serif text-fluid-h2 md:text-5xl leading-tight text-black break-words">
               Keindahan{" "}
-              <span className="text-brand">yang Masih Murni</span>
+              <span className="text-black">yang Masih Murni</span>
             </h2>
 
-            <p className="mt-6 md:mt-8 font-serif text-lg md:text-2xl leading-relaxed text-black/80">
-              Di balik Festival Meti, Kepulauan Kei menyimpan surga yang tak
-              pernah tidur: pasir terhalus di dunia, laut sebening kaca, gugusan
-              pulau bagai permata, dan goa-gua yang menyimpan misteri. Jelajahi
-              keindahan alam Evav — pilih kategori, temukan spot, lalu rancang
-              petualanganmu.
+            <p className="mt-6 md:mt-8 font-serif  text-lg md:text-2xl leading-relaxed text-black/80 w-full">
+              Di balik Festival Meti, Kepulauan Kei menyimpan surga yang tak pernah tidur: pasir terhalus di dunia, laut sebening kaca, gugusan pulau bagai permata, dan goa-gua yang menyimpan misteri. Jelajahi keindahan alam Evav — pilih kategori, temukan spot, lalu rancang petualanganmu.
             </p>
           </div>
 
-          {/* Filter chip kategori */}
-          <div
-            className="alam-fade lg:col-span-5 flex flex-wrap justify-start lg:justify-end gap-2 md:gap-3"
-            role="group"
-            aria-label="Filter kategori wisata alam"
-          >
-            {kategoriAlam.map((kat) => {
-              const active = filter === kat;
-              return (
-                <button
-                  key={kat}
-                  type="button"
-                  onClick={() => setFilter(kat)}
-                  aria-pressed={active}
-                  className={`inline-flex items-center rounded-full px-4 py-2 font-sans text-sm md:text-base font-medium transition-colors focus-ring ${
-                    active
-                      ? "bg-brand text-white"
-                      : "bg-brand/10 text-brand hover:bg-brand/20"
-                  }`}
+          {/* Ringkasan jumlah spot + Filter Kategori (Dropdown) */}
+          <div className="alam-fade lg:col-span-4 flex flex-col gap-4 lg:items-end lg:pt-2">
+            {/* Ringkasan jumlah spot — di atas filter */}
+            <div className="relative z-0 inline-flex items-center gap-4 self-start lg:self-end rounded-lg-design border border-brand/10 bg-white/70 px-6 py-4 shadow-soft">
+              <span className="font-serif text-4xl md:text-5xl leading-none text-brand">
+                {filtered.length}
+              </span>
+              <span className="font-sans text-sm md:text-base leading-snug text-black/60 whitespace-nowrap">
+                spot
+                <br />
+                {filter === "Semua" ? "tersedia" : filter.toLowerCase()}
+              </span>
+            </div>
+
+            <div ref={dropdownRef} className="relative w-full sm:w-[300px] z-[60]">
+              <button
+                type="button"
+                onClick={() => setIsDropdownOpen((open) => !open)}
+                aria-haspopup="listbox"
+                aria-expanded={isDropdownOpen}
+                aria-label="Saring kategori wisata alam"
+                className="w-full flex items-center justify-between rounded-md-design border border-brand/20 bg-white px-5 py-3.5 font-sans text-sm md:text-base font-medium text-black shadow-soft transition-all hover:border-brand/50 hover:text-brand focus-ring"
+              >
+                <span className="flex items-center gap-2">
+                  <FunnelIcon className="h-4 w-4" />
+                  {filter}
+                </span>
+                <ChevronDownIcon
+                  className={`h-4 w-4 text-black/50 transition-transform duration-300 ${isDropdownOpen ? "rotate-180 text-brand" : ""
+                    }`}
+                />
+              </button>
+
+              {isDropdownOpen && (
+                <ul
+                  role="listbox"
+                  aria-label="Kategori wisata alam"
+                  className="absolute left-0 right-0 z-[70] mt-2 origin-top overflow-hidden rounded-md-design border border-brand/10 bg-white p-1.5 shadow-card"
                 >
-                  {kat}
-                </button>
-              );
-            })}
+                  {kategoriAlam.map((kat) => {
+                    const active = filter === kat;
+                    return (
+                      <li key={kat} role="none">
+                        <button
+                          role="option"
+                          aria-selected={active}
+                          type="button"
+                          onClick={() => {
+                            setFilter(kat);
+                            setIsDropdownOpen(false);
+                          }}
+                          className={`w-full flex items-center justify-between gap-2 rounded-sm-design px-4 py-2.5 font-sans text-sm md:text-base font-medium text-left transition-colors ${active
+                            ? "bg-brand/10 text-brand font-semibold"
+                            : "text-black/70 hover:bg-brand/5 hover:text-brand"
+                            }`}
+                        >
+                          {kat}
+                          {active && <CheckIcon className="h-4 w-4 shrink-0" />}
+                        </button>
+                      </li>
+                    );
+                  })}
+                </ul>
+              )}
+            </div>
           </div>
         </div>
 
         {/* Grid kartu spot alam */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+        <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
           {filtered.map((spot) => (
             <article
               key={spot.id}
@@ -126,7 +199,7 @@ export default function WisataAlamSection() {
                   sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                   className="object-cover transition-transform duration-500 group-hover:scale-105"
                 />
-                <span className="absolute top-3 left-3 rounded-full bg-white/90 px-3 py-1 font-sans text-xs font-semibold text-brand-navy shadow-sm">
+                <span className="bg-nav-gradient absolute top-3 left-3 rounded-full bg-white/90 px-3 py-1 font-sans text-xs font-semibold text-black shadow-sm">
                   {spot.kategori}
                 </span>
               </div>
@@ -157,7 +230,7 @@ export default function WisataAlamSection() {
         </div>
 
         {/* CTA penutup section */}
-        <div className="alam-fade mt-12 md:mt-16 flex flex-wrap items-center gap-4 md:gap-6">
+        {/* <div className="alam-fade mt-12 md:mt-16 flex flex-wrap items-center gap-4 md:gap-6">
           <a
             href="/destinasi"
             onMouseMove={onMouseMove}
@@ -181,7 +254,7 @@ export default function WisataAlamSection() {
             <MapPinIcon className="h-4 w-4 md:h-5 md:w-5 text-current" />
             Lihat di Peta
           </a>
-        </div>
+        </div> */}
       </div>
     </section>
   );

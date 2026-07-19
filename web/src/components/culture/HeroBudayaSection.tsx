@@ -4,8 +4,8 @@ import { useEffect, useRef } from "react";
 import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { ChevronDown } from "lucide-react";
-import { heroBudaya } from "@/content/budaya";
+import { ChevronDownIcon } from "@heroicons/react/24/outline";
+import { heroBudaya } from "@/content/culture";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -94,7 +94,7 @@ export default function HeroBudayaSection() {
               aria-label={heroBudaya.scrollHint}
             >
               <span>{heroBudaya.scrollHint}</span>
-              <ChevronDown
+              <ChevronDownIcon
                 className="h-4 w-4 transition-transform duration-300 group-hover:translate-y-1"
                 aria-hidden="true"
               />

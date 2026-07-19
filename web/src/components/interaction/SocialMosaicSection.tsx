@@ -1,16 +1,12 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 import Image from "next/image";
-import {
-  CameraIcon,
-  VideoCameraIcon,
-  PlayIcon,
-  ChatBubbleLeftRightIcon,
-  ChevronRightIcon,
-} from "@heroicons/react/24/outline";
+import { ChevronRightIcon } from "@heroicons/react/24/outline";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import SocialIcon from "@/components/SocialIcon";
+import { SOCIAL_MOSAIC_CHANNELS } from "@/content/social";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -20,6 +16,8 @@ type MosaicTile = {
   src: string;
   alt: string;
   caption: string;
+  /** kelas aspect-ratio bervariasi untuk kolase */
+  aspect: string;
 };
 
 const TILES: MosaicTile[] = [
@@ -27,80 +25,100 @@ const TILES: MosaicTile[] = [
     src: "/images/meti/kei_ngurbloat.png",
     alt: "Pantai Ngurbloat — pasir terhalus di dunia, Kei",
     caption: "Senja di Ngurbloat — Kei",
+    aspect: "aspect-[4/5]",
   },
   {
     src: "/images/budaya/kei_tari_sawat_1.png",
     alt: "Tarian Sawat penyambut tamu dalam upacara adat Kei",
     caption: "Tari Sawat — warisan adat Evav",
+    aspect: "aspect-[4/3]",
   },
   {
     src: "/images/meti/kei_ngurtavur.png",
     alt: "Pulau Ngurtavur dengan pasir putih melengkung di tengah laut biru",
     caption: "Ngurtavur — pasir putih melengkung",
+    aspect: "aspect-[1/1]",
   },
   {
     src: "/images/meti/kei_mosaic_1.png",
     alt: "Warga Kei beraktivitas di tepian pantai saat fenomena Meti",
     caption: "Meti Kei — laut surut serentak",
+    aspect: "aspect-[3/4]",
   },
   {
     src: "/images/meti/kei_hawang.png",
     alt: "Danau Hawang dengan air jernih kehijauan di Kepulauan Kei",
     caption: "Danau Hawang — air jernih kehijauan",
+    aspect: "aspect-[4/5]",
   },
   {
     src: "/images/budaya/kei_warriors_dance.png",
     alt: "Penari perang tradisional Kei dalam busana adat",
     caption: "Tarian perang penyambut tamu",
+    aspect: "aspect-[4/3]",
   },
   {
     src: "/images/meti/kei_snorkeling.png",
     alt: "Wisatawan snorkeling menikmati terumbu karang di perairan Kei",
     caption: "Snorkeling — terumbu karang Kei",
+    aspect: "aspect-[1/1]",
   },
   {
     src: "/images/heritage/kei_warriors_dance.png",
     alt: "Pertunjukan budaya warisan leluhur masyarakat Evav",
     caption: "Warisan jiwa masyarakat Evav",
+    aspect: "aspect-[3/4]",
   },
   {
     src: "/images/meti/kei_beach.png",
     alt: "Pesisir pantai Kei dengan perahu nelayan tradisional",
     caption: "Pesisir dan perahu nelayan",
+    aspect: "aspect-[4/5]",
   },
   {
     src: "/images/budaya/kei_coast_sunset.png",
     alt: "Pesisir Kei saat senja dengan cahaya jingga memantul di laut",
     caption: "Senja di pesisir Evav",
+    aspect: "aspect-[4/3]",
   },
   {
     src: "/images/meti/kei_resort.png",
     alt: "Sawah Laut resort dengan pondokan di atas air di Kei",
     caption: "Istirahat di atas pasir",
+    aspect: "aspect-[1/1]",
   },
   {
     src: "/images/heritage/kampung_ohoiluk.png",
     alt: "Kampung adat Ohoiluk dengan rumah tradisional Kei",
     caption: "Kampung Ohoiluk — rumah adat",
+    aspect: "aspect-[3/4]",
   },
 ];
 
-type SocialChannel = {
-  label: string;
-  href: string;
-  Icon: typeof CameraIcon;
-};
-
-const CHANNELS: SocialChannel[] = [
-  { label: "Instagram", href: "https://instagram.com/discoverkei", Icon: CameraIcon },
-  { label: "TikTok", href: "https://tiktok.com/@discoverkei", Icon: VideoCameraIcon },
-  { label: "YouTube", href: "https://youtube.com/@simfonievav", Icon: PlayIcon },
-  { label: "Facebook", href: "https://facebook.com/discoverkei", Icon: ChatBubbleLeftRightIcon },
-];
+const CHANNELS = SOCIAL_MOSAIC_CHANNELS;
 
 export default function SocialMosaicSection() {
   const sectionRef = useRef<HTMLElement>(null);
   const wallRef = useRef<HTMLDivElement>(null);
+  // Indeks gambar yang sedang ditampilkan tiap tile (untuk efek ganti acak)
+  const [display, setDisplay] = useState<number[]>(() => TILES.map((_, i) => i));
+
+  const shuffleTick = useCallback(() => {
+    const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (prefersReduced) return;
+    // Ganti 1–2 tile secara acak ke gambar acak lainnya
+    setDisplay((prev) => {
+      const next = [...prev];
+      const swaps = 1 + Math.floor(Math.random() * 2);
+      for (let s = 0; s < swaps; s++) {
+        const idx = Math.floor(Math.random() * next.length);
+        let pick = Math.floor(Math.random() * TILES.length);
+        if (pick === next[idx]) pick = (pick + 1) % TILES.length;
+        next[idx] = pick;
+      }
+      return next;
+    });
+  }, []);
 
   useEffect(() => {
     const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -121,8 +139,22 @@ export default function SocialMosaicSection() {
       });
     }, sectionRef);
 
-    return () => ctx.revert();
-  }, []);
+    // Efek foto berganti secara acak (interval tidak seragam)
+    let timer: ReturnType<typeof setTimeout>;
+    const schedule = () => {
+      const delay = 1800 + Math.random() * 2400; // 1.8s–4.2s acak
+      timer = setTimeout(() => {
+        shuffleTick();
+        schedule();
+      }, delay);
+    };
+    schedule();
+
+    return () => {
+      clearTimeout(timer);
+      ctx.revert();
+    };
+  }, [shuffleTick]);
 
   return (
     <section
@@ -159,34 +191,37 @@ export default function SocialMosaicSection() {
           ref={wallRef}
           className="columns-2 md:columns-3 xl:columns-4 gap-4"
         >
-          {TILES.map((tile) => (
+          {TILES.map((tile, slot) => {
+            const active = TILES[display[slot]];
+            return (
               <figure
                 key={tile.src}
-                className="break-inside-avoid rounded-lg-design overflow-hidden shadow-soft border border-brand/20 group relative mb-4"
+                className={`break-inside-avoid rounded-lg-design overflow-hidden shadow-soft border border-brand/20 group relative mb-4 ${tile.aspect}`}
               >
-                <div className="relative w-full aspect-[4/5]">
+                <div className="relative w-full h-full">
                   <Image
-                    src={tile.src}
-                    alt={tile.alt}
+                    src={active.src}
+                    alt={active.alt}
                     fill
                     sizes="(max-width: 768px) 50vw, (max-width: 1280px) 33vw, 25vw"
-                    className="object-cover w-full h-full transition-transform duration-700 group-hover:scale-105"
+                    className="object-cover w-full h-full transition-all duration-700 ease-in-out group-hover:scale-105"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
                   <figcaption
                     className="absolute bottom-0 left-0 right-0 p-4 text-white text-sm md:text-base leading-snug font-light translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500"
                     style={{ fontFamily: "var(--font-sans)" }}
                   >
-                    {tile.caption}
+                    {active.caption}
                   </figcaption>
                 </div>
               </figure>
-            ))}
-          </div>
+            );
+          })}
+        </div>
 
-          <div className="mt-12 md:mt-16 flex flex-col items-center">
+        <div className="mt-12 md:mt-16 flex flex-col items-center">
           <div className="flex flex-wrap items-center justify-center gap-3">
-            {CHANNELS.map(({ label, href, Icon }) => (
+            {CHANNELS.map(({ label, href, platform }) => (
               <a
                 key={label}
                 href={href}
@@ -196,7 +231,7 @@ export default function SocialMosaicSection() {
                 className="flex items-center gap-2 bg-white/70 border border-brand/30 text-black/60 hover:text-brand hover:bg-white rounded-full p-3 focus-ring transition-colors"
                 style={{ fontFamily: "var(--font-sans)" }}
               >
-                <Icon className="w-5 h-5" />
+                <SocialIcon platform={platform} className="w-5 h-5" />
                 <span className="text-sm font-medium pr-1">{label}</span>
               </a>
             ))}

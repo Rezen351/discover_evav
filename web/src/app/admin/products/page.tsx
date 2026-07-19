@@ -36,7 +36,7 @@ export default function AdminProdukPage() {
         title="Produk"
         description="Kelola produk yang ditawarkan oleh UMKM binaan pariwisata Kepulauan Kei."
         action={
-          <AdminButton href="/admin/produk/baru" ariaLabel="Tambah produk">
+          <AdminButton href="/admin/products/baru" ariaLabel="Tambah produk">
             <PlusIcon className="w-4 h-4" /> Tambah Produk
           </AdminButton>
         }

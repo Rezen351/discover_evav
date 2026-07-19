@@ -1,25 +1,34 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import Link from "next/link";
 import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { HeartHandshake, Gift, Palette, Landmark, type LucideIcon } from "lucide-react";
-import { filosofi, type FilosofiTile } from "@/content/budaya";
+import {
+  HeartIcon,
+  GiftIcon,
+  SwatchIcon,
+  BuildingLibraryIcon,
+  ArrowRightIcon,
+} from "@heroicons/react/24/outline";
+import { filosofi, type FilosofiTile } from "@/content/culture";
+import { useSpotlight } from "@/hooks/useSpotlight";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
 }
 
-const ICONS: Record<FilosofiTile["icon"], LucideIcon> = {
-  HeartHandshake,
-  Gift,
-  Palette,
-  Landmark,
+const ICONS: Record<FilosofiTile["icon"], React.ComponentType<React.SVGProps<SVGSVGElement>>> = {
+  HeartHandshake: HeartIcon,
+  Gift: GiftIcon,
+  Palette: SwatchIcon,
+  Landmark: BuildingLibraryIcon,
 };
 
 export default function FilosofiSection() {
   const sectionRef = useRef<HTMLElement>(null);
+  const { onMouseMove, onMouseLeave } = useSpotlight();
 
   useEffect(() => {
     const section = sectionRef.current;
@@ -128,6 +137,28 @@ export default function FilosofiSection() {
               </figure>
             );
           })}
+
+          {/* Tile #5 - Custom CTA Tile to fill empty grid slot */}
+          <div className="filosofi-reveal flex flex-col justify-between gap-4 rounded-lg-design border border-brand/20 bg-white p-5 md:p-6 shadow-card hover:border-brand/40 transition-colors min-h-[240px] sm:h-full relative">
+            <div className="min-w-0">
+              <h3 className="font-serif text-black text-fluid-h4 leading-tight">
+                {filosofi.cta.title}
+              </h3>
+              <p className="mt-2 font-sans text-black/70 text-fluid-small leading-relaxed line-clamp-3">
+                {filosofi.cta.desc}
+              </p>
+            </div>
+
+            <Link
+              href={filosofi.cta.link}
+              onMouseMove={onMouseMove}
+              onMouseLeave={onMouseLeave}
+              className="btn-spotlight btn-cta w-full shrink-0 text-xs md:text-sm font-semibold rounded-full px-4 py-2.5 inline-flex items-center justify-center gap-2 active:press focus-ring"
+            >
+              <span className="truncate">{filosofi.cta.buttonText}</span>
+              <ArrowRightIcon className="h-4 w-4 shrink-0 text-current" />
+            </Link>
+          </div>
         </div>
       </div>
     </section>

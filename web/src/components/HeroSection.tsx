@@ -31,7 +31,6 @@ export default function HeroSection() {
   const greeting = temporalGreetings[timeOfDay];
   // State: false = full video (cinematic), true = content revealed
   const [contentVisible, setContentVisible] = useState(false);
-
   // Sync slideshow with video duration
   useEffect(() => {
     videoRefs.current.forEach((vid, idx) => {
@@ -207,7 +206,7 @@ export default function HeroSection() {
       ref={containerRef}
       onClick={handleSectionClick}
     >
-      {/* Dynamic Background Videos */}
+      {/* Dynamic Background Videos / Images */}
       <div className="absolute inset-0 w-full h-full z-[1] overflow-hidden">
         {slides.map((slide, idx) => (
           <div
@@ -253,7 +252,7 @@ export default function HeroSection() {
               aria-hidden="true"
             />
             <span
-              className="text-white/90 text-lg md:text-xl tracking-[0.12em] font-light"
+              className="text-white/90 text-sm md:text-lg tracking-[0.12em] font-light text-center max-w-[90vw]"
               style={{ fontFamily: "var(--font-sans)" }}
             >
               <span className="text-brand">{greeting.kei}</span> — {greeting.id}
@@ -264,15 +263,18 @@ export default function HeroSection() {
 
       {/* Top Logo */}
       <div className={`absolute top-6 left-1/2 -translate-x-1/2 z-[10] flex flex-col items-center justify-center w-full transition-opacity duration-700 ${contentVisible ? "opacity-100" : "opacity-0"}`}>
-        <img
+        <Image
           src="/Logo White.svg"
           alt="Simfoni Evav"
-          className="h-[65px] w-auto object-contain opacity-95 mb-2 brightness-0 invert"
+          width={180}
+          height={65}
+          priority
+          className="h-[45px] md:h-[65px] w-auto object-contain opacity-95 mb-2 brightness-0 invert"
         />
-        <h2 className="text-[clamp(1.2rem,2vw,1.8rem)] font-normal tracking-widest drop-shadow-md mb-1 leading-none" style={{ fontFamily: "var(--font-serif)" }}>
+        <h2 className="text-lg md:text-[clamp(1.2rem,2vw,1.8rem)] font-normal tracking-widest drop-shadow-md mb-1 leading-none" style={{ fontFamily: "var(--font-serif)" }}>
           SIMFONI EVAV
         </h2>
-        <p className="text-[clamp(0.8rem,1vw,1rem)] font-light drop-shadow-sm opacity-90" style={{ fontFamily: "var(--font-sans)" }}>
+        <p className="text-[10px] md:text-[clamp(0.8rem,1vw,1rem)] font-light drop-shadow-sm opacity-90" style={{ fontFamily: "var(--font-sans)" }}>
           Peradaban di Atas Pasir Putih
         </p>
       </div>
@@ -280,17 +282,17 @@ export default function HeroSection() {
       {/* Main content — always rendered but opacity controlled by GSAP */}
       <div
         ref={contentRef}
-        className="relative z-[3] w-full max-w-[98%] xl:max-w-[1600px] mx-auto px-4 md:px-8 flex flex-col md:flex-row justify-between items-center pt-28 md:pt-0 pb-20 md:pb-0 mb-[50px]"
+        className="relative z-[3] w-full max-w-[98%] xl:max-w-[1600px] mx-auto px-4 md:px-8 flex flex-col md:flex-row md:justify-start items-center md:items-center pt-24 md:pt-0 pb-16 md:pb-0 md:pl-[4%] xl:pl-[6%] mb-[30px] md:mb-[50px]"
         style={{ pointerEvents: contentVisible ? "auto" : "none" }}
       >
         {/* Left Content */}
-        <div className="flex flex-col text-center md:text-left items-center md:items-start w-full md:w-[45%] xl:w-[40%]" ref={textRef} style={{ opacity: 0 }}>
-          <h1 className="text-fluid-h1 font-normal leading-[1.12] drop-shadow-lg mb-2 flex flex-col" style={{ fontFamily: "var(--font-serif)" }}>
+        <div className="flex flex-col text-center md:text-left items-center md:items-start w-full md:w-[52%] xl:w-[46%] mr-auto" ref={textRef} style={{ opacity: 0 }}>
+          <h1 className="text-[clamp(1.6rem,7vw,2.5rem)] md:text-fluid-h1 font-normal leading-[1.12] drop-shadow-lg mb-2 flex flex-col" style={{ fontFamily: "var(--font-serif)" }}>
             <span className="block overflow-hidden pb-[0.12em]"><span className="hero-line-inner block">Eksplorasi Surga</span></span>
             <span className="block overflow-hidden pb-[0.12em]"><span className="hero-line-inner block">Tersembunyi dan</span></span>
             <span className="block overflow-hidden pb-[0.12em]"><span className="hero-line-inner block">Keajaiban Budaya</span></span>
           </h1>
-          <div className="text-fluid-h1 font-normal -mt-3 mb-6 drop-shadow-md text-brand overflow-hidden pb-[0.12em]" style={{ fontFamily: "var(--font-cursive)" }}>
+          <div className="text-[clamp(1.8rem,8vw,2.8rem)] md:text-fluid-h1 font-normal -mt-2 mb-6 drop-shadow-md text-brand overflow-hidden pb-[0.12em]" style={{ fontFamily: "var(--font-cursive)" }}>
             <span className="hero-accent-inner block">di Kepulauan Kei</span>
           </div>
           <div key={`desc-${activeSlide}`} className="hero-desc-wrap slide-desc opacity-0">
@@ -301,7 +303,7 @@ export default function HeroSection() {
         </div>
 
         {/* Right Content - Interactive GSAP Card Pile */}
-        <div className="relative h-[500px] hidden md:flex items-center justify-end w-full md:w-[50%] xl:w-[45%] perspective-[1200px]" ref={cardsRef} style={{ opacity: 0 }}>
+        <div className="relative h-[500px] hidden md:flex items-center justify-end w-full md:w-[44%] xl:w-[38%] perspective-[1200px]" ref={cardsRef} style={{ opacity: 0 }}>
           {slides.map((slide, idx) => {
             const offset = (idx - activeSlide + slides.length) % slides.length;
             const isFront = offset === 0;
@@ -373,8 +375,8 @@ export default function HeroSection() {
       {/* Scroll Down Indicator */}
       <div
         ref={scrollIndicatorRef}
-        className="scroll-indicator absolute left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 z-[10] hover:opacity-100 transition-opacity cursor-pointer"
-        style={{ opacity: 0, bottom: '100px' }}
+        className="scroll-indicator absolute left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 z-[10] hover:opacity-100 transition-opacity cursor-pointer bottom-[45px] md:bottom-[100px]"
+        style={{ opacity: 0 }}
         onClick={(e) => {
           e.stopPropagation();
           const nextSection = document.getElementById("hero")?.nextElementSibling;

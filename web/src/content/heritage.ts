@@ -57,10 +57,10 @@ export const heritageItems: HeritageItem[] = [
     id: "karel-monument",
     era: "Era Kemerdekaan",
     title: "Monumen Karel",
-    location: "Tual",
+    location: "Ohoi Rumadian, Maluku Tenggara",
     desc: "Tugu mengenang perjuangan dan tragedi sejarah yang menyatu dalam ingatan kolektif masyarakat Kei.",
     image: "/images/heritage/karel_monument.png",
-    imageAlt: "Monumen Karel di Tual mengenang perjuangan sejarah Kepulauan Kei",
+    imageAlt: "Monumen Karel di Ohoi Rumadian, Maluku Tenggara mengenang perjuangan sejarah Kepulauan Kei",
   },
   {
     id: "evav-legacy",

@@ -11,6 +11,7 @@ import {
   MapPinIcon,
 } from "@heroicons/react/24/outline";
 import { useSpotlight } from "@/hooks/useSpotlight";
+import { useSlideshow } from "@/hooks/useSlideshow";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -29,9 +30,33 @@ const elemenBudaya = [
   { label: "Tari Sariat", Icon: SparklesIcon },
 ];
 
+// Slideshow tarian Kei (autoplay 5s, cross-fade §7.3).
+const TARIAN_PHOTOS: { src: string; alt: string }[] = [
+  {
+    src: "/images/budaya/kei_tari_sawat_1.png",
+    alt: "Tari Sawat — tarian adat dengan ayunan selendang khas Kepulauan Kei",
+  },
+  {
+    src: "/images/budaya/kei_tari_sawat_2.png",
+    alt: "Penari Kei membawakan Tari Sawat di atas panggung pasir putih",
+  },
+  {
+    src: "/images/budaya/kei_tari_sawat_3.png",
+    alt: "Gerakan Tari Sariat yang agung diiringi dentuman Tifa Kei",
+  },
+  {
+    src: "/images/budaya/kei_warriors_dance.png",
+    alt: "Tarian perang masyarakat adat Kepulauan Kei sebagai panggung alam",
+  },
+];
+
 export default function PentasSeniSection() {
   const ref = useRef<HTMLElement>(null);
   const { onMouseMove, onMouseLeave } = useSpotlight();
+  const { index: tariIndex } = useSlideshow({
+    count: TARIAN_PHOTOS.length,
+    interval: 5000,
+  });
 
   useEffect(() => {
     const prefersReduced = window.matchMedia(
@@ -66,6 +91,19 @@ export default function PentasSeniSection() {
       ref={ref}
       className="relative w-full min-h-screen snap-start snap-always flex items-center bg-section z-[6] overflow-hidden"
     >
+      {/* Aksen background motif tarian (blur/overlay), pointer-events-none z-0 */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 z-0 opacity-[0.06]"
+      >
+        <Image
+          src="/images/budaya/kei_tari_sawat_2.png"
+          alt=""
+          fill
+          sizes="100vw"
+          className="object-cover blur-2xl scale-110"
+        />
+      </div>
       <div className="max-w-[98%] xl:max-w-[1600px] mx-auto px-4 md:px-8 w-full py-16 md:py-24">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
           <div className="pentas-fade md:col-span-1 lg:col-span-5 flex flex-col md:order-1 lg:order-1">
@@ -102,9 +140,9 @@ export default function PentasSeniSection() {
               ))}
             </div>
 
-            <p className="mt-5 font-sans text-sm md:text-base text-black/70">
-              <span className="text-brand font-semibold">Lokasi:</span>{" "}
-              {EVENT_LOKASI}
+            <p className="mt-5 font-sans text-sm md:text-base text-black/70 flex items-center gap-2">
+              <MapPinIcon className="h-4 w-4 md:h-5 md:w-5 text-brand shrink-0" aria-hidden="true" />
+              <span>{EVENT_LOKASI}</span>
             </p>
 
             <div className="mt-4">
@@ -118,18 +156,23 @@ export default function PentasSeniSection() {
                 aria-label="Lihat lokasi Pentas Seni di Google Maps"
               >
                 <MapPinIcon className="h-4 w-4 md:h-5 md:w-5 text-current" />
-                Lihat Lokasi di Peta
+                Lihat Betapa Indahnya Budaya Kei
               </a>
             </div>
           </div>
 
           <div className="pentas-fade lg:col-span-7 md:col-span-1 relative w-full aspect-[16/10] md:aspect-[16/9] rounded-xl-design shadow-soft overflow-hidden md:order-2 lg:order-2">
-            <Image
-              src="/images/meti/kei_ngurtavur.png"
-              alt="Pasir Timbul Ngurtavur — hamparan pasir putih membelah laut biru, panggung alam Kepulauan Kei"
-              fill
-              className="object-cover rounded-xl-design shadow-soft"
-            />
+            {TARIAN_PHOTOS.map((photo, i) => (
+              <Image
+                key={photo.src}
+                src={photo.src}
+                alt={photo.alt}
+                fill
+                sizes="(max-width: 768px) 100vw, 58vw"
+                className={`object-cover rounded-xl-design shadow-soft transition-opacity duration-1000 ease-in-out ${i === tariIndex ? "opacity-100" : "opacity-0"
+                  }`}
+              />
+            ))}
           </div>
         </div>
       </div>

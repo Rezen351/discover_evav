@@ -27,7 +27,7 @@ export default function AdminBeritaPage() {
         title="Berita"
         description="Kelola artikel, pengumuman, dan konten editorial pariwisata Kepulauan Kei."
         action={
-          <AdminButton href="/admin/berita/baru" ariaLabel="Tambah berita">
+          <AdminButton href="/admin/news/baru" ariaLabel="Tambah berita">
             <PlusIcon className="w-4 h-4" /> Tambah Berita
           </AdminButton>
         }

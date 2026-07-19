@@ -5,7 +5,7 @@ import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ScrollText } from "lucide-react";
-import { larvulNgabal } from "@/content/budaya";
+import { larvulNgabal } from "@/content/culture";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);

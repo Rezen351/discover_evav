@@ -3,19 +3,19 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
-import { GlobeAltIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import { GlobeAltIcon, XMarkIcon, Bars3Icon } from "@heroicons/react/24/outline";
 
 const navItemsId: { label: string; href: string }[] = [
-  { label: "Eksplorasi", href: "/eksplorasi" },
-  { label: "Culture", href: "/budaya" },
+  { label: "Explore", href: "/explore" },
+  { label: "Culture", href: "/culture" },
   { label: "Heritage", href: "/heritage" },
   { label: "Taste", href: "/taste" },
   { label: "Interaction", href: "/interaction" },
 ];
 
 const navItemsEn: { label: string; href: string }[] = [
-  { label: "Eksplorasi", href: "/eksplorasi" },
-  { label: "Culture", href: "/budaya" },
+  { label: "Explore", href: "/explore" },
+  { label: "Culture", href: "/culture" },
   { label: "Heritage", href: "/heritage" },
   { label: "Taste", href: "/taste" },
   { label: "Interaction", href: "/interaction" },
@@ -57,6 +57,29 @@ export default function Navbar() {
   const isLanding = pathname === "/";
 
   useEffect(() => {
+    // Deteksi apakah latar di bawah navbar gelap, dengan membaca warna background
+    // aktual (bukan daftar id manual) agar semua section gelap — termasuk FAQ —
+    // otomatis mengubah navbar ke mode gelap (GRAND_DESIGN.md §5.6).
+    const isDarkUnderNavbar = (): boolean => {
+      const x = window.innerWidth / 2;
+      const y = 90; // sedikit di bawah navbar (navbar ~24–72px)
+      const el = document.elementFromPoint(x, y) as HTMLElement | null;
+      let node: HTMLElement | null = el;
+      while (node) {
+        const bg = getComputedStyle(node).backgroundColor;
+        if (bg && bg !== "transparent" && bg !== "rgba(0, 0, 0, 0)") {
+          const m = bg.match(/\d+/g);
+          if (m && m.length >= 3) {
+            const [r, g, b] = m.map(Number);
+            const lum = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+            return lum < 0.5;
+          }
+        }
+        node = node.parentElement;
+      }
+      return false;
+    };
+
     const handleScroll = () => {
       // Di landing page, navbar baru muncul setelah SELURUH section KEDUA (#jeda-jiwa)
       // terlewati. Di halaman lain, navbar muncul setelah section hero terlewati.
@@ -69,24 +92,7 @@ export default function Navbar() {
         show = heroEls.some((el) => el.getBoundingClientRect().bottom <= 0);
       }
       setShowNavbar(show);
-
-      // Detect which section is under the navbar (around y = 100px)
-      const sections = ["hero", "funfact", "journey", "budaya-adat", "destinasi-terbaik", "berita-umkm", "join-community", "footer", "meti-hero", "wer-warat", "pentas-seni", "perahu-belan", "wisata-kuliner", "penghormatan", "informasi-penutup", "heritage-hero", "heritage-prolog", "karel", "ratskap", "heritage-penghormatan", "heritage-penutup", "budaya-hero", "larvul-ngabal", "filosofi-kei", "ekspresi-budaya", "jeda-budaya", "warisan-takbenda", "linimasa-kei", "taste-hero", "signature-dishes", "taste-story", "taste-bento", "taste-closing", "interaction-hero", "keterhubungan-intro", "panggung-percakapan", "ruang-bersama", "faq", "pintu-keluar"];
-      let activeSectionId = "";
-
-      for (const id of sections) {
-        const el = document.getElementById(id);
-        if (el) {
-          const rect = el.getBoundingClientRect();
-          if (rect.top <= 100 && rect.bottom >= 100) {
-            activeSectionId = id;
-            break;
-          }
-        }
-      }
-
-      const darkSections = ["hero", "funfact", "footer", "meti-hero", "penghormatan", "informasi-penutup", "heritage-hero", "heritage-penghormatan", "heritage-penutup", "budaya-hero", "taste-hero", "interaction-hero", "pintu-keluar"];
-      setIsDarkTheme(darkSections.includes(activeSectionId));
+      setIsDarkTheme(isDarkUnderNavbar());
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
@@ -181,7 +187,7 @@ export default function Navbar() {
             {mobileOpen ? (
               <XMarkIcon className="w-5 h-5" />
             ) : (
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" /></svg>
+              <Bars3Icon className="w-5 h-5" />
             )}
           </button>
         </div>

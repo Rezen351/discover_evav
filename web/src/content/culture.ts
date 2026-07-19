@@ -1,4 +1,4 @@
-// Data terpusat halaman /budaya (Budaya & Sejarah Kepulauan Kei).
+// Data terpusat halaman /culture (Budaya & Sejarah Kepulauan Kei).
 // Konten dipindahkan dari komponen ke sini mengikuti pola sentralisasi
 // (lih. eksplorasi.ts / satwaEndemik.ts). Fakta yang DIJAGA (culture.md §5):
 //   Larvul Ngabal (lisan), Ain Ni Ain, Belis, Tenun Ikat Elat + IG 2024,
@@ -121,9 +121,23 @@ export const filosofi = {
         "Jejak keharmonisan lintas iman dalam kehidupan budaya masyarakat Kepulauan Kei",
     },
   ] satisfies FilosofiTile[],
+  cta: {
+    title: "Ingin Mengenal Lebih Dekat?",
+    desc: "Mari terhubung dengan Keluarga Evav untuk merancang perjalanan budaya yang autentik, ramah lokal, dan mendalam.",
+    buttonText: "Hubungi Keluarga Evav",
+    link: "/interaction",
+  },
 } as const;
 
 // ── Galeri Ekspresi Budaya (§3.4 · Tangible) ─────────────────────────────────
+export type EkspresiTrack = {
+  id: string;
+  title: string;
+  artist: string;
+  src: string;
+  cover?: string;
+};
+
 export type EkspresiItem = {
   id: string;
   icon: "Sparkles" | "Music" | "Shirt" | "Palette" | "Mic2";
@@ -132,6 +146,7 @@ export type EkspresiItem = {
   images: string[];
   imageAlt: string;
   video?: string;
+  tracks?: EkspresiTrack[];
 };
 
 export const ekspresiBudaya = {
@@ -189,6 +204,29 @@ export const ekspresiBudaya = {
       images: ["/images/budaya/kei_language_symbol.png"],
       imageAlt:
         "Simbol bahasa dan sastra lisan Kepulauan Kei — jembatan spiritual antargenerasi",
+      tracks: [
+        {
+          id: "tiva-ngelngel",
+          title: "Tiva Ngelngel",
+          artist: "Nyanyian Kegembiraan Kei",
+          src: "/audio/budaya/tiva-ngelngel.mp3",
+          cover: "/images/budaya/kei_language_symbol.png",
+        },
+        {
+          id: "pantun-laut",
+          title: "Pantun Ritual Laut",
+          artist: "Sastra Lisan Evav",
+          src: "/audio/budaya/pantun-laut.mp3",
+          cover: "/images/budaya/kei_meti_reef.png",
+        },
+        {
+          id: "kidung-adat",
+          title: "Kidung Adat Larvul Ngabal",
+          artist: "Warisan Tetua Kei",
+          src: "/audio/budaya/kidung-adat.mp3",
+          cover: "/images/budaya/kei_culture_ritual.png",
+        },
+      ],
     },
   ] satisfies EkspresiItem[],
 } as const;

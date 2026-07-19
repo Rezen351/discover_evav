@@ -29,7 +29,7 @@ export default function AdminBeritaBaruPage() {
   function handleSimpan() {
     const artikel = { judul, kategori, penulis, ringkasan, isi, status };
     console.log("Artikel berita (mock):", artikel);
-    router.push("/admin/berita");
+    router.push("/admin/news");
   }
 
   return (
@@ -39,7 +39,7 @@ export default function AdminBeritaBaruPage() {
         title="Tulis Berita Baru"
         description="Buat artikel, pengumuman, atau konten editorial pariwisata Kepulauan Kei."
         action={
-          <AdminButton href="/admin/berita" variant="ghost" ariaLabel="Batal">
+          <AdminButton href="/admin/news" variant="ghost" ariaLabel="Batal">
             Batal
           </AdminButton>
         }

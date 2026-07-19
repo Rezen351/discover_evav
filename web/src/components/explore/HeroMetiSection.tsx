@@ -5,15 +5,40 @@ import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ChevronDownIcon } from "@heroicons/react/24/outline";
+import { useSlideshow } from "@/hooks/useSlideshow";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
 }
 
+// Slideshow pantai Kei di balik video timelapse (autoplay 5s, cross-fade §7.3).
+const HERO_PHOTOS: { src: string; alt: string }[] = [
+  {
+    src: "/images/meti/kei_ngurtavur.png",
+    alt: "Lautan Kepulauan Kei yang surut membuka hamparan pasir saat Festival Pesona Meti Kei",
+  },
+  {
+    src: "/images/meti/kei_ngurbloat.png",
+    alt: "Pantai Ngurbloat — pasir terhalus di dunia dengan air toska jernih di Kepulauan Kei",
+  },
+  {
+    src: "/images/meti/kei_beach.png",
+    alt: "Gugusan Pantai Pasir Panjang saat surut di Kepulauan Kei",
+  },
+  {
+    src: "/images/meti/kei_resort.png",
+    alt: "Pulau Dullah dengan laut landai biru jernih di selat Tual–Kei Kecil",
+  },
+];
+
 export default function HeroMetiSection() {
   const sectionRef = useRef<HTMLElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isActive, setIsActive] = useState(false);
+  const { index: photoIndex } = useSlideshow({
+    count: HERO_PHOTOS.length,
+    interval: 5000,
+  });
 
   useEffect(() => {
     const section = sectionRef.current;
@@ -80,14 +105,19 @@ export default function HeroMetiSection() {
       className="relative w-full min-h-screen snap-start snap-always flex items-center overflow-hidden bg-[#000] z-[8]"
     >
       <div className="absolute inset-0 z-0">
-        <Image
-          src="/images/meti/kei_ngurtavur.png"
-          alt="Lautan Kepulauan Kei yang surut membuka hamparan pasir saat Festival Pesona Meti Kei"
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover brightness-90"
-        />
+        {HERO_PHOTOS.map((photo, i) => (
+          <Image
+            key={photo.src}
+            src={photo.src}
+            alt={photo.alt}
+            fill
+            priority={i === 0}
+            sizes="100vw"
+            className={`object-cover brightness-90 transition-opacity duration-1000 ease-in-out ${
+              i === photoIndex ? "opacity-100" : "opacity-0"
+            }`}
+          />
+        ))}
         {isActive && (
           <video
             ref={videoRef}

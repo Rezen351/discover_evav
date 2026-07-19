@@ -1,15 +1,16 @@
 "use client";
 
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
-import { BanknotesIcon, ShieldExclamationIcon, HeartIcon, MapIcon, ScaleIcon, UsersIcon, ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
+import { BanknotesIcon, ShieldExclamationIcon, HeartIcon, MapIcon, ScaleIcon, UsersIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
 import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay, A11y } from "swiper/modules";
+import type { Swiper as SwiperType } from "swiper/types";
 import { useSpotlight } from "@/hooks/useSpotlight";
 
-if (typeof window !== "undefined") {
-  gsap.registerPlugin(ScrollTrigger);
-}
+import "swiper/css";
+import "swiper/css/pagination";
 
 const rules = [
   {
@@ -73,48 +74,17 @@ const rules = [
 export default function BudayaAdatSection() {
   const sectionRef = useRef<HTMLElement>(null);
   const [activeRule, setActiveRule] = useState(0);
+  const [reducedMotion] = useState(
+    () => typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches
+  );
+  const swiperRef = useRef<SwiperType | null>(null);
 
   const activeData = rules[activeRule];
 
-  const totalRules = rules.length;
-
-  const nextSlide = useCallback(() => {
-    setActiveRule((currentActiveRule) => (currentActiveRule + 1) % totalRules);
-  }, [totalRules]);
-
-  const prevSlide = useCallback(() => {
-    setActiveRule((currentActiveRule) => (currentActiveRule - 1 + totalRules) % totalRules);
-  }, [totalRules]);
-
   const goToRule = (idx: number) => {
+    swiperRef.current?.slideToLoop(idx);
     setActiveRule(idx);
-    startAutoplay();
   };
-
-  // Autoplay (5s), restart timer on manual interaction
-  const autoplayRef = useRef<number | null>(null);
-
-  const startAutoplay = useCallback(() => {
-    if (autoplayRef.current) window.clearInterval(autoplayRef.current);
-    const duration = 5000;
-    const step = 50;
-    let elapsed = 0;
-    const ticker = window.setInterval(() => {
-      elapsed += step;
-      if (elapsed >= duration) {
-        nextSlide();
-        elapsed = 0;
-      }
-    }, step);
-    autoplayRef.current = ticker;
-  }, [nextSlide]);
-
-  useEffect(() => {
-    startAutoplay();
-    return () => {
-      if (autoplayRef.current) window.clearInterval(autoplayRef.current);
-    };
-  }, [startAutoplay]);
 
   useEffect(() => {
     const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -132,7 +102,7 @@ export default function BudayaAdatSection() {
         scrollTrigger: {
           trigger: sectionRef.current,
           start: "top 95%",
-          toggleActions: "play none none reverse",
+          once: true,
         },
       });
     }, sectionRef);
@@ -151,8 +121,6 @@ export default function BudayaAdatSection() {
   }, [activeRule]);
 
   const { onMouseMove, onMouseLeave } = useSpotlight();
-
-  const translation = `calc(-${activeRule} * (100% + 12px))`;
 
   return (
     <section
@@ -218,75 +186,65 @@ export default function BudayaAdatSection() {
           </p>
         </div>
 
-        {/* BOTTOM CONTENT ROW: 3 kolom */}
-        <div className="flex flex-col xl:flex-row gap-6 xl:gap-8 items-center w-full">
+        {/* Desktop Layout (3 Columns) — Visible on xl screens */}
+        <div className="hidden xl:flex xl:flex-row gap-8 items-center w-full">
 
-          {/* KOLOM KIRI: Swiper 7 Pasal Larvul Ngabal — hidden di mobile, tampil di desktop */}
-          <div className="hidden xl:flex flex-col w-full xl:flex-[1] xl:min-w-0 budaya-fade relative budaya-col-cards">
-            {/* Left Arrow — desktop only */}
-            <button
-              onClick={prevSlide}
-              aria-label="Aturan sebelumnya"
-              className="hidden xl:flex absolute -left-4 top-[calc(50%-20px)] -translate-y-1/2 z-10 p-2 rounded-full bg-white text-brand border border-gray-100 shadow-md transition-all duration-300 hover:bg-brand hover:text-white"
+          {/* KOLOM KIRI: 1 card pasal Larvul Ngabal yang bisa di-swipe (slide) tiap autoplay */}
+          <div className="flex flex-col w-full xl:flex-[1] xl:min-w-0 budaya-fade relative budaya-col-cards">
+            <Swiper
+              modules={[Autoplay, A11y]}
+              onSwiper={(s) => { swiperRef.current = s; }}
+              onSlideChange={(s) => setActiveRule(s.realIndex)}
+              loop
+              autoplay={reducedMotion ? false : { delay: 5000, disableOnInteraction: false, pauseOnMouseEnter: true }}
+              grabCursor
+              slidesPerView={1}
+              className="w-full max-w-[300px] mx-auto !pb-10 budaya-swiper"
+              aria-label="Slider pasal Larvul Ngabal"
             >
-              <ChevronLeftIcon className="w-4 h-4" />
-            </button>
-
-            {/* Right Arrow — desktop only */}
-            <button
-              onClick={nextSlide}
-              aria-label="Aturan berikutnya"
-              className="hidden xl:flex absolute -right-4 top-[calc(50%-20px)] -translate-y-1/2 z-10 p-2 rounded-full bg-white text-brand border border-gray-100 shadow-md transition-all duration-300 hover:bg-brand hover:text-white"
-            >
-              <ChevronRightIcon className="w-4 h-4" />
-            </button>
-
-            {/* Slider Container */}
-            <div className="overflow-hidden w-full rounded-2xl py-3 px-1 flex-1">
-              <div
-                className="flex gap-3 transition-transform duration-500 ease-out h-full w-full"
-                style={{
-                  transform: `translateX(${translation})`,
-                }}
-              >
-                {rules.map((rule, idx) => (
-                  <div key={rule.id} className="w-full flex-none flex justify-center">
-                    <button
-                      onClick={() => goToRule(idx)}
-                      onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); goToRule(idx); } }}
-                      role="button"
-                      tabIndex={0}
-                      aria-label={`Tampilkan aturan ${rule.badge}`}
-                      className={`rounded-2xl p-4 flex flex-col items-center justify-center text-center gap-3 cursor-pointer group transition-all duration-300 border-2 w-full max-w-[280px] h-[200px] md:h-[240px] ${activeRule === idx
-                        ? "bg-nav-gradient border-brand scale-[1.05] z-10 -translate-y-1 opacity-100"
-                        : "bg-white/45 border-brand/10 opacity-50 hover:opacity-90 scale-[0.96] hover:bg-white/60"
-                        }`}
-                    >
-                      <div
-                        className={`w-10 h-10 rounded-full flex items-center justify-center transition-colors flex-shrink-0 ${activeRule === idx
-                          ? "bg-brand"
-                          : "bg-brand/10 group-hover:bg-brand/20"
-                          }`}
-                      >
-                        <div className={activeRule === idx ? "text-white" : "text-brand/70"}>
-                          {rule.icon}
-                        </div>
+              {rules.map((rule, idx) => (
+                <SwiperSlide key={rule.id} className="!h-auto">
+                  <button
+                    type="button"
+                    onClick={() => goToRule((idx + 1) % rules.length)}
+                    aria-label={`Pasal berikutnya: ${rules[(idx + 1) % rules.length].badge}`}
+                    className="group relative w-full h-[200px] md:h-[240px] rounded-2xl p-6 flex flex-col items-center justify-center text-center gap-3 cursor-pointer transition-all duration-500 border-2 bg-brand/10 border-brand/30 overflow-hidden"
+                  >
+                    <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 p-6 text-center">
+                      <div className="w-12 h-12 rounded-full flex items-center justify-center bg-brand text-white flex-shrink-0">
+                        <div>{rule.icon}</div>
                       </div>
-                      <span
-                        className={`text-xs leading-snug transition-colors ${activeRule === idx ? "text-brand font-extrabold" : "text-black/50 font-bold"
-                          }`}
-                        style={{ fontFamily: "var(--font-sans)" }}
-                      >
+                      <span className="text-sm md:text-base leading-snug text-brand font-extrabold" style={{ fontFamily: "var(--font-sans)" }}>
                         {rule.badge}
                       </span>
-                    </button>
-                  </div>
-                ))}
-              </div>
+                      <span className="text-xs text-black/50" style={{ fontFamily: "var(--font-sans)" }}>
+                        Pasal {idx + 1} dari {rules.length}
+                      </span>
+                    </div>
+                    <div className="absolute bottom-3 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center gap-1 text-brand text-xs font-semibold" style={{ fontFamily: "var(--font-sans)" }}>
+                      Pasal berikutnya
+                      <ChevronRightIcon className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
+                    </div>
+                  </button>
+                </SwiperSlide>
+              ))}
+            </Swiper>
+
+            {/* Dots indikator pink */}
+            <div className="flex items-center justify-center gap-2 mt-4">
+              {rules.map((rule, idx) => (
+                <button
+                  key={rule.id}
+                  type="button"
+                  aria-label={`Pilih ${rule.badge}`}
+                  onClick={() => goToRule(idx)}
+                  className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${activeRule === idx ? "bg-brand w-6" : "bg-brand/30 hover:bg-brand/50"}`}
+                />
+              ))}
             </div>
           </div>
 
-          {/* KOLOM TENGAH: Foto Utama — mobile: paling atas (order 1) */}
+          {/* KOLOM TENGAH: Foto Utama */}
           <div className="w-full xl:flex-[1.5] flex flex-col budaya-fade justify-center budaya-col-photo">
             <div className="w-full aspect-video rounded-lg-design overflow-hidden shadow-card group relative">
               <Image
@@ -310,7 +268,7 @@ export default function BudayaAdatSection() {
             </div>
           </div>
 
-          {/* KOLOM KANAN: Detail Teks Pasal — mobile: tengah (order 2) */}
+          {/* KOLOM KANAN: Detail Teks Pasal */}
           <div className="w-full xl:flex-[1] flex flex-col budaya-fade justify-center budaya-col-detail">
             <div className="rule-detail flex flex-col justify-between" key={activeRule}>
 
@@ -340,6 +298,69 @@ export default function BudayaAdatSection() {
               </button>
             </div>
           </div>
+        </div>
+
+        {/* Mobile Layout (Swiper Slider) — Visible on screen sizes < xl */}
+        <div className="xl:hidden w-full budaya-fade">
+          <Swiper
+            modules={[Autoplay, A11y]}
+            pagination={false}
+            autoplay={reducedMotion ? false : { delay: 5000, disableOnInteraction: false }}
+            spaceBetween={20}
+            slidesPerView={1}
+            onSlideChange={(swiper) => setActiveRule(swiper.realIndex)}
+            className="budaya-mobile-swiper"
+          >
+            {rules.map((rule, idx) => (
+              <SwiperSlide key={rule.id} className="flex flex-col gap-6">
+                {/* Foto Utama */}
+                <div className="w-full aspect-video rounded-lg-design overflow-hidden shadow-card group relative">
+                  <Image
+                    src={rule.image}
+                    alt={rule.title}
+                    fill
+                    sizes="100vw"
+                    className="object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
+                  {/* Label pasal di atas foto */}
+                  <div className="absolute bottom-3 left-3 right-3">
+                    <span
+                      className="inline-block bg-brand/90 text-white text-[10px] font-bold px-2 py-1 rounded-md uppercase tracking-wider backdrop-blur-sm"
+                      style={{ fontFamily: "var(--font-sans)" }}
+                    >
+                      Pasal {idx + 1} dari {rules.length}
+                    </span>
+                  </div>
+                </div>
+
+                {/* Detail Teks Pasal */}
+                <div className="flex flex-col gap-3">
+                  <h4
+                    className="text-xl text-black font-normal leading-snug py-3"
+                    style={{ fontFamily: "var(--font-serif)" }}
+                  >
+                    {rule.badge}
+                  </h4>
+                  <p
+                    className="text-black/65 text-sm leading-relaxed text-justify line-clamp-6"
+                    style={{ fontFamily: "var(--font-sans)" }}
+                  >
+                    {rule.desc}
+                  </p>
+
+                  <button
+                    onMouseMove={onMouseMove}
+                    onMouseLeave={onMouseLeave}
+                    className="btn-spotlight self-start mt-3 group/btn flex items-center gap-2 border border-black hover:border-brand text-black hover:text-brand px-5 py-2.5 rounded-xl font-semibold text-sm transition-all duration-300 hover:scale-[1.02] active:press focus-ring cursor-pointer"
+                  >
+                    Pelajari Lebih Lanjut
+                    <ChevronRightIcon className="w-3.5 h-3.5 text-current transition-transform group-hover/btn:translate-x-1" />
+                  </button>
+                </div>
+              </SwiperSlide>
+            ))}
+          </Swiper>
         </div>
 
         {/* QUOTE PENUTUP SECTION — memanjang penuh, rata kiri, tanpa background */}

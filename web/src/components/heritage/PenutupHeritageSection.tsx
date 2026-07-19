@@ -74,31 +74,32 @@ export default function PenutupHeritageSection() {
           </div>
 
           <div className="flex flex-col gap-6">
-              <p className="penutup-heritage-fade font-sans text-fluid-small uppercase tracking-[0.3em] text-white/60">
-                Sambutan Keluarga Evav
-              </p>
+            <p className="penutup-heritage-fade font-sans text-fluid-small uppercase tracking-[0.3em] text-white/60">
+              Sambutan Keluarga Evav
+            </p>
 
-              <h2
-                id="heritage-penutup-title"
-                className="penutup-heritage-fade font-serif text-fluid-h2 lg:text-6xl leading-tight text-white"
-              >
-                Warisan ini{" "}
-                <span className="text-brand">Milik Kita Bersama</span>
-              </h2>
+            <h2
+              id="heritage-penutup-title"
+              className="penutup-heritage-fade font-serif text-fluid-h2 lg:text-6xl leading-tight text-white"
+            >
+              Warisan ini{" "}
+              <span className="text-brand">Milik Kita Bersama</span>
+            </h2>
 
-              <p className="penutup-heritage-fade font-sans text-fluid-body leading-relaxed text-white/80">
+            <p className="penutup-heritage-fade font-sans text-fluid-body leading-relaxed text-white/80">
               Di Kei, kita semua bersaudara — termasuk dengan leluhur yang
-              menulis sejarah ini. Mari bawa pulang bukan sekadar cerita, tapi
-              panggilan untuk merawatnya. Sampai jumpa di Tanah Evav.
+              menulis sejarah ini. Setelah menelusuri jejaknya, mari bawa pulang
+              bukan sekadar cerita, tapi juga rasa meja Kei yang hangat.
+              Sampai jumpa di Tanah Evav.
             </p>
 
             <div className="penutup-heritage-fade flex flex-col sm:flex-row flex-wrap items-start gap-4 mt-2">
               <Link
-                href="/budaya"
+                href="/culture"
                 onMouseMove={spotlightPrimary.onMouseMove}
                 onMouseLeave={spotlightPrimary.onMouseLeave}
                 aria-label="Jelajahi Jiwa Kei"
-                className="btn-spotlight btn-cta border-white text-white hover:border-brand hover:text-brand group/btn flex items-center gap-2 rounded-full px-6 py-3 font-sans text-sm md:text-base font-semibold transition-all duration-300 hover:scale-[1.02] active:press focus-ring cursor-pointer"
+                className="btn-spotlight btn-cta-dark group/btn flex items-center gap-2 rounded-full px-6 py-3 font-sans text-sm md:text-base font-semibold transition-all duration-300 hover:scale-[1.02] active:press focus-ring cursor-pointer"
               >
                 Jelajahi Jiwa Kei
                 <ArrowRightIcon
@@ -108,13 +109,27 @@ export default function PenutupHeritageSection() {
               </Link>
 
               <Link
-                href="/eksplorasi"
+                href="/explore"
                 onMouseMove={spotlightSecondary.onMouseMove}
                 onMouseLeave={spotlightSecondary.onMouseLeave}
                 aria-label="Rasakan Festivnya"
-                className="btn-spotlight btn-cta border-white text-white hover:border-brand hover:text-brand group/btn flex items-center gap-2 rounded-full px-6 py-3 font-sans text-sm md:text-base font-semibold transition-all duration-300 hover:scale-[1.02] active:press focus-ring cursor-pointer"
+                className="btn-spotlight btn-cta-dark group/btn flex items-center gap-2 rounded-full px-6 py-3 font-sans text-sm md:text-base font-semibold transition-all duration-300 hover:scale-[1.02] active:press focus-ring cursor-pointer"
               >
-                Rasakan Festivnya
+                Eksplorasi Keseruannya
+                <ArrowRightIcon
+                  className="h-5 w-5 text-current transition-transform group-hover/btn:translate-x-1"
+                  aria-hidden="true"
+                />
+              </Link>
+
+              <Link
+                href="/taste"
+                onMouseMove={spotlightSecondary.onMouseMove}
+                onMouseLeave={spotlightSecondary.onMouseLeave}
+                aria-label="Cicipi Rasa Kei"
+                className="btn-spotlight btn-cta-dark group/btn flex items-center gap-2 rounded-full px-6 py-3 font-sans text-sm md:text-base font-semibold transition-all duration-300 hover:scale-[1.02] active:press focus-ring cursor-pointer"
+              >
+                Cicipi Rasa Kei
                 <ArrowRightIcon
                   className="h-5 w-5 text-current transition-transform group-hover/btn:translate-x-1"
                   aria-hidden="true"

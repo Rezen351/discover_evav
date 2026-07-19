@@ -3,7 +3,7 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { ChevronRight } from "lucide-react";
+import { ChevronRightIcon } from "@heroicons/react/24/outline";
 import { useSpotlight } from "@/hooks/useSpotlight";
 import { tasteClosing } from "@/content/taste";
 
@@ -80,7 +80,7 @@ export default function ClosingSection() {
               aria-label={tasteClosing.ctaLabel}
             >
               {tasteClosing.ctaLabel}
-              <ChevronRight
+              <ChevronRightIcon
                 className="h-4 w-4 text-current transition-transform group-hover:translate-x-1"
                 aria-hidden="true"
               />

@@ -464,7 +464,7 @@ export default function KarelHeritageSection() {
 
           <div className="karel-reveal mt-12">
             <a
-              href="/budaya"
+              href="/culture"
               onMouseMove={onMouseMove}
               onMouseLeave={onMouseLeave}
               aria-label="Kenali Budaya Adat Kepulauan Kei"

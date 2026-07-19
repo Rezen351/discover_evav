@@ -12,6 +12,7 @@ import {
   ArrowRightIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
+import { useSpotlight } from "@/hooks/useSpotlight";
 
 if (typeof window !== "undefined") gsap.registerPlugin(ScrollTrigger);
 
@@ -22,6 +23,8 @@ export default function InformasiPenutupSection() {
   const barRef = useRef<HTMLDivElement>(null);
   const [showPinned, setShowPinned] = useState(false);
   const [dismissed, setDismissed] = useState(false);
+  const [isLightSection, setIsLightSection] = useState(false);
+  const { onMouseMove, onMouseLeave } = useSpotlight();
 
   useEffect(() => {
     const prefersReduced = window.matchMedia(
@@ -50,8 +53,31 @@ export default function InformasiPenutupSection() {
     const handleScroll = () => {
       if (dismissed) return;
       const scrollY = window.scrollY;
-      const threshold = (document.documentElement.scrollHeight - window.innerHeight) * 0.5;
+      const threshold =
+        (document.documentElement.scrollHeight - window.innerHeight) * 0.5;
       setShowPinned(scrollY > threshold);
+
+      // Deteksi section aktif untuk penyesuaian tema overlay
+      const sections = document.querySelectorAll("section");
+      let activeSectionId = "";
+      const testPoint = window.innerHeight - 100;
+
+      sections.forEach((section) => {
+        const rect = section.getBoundingClientRect();
+        if (rect.top <= testPoint && rect.bottom >= testPoint) {
+          activeSectionId = section.id;
+        }
+      });
+
+      const lightSectionIds = [
+        "wer-warat",
+        "pentas-seni",
+        "perahu-belan",
+        "wisata-alam",
+        "satwa-endemik",
+      ];
+
+      setIsLightSection(lightSectionIds.includes(activeSectionId));
     };
 
     handleScroll();
@@ -59,7 +85,7 @@ export default function InformasiPenutupSection() {
     window.addEventListener("resize", handleScroll);
 
     if (barRef.current && !prefersReduced) {
-      gsap.set(barRef.current, { yPercent: 100, opacity: 0 });
+      gsap.set(barRef.current, { yPercent: 150, opacity: 0 });
     }
 
     return () => {
@@ -80,7 +106,7 @@ export default function InformasiPenutupSection() {
       return;
     }
     gsap.to(bar, {
-      yPercent: showPinned ? 0 : 100,
+      yPercent: showPinned ? 0 : 150,
       opacity: showPinned ? 1 : 0,
       duration: 0.4,
       ease: "power2.out",
@@ -175,7 +201,9 @@ export default function InformasiPenutupSection() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="Pantau jadwal resmi Festival Meti Kei"
-                  className="btn-cta border-white text-white hover:border-brand hover:text-brand rounded-full px-6 py-3 font-sans text-sm md:text-base font-semibold"
+                  onMouseMove={onMouseMove}
+                  onMouseLeave={onMouseLeave}
+                  className="btn-spotlight btn-cta-dark rounded-full px-6 py-3 font-sans text-sm md:text-base font-semibold"
                 >
                   Pantau Jadwal Resmi
                   <ArrowRightIcon className="h-5 w-5 text-current" aria-hidden="true" />
@@ -184,9 +212,12 @@ export default function InformasiPenutupSection() {
                 <Link
                   href="/keterhubungan"
                   aria-label="Hubungi Keluarga Evav"
-                  className="btn-glass-dark rounded-full px-6 py-3 font-sans text-sm md:text-base font-semibold"
+                  onMouseMove={onMouseMove}
+                  onMouseLeave={onMouseLeave}
+                  className="btn-spotlight btn-cta-dark rounded-full px-6 py-3 font-sans text-sm md:text-base font-semibold"
                 >
                   Hubungi Keluarga Evav
+                  <ArrowRightIcon className="h-5 w-5 text-current" aria-hidden="true" />
                 </Link>
               </div>
             </div>
@@ -198,17 +229,23 @@ export default function InformasiPenutupSection() {
         ref={barRef}
         role="region"
         aria-label="Aksi cepat Festival Meti"
-        className="fixed bottom-0 left-0 w-full z-[90] bg-tropical-dark/95 backdrop-blur text-white"
+        className={`fixed bottom-4 left-4 w-[calc(100%-2rem)] sm:w-auto max-w-4xl z-[90] backdrop-blur-md rounded-xl-design shadow-float py-3.5 px-6 md:px-8 transition-all duration-300 ${isLightSection
+          ? "bg-white/95 text-black border border-brand/25"
+          : "bg-tropical-dark/90 text-white border border-white/15"
+          }`}
       >
-        <div className="max-w-[98%] xl:max-w-[1600px] mx-auto px-4 md:px-8 w-full flex items-center justify-between gap-4 py-3">
-          <p className="font-sans text-sm md:text-base text-white/90">
-            Meti hanya setahun sekali —{" "}
+        <div className="flex items-center justify-between gap-4">
+          <p className="font-sans text-sm md:text-base flex flex-wrap items-center gap-3 md:gap-4">
+            <span className={isLightSection ? "text-black/80" : "text-white/95"}>
+              Meti hanya setahun sekali —
+            </span>
             <a
               href={JADWAL_RESSMI_URL}
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Pantau jadwal resmi Festival Meti Kei"
-              className="btn-cta border-white text-white hover:border-brand hover:text-brand rounded-full px-4 py-2 font-sans text-sm font-semibold"
+              className={`btn-spotlight rounded-full px-4 py-2 font-sans text-xs md:text-sm font-semibold inline-flex items-center gap-2 transition-colors duration-300 ${isLightSection ? "btn-cta" : "btn-cta-dark"
+                }`}
             >
               Pantau Jadwal Resmi
               <ArrowRightIcon className="h-4 w-4 text-current" aria-hidden="true" />
@@ -219,7 +256,10 @@ export default function InformasiPenutupSection() {
             type="button"
             onClick={() => setDismissed(true)}
             aria-label="Tutup aksi cepat"
-            className="focus-ring shrink-0 rounded-full p-2 text-white/70 hover:text-white transition-colors"
+            className={`focus-ring shrink-0 rounded-full p-2 transition-colors cursor-pointer ${isLightSection
+              ? "text-black/55 hover:text-black"
+              : "text-white/70 hover:text-white"
+              }`}
           >
             <XMarkIcon className="h-5 w-5" aria-hidden="true" />
           </button>

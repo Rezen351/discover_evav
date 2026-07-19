@@ -1,5 +1,5 @@
 // Data terpusat spot wisata alam Kepulauan Kei untuk Bagian V "Wisata Alam"
-// di halaman /eksplorasi. Tidak di-hardcode di komponen (sentralisasi §4.10).
+// di halaman /explore. Tidak di-hardcode di komponen (sentralisasi §4.10).
 //
 // Koordinat (lat, lng) — sumbernya didokumentasikan per spot:
 //  - bair, ngurbloat, hawang, ngurtavur, tanimbar_kei:

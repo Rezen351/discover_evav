@@ -128,7 +128,7 @@ export default function AdminDashboardPage() {
           <h2 className="text-fluid-h4 text-black font-normal" style={{ fontFamily: "var(--font-serif)" }}>
             Berita Terbaru
           </h2>
-          <a href="/admin/berita" className="inline-flex items-center gap-1 text-sm font-semibold text-brand hover:text-brand/70 transition-colors focus-ring rounded">
+          <a href="/admin/news" className="inline-flex items-center gap-1 text-sm font-semibold text-brand hover:text-brand/70 transition-colors focus-ring rounded">
             Lihat semua <ArrowUpRightIcon className="w-4 h-4" />
           </a>
         </div>

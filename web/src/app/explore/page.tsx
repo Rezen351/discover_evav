@@ -2,28 +2,28 @@ import type { Metadata } from "next";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SeoJsonLd from "@/components/SeoJsonLd";
-import { spotAlam } from "@/content/eksplorasi";
-import HeroMetiSection from "@/components/eksplorasi/HeroMetiSection";
-import WerWaratSection from "@/components/eksplorasi/WerWaratSection";
-import PentasSeniSection from "@/components/eksplorasi/PentasSeniSection";
-import PerahuBelanSection from "@/components/eksplorasi/PerahuBelanSection";
-import WisataAlamSection from "@/components/eksplorasi/WisataAlamSection";
-import SatwaEndemikSection from "@/components/eksplorasi/SatwaEndemikSection";
-import PenghormatanSection from "@/components/eksplorasi/PenghormatanSection";
-import InformasiPenutupSection from "@/components/eksplorasi/InformasiPenutupSection";
+import { spotAlam } from "@/content/explore";
+import HeroMetiSection from "@/components/explore/HeroMetiSection";
+import WerWaratSection from "@/components/explore/WerWaratSection";
+import PentasSeniSection from "@/components/explore/PentasSeniSection";
+import PerahuBelanSection from "@/components/explore/PerahuBelanSection";
+import WisataAlamSection from "@/components/explore/WisataAlamSection";
+import SatwaEndemikSection from "@/components/explore/SatwaEndemikSection";
+import PenghormatanSection from "@/components/explore/PenghormatanSection";
+import InformasiPenutupSection from "@/components/explore/InformasiPenutupSection";
 
 export const metadata: Metadata = {
   title: "Eksplorasi — Festival Pesona Meti Kei | Simfoni Evav",
   description:
     "Telusuri Festival Pesona Meti Kei di Kepulauan Kei: dari Wer Warat, pentas seni, perahu belan, wisata kuliner, hingga penghormatan adat. Satu perayaan pasang surut kehidupan masyarakat Evav yang diwariskan turun-temurun.",
   alternates: {
-    canonical: "/eksplorasi",
+    canonical: "/explore",
   },
   openGraph: {
     title: "Eksplorasi — Festival Pesona Meti Kei",
     description:
       "Satukan langkah dalam Festival Pesona Meti Kei, perayaan pasang surut kehidupan masyarakat Evav di Kepulauan Kei, Maluku Tenggara.",
-    url: "/eksplorasi",
+    url: "/explore",
     type: "website",
   },
 };
@@ -38,7 +38,7 @@ export default function EksplorasiPage() {
     name: spot.nama,
     description: spot.deskripsi,
     image: `${SITE_URL}${spot.gambar}`,
-    url: `${SITE_URL}/eksplorasi#${spot.id}`,
+    url: `${SITE_URL}/explore#${spot.id}`,
     geo: {
       "@type": "GeoCoordinates",
       latitude: spot.lat,

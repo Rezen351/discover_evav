@@ -6,14 +6,39 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ArrowRightIcon } from "@heroicons/react/24/outline";
 import { useSpotlight } from "@/hooks/useSpotlight";
+import { useSlideshow } from "@/hooks/useSlideshow";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
 }
 
+// Slideshow "Saat Alam Berpamit" — berganti antar beberapa foto (autoplay 5s, §7.3).
+const WERWARAT_PHOTOS: { src: string; alt: string }[] = [
+  {
+    src: "/images/meti/wer_warat.png",
+    alt: "Warga Kei membentangkan tali janur kuning di air dangkal saat tradisi Wer Warat",
+  },
+  {
+    src: "/images/meti/kei_ngurbloat.png",
+    alt: "Pantai Ngurbloat — pasir terhalus di dunia saat laut surut di Kepulauan Kei",
+  },
+  {
+    src: "/images/meti/kei_ngurtavur.png",
+    alt: "Pasir Timbul Ngurtavur — jalur pasir putih membelah laut biru saat meti",
+  },
+  {
+    src: "/images/meti/kei_beach.png",
+    alt: "Hamparan pasir Panjang Ohoililir yang terbuka luas saat surut ekstrem",
+  },
+];
+
 export default function WerWaratSection() {
   const ref = useRef<HTMLElement>(null);
   const { onMouseMove, onMouseLeave } = useSpotlight();
+  const { index: werwaratIndex } = useSlideshow({
+    count: WERWARAT_PHOTOS.length,
+    interval: 5000,
+  });
 
   useEffect(() => {
     const prefersReduced = window.matchMedia(
@@ -71,12 +96,17 @@ export default function WerWaratSection() {
       <div className="max-w-[98%] xl:max-w-[1600px] mx-auto px-4 md:px-8 w-full py-16 md:py-24">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
           <div className="werwarat-fade md:col-span-1 lg:col-span-7 relative w-full aspect-[16/10] md:aspect-[16/9] rounded-xl-design shadow-soft overflow-hidden">
-            <Image
-              src="/images/meti/kei_ngurbloat.png"
-              alt="Warga Kei membentangkan tali janur kuning di air dangkal saat tradisi Wer Warat"
-              fill
-              className="object-cover"
-            />
+            {WERWARAT_PHOTOS.map((photo, i) => (
+              <Image
+                key={photo.src}
+                src={photo.src}
+                alt={photo.alt}
+                fill
+                sizes="(max-width: 768px) 100vw, 58vw"
+                className={`object-cover transition-opacity duration-1000 ease-in-out ${i === werwaratIndex ? "opacity-100" : "opacity-0"
+                  }`}
+              />
+            ))}
           </div>
 
           <div className="werwarat-fade md:col-span-1 lg:col-span-5 flex flex-col">
@@ -99,7 +129,7 @@ export default function WerWaratSection() {
               napas masyarakat Kei.&rdquo;
             </blockquote>
 
-            <div className="mt-8">
+            {/* <div className="mt-8">
               <a
                 href="#perahu-belan"
                 onMouseMove={onMouseMove}
@@ -110,7 +140,7 @@ export default function WerWaratSection() {
                 Jelajahi Pasir Terhalus
                 <ArrowRightIcon className="h-4 w-4 md:h-5 md:w-5 text-current" />
               </a>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

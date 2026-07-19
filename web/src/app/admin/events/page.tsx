@@ -36,7 +36,7 @@ export default function AdminEventPage() {
         title="Event"
         description="Kelola festival, pameran, dan kegiatan pariwisata Kepulauan Kei."
         action={
-          <AdminButton href="/admin/event/baru" ariaLabel="Tambah event">
+          <AdminButton href="/admin/events/baru" ariaLabel="Tambah event">
             <PlusIcon className="w-4 h-4" /> Tambah Event
           </AdminButton>
         }
