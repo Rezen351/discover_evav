@@ -45,9 +45,10 @@ jobs:
     name: Deploy to Server
     needs: ci
     if: github.ref == 'refs/heads/main'
-    # Pakai runner yang SAMA dengan hmft, tapi di-deploy ke folder
-    # `discoverevav/` agar tidak bentrok dengan workspace hmftweb.
-    runs-on: hmft
+    # Pakai runner self-hosted yang sudah terdaftar (label: self-hosted).
+    # Checkout di-deploy ke folder `discover_evav/` agar tidak bentrok
+    # dengan workspace hmftweb milik repo lain.
+    runs-on: self-hosted
 
     steps:
       - name: Force Clean Workspace
