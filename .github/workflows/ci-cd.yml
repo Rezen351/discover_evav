@@ -1,0 +1,85 @@
+name: CI & CD
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  # Job 1: CI (Test & Build)
+  ci:
+    name: Integrity Test
+    runs-on: ubuntu-latest
+
+    # Mengatur folder kerja default ke dalam sub-folder 'web'
+    defaults:
+      run:
+        working-directory: ./web
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22 # Disarankan menggunakan versi LTS (misal 20 atau 22)
+          cache: 'npm'
+          # Path ke lockfile harus spesifik karena ada di subfolder
+          cache-dependency-path: 'web/package-lock.json'
+
+      - name: Install dependencies
+        # --frozen-lockfile memastikan tidak ada perubahan versi paket yang diam-diam
+        run: npm ci
+        working-directory: ./web
+
+      - name: Run linter
+        run: npm run lint
+
+      - name: Build project
+        run: npm run build
+
+  # Job 2: Deploy ke Server Self-Hosted
+  cd:
+    name: Deploy to Server
+    needs: ci
+    if: github.ref == 'refs/heads/main'
+    runs-on: server-discover-evav
+
+    steps:
+      - name: Force Clean Workspace
+        run: |
+          echo "Forcibly cleaning workspace and containers..."
+          # Mematikan container jika masih berjalan (untuk amannya)
+          # Gunakan || true agar tidak fail jika container sudah mati
+          docker rm -f evav_nextjs_app_prod evav_nginx_proxy evav_cloudflared || true
+
+          # Membersihkan folder kerja runner sebelum checkout baru
+          rm -rf $GITHUB_WORKSPACE/* $GITHUB_WORKSPACE/.??*
+
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Environment Variables from Secrets
+        working-directory: ./web
+        run: |
+          echo "Membuat file .env dari GitHub Secrets..."
+          touch .env
+          echo "NODE_ENV=production" >> .env
+          echo "CLOUDFLARE_TUNNEL_TOKEN=${{ secrets.CLOUDFLARE_TUNNEL_TOKEN }}" >> .env
+          echo ".env file created successfully."
+
+      - name: Rebuild and Deploy with Docker Compose
+        run: |
+          # Mematikan container lama
+          docker compose down
+
+          # Build ulang dan jalankan container baru
+          docker compose up --build -d web nginx cloudflared
+
+      - name: Clean Up Old Docker Images
+        if: always()
+        run: |
+          # Menghapus image "dangling" agar disk server tidak penuh
+          docker image prune -f
