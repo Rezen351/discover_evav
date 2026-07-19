@@ -45,7 +45,9 @@ jobs:
     name: Deploy to Server
     needs: ci
     if: github.ref == 'refs/heads/main'
-    runs-on: server-discover-evav
+    # Pakai runner yang SAMA dengan hmft, tapi di-deploy ke folder
+    # `discoverevav/` agar tidak bentrok dengan workspace hmftweb.
+    runs-on: hmft
 
     steps:
       - name: Force Clean Workspace
@@ -56,13 +58,18 @@ jobs:
           docker rm -f evav_nextjs_app_prod evav_nginx_proxy evav_cloudflared || true
 
           # Membersihkan folder kerja runner sebelum checkout baru
-          rm -rf $GITHUB_WORKSPACE/* $GITHUB_WORKSPACE/.??*
+          rm -rf $GITHUB_WORKSPACE/discoverevav/* $GITHUB_WORKSPACE/discoverevav/.??*
 
       - name: Checkout Repository
         uses: actions/checkout@v4
+        with:
+          # Checkout ke sub-folder discoverevav/ di dalam runner workspace
+          # agar tidak bentrok dengan folder hmftweb milik repo lain.
+          path: discoverevav
 
+      # Semua perintah di bawah dijalankan dari folder checkout `discoverevav/`
       - name: Set up Environment Variables from Secrets
-        working-directory: ./web
+        working-directory: discoverevav/web
         run: |
           echo "Membuat file .env dari GitHub Secrets..."
           touch .env
@@ -71,11 +78,15 @@ jobs:
           echo ".env file created successfully."
 
       - name: Rebuild and Deploy with Docker Compose
+        working-directory: discoverevav
         run: |
           # Mematikan container lama
           docker compose down
 
-          # Build ulang dan jalankan container baru
+          # Build ulang dan jalankan HANYA service produksi (web).
+          # `web-dev` sengaja TIDAK di-up (hanya untuk lokal/dev).
+          # `nginx` & `cloudflared` tidak expose port ke host — akses
+          # publik murni lewat Cloudflare Tunnel.
           docker compose up --build -d web nginx cloudflared
 
       - name: Clean Up Old Docker Images
