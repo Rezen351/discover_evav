@@ -70,7 +70,7 @@ export default function FilosofiSection() {
     >
       <div className="max-w-[98%] xl:max-w-[1600px] mx-auto px-4 md:px-8 w-full">
         <div className="max-w-3xl mb-12 md:mb-16">
-          <p className="filosofi-reveal font-sans text-fluid-eyebrow uppercase tracking-[0.3em] text-brand mb-4">
+          <p className="filosofi-reveal font-sans text-fluid-eyebrow uppercase tracking-[0.2em] sm:tracking-[0.3em] text-balance text-brand mb-4">
             {filosofi.eyebrow}
           </p>
           <h2
@@ -85,7 +85,7 @@ export default function FilosofiSection() {
         </div>
 
         {/* Bento grid — tile #1 (Ain Ni Ain) hero 2x2 */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 sm:auto-rows-[220px] md:auto-rows-[220px] lg:auto-rows-[240px]">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-4 md:gap-6 sm:auto-rows-[220px] md:auto-rows-[220px] lg:auto-rows-[240px]">
           {filosofi.tiles.map((tile) => {
             const Icon = ICONS[tile.icon];
             return (

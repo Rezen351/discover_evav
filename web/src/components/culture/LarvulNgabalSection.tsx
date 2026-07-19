@@ -57,7 +57,7 @@ export default function LarvulNgabalSection() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 xl:gap-16 items-center">
           {/* Kiri — teks */}
           <div>
-            <p className="larvul-reveal font-sans text-fluid-eyebrow uppercase tracking-[0.3em] text-brand mb-4">
+            <p className="larvul-reveal font-sans text-fluid-eyebrow uppercase tracking-[0.2em] sm:tracking-[0.3em] text-balance text-brand mb-4">
               {larvulNgabal.eyebrow}
             </p>
             <h2

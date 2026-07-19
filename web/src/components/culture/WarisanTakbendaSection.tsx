@@ -64,7 +64,7 @@ export default function WarisanTakbendaSection() {
     >
       <div className="max-w-[98%] xl:max-w-[1600px] mx-auto px-4 md:px-8 w-full">
         <div className="max-w-3xl mb-12 md:mb-16">
-          <p className="warisan-reveal font-sans text-fluid-eyebrow uppercase tracking-[0.3em] text-brand mb-4">
+          <p className="warisan-reveal font-sans text-fluid-eyebrow uppercase tracking-[0.2em] sm:tracking-[0.3em] text-balance text-brand mb-4">
             {warisanTakbenda.eyebrow}
           </p>
           <h2

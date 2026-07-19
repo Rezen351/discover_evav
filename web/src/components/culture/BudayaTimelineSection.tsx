@@ -52,7 +52,7 @@ export default function BudayaTimelineSection() {
     >
       <div className="max-w-[98%] xl:max-w-[1600px] mx-auto px-4 md:px-8 w-full">
         <div className="max-w-3xl mb-12 md:mb-16">
-          <p className="linimasa-reveal font-sans text-fluid-eyebrow uppercase tracking-[0.3em] text-brand mb-4">
+          <p className="linimasa-reveal font-sans text-fluid-eyebrow uppercase tracking-[0.2em] sm:tracking-[0.3em] text-balance text-brand mb-4">
             {linimasa.eyebrow}
           </p>
           <h2
@@ -66,11 +66,11 @@ export default function BudayaTimelineSection() {
           </p>
         </div>
 
-        <ol className="relative ml-4 md:ml-6 border-l-2 border-brand/30">
+        <ol className="relative ml-2 md:ml-6 border-l-2 border-brand/30">
           {linimasa.nodes.map((node) => (
             <li
               key={node.id}
-              className="linimasa-reveal relative pl-8 md:pl-12 pb-10 last:pb-0"
+              className="linimasa-reveal relative pl-6 md:pl-12 pb-10 last:pb-0"
             >
               <span
                 className="absolute -left-[11px] top-2 flex h-5 w-5 items-center justify-center rounded-full bg-brand shadow-soft"
@@ -78,7 +78,7 @@ export default function BudayaTimelineSection() {
               >
                 <span className="h-2 w-2 rounded-full bg-white" />
               </span>
-              <div className="bg-white border border-brand/10 rounded-lg-design shadow-card hover:border-brand/30 transition-colors p-6 md:p-8">
+              <div className="bg-white border border-brand/10 rounded-lg-design shadow-card hover:border-brand/30 transition-colors p-6 md:p-8 min-w-0">
                 <p className="font-serif text-fluid-h4 text-brand">
                   {node.year}
                 </p>

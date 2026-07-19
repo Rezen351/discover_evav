@@ -38,7 +38,7 @@
   --text-fluid-h2: clamp(2rem, 1.4rem + 2.6vw, 3.25rem);
   --text-fluid-h3: clamp(1.5rem, 1.2rem + 1.4vw, 2.25rem);
   --text-fluid-h4: clamp(1.15rem, 1rem + 0.7vw, 1.5rem);
-  --text-fluid-body: clamp(0.95rem, 0.9rem + 0.25vw, 1.05rem);
+  --text-fluid-body: clamp(1rem, 0.95rem + 0.25vw, 1.05rem);
   --text-fluid-small: clamp(0.8rem, 0.77rem + 0.15vw, 0.9rem);
 
   /* RADIUS SCALE */

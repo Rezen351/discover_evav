@@ -75,7 +75,7 @@ export default function HeroBudayaSection() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
           {/* Split kiri — narasi utama */}
           <div className="lg:col-span-7">
-            <p className="budaya-hero-reveal font-sans text-fluid-eyebrow uppercase tracking-[0.3em] text-brand">
+            <p className="budaya-hero-reveal font-sans text-fluid-eyebrow uppercase tracking-[0.2em] sm:tracking-[0.3em] text-balance text-brand">
               {heroBudaya.eyebrow}
             </p>
 
@@ -102,9 +102,9 @@ export default function HeroBudayaSection() {
           </div>
 
           {/* Split kanan — quote overlay (glass-dark diperbolehkan di hero, §2/§5.6) */}
-          <div className="budaya-hero-reveal lg:col-span-5">
+          <div className="budaya-hero-reveal hidden lg:block lg:col-span-5">
             <figure className="glass-dark rounded-xl-design p-6 md:p-8">
-              <blockquote className="font-serif text-fluid-h4 leading-[1.4] text-white">
+              <blockquote className="font-serif text-fluid-h4 leading-[1.4] text-balance text-white">
                 &ldquo;{heroBudaya.quote.text}&rdquo;
               </blockquote>
               <figcaption className="mt-5 font-sans text-fluid-small uppercase tracking-[0.2em] text-brand">
