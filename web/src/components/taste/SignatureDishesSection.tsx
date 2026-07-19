@@ -84,13 +84,13 @@ export default function SignatureDishesSection() {
                 className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/35 to-transparent"
               />
               <div className="absolute inset-0 flex flex-col justify-end p-5 md:p-6">
-                <span className="bg-nav-gradient inline-flex w-fit items-center gap-1.5 text-fluid-small text-black bg-brand/10 px-3 py-1.5 rounded-full font-medium mb-3">
+                <span className="bg-nav-gradient inline-flex w-fit items-center gap-1.5 text-[13px] text-fluid-small text-black bg-brand/10 px-3 py-1.5 rounded-full font-medium mb-3">
                   {dish.tag}
                 </span>
                 <h3 className="font-serif text-fluid-h3 text-white break-words">
                   {dish.name}
                 </h3>
-                <p className="mt-2 font-sans text-fluid-small text-white/85 leading-relaxed break-words">
+                <p className="mt-2 font-sans text-[13px] sm:text-fluid-small text-white/85 leading-relaxed break-words">
                   {dish.desc}
                 </p>
               </div>

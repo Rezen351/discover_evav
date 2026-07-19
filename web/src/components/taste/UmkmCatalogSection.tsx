@@ -204,12 +204,12 @@ export default function UmkmCatalogSection() {
                     <h4 className="text-lg text-black font-normal leading-snug" style={{ fontFamily: "var(--font-serif)" }}>
                       {u.name}
                     </h4>
-                    <div className="flex items-center gap-1 text-xs text-black/60 flex-shrink-0" style={{ fontFamily: "var(--font-sans)" }}>
+                    <div className="flex items-center gap-1 text-[13px] text-black/60 flex-shrink-0" style={{ fontFamily: "var(--font-sans)" }}>
                       <StarIcon className="w-3.5 h-3.5 text-yellow-500 fill-yellow-500" />
                       {u.rating}
                     </div>
                   </div>
-                  <div className="flex items-center gap-1.5 text-brand text-xs font-medium" style={{ fontFamily: "var(--font-sans)" }}>
+                  <div className="flex items-center gap-1.5 text-brand text-[13px] font-medium" style={{ fontFamily: "var(--font-sans)" }}>
                     <MapPinIcon className="w-3.5 h-3.5" />
                     {u.location}
                   </div>

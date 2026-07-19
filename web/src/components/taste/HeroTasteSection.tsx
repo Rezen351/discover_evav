@@ -101,8 +101,9 @@ export default function HeroTasteSection() {
             </a>
           </div>
 
-          {/* Split kanan — quote overlay (glass-dark diperbolehkan di hero, §2/§5.6) */}
-          <div className="taste-hero-reveal lg:col-span-5">
+          {/* Split kanan — quote overlay (glass-dark diperbolehkan di hero, §2/§5.6).
+              Disembunyikan di mobile agar hero hanya menampilkan headline (§8 Mobile). */}
+          <div className="taste-hero-reveal hidden lg:block lg:col-span-5">
             <figure className="glass-dark rounded-xl-design p-5 sm:p-6 md:p-8">
               <blockquote className="font-serif text-fluid-h4 leading-[1.4] text-white">
                 &ldquo;{heroTaste.quote.text}&rdquo;

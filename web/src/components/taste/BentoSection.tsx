@@ -62,7 +62,7 @@ export default function BentoSection() {
     >
       <div className="max-w-[98%] xl:max-w-[1600px] mx-auto px-4 md:px-8 w-full">
         <div className="max-w-3xl mb-12 md:mb-16">
-          <p className="taste-bento-reveal font-sans text-fluid-eyebrow uppercase tracking-[0.3em] text-brand mb-4">
+            <p className="taste-bento-reveal font-sans text-fluid-eyebrow uppercase tracking-[0.15em] sm:tracking-[0.3em] text-brand mb-4">
             {bentoTaste.eyebrow}
           </p>
           <h2
@@ -81,10 +81,10 @@ export default function BentoSection() {
                 key={item.id}
                 className={`taste-bento-reveal group relative w-full rounded-lg-design overflow-hidden shadow-card border border-brand/10 hover:border-brand/30 transition-colors ${
                   item.hero
-                    ? "md:col-span-2 md:row-span-2 h-[340px] md:h-full"
+                    ? "md:col-span-2 md:row-span-2 h-[260px] md:h-full"
                     : item.tall
-                      ? "md:row-span-2 h-[340px] md:h-full"
-                      : "h-[240px] md:h-full"
+                      ? "md:row-span-2 h-[260px] md:h-full"
+                      : "h-[200px] md:h-full"
                 }`}
               >
                 {/* Foto background */}

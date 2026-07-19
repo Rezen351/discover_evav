@@ -53,7 +53,7 @@ export default function StorySection() {
       <div className="max-w-[98%] xl:max-w-[1600px] mx-auto px-4 md:px-8 w-full">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
           {/* Kiri — kartu gambar */}
-          <div className="taste-story-reveal relative w-full h-[360px] md:h-[480px] rounded-xl-design overflow-hidden shadow-card border border-brand/10">
+          <div className="taste-story-reveal relative w-full h-[280px] md:h-[480px] rounded-xl-design overflow-hidden shadow-card border border-brand/10">
             <Image
               src={tasteStory.image}
               alt={tasteStory.imageAlt}
@@ -69,7 +69,7 @@ export default function StorySection() {
 
           {/* Kanan — narasi */}
           <div>
-            <p className="taste-story-reveal font-sans text-fluid-eyebrow uppercase tracking-[0.3em] text-brand mb-4">
+            <p className="taste-story-reveal font-sans text-fluid-eyebrow uppercase tracking-[0.15em] sm:tracking-[0.3em] text-brand mb-4">
               {tasteStory.eyebrow}
             </p>
             <h2
@@ -94,7 +94,7 @@ export default function StorySection() {
                   )}
                   {para}
                   {i === 1 && (
-                    <span className="text-black/45 text-xs ml-1">
+                    <span className="text-black/55 text-[13px] sm:text-xs ml-1">
                       {tasteStory.accentNote}
                     </span>
                   )}
