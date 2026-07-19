@@ -1,12 +1,14 @@
 "use client";
 
 import { useState, useEffect, useRef, useCallback } from "react";
-import type React from "react";
 import Image from "next/image";
 import { MapPinIcon, StarIcon, ShoppingBagIcon, HomeModernIcon, TicketIcon, FireIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useSpotlight } from "@/hooks/useSpotlight";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay, A11y } from "swiper/modules";
+import "swiper/css";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -251,33 +253,6 @@ export default function DestinasiTerbaikSection() {
 
   const sectionRef = useRef<HTMLElement>(null);
   const autoplayRef = useRef<number | null>(null);
-  const blob1Ref = useRef<HTMLDivElement>(null);
-  const blob2Ref = useRef<HTMLDivElement>(null);
-
-  const handleSectionMouseMove = (e: React.MouseEvent<HTMLElement>) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    const centerX = rect.width / 2;
-    const centerY = rect.height / 2;
-    const dx = (x - centerX) * 0.15;
-    const dy = (y - centerY) * 0.15;
-    if (blob1Ref.current) {
-      blob1Ref.current.style.transform = `translate3d(${dx}px, ${dy}px, 0)`;
-    }
-    if (blob2Ref.current) {
-      blob2Ref.current.style.transform = `translate3d(${-dx * 0.8}px, ${-dy * 0.8}px, 0)`;
-    }
-  };
-
-  const handleSectionMouseLeave = () => {
-    if (blob1Ref.current) {
-      blob1Ref.current.style.transform = "translate3d(0, 0, 0)";
-    }
-    if (blob2Ref.current) {
-      blob2Ref.current.style.transform = "translate3d(0, 0, 0)";
-    }
-  };
 
   const data = destData[activeDestTab];
   const activeItem = data.items[activeDest];
@@ -381,32 +356,14 @@ export default function DestinasiTerbaikSection() {
   return (
     <section
       id="destinasi-terbaik"
-      onMouseMove={handleSectionMouseMove}
-      onMouseLeave={handleSectionMouseLeave}
-      className="relative w-full min-h-screen bg-section pt-28 pb-16 md:pt-32 md:pb-20 z-[3] flex items-center justify-center snap-start snap-always overflow-hidden"
+      className="relative w-full min-h-screen bg-section pt-20 pb-12 md:pt-32 md:pb-20 z-[3] flex items-center justify-center snap-start snap-always overflow-hidden"
       ref={sectionRef}
       aria-labelledby="destinasi-heading"
     >
-      {/* Blob 1 Container (Moving parent) — animated gradient background */}
-      <div
-        ref={blob1Ref}
-        className="absolute -left-[200px] bottom-0 w-[600px] h-[600px] pointer-events-none z-0 transition-transform duration-700 ease-out will-change-transform"
-      >
-        <div className="w-full h-full bg-gradient-to-tr from-[var(--color-primary-pink)]/85 to-transparent blur-[100px] rounded-full animate-blob"></div>
-      </div>
-
-      {/* Blob 2 Container (Moving parent) — animated gradient background */}
-      <div
-        ref={blob2Ref}
-        className="absolute -right-[200px] top-[10%] w-[500px] h-[500px] pointer-events-none z-0 transition-transform duration-700 ease-out will-change-transform"
-      >
-        <div className="w-full h-full bg-gradient-to-bl from-[var(--color-primary-pink)]/70 to-transparent blur-[100px] rounded-full animate-blob animation-delay-2000"></div>
-      </div>
-
       <div id="kuliner" className="absolute top-0"></div>
       <div className="max-w-[98%] xl:max-w-[1600px] mx-auto px-4 md:px-8 w-full relative z-10">
         {/* Header Row */}
-        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-10 dest-fade">
+        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 md:gap-6 mb-4 md:mb-10 dest-fade">
           <div>
             <div
               className="text-brand font-bold tracking-[0.2em] uppercase text-xs md:text-sm mb-2"
@@ -425,30 +382,29 @@ export default function DestinasiTerbaikSection() {
             </h2>
           </div>
 
-          {/* Tabs */}
-          <div className="-mx-4 px-4 md:mx-0 md:px-0 overflow-x-auto no-scrollbar">
-            <div className="flex flex-nowrap md:flex-wrap gap-2 md:gap-3 min-w-max md:min-w-0">
-            {destTabs.map((tab) => (
-              <button
-                key={tab.name}
-                onClick={() => changeTab(tab.name)}
-                className={`flex items-center gap-2 px-4 py-2 rounded-full text-xs md:text-sm font-medium shadow-sm transition-all duration-300 ${
-                  activeDestTab === tab.name
-                    ? "bg-nav-gradient text-black"
+          {/* Tabs (desktop: kanan; mobile: di bawah, rata kiri) */}
+          <div className="w-full md:w-auto overflow-x-auto no-scrollbar pb-1">
+            <div className="flex flex-nowrap md:flex-wrap gap-2 md:gap-3 md:justify-end justify-start pb-1">
+              {destTabs.map((tab) => (
+                <button
+                  key={tab.name}
+                  onClick={() => changeTab(tab.name)}
+                  className={`flex items-center gap-2 px-4 py-2 rounded-full text-xs md:text-sm font-medium shadow-sm transition-all duration-300 whitespace-nowrap shrink-0 ${activeDestTab === tab.name
+                    ? "bg-nav-gradient text-brand border border-brand/100"
                     : "bg-white/60 text-black/70 hover:bg-brand/15 hover:text-brand"
-                }`}
-                style={{ fontFamily: "var(--font-sans)" }}
-              >
-                {tab.icon}
-                {tab.name}
-              </button>
-            ))}
+                    }`}
+                  style={{ fontFamily: "var(--font-sans)" }}
+                >
+                  {tab.icon}
+                  {tab.name}
+                </button>
+              ))}
             </div>
           </div>
         </div>
 
-        {/* Main Content: 3-column layout (Restored to previous template layout) */}
-        <div className="flex flex-col xl:flex-row gap-6 xl:gap-8 items-stretch h-auto xl:h-[460px]">
+        {/* Main Content: 3-column layout (Desktop only) */}
+        <div className="hidden xl:flex flex-row gap-6 xl:gap-8 items-stretch h-auto xl:h-[460px]">
 
           {/* LEFT: Large Main Image */}
           <div className="w-full xl:w-[38%] dest-fade h-[350px] md:h-[460px] xl:h-full">
@@ -518,16 +474,16 @@ export default function DestinasiTerbaikSection() {
             </div>
 
             {/* CTA Button */}
-             <button 
-                onMouseMove={onMouseMove}
-                onMouseLeave={onMouseLeave}
-                onClick={() => document.getElementById("journey")?.scrollIntoView({ behavior: "smooth" })}
-                aria-label={`Lihat peta lokasi ${activeItem.name}`}
-                className="btn-spotlight group/btn flex items-center gap-2 border border-black hover:border-brand text-black hover:text-brand px-6 py-3 rounded-xl font-semibold text-sm transition-all duration-300 hover:scale-[1.02] active:press focus-ring self-start cursor-pointer"
-             >
-               Lihat di Peta
-               <ChevronRightIcon className="w-4 h-4 transition-transform group-hover/btn:translate-x-1" />
-             </button>
+            <button
+              onMouseMove={onMouseMove}
+              onMouseLeave={onMouseLeave}
+              onClick={() => document.getElementById("journey")?.scrollIntoView({ behavior: "smooth" })}
+              aria-label={`Lihat peta lokasi ${activeItem.name}`}
+              className="btn-spotlight group/btn flex items-center gap-2 border border-black hover:border-brand text-black hover:text-brand px-6 py-3 rounded-xl font-semibold text-sm transition-all duration-300 hover:scale-[1.02] active:press focus-ring self-start cursor-pointer"
+            >
+              Lihat di Peta
+              <ChevronRightIcon className="w-4 h-4 transition-transform group-hover/btn:translate-x-1" />
+            </button>
           </div>
 
           {/* RIGHT: 2x2 Image Grid (Clickable Selectors) */}
@@ -541,11 +497,10 @@ export default function DestinasiTerbaikSection() {
                   role="button"
                   tabIndex={0}
                   aria-label={`Tampilkan ${item.name}`}
-                  className={`rounded-lg-design overflow-hidden shadow-soft group cursor-pointer relative transition-all duration-300 border-2 ${
-                    activeDest === idx
-                      ? "border-brand scale-[1.03] shadow-card z-[5] opacity-100"
-                      : "border-transparent opacity-60 hover:opacity-90 hover:scale-[1.01]"
-                  }`}
+                  className={`rounded-lg-design overflow-hidden shadow-soft group cursor-pointer relative transition-all duration-300 border-2 ${activeDest === idx
+                    ? "border-brand scale-[1.03] shadow-card z-[5] opacity-100"
+                    : "border-transparent opacity-60 hover:opacity-90 hover:scale-[1.01]"
+                    }`}
                 >
                   <Image
                     src={item.image}
@@ -556,7 +511,7 @@ export default function DestinasiTerbaikSection() {
                   />
                   {/* Dark Vignette Overlay for readability */}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/25 to-transparent z-[2]"></div>
-                  
+
                   {/* Name & Location directly on the vignette (No background block) */}
                   <div className="absolute bottom-3 left-3 right-3 text-left z-[3] pointer-events-none">
                     <p className="text-white text-xs md:text-sm lg:text-base font-normal drop-shadow-md leading-tight" style={{ fontFamily: "var(--font-serif)" }}>
@@ -572,17 +527,112 @@ export default function DestinasiTerbaikSection() {
           </div>
         </div>
 
-        {/* Page Dots + Autoplay Progress */}
-        <div className="flex flex-col items-center gap-3 mt-10 dest-fade">
+        {/* Mobile Layout (Swiper Slider) — Visible on screen sizes < xl */}
+        <div className="xl:hidden w-full dest-fade">
+          <Swiper
+            modules={[Autoplay, A11y]}
+            pagination={false}
+            autoplay={{ delay: 5000, disableOnInteraction: false }}
+            spaceBetween={20}
+            slidesPerView={1}
+            className="destinasi-swiper"
+            key={activeDestTab} // Re-render Swiper when activeDestTab changes to reset slides and loop state
+            onSlideChange={(swiper) => setActiveDest(swiper.activeIndex)}
+          >
+            {data.items.map((item, idx) => (
+              <SwiperSlide key={idx} className="flex flex-col gap-4 sm:gap-6">
+                {/* Image Frame */}
+                <div className="w-full h-[240px] sm:h-[280px] md:h-[350px] rounded-lg-design overflow-hidden shadow-card relative">
+                  <Image
+                    src={item.image}
+                    alt={item.name}
+                    fill
+                    sizes="(max-width: 768px) 100vw, 80vw"
+                    className="object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-black/10 to-transparent"></div>
+                </div>
+
+                {/* Detail Card */}
+                <div className="w-full flex flex-col justify-between h-auto py-2">
+                  <div>
+                    <h3
+                      className="text-2xl md:text-[28px] text-black font-normal leading-snug mb-2"
+                      style={{ fontFamily: "var(--font-serif)" }}
+                    >
+                      {item.name}
+                    </h3>
+
+                    {/* Location */}
+                    <div className="flex items-center gap-1.5 text-black/50 text-sm md:text-base mb-3" style={{ fontFamily: "var(--font-sans)" }}>
+                      <MapPinIcon className="w-3.5 h-3.5" />
+                      {item.location}
+                    </div>
+
+                    {/* Rating */}
+                    <div className="flex items-center gap-2 mb-4" style={{ fontFamily: "var(--font-sans)" }}>
+                      <span className="text-black font-bold text-sm md:text-base">{item.rating}</span>
+                      <div className="flex gap-0.5">
+                        {Array.from({ length: 5 }).map((_, i) => (
+                          <StarIcon
+                            key={i}
+                            className={`w-3.5 h-3.5 ${i < Math.floor(item.rating) ? "text-yellow-500 fill-yellow-500" : "text-black/20"}`}
+                          />
+                        ))}
+                      </div>
+                      <span className="text-black/40 text-xs md:text-sm">({item.reviews})</span>
+                    </div>
+
+                    {/* Description */}
+                    <p
+                      className="text-black/60 text-sm md:text-base leading-relaxed text-justify mb-5 line-clamp-4"
+                      style={{ fontFamily: "var(--font-sans)" }}
+                    >
+                      {item.desc}
+                    </p>
+
+                    {/* Tags */}
+                    <div className="flex flex-wrap gap-2 mb-4">
+                      {item.tags.map((tag, tagIdx) => (
+                        <span
+                          key={tagIdx}
+                          className="flex items-center gap-1.5 text-xs md:text-sm text-brand bg-brand/10 px-3 py-1.5 rounded-full font-medium"
+                          style={{ fontFamily: "var(--font-sans)" }}
+                        >
+                          <MapPinIcon className="w-3 h-3" />
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* CTA Button */}
+                  <button
+                    onMouseMove={onMouseMove}
+                    onMouseLeave={onMouseLeave}
+                    onClick={() => document.getElementById("journey")?.scrollIntoView({ behavior: "smooth" })}
+                    aria-label={`Lihat peta lokasi ${item.name}`}
+                    className="btn-spotlight group/btn flex items-center gap-2 border border-black hover:border-brand text-black hover:text-brand px-6 py-3 rounded-xl font-semibold text-sm transition-all duration-300 hover:scale-[1.02] active:press focus-ring self-start cursor-pointer"
+                  >
+                    Lihat di Peta
+                    <ChevronRightIcon className="w-4 h-4 transition-transform group-hover/btn:translate-x-1" />
+                  </button>
+                </div>
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        </div>
+
+        {/* Page Dots + Autoplay Progress — Desktop only */}
+        <div className="hidden xl:flex flex-col items-center gap-3 mt-10 dest-fade">
           <div className="flex justify-center gap-2">
             {Array.from({ length: totalItems }).map((_, idx) => (
               <button
                 key={idx}
                 onClick={() => goToDest(idx)}
                 aria-label={`Pilih destinasi ${idx + 1}`}
-                className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
-                  activeDest === idx ? "bg-brand w-6" : "bg-brand/30 hover:bg-brand/50"
-                }`}
+                className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${activeDest === idx ? "bg-brand w-6" : "bg-brand/30 hover:bg-brand/50"
+                  }`}
               />
             ))}
           </div>

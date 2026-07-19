@@ -149,7 +149,7 @@ export default function RatskapHeritageSection() {
             Ratskap Manyeuw <span className="text-brand">Rumadian</span>
           </h2>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-10 xl:gap-16 items-center">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-10 xl:gap-16 gap-y-12 md:gap-y-10 items-center">
             <div className="ratskap-reveal relative w-full h-[360px] md:h-[480px] rounded-xl-design overflow-hidden shadow-card group">
               <div className="ratskap-parallax absolute -top-[12%] left-0 h-[124%] w-full">
                 <Image
@@ -189,7 +189,7 @@ export default function RatskapHeritageSection() {
             Filosofi Kepemimpinan &ldquo;Rat Manyeuw&rdquo;
           </h3>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-10 xl:gap-16 items-center">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-10 xl:gap-16 gap-y-12 md:gap-y-10 items-center">
             <div className="ratskap-reveal relative w-full h-[320px] md:h-[420px] rounded-xl-design overflow-hidden shadow-card group">
               <div className="ratskap-parallax absolute -top-[12%] left-0 h-[124%] w-full">
                 <Image
@@ -492,7 +492,7 @@ export default function RatskapHeritageSection() {
 
           <div className="ratskap-reveal mt-12">
             <a
-              href="/budaya"
+              href="/culture"
               onMouseMove={onMouseMove}
               onMouseLeave={onMouseLeave}
               aria-label="Pelajari Budaya Adat Kepulauan Kei"
