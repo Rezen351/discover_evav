@@ -208,7 +208,7 @@ export default function SocialMosaicSection() {
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
                   <figcaption
-                    className="absolute bottom-0 left-0 right-0 p-4 text-white text-sm md:text-base leading-snug font-light translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500"
+                    className="absolute bottom-0 left-0 right-0 p-4 text-white text-sm md:text-base leading-snug font-light translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 line-clamp-2"
                     style={{ fontFamily: "var(--font-sans)" }}
                   >
                     {active.caption}

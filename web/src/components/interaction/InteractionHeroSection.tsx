@@ -71,7 +71,7 @@ export default function InteractionHeroSection() {
       {/* Content */}
       <div
         ref={textRef}
-        className="relative z-[4] w-full max-w-[98%] xl:max-w-[1600px] mx-auto px-4 md:px-8 flex flex-col items-start justify-center"
+        className="relative z-[4] w-full max-w-[98%] xl:max-w-[1600px] mx-auto px-4 md:px-8 flex flex-col items-start justify-center max-[400px]:leading-tight max-[400px]:px-2"
       >
         <span
           className="text-brand font-bold tracking-[0.25em] uppercase text-xs md:text-sm mb-4 inline-block"

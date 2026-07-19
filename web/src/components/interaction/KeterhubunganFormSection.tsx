@@ -232,7 +232,7 @@ export default function KeterhubunganFormSection() {
                   <div
                     role="tablist"
                     aria-label="Pilih topik sapaan"
-                    className="flex flex-wrap gap-2"
+                    className="flex flex-nowrap gap-2 overflow-x-auto no-scrollbar sm:flex-wrap sm:overflow-visible"
                   >
                     {TOPIC_TABS.map((tab) => {
                       const active = tab.id === activeTab;
@@ -244,7 +244,7 @@ export default function KeterhubunganFormSection() {
                           aria-selected={active}
                           onClick={() => setActiveTab(tab.id)}
                           className={[
-                            "px-3.5 py-2 rounded-md-design text-xs md:text-sm font-medium transition-colors focus-ring",
+                            "px-3.5 py-2 rounded-md-design text-xs md:text-sm font-medium transition-colors focus-ring whitespace-nowrap shrink-0",
                             active
                               ? "bg-nav-gradient text-brand border border-brand/100"
                               : "text-black/60 hover:text-brand bg-white/70 border border-brand/20",

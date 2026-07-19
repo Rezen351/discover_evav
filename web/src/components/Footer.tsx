@@ -184,7 +184,7 @@ export default function Footer() {
 
         {/* RIGHT COLUMN: Image Puzzle Grid — kartu berganti gambar acak (cross-fade) */}
         <div className="w-full lg:w-[62%] overflow-hidden">
-          <div className="grid grid-cols-12 auto-rows-[72px] md:auto-rows-[96px] gap-2 md:gap-3">
+          <div className="grid grid-cols-6 lg:grid-cols-12 auto-rows-[60px] md:auto-rows-[72px] lg:auto-rows-[96px] gap-2 md:gap-3">
             {tileSpans.map((span, idx) => {
               const img = allImages[mapping[idx] % allImages.length];
               return (
@@ -204,37 +204,37 @@ export default function Footer() {
         >
           <a
             href="/kebijakan-privasi"
-            className="text-[10px] md:text-xs text-white/40 font-light tracking-widest hover:text-brand transition-colors"
+            className="text-[11px] md:text-xs text-white/40 font-light tracking-widest hover:text-brand transition-colors"
             style={{ fontFamily: "var(--font-sans)" }}
           >
             Kebijakan Privasi
           </a>
-          <span className="text-white/15 text-[10px]">·</span>
+          <span className="text-white/15 text-[11px]">·</span>
           <a
             href="/syarat-ketentuan"
-            className="text-[10px] md:text-xs text-white/40 font-light tracking-widest hover:text-brand transition-colors"
+            className="text-[11px] md:text-xs text-white/40 font-light tracking-widest hover:text-brand transition-colors"
             style={{ fontFamily: "var(--font-sans)" }}
           >
             Syarat &amp; Ketentuan
           </a>
-          <span className="text-white/15 text-[10px]">·</span>
+          <span className="text-white/15 text-[11px]">·</span>
           <a
             href="/disclaimer"
-            className="text-[10px] md:text-xs text-white/40 font-light tracking-widest hover:text-brand transition-colors"
+            className="text-[11px] md:text-xs text-white/40 font-light tracking-widest hover:text-brand transition-colors"
             style={{ fontFamily: "var(--font-sans)" }}
           >
             Disclaimer
           </a>
-          <span className="text-white/15 text-[10px]">·</span>
+          <span className="text-white/15 text-[11px]">·</span>
           <a
             href="/kebijakan-cookie"
-            className="text-[10px] md:text-xs text-white/40 font-light tracking-widest hover:text-brand transition-colors"
+            className="text-[11px] md:text-xs text-white/40 font-light tracking-widest hover:text-brand transition-colors"
             style={{ fontFamily: "var(--font-sans)" }}
           >
             Kebijakan Cookie
           </a>
         </nav>
-        <p className="text-[10px] md:text-xs text-white/35 font-light tracking-widest" style={{ fontFamily: "var(--font-sans)" }}>
+        <p className="text-[11px] md:text-xs text-white/35 font-light tracking-widest" style={{ fontFamily: "var(--font-sans)" }}>
           &copy; 2026 Simfoni Evav. Semua Hak Dilindungi.
         </p>
       </div>

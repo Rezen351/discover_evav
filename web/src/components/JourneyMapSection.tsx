@@ -315,7 +315,7 @@ export default function JourneyMapSection() {
               onClick={(e) => handleMarkerClick(loc, e)}
             >
               <div className="flex flex-col items-center cursor-pointer group">
-                <div className={`mt-2 px-3 py-1 rounded-full text-[10px] font-medium whitespace-nowrap transition-all duration-300 mb-1 shadow-sm ${activeId === loc.id ? 'bg-brand text-white translate-y-0 opacity-100' : 'bg-white text-black/60 opacity-80 group-hover:opacity-100 group-hover:-translate-y-1 group-hover:bg-brand/10'}`} style={{ fontFamily: "var(--font-sans)" }}>
+                <div className={`mt-2 px-3 py-1 rounded-full text-[10px] font-medium max-[639px]:max-w-[110px] max-[639px]:truncate max-[639px]:whitespace-normal whitespace-nowrap transition-all duration-300 mb-1 shadow-sm ${activeId === loc.id ? 'bg-brand text-white translate-y-0 opacity-100' : 'bg-white text-black/60 opacity-80 group-hover:opacity-100 group-hover:-translate-y-1 group-hover:bg-brand/10'}`} style={{ fontFamily: "var(--font-sans)" }}>
                   {loc.title}
                 </div>
                 <div className="relative flex justify-center items-center w-4 h-4">
