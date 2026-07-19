@@ -58,18 +58,18 @@ jobs:
           docker rm -f evav_nextjs_app_prod evav_nginx_proxy evav_cloudflared || true
 
           # Membersihkan folder kerja runner sebelum checkout baru
-          rm -rf $GITHUB_WORKSPACE/discoverevav/* $GITHUB_WORKSPACE/discoverevav/.??*
+          rm -rf $GITHUB_WORKSPACE/discover_evav/* $GITHUB_WORKSPACE/discover_evav/.??*
 
       - name: Checkout Repository
         uses: actions/checkout@v4
         with:
-          # Checkout ke sub-folder discoverevav/ di dalam runner workspace
+          # Checkout ke sub-folder discover_evav/ di dalam runner workspace
           # agar tidak bentrok dengan folder hmftweb milik repo lain.
-          path: discoverevav
+          path: discover_evav
 
-      # Semua perintah di bawah dijalankan dari folder checkout `discoverevav/`
+      # Semua perintah di bawah dijalankan dari folder checkout `discover_evav/`
       - name: Set up Environment Variables from Secrets
-        working-directory: discoverevav/web
+        working-directory: discover_evav/web
         run: |
           echo "Membuat file .env dari GitHub Secrets..."
           touch .env
@@ -78,7 +78,7 @@ jobs:
           echo ".env file created successfully."
 
       - name: Rebuild and Deploy with Docker Compose
-        working-directory: discoverevav
+        working-directory: discover_evav
         run: |
           # Mematikan container lama
           docker compose down
