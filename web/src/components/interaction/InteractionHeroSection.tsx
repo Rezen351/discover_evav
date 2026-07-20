@@ -44,8 +44,8 @@ export default function InteractionHeroSection() {
       {/* Background image (portrait-friendly) */}
       <div ref={imageRef} className="absolute inset-0 z-[1]">
         <Image
-          src="/images/budaya/kei_warriors_dance.png"
-          alt="Penari perang adat Kei menyambut tamu — jiwa keluarga Evav"
+          src="/images/budaya/tari-sawat-infopublik.jpg"
+          alt="Tari Sawat Kepulauan Kei — tarian penyambut tamu yang merajut kekerabatan Evav"
           fill
           priority
           sizes="100vw"

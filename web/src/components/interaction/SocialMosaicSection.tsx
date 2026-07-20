@@ -64,9 +64,9 @@ const TILES: MosaicTile[] = [
     aspect: "aspect-[1/1]",
   },
   {
-    src: "/images/budaya/kei_warriors_dance.png",
-    alt: "Pertunjukan budaya warisan leluhur masyarakat Evav",
-    caption: "Warisan jiwa masyarakat Evav",
+    src: "/images/eksplorasi/kei_waving.png",
+    alt: "Warga Kei menyapa pengunjung dengan tangan melambai khas keramahtamahan Evav",
+    caption: "Keramahtamahan Evav",
     aspect: "aspect-[3/4]",
   },
   {
@@ -89,8 +89,8 @@ const TILES: MosaicTile[] = [
   },
   {
     src: "/images/heritage/kampung-selayar-.png",
-    alt: "Kampung adat Ohoiluk dengan rumah tradisional Kei",
-    caption: "Kampung Ohoiluk — rumah adat",
+    alt: "Kampung Selayar — salah satu dari tujuh kampung adat Kei dengan rumah tradisional",
+    caption: "Kampung Selayar — rumah adat",
     aspect: "aspect-[3/4]",
   },
 ];

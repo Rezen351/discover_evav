@@ -93,8 +93,8 @@ export default function ContactUsSection() {
             style={{ boxShadow: "0 0 30px -10px rgba(111,194,190,0.35)" }}
           >
             <Image
-              src="/images/budaya/kei_warriors_dance.png"
-              alt="Penari perang tradisional Kei menyambut tamu sebagai saudara"
+              src="/images/budaya/tari-sawat-infopublik.jpg"
+              alt="Tari Sawat Kepulauan Kei menyambut tamu sebagai saudara"
               fill
               sizes="(max-width: 768px) 100vw, 50vw"
               className="object-cover object-center brightness-110 contrast-105"
@@ -102,10 +102,19 @@ export default function ContactUsSection() {
             <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-black/25 pointer-events-none" />
 
             <div className="absolute inset-0 flex items-center justify-center p-8">
-              <blockquote
-                className="glass-dark rounded-2xl px-7 py-6 text-center max-w-md"
-                style={{ boxShadow: "0 0 30px -10px rgba(111,194,190,0.35)" }}
-              >
+              <div className="relative">
+                <Image
+                  src="/images/budaya/tari-sawat-infopublik.jpg"
+                  alt=""
+                  aria-hidden="true"
+                  fill
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                  className="object-cover object-center rounded-3xl blur-2xl scale-110 opacity-40"
+                />
+                <blockquote
+                  className="relative glass-dark rounded-2xl px-7 py-6 text-center max-w-md"
+                  style={{ boxShadow: "0 0 30px -10px rgba(111,194,190,0.35)" }}
+                >
                 <p className="text-white leading-snug text-2xl md:text-3xl"
                   style={{ fontFamily: "var(--font-serif)" }}
                 >
@@ -114,6 +123,7 @@ export default function ContactUsSection() {
                   Mari kita terhubung.
                 </p>
               </blockquote>
+              </div>
             </div>
 
             {/* Vertical gradient lis between columns */}
