@@ -153,6 +153,17 @@ export default function EkspresiBudayaSection({
   // Mainkan/jedakan video pada slide aktif sesuai state isPlaying.
   const videoRefs = useRef<Record<string, HTMLVideoElement | null>>({});
 
+  // Saat berpindah slide, nyalakan autoplay bila slide aktif memuat video.
+  // Menangani kasus di mana isPlaying sempat mati (mis. oleh observer) sehingga
+  // video Tari Belan tetap otomatis play saat slide-nya aktif di mobile.
+  const handleSlideChange = (index: number) => {
+    setActiveSlide(index);
+    const items: EkspresiItem[] = kelompokList[activeKelompok]?.items ?? [];
+    if (items[index]?.video) {
+      setIsPlaying(true);
+    }
+  };
+
   useEffect(() => {
     const kelompok = kelompokList[activeKelompok];
     const items: EkspresiItem[] = kelompok?.items ?? [];
@@ -196,7 +207,7 @@ export default function EkspresiBudayaSection({
           setIsPlaying(false);
         }
       },
-      { threshold: 0.2 }
+      { threshold: 0 }
     );
     observer.observe(section);
     return () => observer.disconnect();
@@ -407,7 +418,7 @@ export default function EkspresiBudayaSection({
                           clickable: true,
                           el: `.ekspresi-pagination-${k.id}`,
                         }}
-                        onSlideChange={(s) => setActiveSlide(s.activeIndex)}
+                        onSlideChange={(s) => handleSlideChange(s.activeIndex)}
                         className="!pb-5 max-w-3xl mx-auto ekspresi-swiper"
                       >
                         {kItems.map((it, i) => (
@@ -509,7 +520,7 @@ export default function EkspresiBudayaSection({
                     kelompok={kelompok}
                     common={common}
                     activeSlide={activeSlide}
-                    onSlideChange={(i) => setActiveSlide(i)}
+                    onSlideChange={(i) => handleSlideChange(i)}
                     renderCard={renderCard}
                   />
                 </div>
