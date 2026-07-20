@@ -98,6 +98,8 @@
 | 2026-07-20 | Penghapusan redundansi parameter loading | ✅ | Menghapus `loading="eager"` di `InteractionHeroSection` yang bertabrakan dengan `priority`. |
 | 2026-07-20 | Lokalisasi Judul Hero Beranda ke Bahasa Inggris | ✅ | Memindahkan teks judul utama hero beranda dari hardcoded di JSX ke data terjemahan terpusat (`locales/{id,en}/home.ts`) agar judul berubah ke bahasa Inggris saat mode bahasa Inggris aktif. |
 | 2026-07-20 | Penambahan Background Blur pada Overlay Teks Kontak | ✅ | Menambahkan strip caption glassmorphic gelap (`bg-black/60 backdrop-blur-xl w-full left-0 right-0 bottom-0` tanpa sudut rounded) pada overlay teks narasi budaya (`ContactSection.tsx`) di kolom gambar kiri untuk memaksimalkan kontras dan keterbacaan teks putih di seluruh lebar foto, serta menyisakan ruang padding bawah (`pb-12`) agar tombol navigasi dot tetap berada di atasnya dengan rapi. |
+| 2026-07-20 | Perbaikan Playback Video Tari Belan di Mobile | ✅ | Memperbaiki pemutaran video tari belan (`EkspresiBudayaSection.tsx`) di mobile (Safari/Chrome) dengan memposisikan tag `<video>` secara persisten di DOM dan memuat sumber file video secara dinamis via `v.src` dan `v.load()` saat tab aktif, menghindari pemblokiran autoplay akibat dinamis mounting. |
+| 2026-07-20 | Pembersihan Cache CSS Dev Server | ✅ | Menghapus file markdown audit `AUDIT_*.md` yang menyebabkan Tailwind v4 mengompilasi syntax `var(--...)` yang tidak valid ke `globals.css` serta menghapus folder cache `.next/` untuk mengatasi error PostCSS di mode pengembangan (*dev*). |
 | 2026-07-20 | Validasi build & lint pasca-perubahan | ✅ | Build Next.js sukses (Exit 0) dan ESLint bersih tanpa error (Exit 0). |
 
 ---
