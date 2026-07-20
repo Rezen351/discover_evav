@@ -318,7 +318,7 @@ export default function DestinasiTerbaikSection() {
       const rect = el.getBoundingClientRect();
       const inView = rect.top < window.innerHeight && rect.bottom > 0;
       if (!inView) return;
-      if (e.key === "ArrowRightIcon") {
+      if (e.key === "ArrowRight") {
         goToDest((activeDest + 1) % totalItems);
       } else if (e.key === "ArrowLeft") {
         goToDest((activeDest - 1 + totalItems) % totalItems);

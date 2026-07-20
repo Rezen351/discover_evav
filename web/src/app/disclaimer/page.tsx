@@ -5,6 +5,28 @@ export const metadata: Metadata = {
   title: "Disclaimer",
   description:
     "Disclaimer Simfoni Evav — batasan tanggung jawab atas informasi pariwisata Kepulauan Kei yang disajikan di situs ini.",
+  alternates: {
+    canonical: "/disclaimer",
+  },
+  openGraph: {
+    title: "Disclaimer | Simfoni Evav",
+    description:
+      "Disclaimer Simfoni Evav — batasan tanggung jawab atas informasi pariwisata Kepulauan Kei.",
+    url: "/disclaimer",
+    siteName: "Simfoni Evav",
+    type: "article",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
+  keywords: [
+    "Disclaimer",
+    "Simfoni Evav",
+    "Kepulauan Kei",
+    "Penafian",
+    "Pariwisata Kei",
+  ],
 };
 
 export default function DisclaimerPage() {
@@ -17,7 +39,13 @@ export default function DisclaimerPage() {
       <h2>Pendahuluan</h2>
       <p>
         Situs <strong>Simfoni Evav</strong> (
-        <a href="https://discoverevav.id">https://discoverevav.id</a>) adalah
+        <a
+          href="https://discoverevav.id"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          https://discoverevav.id
+        </a>) adalah
         sebuah platform informasi dan edukasi pariwisata yang memperkenalkan
         keindahan alam, kebudayaan, sejarah, dan kuliner Kepulauan Kei (Evav),
         Maluku Tenggara, Indonesia. Situs ini <strong>bukan</strong> penyedia

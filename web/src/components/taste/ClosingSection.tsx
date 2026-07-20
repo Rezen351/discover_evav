@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import Link from "next/link";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ChevronRightIcon } from "@heroicons/react/24/outline";
@@ -72,7 +73,7 @@ export default function ClosingSection() {
           </p>
 
           <div className="taste-closing-reveal mt-10">
-            <a
+            <Link
               href={tasteClosing.ctaHref}
               onMouseMove={onMouseMove}
               onMouseLeave={onMouseLeave}
@@ -84,7 +85,7 @@ export default function ClosingSection() {
                 className="h-4 w-4 text-current transition-transform group-hover:translate-x-1"
                 aria-hidden="true"
               />
-            </a>
+            </Link>
           </div>
         </div>
       </div>

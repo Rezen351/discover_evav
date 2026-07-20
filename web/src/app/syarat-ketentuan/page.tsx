@@ -5,7 +5,23 @@ export const metadata: Metadata = {
   title: "Syarat & Ketentuan",
   description:
     "Syarat & Ketentuan Simfoni Evav — aturan penggunaan situs promosi pariwisata Kepulauan Kei.",
+  alternates: {
+    canonical: "/syarat-ketentuan",
+  },
+  openGraph: {
+    title: "Syarat & Ketentuan | Simfoni Evav",
+    description:
+      "Aturan penggunaan situs promosi pariwisata budaya dan alam Kepulauan Kei.",
+    url: "/syarat-ketentuan",
+    type: "article",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
+
+export const dynamic = "force-static";
 
 export default function TermsOfServicePage() {
   return (

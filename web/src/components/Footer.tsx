@@ -2,6 +2,7 @@
 
 import { useState, useEffect, memo } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import SocialIcon from "@/components/SocialIcon";
 import { SOCIAL_LINKS } from "@/content/social";
 
@@ -153,7 +154,7 @@ export default function Footer() {
           {/* Logo & Description */}
           <div className="flex flex-col md:flex-row items-center gap-3 mt-1">
             <div className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center flex-shrink-0 bg-white/5">
-              <img src="/Logo White.svg" alt="Simfoni Evav" className="w-7 h-7 object-contain brightness-0 invert" />
+              <Image src="/Logo White.svg" alt="Simfoni Evav" width={28} height={28} unoptimized className="w-7 h-7 object-contain brightness-0 invert" />
             </div>
             <div className="flex flex-col">
               <span className="text-sm font-bold tracking-widest text-white/95 uppercase" style={{ fontFamily: "var(--font-sans)" }}>
@@ -202,37 +203,37 @@ export default function Footer() {
           aria-label="Halaman legal"
           className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1 mb-2"
         >
-          <a
+          <Link
             href="/kebijakan-privasi"
             className="text-[11px] md:text-xs text-white/40 font-light tracking-widest hover:text-brand transition-colors"
             style={{ fontFamily: "var(--font-sans)" }}
           >
             Kebijakan Privasi
-          </a>
+          </Link>
           <span className="text-white/15 text-[11px]">·</span>
-          <a
+          <Link
             href="/syarat-ketentuan"
             className="text-[11px] md:text-xs text-white/40 font-light tracking-widest hover:text-brand transition-colors"
             style={{ fontFamily: "var(--font-sans)" }}
           >
             Syarat &amp; Ketentuan
-          </a>
+          </Link>
           <span className="text-white/15 text-[11px]">·</span>
-          <a
+          <Link
             href="/disclaimer"
             className="text-[11px] md:text-xs text-white/40 font-light tracking-widest hover:text-brand transition-colors"
             style={{ fontFamily: "var(--font-sans)" }}
           >
             Disclaimer
-          </a>
+          </Link>
           <span className="text-white/15 text-[11px]">·</span>
-          <a
+          <Link
             href="/kebijakan-cookie"
             className="text-[11px] md:text-xs text-white/40 font-light tracking-widest hover:text-brand transition-colors"
             style={{ fontFamily: "var(--font-sans)" }}
           >
             Kebijakan Cookie
-          </a>
+          </Link>
         </nav>
         <p className="text-[11px] md:text-xs text-white/35 font-light tracking-widest" style={{ fontFamily: "var(--font-sans)" }}>
           &copy; 2026 Simfoni Evav. Semua Hak Dilindungi.

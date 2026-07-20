@@ -6,6 +6,8 @@ import AdminTable, { type AdminColumn } from "@/components/admin/AdminTable";
 import AdminButton from "@/components/admin/AdminButton";
 import { mediaList, type MediaRow } from "@/content/admin-mock";
 
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = {
   title: "Media — Simfoni Evav",
   description: "Kelola galeri foto dan video pariwisata Kepulauan Kei.",

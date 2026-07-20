@@ -5,6 +5,22 @@ export const metadata: Metadata = {
   title: "Kebijakan Cookie",
   description:
     "Kebijakan Cookie Simfoni Evav — teknologi penyimpanan lokal dan layanan pihak ketiga yang benar-benar digunakan situs ini.",
+  alternates: {
+    canonical: "/kebijakan-cookie",
+  },
+  openGraph: {
+    title: "Kebijakan Cookie | Simfoni Evav",
+    description:
+      "Penjelasan jujur teknologi penyimpanan lokal dan layanan pihak ketiga yang digunakan situs pariwisata Kepulauan Kei.",
+    url: "/kebijakan-cookie",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Kebijakan Cookie | Simfoni Evav",
+    description:
+      "Penjelasan jujur teknologi penyimpanan lokal dan layanan pihak ketiga yang digunakan situs.",
+  },
 };
 
 export default function CookiePolicyPage() {

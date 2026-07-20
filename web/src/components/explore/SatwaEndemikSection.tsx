@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { ArrowRightIcon, MapPinIcon } from "@heroicons/react/24/outline";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -150,7 +151,7 @@ export default function SatwaEndemikSection() {
 
         {/* CTA penutup section */}
         <div className="satwa-fade mt-12 md:mt-16 flex flex-wrap items-center gap-4 md:gap-6">
-          <a
+          <Link
             href="/culture"
             onMouseMove={onMouseMove}
             onMouseLeave={onMouseLeave}
@@ -159,7 +160,7 @@ export default function SatwaEndemikSection() {
           >
             Kenali Budaya Adat
             <ArrowRightIcon className="h-4 w-4 md:h-5 md:w-5 text-current" />
-          </a>
+          </Link>
         </div>
       </div>
     </section>

@@ -45,13 +45,19 @@ export default function AdminPengaturanPage() {
                 {itemGrup.map((item) => (
                   <div key={item.id} className="flex flex-col md:flex-row md:items-center gap-2 md:gap-4 py-4 first:pt-0 last:pb-0">
                     <div className="md:flex-1 min-w-0">
-                      <p className="text-sm font-medium text-black">{item.nama}</p>
+                      <label
+                        htmlFor={`pengaturan-${item.id}`}
+                        className="block text-sm font-medium text-black"
+                      >
+                        {item.nama}
+                      </label>
                       <p className="text-fluid-small text-black/50">{item.deskripsi}</p>
                     </div>
                     <input
+                      id={`pengaturan-${item.id}`}
+                      name={item.id}
                       type="text"
                       defaultValue={item.nilai}
-                      aria-label={item.nama}
                       className="w-full md:w-64 bg-section border border-brand/10 rounded-md-design px-3.5 py-2.5 text-sm text-black focus-ring transition-colors"
                     />
                   </div>

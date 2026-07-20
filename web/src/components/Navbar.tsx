@@ -154,14 +154,14 @@ export default function Navbar() {
           {/* Right: Links & GlobeAltIcon */}
           <div className="hidden lg:flex items-center gap-6">
             {navItems.map((item, i) => (
-              <a
+              <Link
                 key={i}
                 href={item.href}
                 className={`font-medium tracking-wide transition-colors duration-500 text-xs focus-ring rounded ${isDarkTheme ? "text-white/90 hover:text-brand" : "text-black hover:text-brand"}`}
                 style={{ fontFamily: "var(--font-sans)" }}
               >
                 {item.label}
-              </a>
+              </Link>
             ))}
             {/* Language Toggle */}
             <button
@@ -197,7 +197,7 @@ export default function Navbar() {
       {mobileOpen && (
         <div className={`lg:hidden absolute top-[72px] w-[92%] max-w-[420px] rounded-3xl border backdrop-blur-xl shadow-xl py-4 px-5 flex flex-col gap-1 pointer-events-auto transition-colors duration-500 ${isDarkTheme ? "bg-black/85 border-white/10 text-white" : "bg-white/90 border-white/40 text-black"}`}>
           {navItems.map((item, i) => (
-            <a
+            <Link
               key={i}
               href={item.href}
               onClick={closeMobile}
@@ -205,7 +205,7 @@ export default function Navbar() {
               style={{ fontFamily: "var(--font-sans)" }}
             >
               {item.label}
-            </a>
+            </Link>
           ))}
           <button
             type="button"

@@ -6,6 +6,8 @@ import AdminTable, { type AdminColumn } from "@/components/admin/AdminTable";
 import AdminButton from "@/components/admin/AdminButton";
 import { produkList, type ProdukRow } from "@/content/admin-mock";
 
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = {
   title: "Produk — Simfoni Evav",
   description: "Kelola produk yang dijual oleh UMKM pariwisata Kepulauan Kei.",

@@ -14,6 +14,17 @@ export const metadata: Metadata = {
   title: "Keterhubungan — Mari Terhubung dengan Keluarga Evav | Simfoni Evav",
   description:
     "Menghubungi kami bukan mengisi formulir — ia adalah mengetuk pintu saudara. Tulis sapaan, sapa lewat WhatsApp, atau ikuti kisah harian Kepulauan Kei di media sosial. Satu kepulauan, satu keluarga.",
+  keywords: [
+    "Kepulauan Kei",
+    "kontak wisata Kei",
+    "Discover Evav",
+    "Ain Ni Ain",
+    "keterhubungan",
+  ],
+  robots: {
+    index: true,
+    follow: true,
+  },
   alternates: {
     canonical: "/interaction",
   },

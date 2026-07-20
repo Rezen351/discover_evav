@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { ArrowUpRightIcon } from "@heroicons/react/24/outline";
 import AdminShell from "@/components/admin/AdminShell";
 import StatCard from "@/components/admin/StatCard";
@@ -19,6 +20,10 @@ export const metadata: Metadata = {
   title: "Dashboard Admin — Simfoni Evav",
   description: "Panel admin CMS Simfoni Evav untuk mengelola berita, UMKM, produk, destinasi, dan event Kepulauan Kei.",
 };
+
+// Dashboard admin berisi data yang selalu berubah (statistik, aktivitas);
+// selalu render dinamis dan jangan di-cache statis. (audit M1/R2)
+export const dynamic = "force-dynamic";
 
 const umkmColumns: AdminColumn<UmkmRow>[] = [
   { key: "nama", header: "Nama UMKM" },
@@ -115,9 +120,9 @@ export default function AdminDashboardPage() {
           <h2 className="text-fluid-h4 text-black font-normal" style={{ fontFamily: "var(--font-serif)" }}>
             UMKM Terbaru
           </h2>
-          <a href="/admin/umkm" className="inline-flex items-center gap-1 text-sm font-semibold text-brand hover:text-brand/70 transition-colors focus-ring rounded">
+          <Link href="/admin/umkm" className="inline-flex items-center gap-1 text-sm font-semibold text-brand hover:text-brand/70 transition-colors focus-ring rounded">
             Lihat semua <ArrowUpRightIcon className="w-4 h-4" />
-          </a>
+          </Link>
         </div>
         <AdminTable columns={umkmColumns} rows={umkmTerbaru} statusField="status" caption="Daftar UMKM terbaru" />
       </section>
@@ -128,9 +133,9 @@ export default function AdminDashboardPage() {
           <h2 className="text-fluid-h4 text-black font-normal" style={{ fontFamily: "var(--font-serif)" }}>
             Berita Terbaru
           </h2>
-          <a href="/admin/news" className="inline-flex items-center gap-1 text-sm font-semibold text-brand hover:text-brand/70 transition-colors focus-ring rounded">
+          <Link href="/admin/news" className="inline-flex items-center gap-1 text-sm font-semibold text-brand hover:text-brand/70 transition-colors focus-ring rounded">
             Lihat semua <ArrowUpRightIcon className="w-4 h-4" />
-          </a>
+          </Link>
         </div>
         <AdminTable columns={beritaColumns} rows={beritaTerbaru} statusField="status" caption="Daftar berita terbaru" />
       </section>

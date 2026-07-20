@@ -54,6 +54,7 @@ export default function AdminBeritaBaruPage() {
             </label>
             <input
               id="judul"
+              name="judul"
               type="text"
               value={judul}
               onChange={(e) => setJudul(e.target.value)}
@@ -83,6 +84,7 @@ export default function AdminBeritaBaruPage() {
               </label>
               <textarea
                 id="ringkasan"
+                name="ringkasan"
                 value={ringkasan}
                 onChange={(e) => setRingkasan(e.target.value)}
                 rows={6}
@@ -102,6 +104,7 @@ export default function AdminBeritaBaruPage() {
                   </label>
                   <select
                     id="kategori"
+                    name="kategori"
                     value={kategori}
                     onChange={(e) =>
                       setKategori(e.target.value as (typeof KATEGORI)[number])
@@ -122,6 +125,7 @@ export default function AdminBeritaBaruPage() {
                   </label>
                   <input
                     id="penulis"
+                    name="penulis"
                     type="text"
                     value={penulis}
                     onChange={(e) => setPenulis(e.target.value)}
@@ -136,6 +140,7 @@ export default function AdminBeritaBaruPage() {
                   </label>
                   <select
                     id="status"
+                    name="status"
                     value={status}
                     onChange={(e) =>
                       setStatus(e.target.value as (typeof STATUS)[number])
@@ -154,7 +159,6 @@ export default function AdminBeritaBaruPage() {
               <AdminButton
                 onClick={handleSimpan}
                 ariaLabel="Simpan berita"
-                form=""
               >
                 Simpan Berita
               </AdminButton>

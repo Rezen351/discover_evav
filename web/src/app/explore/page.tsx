@@ -55,7 +55,7 @@ export default function EksplorasiPage() {
   return (
     <>
       <Navbar />
-      <main id="main-content">
+      <div id="main-content">
         {spotJsonLd.map((jsonLd) => (
           <SeoJsonLd key={jsonLd["@id"]} jsonLd={jsonLd} />
         ))}
@@ -67,7 +67,7 @@ export default function EksplorasiPage() {
         <SatwaEndemikSection />
         <PenghormatanSection />
         <InformasiPenutupSection />
-      </main>
+      </div>
       <Footer />
     </>
   );

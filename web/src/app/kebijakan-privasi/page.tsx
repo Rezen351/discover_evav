@@ -5,6 +5,52 @@ export const metadata: Metadata = {
   title: "Kebijakan Privasi",
   description:
     "Kebijakan Privasi Simfoni Evav — bagaimana kami memperlakukan data Anda saat menjelajahi situs pariwisata Kepulauan Kei.",
+  keywords: [
+    "Kebijakan Privasi",
+    "Privasi Simfoni Evav",
+    "Perlindungan Data",
+    "UU PDP",
+    "GDPR",
+    "Discover Evav",
+  ],
+  alternates: {
+    canonical: "/kebijakan-privasi",
+  },
+  openGraph: {
+    title: "Kebijakan Privasi | Simfoni Evav",
+    description:
+      "Bagaimana Simfoni Evav memperlakukan data Anda: formulir sukarela, log server, peta interaktif, dan preferensi bahasa lokal.",
+    url: "/kebijakan-privasi",
+    siteName: "Simfoni Evav",
+    locale: "id_ID",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Kebijakan Privasi | Simfoni Evav",
+    description:
+      "Bagaimana Simfoni Evav memperlakukan data Anda saat menjelajahi Kepulauan Kei.",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
+};
+
+const privacyPolicyJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "PrivacyPolicy",
+  name: "Kebijakan Privasi Simfoni Evav",
+  description:
+    "Kebijakan Privasi Simfoni Evav — bagaimana kami memperlakukan data Anda saat menjelajahi situs pariwisata Kepulauan Kei.",
+  url: "https://discoverevav.id/kebijakan-privasi",
+  inLanguage: "id-ID",
+  dateModified: "2026-07-19",
+  publisher: {
+    "@type": "Organization",
+    name: "Tim Simfoni Evav",
+    url: "https://discoverevav.id",
+  },
 };
 
 export default function PrivacyPolicyPage() {
@@ -20,7 +66,9 @@ export default function PrivacyPolicyPage() {
         &ldquo;Situs&rdquo;, &ldquo;kami&rdquo;, &ldquo;kita&rdquo;), situs
         promosi pariwisata budaya dan alam Kepulauan Kei (Evav), Maluku
         Tenggara, Indonesia. Situs ini diakses melalui{" "}
-        <a href="https://discoverevav.id">https://discoverevav.id</a> dan
+        <a href="https://discoverevav.id" rel="noopener noreferrer">
+          https://discoverevav.id
+        </a> dan
         dikelola oleh Tim Simfoni Evav.
       </p>
       <p>
@@ -88,7 +136,9 @@ export default function PrivacyPolicyPage() {
       <p>
         Selain formulir di atas, halaman <strong>Hubungi Kami</strong> hanya
         menyediakan tautan langsung ke saluran komunikasi eksternal (email{" "}
-        <a href="mailto:keluarga@evav.id">keluarga@evav.id</a> dan WhatsApp +62
+        <a href="mailto:keluarga@evav.id" aria-label="Kirim email ke keluarga@evav.id">
+          keluarga@evav.id
+        </a> dan WhatsApp +62
         821-1234-5678). Jika Anda menghubungi kami lewat saluran tersebut, data
         yang Anda berikan menjadi berada di bawah kendali penyedia layanan
         masing-masing (penyedia email/WhatsApp), bukan di dalam Situs ini.
@@ -299,7 +349,9 @@ export default function PrivacyPolicyPage() {
         (lihat §2.1), sebagian besar hak di atas berlaku terutama terhadap
         komunikasi langsung yang Anda lakukan dengan kami. Untuk menggunakan hak
         Anda, silakan hubungi kami melalui{" "}
-        <a href="mailto:privasi@discoverevav.id">privasi@discoverevav.id</a>.
+        <a href="mailto:privasi@discoverevav.id" aria-label="Kirim email ke privasi@discoverevav.id">
+          privasi@discoverevav.id
+        </a>.
         Kami akan merespons permintaan Anda dalam waktu yang wajar sesuai
         ketentuan hukum yang berlaku.
       </p>
@@ -330,15 +382,21 @@ export default function PrivacyPolicyPage() {
         </li>
         <li>
           <strong>Situs:</strong>{" "}
-          <a href="https://discoverevav.id">https://discoverevav.id</a>
+          <a href="https://discoverevav.id" rel="noopener noreferrer">
+            https://discoverevav.id
+          </a>
         </li>
         <li>
           <strong>Email Privasi:</strong>{" "}
-          <a href="mailto:privasi@discoverevav.id">privasi@discoverevav.id</a>
+          <a href="mailto:privasi@discoverevav.id" aria-label="Kirim email ke privasi@discoverevav.id">
+            privasi@discoverevav.id
+          </a>
         </li>
         <li>
           <strong>Email Umum:</strong>{" "}
-          <a href="mailto:keluarga@evav.id">keluarga@evav.id</a>
+          <a href="mailto:keluarga@evav.id" aria-label="Kirim email ke keluarga@evav.id">
+            keluarga@evav.id
+          </a>
         </li>
         <li>
           <strong>WhatsApp:</strong> +62 821-1234-5678
@@ -354,6 +412,11 @@ export default function PrivacyPolicyPage() {
         nasihat hukum; untuk kepatuhan regulasi tertentu, disarankan berkonsultasi
         dengan ahli hukum.
       </p>
+
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(privacyPolicyJsonLd) }}
+      />
     </LegalLayout>
   );
 }

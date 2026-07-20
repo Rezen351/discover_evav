@@ -25,9 +25,23 @@ export const metadata: Metadata = {
   },
 };
 
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  headline: "Jiwa Kei — Budaya & Sejarah Kepulauan Kei",
+  description:
+    "Selami jiwa Kepulauan Kei: hukum adat lisan Larvul Ngabal, falsafah Ain Ni Ain, belis, tenun ikat Elat, dan harmoni lintas iman sejak Islam masuk 1252 M. Budaya yang ditarikan, dinyanyikan, dan dikenakan di Tanah Evav.",
+  inLanguage: "id-ID",
+  about: { "@type": "TouristAttraction", name: "Kepulauan Kei", address: { "@type": "PostalAddress", addressRegion: "Maluku Tenggara", addressCountry: "ID" } },
+};
+
 export default function BudayaPage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <Navbar />
       <HeroBudayaSection />
       <LarvulNgabalSection />

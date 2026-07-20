@@ -355,12 +355,13 @@ export default function FunFactSection() {
       >
         <div className="relative w-full">
           {/* Matahari + awan yang melintas di atas kapal, di tengah */}
-          <div className="absolute left-1/2 -translate-x-1/2 right-[5%] top-[0%] w-[16%] z-0 opacity-[0.1]">
+            <div className="absolute left-1/2 -translate-x-1/2 right-[5%] top-[0%] w-[16%] z-0 opacity-[0.1]">
             {/* Matahari kecil */}
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
+            <Image
               src="/MAatahari.svg"
               alt=""
+              width={162}
+              height={160}
               aria-hidden="true"
               className="w-[62%] h-auto mx-auto select-none"
             />
@@ -415,10 +416,11 @@ export default function FunFactSection() {
           </div>
 
           {/* Kapal di depan matahari dengan animasi mengapung */}
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
+          <Image
             src="/Kapal.svg"
             alt="Dekorasi kapal layar Kei"
+            width={371}
+            height={173}
             className="relative z-10 mx-auto right-[5%] mt-[14%] w-[60%] h-auto boat-anim select-none opacity-[0.1]"
           />
 
