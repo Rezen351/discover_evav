@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import {
@@ -122,36 +121,7 @@ export default function PrologHeritageSection() {
           </a>
         </div>
 
-        <div className="mt-12 grid grid-cols-1 gap-4 sm:grid-cols-2 md:gap-6">
-          <figure className="heritage-prolog-reveal relative aspect-[16/9] w-full overflow-hidden rounded-xl-design shadow-card">
-            <Image
-              src="/images/heritage/napak-tilas-pengangkatan-raja.jpeg"
-              alt="Arsip monumen sejarah Evav — jejak dokumentasi perjuangan dan pengabdian"
-              fill
-              sizes="(max-width: 640px) 100vw, 50vw"
-              className="object-cover object-center"
-            />
-            <figcaption className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent p-4">
-              <span className="font-sans text-sm font-medium text-white">
-                Arsip Monumen Sejarah Evav
-              </span>
-            </figcaption>
-          </figure>
-          <figure className="heritage-prolog-reveal relative aspect-[16/9] w-full overflow-hidden rounded-xl-design shadow-card">
-            <Image
-              src="/images/heritage/napak-tilas-pengangkatan-raja.jpeg"
-              alt="Arsip koperasi Kei — jejak ekonomi gotong-royong warga Evav"
-              fill
-              sizes="(max-width: 640px) 100vw, 50vw"
-              className="object-cover object-center"
-            />
-            <figcaption className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent p-4">
-              <span className="font-sans text-sm font-medium text-white">
-                Arsip Koperasi Kei
-              </span>
-            </figcaption>
-          </figure>
-        </div>
+
       </div>
     </section>
   );

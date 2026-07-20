@@ -99,7 +99,7 @@ const LEGACY: LegacyItem[] = [
     title: "Bandara Karel Sadsuitubun",
     description:
       "Bandara di Langgur yang memakai namanya — pintu udara menuju Tanah Evav.",
-    image: "/images/heritage/karel_street.png",
+    image: "/images/heritage/karel-sadsuitubun-airport-wikipedia.jpg",
     alt: "Bandara Karel Sadsuitubun di Langgur — gerbang udara menuju Kepulauan Kei",
     className: "sm:col-span-2 sm:row-span-2",
     icon: MapPinIcon,
@@ -126,7 +126,7 @@ const LEGACY: LegacyItem[] = [
     title: "Potret Formal Karel Sadsuitubun",
     description:
       "Potret resmi sang putra Evav yang menghiasi ruang kenegaraan sebagai pengingat akan jasa pengabdiannya.",
-    image: "/images/heritage/karel_street.png",
+    image: "/images/heritage/foto-formal-karel-sadsuitubun.png",
     alt: "Potret formal Karel Sadsuitubun — pengingat jasa pengabdiannya bagi bangsa",
     className: "md:col-span-1 md:row-span-1",
     icon: CameraIcon,
@@ -220,7 +220,7 @@ export default function KarelHeritageSection() {
             <div className="karel-reveal relative w-full h-[360px] md:h-[480px] rounded-xl-design overflow-hidden shadow-card group">
               <div className="karel-parallax absolute -top-[12%] left-0 h-[124%] w-full">
                 <Image
-                  src="/images/heritage/karel_street.png"
+                  src="/images/heritage/foto-formal-karel-sadsuitubun.png"
                   alt="Potret formal Karel Sadsuitubun — pahlawan dari Ohoi Rumadian"
                   fill
                   sizes="(max-width: 768px) 100vw, 50vw"

@@ -153,7 +153,7 @@ export default function RatskapHeritageSection() {
             <div className="ratskap-reveal relative w-full h-[360px] md:h-[480px] rounded-xl-design overflow-hidden shadow-card group">
               <div className="ratskap-parallax absolute -top-[12%] left-0 h-[124%] w-full">
                 <Image
-                  src="/images/heritage/kriel_356.png"
+                  src="/images/heritage/raja-kei.png"
                   alt="Lanskap Ohoi Tel Nangan saat senja — kampung adat dalam naungan Ratskap Manyeuw Rumadian"
                   fill
                   sizes="(max-width: 768px) 100vw, 50vw"
@@ -193,7 +193,7 @@ export default function RatskapHeritageSection() {
             <div className="ratskap-reveal relative w-full h-[320px] md:h-[420px] rounded-xl-design overflow-hidden shadow-card group">
               <div className="ratskap-parallax absolute -top-[12%] left-0 h-[124%] w-full">
                 <Image
-                  src="/images/heritage/kriel_356.png"
+                  src="/images/heritage/raja-raja-rat.png"
                   alt="Elang kecil — lambang filosofi Rat Manyeuw dalam kepemimpinan adat Kei"
                   fill
                   sizes="(max-width: 768px) 100vw, 50vw"
@@ -231,13 +231,8 @@ export default function RatskapHeritageSection() {
 
           <div className="grid grid-cols-1 min-[400px]:grid-cols-2 gap-4 md:gap-6 sm:grid-cols-3 lg:grid-cols-4">
             {[
-              { src: "/images/heritage/kriel_356.png", alt: "Ohoi Rumadian — kampung adat leluhur dalam naungan Ratskap Manyeuw Rumadian", label: "Ohoi Rumadian" },
               { src: "/images/heritage/kampung_debut.jpeg", alt: "Kampung Debut — salah satu dari tujuh kampung adat Kei", label: "Kampung Debut" },
-              { src: "/images/heritage/kampung-selayar-.png", alt: "Kampung Lairngaggas — lanskap ohoi adat Kei", label: "Kampung Lairngaggas" },
               { src: "/images/heritage/kampung-selayar-.png", alt: "Kampung Selayar — lanskap ohoi adat Kei", label: "Kampung Selayar" },
-              { src: "/images/heritage/kampung-selayar-.png", alt: "Kampung Namar — lanskap ohoi adat Kei", label: "Kampung Namar" },
-              { src: "/images/heritage/kampung-selayar-.png", alt: "Kampung Ngilngof — lanskap ohoi adat Kei", label: "Kampung Ngilngof" },
-              { src: "/images/heritage/kampung-selayar-.png", alt: "Kampung Ngayub — lanskap ohoi adat Kei", label: "Kampung Ngayub" },
             ].map((kampung) => (
               <figure key={kampung.label} className="ratskap-reveal relative aspect-[4/3] w-full overflow-hidden rounded-xl-design shadow-card group">
                 <Image
@@ -273,7 +268,7 @@ export default function RatskapHeritageSection() {
             <figure className="ratskap-reveal relative w-full h-[260px] sm:h-full rounded-xl-design overflow-hidden shadow-card group sm:col-span-2 sm:row-span-2">
               <div className="ratskap-parallax absolute -top-[12%] left-0 h-[124%] w-full">
                 <Image
-                  src="/images/heritage/karel_street.png"
+                  src="/images/budaya/kei_gong_dada_ilustration.jpeg"
                   alt="Gong adat Dada Wadlau — simbol legitimasi Ratskap Manyeuw Rumadian"
                   fill
                   sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
