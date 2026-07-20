@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef, useCallback, type ReactElement } from "react";
 import Image from "next/image";
 import { MapPinIcon, StarIcon, ShoppingBagIcon, HomeModernIcon, TicketIcon, FireIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
 import gsap from "gsap";
@@ -9,244 +9,27 @@ import { useSpotlight } from "@/hooks/useSpotlight";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, A11y } from "swiper/modules";
 import "swiper/css";
+import { getDictionary } from "@/content/dictionaries";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
 }
 
+type Dict = Awaited<ReturnType<typeof getDictionary>>;
+
 type DestTabName = "Wisata" | "Kuliner" | "Penginapan" | "Pertunjukan" | "Acara Adat";
 
-interface DestItem {
-  name: string;
-  location: string;
-  rating: number;
-  reviews: string;
-  desc: string;
-  tags: string[];
-  image: string;
-}
-
-const destTabs: { name: DestTabName; icon: React.ReactNode }[] = [
-  { name: "Wisata", icon: <MapPinIcon className="w-4 h-4" /> },
-  { name: "Kuliner", icon: <ShoppingBagIcon className="w-4 h-4" /> },
-  { name: "Penginapan", icon: <HomeModernIcon className="w-4 h-4" /> },
-  { name: "Pertunjukan", icon: <TicketIcon className="w-4 h-4" /> },
-  { name: "Acara Adat", icon: <FireIcon className="w-4 h-4" /> },
-];
-
-const destData: Record<DestTabName, { items: DestItem[] }> = {
-  Wisata: {
-    items: [
-      {
-        name: "Pulau Bair",
-        location: "Kei Kecil, Maluku Tenggara",
-        rating: 4.8,
-        reviews: "850 ulasan",
-        desc: "Dikenal sebagai Raja Ampat-nya Maluku Tenggara. Menawarkan labirin tebing karst raksasa eksotik yang mengelilingi laguna tenang berair toska super jernih.",
-        tags: ["Tebing Karst", "Laguna Indah", "Petualangan"],
-        image: "/images/eksplorasi/kei_bair.jpg",
-      },
-      {
-        name: "Pantai Ngurbloat",
-        location: "Kei Kecil, Maluku Tenggara",
-        rating: 4.9,
-        reviews: "1.2k ulasan",
-        desc: "Pantai dengan pasir putih terhalus di dunia selembut tepung sepanjang 5.8 kilometer. Sangat ideal untuk menikmati sunset emas dan berenang.",
-        tags: ["Pasir Halus", "Sunset Emas", "Berenang"],
-        image: "/images/eksplorasi/kei_ngurbloat.png",
-      },
-      {
-        name: "Goa Hawang",
-        location: "Kei Kecil, Maluku Tenggara",
-        rating: 4.7,
-        reviews: "620 ulasan",
-        desc: "Goa stalaktit eksotis dengan kolam air tawar alami berwarna biru safir kristal yang sangat bening, terhubung langsung dengan mata air bawah tanah.",
-        tags: ["Kolam Kristal", "Goa Alam", "Misteri"],
-        image: "/images/eksplorasi/goa-hawang.jpg",
-      },
-      {
-        name: "Spot Snorkeling Kei",
-        location: "Perairan Kei Kecil",
-        rating: 4.6,
-        reviews: "340 ulasan",
-        desc: "Jelajahi keindahan bawah laut Kepulauan Kei yang dipenuhi terumbu karang warna-warni yang sehat dan beragam biota laut tropis yang eksotis.",
-        tags: ["Snorkeling", "Terumbu Karst", "Biota Laut"],
-        image: "/images/eksplorasi/snorkeling-ngurtavur-zanzztoy.jpg",
-      },
-      {
-        name: "Pantai Kelapa Miring",
-        location: "Ohoi Wab, Kei Kecil",
-        rating: 4.7,
-        reviews: "210 ulasan",
-        desc: "Dikenal sebagai Pantai Ngur Vat Namsir, primadonanya adalah deretan pohon kelapa yang tumbuh miring menyeruak ke laut, di atas pasir putih selembut tepung dan air biru yang jernih. Surga tersembunyi terjaga lewat Festival Budaya Ohoi Wab.",
-        tags: ["Kelapa Miring", "Pasir Halus", "Tersembunyi"],
-        image: "/images/eksplorasi/pantai-kelapa-miring.jpg",
-      }
-    ]
-  },
-  Kuliner: {
-    items: [
-      {
-        name: "Warung Enbal Tradisional",
-        location: "Langgur, Maluku Tenggara",
-        rating: 4.6,
-        reviews: "450 ulasan",
-        desc: "Sajikan Enbal (makanan pokok pengganti nasi dari singkong khas Kei) renyah. Sangat nikmat dimakan dengan dicelup kuah sup ikan segar.",
-        tags: ["Enbal", "Kuliner Lokal", "Tradisional"],
-        image: "/images/kuliner/kei_culinary_enbal.png",
-      },
-      {
-        name: "Sayur Sir-Sir Gurih",
-        location: "Manyeuw, Kei Kecil",
-        rating: 4.5,
-        reviews: "320 ulasan",
-        desc: "Olahan tumisan legendaris berbahan dasar daun singkong dan bunga pepaya muda dengan santan kental serta rempah aromatik khas Kei.",
-        tags: ["Sayur Sir-Sir", "Bunga Pepaya", "Khas Kei"],
-        image: "/images/kuliner/kei_culinary_sirsir.png",
-      },
-      {
-        name: "Ikan Bakar Colo-Colo",
-        location: "Pantai Ohoililir, Kei Kecil",
-        rating: 4.8,
-        reviews: "540 ulasan",
-        desc: "Ikan karang segar tangkapan nelayan lokal yang dibakar harum di atas arang kelapa, disiram sambal colo-colo pedas asam manis pedas segar.",
-        tags: ["Seafood", "Colo-Colo", "Ikan Bakar"],
-        image: "/images/kuliner/kei_ikan_colocolo.png",
-      },
-      {
-        name: "Kue Lad & Enbal Bubuk",
-        location: "Tual, Maluku Tenggara",
-        rating: 4.4,
-        reviews: "210 ulasan",
-        desc: "Camilan manis tradisional Kei berbahan parutan enbal kering yang disajikan hangat bersama kopi atau teh jahe saat sore hari.",
-        tags: ["Kue Lad", "Enbal Manis", "Camilan"],
-        image: "/images/kuliner/kei_umkm_enbal_stick_1.jpeg",
-      }
-    ]
-  },
-  Penginapan: {
-    items: [
-      {
-        name: "Eco-Resort Ohoililir",
-        location: "Pantai Ohoililir, Kei Kecil",
-        rating: 4.8,
-        reviews: "310 ulasan",
-        desc: "Bungalow kayu ramah lingkungan yang dibangun di bibir pantai pasir putih. Menyuguhkan akses langsung ke pantai dan ketenangan maksimal.",
-        tags: ["Eco-Resort", "Bungalow Pantai", "Tenang"],
-        image: "/images/eksplorasi/kei_resort.png",
-      },
-      {
-        name: "Cottage Pantai Ngurbloat",
-        location: "Pantai Ngurbloat, Kei Kecil",
-        rating: 4.5,
-        reviews: "180 ulasan",
-        desc: "Cottage bergaya tradisional Maluku dengan fasilitas modern yang nyaman. Hanya melangkah langsung ke hamparan pasir terhalus sedunia.",
-        tags: ["Cottage", "Ngurbloat", "Keluarga"],
-        image: "/images/eksplorasi/desa-wisata-ngilngof-antara.jpg",
-      },
-      {
-        name: "Pulau Bair Camp & Glamping",
-        location: "Pulau Bair, Kei Kecil",
-        rating: 4.7,
-        reviews: "95 ulasan",
-        desc: "Pengalaman camping premium di tepi perairan karst tenang Pulau Bair. Menawarkan ketenangan malam bertabur bintang di bay privat.",
-        tags: ["Glamping", "Private Bay", "Petualangan"],
-        image: "/images/eksplorasi/pulau-bair-rizkipambudi.jpg",
-      },
-      {
-        name: "Homestay Pantai Pasir Panjang",
-        location: "Kei Kecil, Maluku Tenggara",
-        rating: 4.4,
-        reviews: "150 ulasan",
-        desc: "Penginapan ramah kantong bernuansa kekeluargaan yang dikelola langsung oleh penduduk lokal, menyajikan hidangan sarapan tradisional Kei.",
-        tags: ["Homestay", "Lokal", "Ramah Kantong"],
-        image: "/images/eksplorasi/pantai-pasir-panjang-ilhamarch.jpg",
-      }
-    ]
-  },
-  Pertunjukan: {
-    items: [
-      {
-        name: "Seni Tari Sawat",
-        location: "Desa Adat Tanimbar Kei",
-        rating: 4.9,
-        reviews: "280 ulasan",
-        desc: "Tarian adat penyambutan tamu kehormatan dengan iringan dinamis alat musik tifa dan gong, menggambarkan persahabatan hangat warga Evav.",
-        tags: ["Tari Sawat", "Penyambutan", "Tifa"],
-        image: "/images/budaya/tari-sawat-infopublik.jpg",
-      },
-      {
-        name: "Ritual Tari Kipas Evav",
-        location: "Ohoi Elat, Kei Besar",
-        rating: 4.7,
-        reviews: "150 ulasan",
-        desc: "Tarian sakral nan elok dibawakan para penari putri Kei menggunakan kipas tenun tradisional. Setiap desa di Kepulauan Kei memiliki “woma”: pusat pelaksanaan upacara sakral, pengukuhan raja/pemimpin adat, serta tempat penyelesaian sasi dan hukum adat.",
-        tags: ["Tari Kipas", "Sakral", "Kedamaian"],
-        image: "/images/budaya/ritual-penyambutan-tamu-rinin.jpg",
-      },
-      {
-        name: "Musik Suling Bambu Evav",
-        location: "Langgur, Maluku Tenggara",
-        rating: 4.6,
-        reviews: "190 ulasan",
-        desc: "Harmoni pertunjukan musik tiup suling bambu kolosal oleh pemuda Kei yang melantunkan lagu-lagu daerah dengan melodi instrumental yang syahdu.",
-        tags: ["Suling Bambu", "Melodi Syahdu", "Instrumental"],
-        image: "/images/budaya/kei_dada_tifa.png",
-      },
-      {
-        name: "Pertunjukan Adat Tanimbar Kei",
-        location: "Pulau Tanimbar Kei",
-        rating: 4.8,
-        reviews: "170 ulasan",
-        desc: "Saksikan teatrikal sejarah dan kebudayaan Kei langsung di desa adat terlindung yang mempertahankan kepercayaan leluhur mereka.",
-        tags: ["Teater Adat", "Sejarah", "Desa Adat"],
-        image: "/images/budaya/tari-perang-kompasiana.jpg",
-      }
-    ]
-  },
-  "Acara Adat": {
-    items: [
-      {
-        name: "Festival Pesona Meti Kei",
-        location: "Perairan Kei Kecil",
-        rating: 4.9,
-        reviews: "980 ulasan",
-        desc: "Festival tahunan terbesar saat air laut surut ekstrem (meti). Ribuan warga berkumpul menangkap ikan bersama secara tradisional dengan tali janur.",
-        tags: ["Meti Kei", "Panen Raya", "Budaya Massal"],
-        image: "/images/budaya/festival-pesona-meti-kei-2025-triptrus.jpg",
-      },
-      {
-        name: "Ritual Hawear (Sasi Adat)",
-        location: "Kepulauan Kei Besar",
-        rating: 4.8,
-        reviews: "410 ulasan",
-        desc: "Upacara adat pemasangan janur kuning (Hawear) sebagai tanda pelarangan pengambilan hasil laut/hutan sementara demi menjaga kelestarian alam.",
-        tags: ["Sasi Adat", "Hawear", "Konservasi"],
-        image: "/images/budaya/sumpah-adat-kei-infopublik.png",
-      },
-      {
-        name: "Upacara Cuci Darah Adat",
-        location: "Ohoi Manyeuw, Kei Kecil",
-        rating: 4.7,
-        reviews: "230 ulasan",
-        desc: "Upacara sakral penyucian diri dan sumpah perdamaian antar marga yang melanggar hukum Larvul Ngabal demi memulihkan keharmonisan sosial.",
-        tags: ["Ritual Sakral", "Penyucian", "Larvul Ngabal"],
-        image: "/images/budaya/tari-perang-kompasiana.jpg",
-      },
-      {
-        name: "Pesta Rakyat Makan Enbal",
-        location: "Tual, Maluku Tenggara",
-        rating: 4.6,
-        reviews: "320 ulasan",
-        desc: "Perayaan budaya menyantap hidangan enbal raksasa secara massal sebagai bentuk ucapan syukur atas panen hasil bumi yang melimpah.",
-        tags: ["Pesta Rakyat", "Syukuran", "Enbal Raksasa"],
-        image: "/images/budaya/pembuatan-embal-umkm.jpg",
-      }
-    ]
-  },
+const destIcons: Record<string, ReactElement> = {
+  MapPinIcon: <MapPinIcon className="w-4 h-4" />,
+  ShoppingBagIcon: <ShoppingBagIcon className="w-4 h-4" />,
+  HomeModernIcon: <HomeModernIcon className="w-4 h-4" />,
+  TicketIcon: <TicketIcon className="w-4 h-4" />,
+  FireIcon: <FireIcon className="w-4 h-4" />,
 };
 
-export default function DestinasiTerbaikSection() {
+export default function DestinasiTerbaikSection({ data }: { data: Dict["home"]["destinasi"] }) {
+  const destTabs = data.tabs.map((t) => ({ id: t.id as DestTabName, name: t.name, icon: destIcons[t.icon] }));
+  const destData = data.data;
   const [activeDestTab, setActiveDestTab] = useState<DestTabName>("Wisata");
   const [activeDest, setActiveDest] = useState<number>(0);
   const [progress, setProgress] = useState(0);
@@ -254,9 +37,9 @@ export default function DestinasiTerbaikSection() {
   const sectionRef = useRef<HTMLElement>(null);
   const autoplayRef = useRef<number | null>(null);
 
-  const data = destData[activeDestTab];
-  const activeItem = data.items[activeDest];
-  const totalItems = data.items.length;
+  const activeData = destData[activeDestTab];
+  const activeItem = activeData.items[activeDest];
+  const totalItems = activeData.items.length;
 
   const changeTab = (tabName: DestTabName) => {
     setActiveDestTab(tabName);
@@ -369,16 +152,17 @@ export default function DestinasiTerbaikSection() {
               className="text-brand font-bold tracking-[0.2em] uppercase text-xs md:text-sm mb-2"
               style={{ fontFamily: "var(--font-sans)" }}
             >
-              DESTINASI TERBAIK
+              {data.eyebrow}
             </div>
             <h2
               id="destinasi-heading"
               className="text-fluid-h2 text-black font-normal"
               style={{ fontFamily: "var(--font-serif)" }}
             >
-              Keindahan yang <br className="hidden md:block" />
-              Menanti untuk{" "}
-              <span className="text-brand">Dijelajahi</span>
+              {data.titleLead}
+              <br className="hidden md:block" />
+              {" "}
+              <span className="text-brand">{data.titleAccent}</span>
             </h2>
           </div>
 
@@ -387,9 +171,9 @@ export default function DestinasiTerbaikSection() {
             <div className="flex flex-nowrap md:flex-wrap gap-2 md:gap-3 md:justify-end justify-start pb-1">
               {destTabs.map((tab) => (
                 <button
-                  key={tab.name}
-                  onClick={() => changeTab(tab.name)}
-                  className={`flex items-center gap-2 px-4 py-2 rounded-full text-xs md:text-sm font-medium shadow-sm transition-all duration-300 whitespace-nowrap shrink-0 ${activeDestTab === tab.name
+                  key={tab.id}
+                  onClick={() => changeTab(tab.id)}
+                  className={`flex items-center gap-2 px-4 py-2 rounded-full text-xs md:text-sm font-medium shadow-sm transition-all duration-300 whitespace-nowrap shrink-0 ${activeDestTab === tab.id
                     ? "bg-nav-gradient text-brand border border-brand/100"
                     : "bg-white/60 text-black/70 hover:bg-brand/15 hover:text-brand"
                     }`}
@@ -481,7 +265,7 @@ export default function DestinasiTerbaikSection() {
               aria-label={`Lihat peta lokasi ${activeItem.name}`}
               className="btn-spotlight group/btn flex items-center gap-2 border border-black hover:border-brand text-black hover:text-brand px-6 py-3 rounded-xl font-semibold text-sm transition-all duration-300 hover:scale-[1.02] active:press focus-ring self-start cursor-pointer"
             >
-              Lihat di Peta
+              {data.ctaText}
               <ChevronRightIcon className="w-4 h-4 transition-transform group-hover/btn:translate-x-1" />
             </button>
           </div>
@@ -489,7 +273,7 @@ export default function DestinasiTerbaikSection() {
           {/* RIGHT: 2x2 Image Grid (Clickable Selectors) */}
           <div className="w-full xl:w-[32%] dest-fade h-[280px] md:h-[350px] xl:h-full">
             <div className="grid grid-cols-2 gap-3 h-full">
-              {data.items.map((item, idx) => (
+              {activeData.items.map((item, idx) => (
                 <div
                   key={idx}
                   onClick={() => goToDest(idx)}
@@ -539,7 +323,7 @@ export default function DestinasiTerbaikSection() {
             key={activeDestTab} // Re-render Swiper when activeDestTab changes to reset slides and loop state
             onSlideChange={(swiper) => setActiveDest(swiper.activeIndex)}
           >
-            {data.items.map((item, idx) => (
+            {activeData.items.map((item, idx) => (
               <SwiperSlide key={idx} className="flex flex-col gap-4 sm:gap-6">
                 {/* Image Frame */}
                 <div className="w-full h-[240px] sm:h-[280px] md:h-[350px] rounded-lg-design overflow-hidden shadow-card relative">
@@ -614,7 +398,7 @@ export default function DestinasiTerbaikSection() {
                     aria-label={`Lihat peta lokasi ${item.name}`}
                     className="btn-spotlight group/btn flex items-center gap-2 border border-black hover:border-brand text-black hover:text-brand px-6 py-3 rounded-xl font-semibold text-sm transition-all duration-300 hover:scale-[1.02] active:press focus-ring self-start cursor-pointer"
                   >
-                    Lihat di Peta
+              {data.ctaText}
                     <ChevronRightIcon className="w-4 h-4 transition-transform group-hover/btn:translate-x-1" />
                   </button>
                 </div>

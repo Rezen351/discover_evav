@@ -11,70 +11,40 @@ import { Autoplay, A11y } from "swiper/modules";
 import "swiper/css";
 import QuoteMarquee from "@/components/QuoteMarquee";
 import { useSpotlight } from "@/hooks/useSpotlight";
-import { news as newsArticles } from "@/content/news";
-import { umkms as umkmList } from "@/content/umkm";
+import type { NewsArticle, NewsCategory } from "@/content/news";
+import type { UmkmItem as UmkmItemType } from "@/content/umkm";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
 }
 
-type NewsItem = {
-  id: string;
-  category: "Budaya" | "Event" | "Infrastruktur" | "Pengumuman";
-  title: string;
-  excerpt: string;
-  date: string;
-  image: string;
-  slug: string;
-  featured?: boolean;
-};
+type NewsItem = NewsArticle;
 
-type UmkmItem = {
-  id: string;
-  name: string;
-  category: "Kuliner" | "Kerajinan" | "Oleh-oleh";
-  location: string;
-  rating: number;
-  image: string;
-  whatsapp: string;
-};
+type UmkmItem = UmkmItemType;
 
-const news: NewsItem[] = newsArticles.map((a) => ({
-  id: a.id,
-  category: a.category,
-  title: a.title,
-  excerpt: a.excerpt,
-  date: a.date,
-  image: a.image,
-  slug: a.slug,
-  featured: a.featured,
-}));
-
-const umkms: UmkmItem[] = umkmList.map((u) => ({
-  id: u.id,
-  name: u.name,
-  category: u.category,
-  location: u.location,
-  rating: u.rating,
-  image: u.image,
-  whatsapp: u.whatsapp,
-}));
-
-const categoryStyle: Record<NewsItem["category"], string> = {
+const categoryStyle: Record<NewsCategory, string> = {
   Budaya: "bg-brand/10 text-brand",
   Event: "bg-[var(--color-primary-teal)]/15 text-[var(--color-primary-navy)]",
   Infrastruktur: "bg-[var(--color-primary-orange)]/15 text-[var(--color-primary-orange)]",
   Pengumuman: "bg-[var(--color-primary-green)]/15 text-[var(--color-primary-green)]",
 };
 
-const categoryBadgeWhite: Record<NewsItem["category"], string> = {
+const categoryBadgeWhite: Record<NewsCategory, string> = {
   Budaya: "bg-white text-black",
   Event: "bg-white text-black",
   Infrastruktur: "bg-white text-black",
   Pengumuman: "bg-white text-black",
 };
 
-export default function BeritaUmkmSection() {
+export default function BeritaUmkmSection({
+  news,
+  umkms,
+  lang,
+}: {
+  news: NewsItem[];
+  umkms: UmkmItem[];
+  lang: "id" | "en";
+}) {
   const sectionRef = useRef<HTMLElement>(null);
   const [activeTab, setActiveTab] = useState<"Berita" | "UMKM">("Berita");
   const [umkmPage, setUmkmPage] = useState(0);
@@ -130,15 +100,24 @@ export default function BeritaUmkmSection() {
               className="text-brand font-bold tracking-[0.2em] uppercase text-xs md:text-sm mb-2"
               style={{ fontFamily: "var(--font-sans)" }}
             >
-              CERITA & EKONOMI LOKAL
+              {lang === "en" ? "STORIES & LOCAL ECONOMY" : "CERITA & EKONOMI LOKAL"}
             </div>
             <h2
               id="berita-umkm-heading"
               className="text-4xl md:text-5xl leading-[1.15] text-black font-normal"
               style={{ fontFamily: "var(--font-serif)" }}
             >
-              Berita Terkini &<br className="hidden md:block" />{" "}
-              <span className="text-brand">UMKM Unggulan</span>
+              {lang === "en" ? (
+                <>
+                  Latest News &amp;<br className="hidden md:block" />{" "}
+                  <span className="text-brand">Featured UMKM</span>
+                </>
+              ) : (
+                <>
+                  Berita Terkini &<br className="hidden md:block" />{" "}
+                  <span className="text-brand">UMKM Unggulan</span>
+                </>
+              )}
             </h2>
           </div>
 
@@ -159,7 +138,7 @@ export default function BeritaUmkmSection() {
                 style={{ fontFamily: "var(--font-sans)" }}
               >
                 {tab === "Berita" ? <NewspaperIcon className="w-4 h-4" /> : <BuildingStorefrontIcon className="w-4 h-4" />}
-                {tab}
+                {lang === "en" ? (tab === "Berita" ? "News" : "UMKM") : tab}
               </button>
             ))}
           </div>
@@ -167,7 +146,7 @@ export default function BeritaUmkmSection() {
 
         {/* Marquee quote lokal (loop lambat, dekoratif) — Desktop only */}
         <div className="hidden md:block">
-          <QuoteMarquee />
+          <QuoteMarquee lang={lang} />
         </div>
 
         {activeTab === "Berita" ? (
@@ -244,10 +223,10 @@ export default function BeritaUmkmSection() {
                 href="/news"
                 onMouseMove={onMouseMove}
                 onMouseLeave={onMouseLeave}
-                aria-label="Lihat semua berita"
+                aria-label={lang === "en" ? "View all news" : "Lihat semua berita"}
                 className="btn-spotlight btn-cta w-full md:w-auto inline-flex items-center justify-center gap-2 font-sans text-sm md:text-base font-medium focus-ring rounded-full px-6 py-3"
               >
-                Lihat Semua Berita
+                {lang === "en" ? "View All News" : "Lihat Semua Berita"}
                 <ArrowUpRightIcon className="w-4 h-4 text-current" />
               </Link>
             </div>
@@ -301,7 +280,7 @@ export default function BeritaUmkmSection() {
                       style={{ fontFamily: "var(--font-sans)" }}
                     >
                       <ShoppingBagIcon className="w-4 h-4" />
-                      Pesan via WhatsApp
+                      {lang === "en" ? "Order via WhatsApp" : "Pesan via WhatsApp"}
                     </a>
                   </div>
                 </div>
@@ -310,12 +289,12 @@ export default function BeritaUmkmSection() {
 
             {/* Pagination (Desktop) */}
             {umkmPageCount > 1 && (
-              <div className="hidden xl:flex items-center justify-center gap-3 berita-fade" aria-label="Navigasi halaman UMKM">
+              <div className="hidden xl:flex items-center justify-center gap-3 berita-fade" aria-label={lang === "en" ? "UMKM page navigation" : "Navigasi halaman UMKM"}>
                 <button
                   type="button"
                   onClick={() => setUmkmPage((p) => Math.max(0, p - 1))}
                   disabled={umkmPage === 0}
-                  aria-label="Halaman UMKM sebelumnya"
+                  aria-label={lang === "en" ? "Previous UMKM page" : "Halaman UMKM sebelumnya"}
                   className="btn-spotlight flex items-center justify-center w-10 h-10 rounded-full border border-black hover:border-brand text-black hover:text-brand disabled:opacity-30 disabled:cursor-not-allowed transition-all duration-300 active:press focus-ring cursor-pointer"
                 >
                   <ChevronLeftIcon className="w-4 h-4" />
@@ -326,7 +305,7 @@ export default function BeritaUmkmSection() {
                       key={i}
                       type="button"
                       onClick={() => setUmkmPage(i)}
-                      aria-label={`Ke halaman UMKM ${i + 1}`}
+                      aria-label={lang === "en" ? `To UMKM page ${i + 1}` : `Ke halaman UMKM ${i + 1}`}
                       aria-current={umkmPage === i}
                       className={`w-2.5 h-2.5 rounded-full transition-all duration-300 cursor-pointer focus-ring ${
                         umkmPage === i ? "bg-brand scale-110" : "bg-black/20 hover:bg-black/40"
@@ -338,7 +317,7 @@ export default function BeritaUmkmSection() {
                   type="button"
                   onClick={() => setUmkmPage((p) => Math.min(umkmPageCount - 1, p + 1))}
                   disabled={umkmPage === umkmPageCount - 1}
-                  aria-label="Halaman UMKM berikutnya"
+                  aria-label={lang === "en" ? "Next UMKM page" : "Halaman UMKM berikutnya"}
                   className="btn-spotlight flex items-center justify-center w-10 h-10 rounded-full border border-black hover:border-brand text-black hover:text-brand disabled:opacity-30 disabled:cursor-not-allowed transition-all duration-300 active:press focus-ring cursor-pointer"
                 >
                   <ChevronRightIcon className="w-4 h-4" />
@@ -401,7 +380,7 @@ export default function BeritaUmkmSection() {
                           style={{ fontFamily: "var(--font-sans)" }}
                         >
                           <ShoppingBagIcon className="w-4 h-4" />
-                          Pesan via WhatsApp
+                          {lang === "en" ? "Order via WhatsApp" : "Pesan via WhatsApp"}
                         </a>
                       </div>
                     </div>
@@ -412,16 +391,16 @@ export default function BeritaUmkmSection() {
 
             {/* CTA UMKM */}
             <div className="flex justify-center md:justify-end berita-fade">
-              <a
-                href="/taste"
+              <Link
+                href={`/${lang}/taste`}
                 onMouseMove={onMouseMove}
                 onMouseLeave={onMouseLeave}
-                aria-label="Jelajahi UMKM Kepulauan Kei"
+                aria-label={lang === "en" ? "Explore Kei Islands UMKM" : "Jelajahi UMKM Kepulauan Kei"}
                 className="btn-spotlight btn-cta w-full md:w-auto inline-flex items-center justify-center gap-2 font-sans text-sm md:text-base font-medium focus-ring rounded-full px-6 py-3"
               >
-                Jelajahi UMKM
+                {lang === "en" ? "Explore UMKM" : "Jelajahi UMKM"}
                 <ArrowUpRightIcon className="w-4 h-4 text-current" />
-              </a>
+              </Link>
             </div>
           </div>
         )}

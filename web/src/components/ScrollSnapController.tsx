@@ -10,7 +10,12 @@ import { usePathname } from "next/navigation";
  */
 export default function ScrollSnapController() {
   const pathname = usePathname();
-  const isLanding = pathname === "/";
+  // Landing page berada di rute terlokalisasi ("/id" atau "/en") — bukan "/".
+  // Snap magnetik hanya untuk landing page: pathname persis "/" atau hanya
+  // berisi satu segmen locale ("/id", "/en"). Sub-halaman seperti
+  // "/id/culture" TIDAK dianggap landing.
+  const isLanding =
+    pathname === "/" || /^\/[a-z]{2}\/?$/.test(pathname ?? "");
 
   useEffect(() => {
     const root = document.documentElement;

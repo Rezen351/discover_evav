@@ -1,16 +1,16 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import Image from "next/image";
 import { GlobeAltIcon, XMarkIcon, Bars3Icon } from "@heroicons/react/24/outline";
 
 const navItemsId: { label: string; href: string }[] = [
-  { label: "Explore", href: "/explore" },
-  { label: "Culture", href: "/culture" },
-  { label: "Heritage", href: "/heritage" },
-  { label: "Taste", href: "/taste" },
-  { label: "Interaction", href: "/interaction" },
+  { label: "Eksplorasi", href: "/explore" },
+  { label: "Budaya", href: "/culture" },
+  { label: "Warisan", href: "/heritage" },
+  { label: "Rasa", href: "/taste" },
+  { label: "Interaksi", href: "/interaction" },
 ];
 
 const navItemsEn: { label: string; href: string }[] = [
@@ -31,29 +31,50 @@ type Lang = "id" | "en";
 export default function Navbar() {
   const [showNavbar, setShowNavbar] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [lang, setLang] = useState<Lang>("id");
+  const router = useRouter();
+  const pathname = usePathname();
+  const currentLang: Lang = pathname.startsWith("/en")
+    ? "en"
+    : pathname.startsWith("/id")
+      ? "id"
+      : "id";
+
+  // Inisialisasi `lang` secara lazy: utamakan locale dari URL, lalu fallback ke
+  // preferensi tersimpan di localStorage (dengan guard SSR).
+  const [lang, setLang] = useState<Lang>(() => {
+    if (typeof window !== "undefined") {
+      const saved = window.localStorage.getItem("lang");
+      if (saved === "id" || saved === "en") return saved;
+    }
+    return currentLang;
+  });
   const [isDarkTheme, setIsDarkTheme] = useState(false);
 
+  // Jaga agar atribut `lang` pada <html> selalu sinkron dengan locale di URL
+  // saat berpindah halaman (state React `lang` sudah diinisialisasi lazy dari
+  // currentLang, sehingga tidak perlu setState di dalam effect).
   useEffect(() => {
-    const saved = window.localStorage.getItem("lang");
-    if (saved === "id" || saved === "en") {
-      setTimeout(() => setLang(saved), 0);
-    }
-  }, []);
+    document.documentElement.lang = currentLang;
+  }, [currentLang]);
 
   useEffect(() => {
     document.documentElement.lang = lang;
   }, [lang]);
 
   const toggleLang = () => {
-    const next: Lang = lang === "id" ? "en" : "id";
+    const next: Lang = currentLang === "id" ? "en" : "id";
+    const targetPath = pathname.replace(/^\/(id|en)(?=\/|$)/, `/${next}`);
+    const resolvedTarget = pathname.startsWith("/id") || pathname.startsWith("/en")
+      ? targetPath
+      : `/${next}${pathname === "/" ? "" : pathname}`;
     setLang(next);
     document.documentElement.lang = next;
     window.localStorage.setItem("lang", next);
+    document.cookie = `lang=${next}; path=/; max-age=31536000`;
+    router.push(resolvedTarget);
   };
 
   const navItems = lang === "id" ? navItemsId : navItemsEn;
-  const pathname = usePathname();
   const isLanding = pathname === "/";
 
   useEffect(() => {
@@ -132,7 +153,7 @@ export default function Navbar() {
         <div className={`flex items-center justify-between w-full mx-auto h-10 md:h-12 transition-opacity duration-700 delay-100 ${showNavbar ? "opacity-100" : "opacity-0"}`}>
 
           {/* Left: Logo & Brand Name */}
-          <Link href="/" className="flex items-center gap-3 cursor-pointer focus-ring rounded-md">
+          <Link href={`/${currentLang}`} className="flex items-center gap-3 cursor-pointer focus-ring rounded-md">
             <Image
               src={isDarkTheme ? "/logo-white.svg" : "/logo-color.svg"}
               alt="Logo Simfoni Evav"
@@ -156,7 +177,7 @@ export default function Navbar() {
             {navItems.map((item, i) => (
               <Link
                 key={i}
-                href={item.href}
+                href={`/${currentLang}${item.href}`}
                 className={`font-medium tracking-wide transition-colors duration-500 text-xs focus-ring rounded ${isDarkTheme ? "text-white/90 hover:text-brand" : "text-black hover:text-brand"}`}
                 style={{ fontFamily: "var(--font-sans)" }}
               >
@@ -199,7 +220,7 @@ export default function Navbar() {
           {navItems.map((item, i) => (
             <Link
               key={i}
-              href={item.href}
+              href={`/${currentLang}${item.href}`}
               onClick={closeMobile}
               className={`font-medium tracking-wide transition-colors duration-500 text-sm py-2.5 border-b last:border-0 ${isDarkTheme ? "text-white/90 hover:text-brand border-white/10" : "text-black hover:text-brand border-black/5"}`}
               style={{ fontFamily: "var(--font-sans)" }}

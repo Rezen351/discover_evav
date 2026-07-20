@@ -12,8 +12,11 @@ import {
   BuildingLibraryIcon,
   ArrowRightIcon,
 } from "@heroicons/react/24/outline";
-import { filosofi, type FilosofiTile } from "@/content/culture";
+import { type FilosofiTile } from "@/content/locales/id/culture";
+import type { getDictionary } from "@/content/dictionaries";
 import { useSpotlight } from "@/hooks/useSpotlight";
+
+type Dict = Awaited<ReturnType<typeof getDictionary>>;
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -26,7 +29,13 @@ const ICONS: Record<FilosofiTile["icon"], React.ComponentType<React.SVGProps<SVG
   Landmark: BuildingLibraryIcon,
 };
 
-export default function FilosofiSection() {
+export default function FilosofiSection({
+  lang,
+  data,
+}: {
+  lang: "id" | "en";
+  data: Dict["filosofi"];
+}) {
   const sectionRef = useRef<HTMLElement>(null);
   const { onMouseMove, onMouseLeave } = useSpotlight();
 
@@ -71,22 +80,22 @@ export default function FilosofiSection() {
       <div className="max-w-[98%] xl:max-w-[1600px] mx-auto px-4 md:px-8 w-full">
         <div className="max-w-3xl mb-12 md:mb-16">
           <p className="filosofi-reveal font-sans text-fluid-eyebrow uppercase tracking-[0.2em] sm:tracking-[0.3em] text-balance text-brand mb-4">
-            {filosofi.eyebrow}
+            {data.eyebrow}
           </p>
           <h2
             id="filosofi-title"
             className="filosofi-reveal font-serif text-fluid-h2 text-black mb-5"
           >
-            {filosofi.title}
+            {data.title}
           </h2>
           <p className="filosofi-reveal font-sans text-fluid-body text-black/70 leading-relaxed text-left">
-            {filosofi.intro}
+            {data.intro}
           </p>
         </div>
 
         {/* Bento grid — tile #1 (Ain Ni Ain) hero 2x2 */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-4 md:gap-6 sm:auto-rows-[220px] md:auto-rows-[220px] lg:auto-rows-[240px]">
-          {filosofi.tiles.map((tile) => {
+          {data.tiles.map((tile) => {
             const Icon = ICONS[tile.icon];
             return (
               <figure
@@ -142,20 +151,20 @@ export default function FilosofiSection() {
           <div className="filosofi-reveal flex flex-col justify-between gap-4 rounded-lg-design border border-brand/20 bg-white p-5 md:p-6 shadow-card hover:border-brand/40 transition-colors min-h-[240px] sm:h-full relative">
             <div className="min-w-0">
               <h3 className="font-serif text-black text-fluid-h4 leading-tight">
-                {filosofi.cta.title}
+                {data.cta.title}
               </h3>
               <p className="mt-2 font-sans text-black/70 text-fluid-small leading-relaxed line-clamp-3">
-                {filosofi.cta.desc}
+                {data.cta.desc}
               </p>
             </div>
 
             <Link
-              href={filosofi.cta.link}
+              href={data.cta.link}
               onMouseMove={onMouseMove}
               onMouseLeave={onMouseLeave}
               className="btn-spotlight btn-cta w-full shrink-0 text-xs md:text-sm font-semibold rounded-full px-4 py-2.5 inline-flex items-center justify-center gap-2 active:press focus-ring"
             >
-              <span className="truncate">{filosofi.cta.buttonText}</span>
+              <span className="truncate">{data.cta.buttonText}</span>
               <ArrowRightIcon className="h-4 w-4 shrink-0 text-current" />
             </Link>
           </div>

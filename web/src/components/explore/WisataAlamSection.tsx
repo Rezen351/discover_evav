@@ -17,16 +17,23 @@ import { useSpotlight } from "@/hooks/useSpotlight";
 import "swiper/css";
 import "swiper/css/pagination";
 import {
-  spotAlam,
-  kategoriAlam,
+  type SpotAlam,
   type KategoriAlam,
-} from "@/content/explore";
+} from "@/content/locales/id/explore";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
 }
 
-export default function WisataAlamSection() {
+export default function WisataAlamSection({
+  lang,
+  data,
+  categories,
+}: {
+  lang: "id" | "en";
+  data: SpotAlam[];
+  categories: ("Semua" | KategoriAlam)[];
+}) {
   const ref = useRef<HTMLElement>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const [filter, setFilter] = useState<"Semua" | KategoriAlam>("Semua");
@@ -64,9 +71,9 @@ export default function WisataAlamSection() {
   const filtered = useMemo(
     () =>
       filter === "Semua"
-        ? spotAlam
-        : spotAlam.filter((spot) => spot.kategori === filter),
-    [filter]
+        ? data
+        : data.filter((spot) => spot.kategori === filter),
+    [filter, data]
   );
 
   useEffect(() => {
@@ -107,16 +114,27 @@ export default function WisataAlamSection() {
         <div className="relative z-30 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start mb-8 md:mb-10">
           <div className="alam-fade lg:col-span-8 flex flex-col">
             <span className="font-sans uppercase tracking-[0.25em] text-brand text-xs md:text-sm font-semibold mb-4">
-              Wisata Alam EVAv
+              {lang === "en" ? "Evav Natural Tourism" : "Wisata Alam Evav"}
             </span>
 
             <h2 className="font-serif text-fluid-h2 md:text-5xl leading-tight text-black break-words">
-              Keindahan{" "}
-              <span className="text-black">yang Masih Murni</span>
+              {lang === "en" ? (
+                <>
+                  Beauty{" "}
+                  <span className="text-black">that Remains Pristine</span>
+                </>
+              ) : (
+                <>
+                  Keindahan{" "}
+                  <span className="text-black">yang Masih Murni</span>
+                </>
+              )}
             </h2>
 
             <p className="mt-6 md:mt-8 font-serif text-base sm:text-lg md:text-2xl leading-relaxed text-black/80 w-full">
-              Di balik Festival Meti, Kepulauan Kei menyimpan surga yang tak pernah tidur: pasir terhalus di dunia, laut sebening kaca, gugusan pulau bagai permata, dan goa-gua yang menyimpan misteri. Jelajahi keindahan alam Evav — pilih kategori, temukan spot, lalu rancang petualanganmu.
+              {lang === "en"
+                ? "Behind the Meti Festival, the Kei Islands guard a paradise that never sleeps: the finest sand in the world, glass-clear seas, island clusters like jewels, and caves holding ancient mysteries. Explore the natural beauty of Evav — pick a category, find a spot, and plan your adventure."
+                : "Di balik Festival Meti, Kepulauan Kei menyimpan surga yang tak pernah tidur: pasir terhalus di dunia, laut sebening kaca, gugusan pulau bagai permata, dan goa-gua yang menyimpan misteri. Jelajahi keindahan alam Evav — pilih kategori, temukan spot, lalu rancang petualanganmu."}
             </p>
           </div>
 
@@ -128,9 +146,13 @@ export default function WisataAlamSection() {
                 {filtered.length}
               </span>
               <span className="font-sans text-sm md:text-base leading-snug text-black/60 break-words">
-                spot
+                {lang === "en" ? "spots" : "spot"}
                 <br />
-                {filter === "Semua" ? "tersedia" : filter.toLowerCase()}
+                {filter === "Semua"
+                  ? lang === "en"
+                    ? "available"
+                    : "tersedia"
+                  : filter.toLowerCase()}
               </span>
             </div>
 
@@ -140,7 +162,11 @@ export default function WisataAlamSection() {
                 onClick={() => setIsDropdownOpen((open) => !open)}
                 aria-haspopup="listbox"
                 aria-expanded={isDropdownOpen}
-                aria-label="Saring kategori wisata alam"
+                aria-label={
+                  lang === "en"
+                    ? "Filter natural tourism categories"
+                    : "Saring kategori wisata alam"
+                }
                 className="w-full flex items-center justify-between rounded-md-design border border-brand/20 bg-white px-5 py-3.5 font-sans text-sm md:text-base font-medium text-black shadow-soft transition-all hover:border-brand/50 hover:text-brand focus-ring"
               >
                 <span className="flex items-center gap-2">
@@ -156,10 +182,14 @@ export default function WisataAlamSection() {
               {isDropdownOpen && (
                 <ul
                   role="listbox"
-                  aria-label="Kategori wisata alam"
+                  aria-label={
+                    lang === "en"
+                      ? "Natural tourism categories"
+                      : "Kategori wisata alam"
+                  }
                   className="absolute left-0 right-0 z-[70] mt-2 origin-top overflow-hidden rounded-md-design border border-brand/10 bg-white p-1.5 shadow-card"
                 >
-                  {kategoriAlam.map((kat) => {
+                  {categories.map((kat) => {
                     const active = filter === kat;
                     return (
                       <li key={kat} role="none">
@@ -190,7 +220,7 @@ export default function WisataAlamSection() {
 
         {/* Kartu spot alam */}
         {(() => {
-          const SpotCard = ({ spot }: { spot: (typeof spotAlam)[number] }) => (
+          const SpotCard = ({ spot }: { spot: SpotAlam }) => (
             <article className="group flex flex-col h-full bg-white border border-brand/10 rounded-xl-design shadow-soft hover:border-brand/30 transition-colors overflow-hidden">
               <div className="relative w-full h-[200px] md:h-[240px] overflow-hidden">
                 <Image
@@ -220,10 +250,14 @@ export default function WisataAlamSection() {
                   onMouseMove={onMouseMove}
                   onMouseLeave={onMouseLeave}
                   className="btn-spotlight btn-cta mt-5 inline-flex items-center gap-2 self-start font-sans text-sm md:text-base font-medium focus-ring rounded-full px-5 py-2.5"
-                  aria-label={`Lihat ${spot.nama} di Google Maps`}
+                  aria-label={`${
+                    lang === "en" ? "View" : "Lihat"
+                  } ${spot.nama} ${
+                    lang === "en" ? "on Google Maps" : "di Google Maps"
+                  }`}
                 >
                   <MapPinIcon className="h-4 w-4 md:h-5 md:w-5 text-current" />
-                  Lihat di Peta
+                  {lang === "en" ? "View on Map" : "Lihat di Peta"}
                 </a>
               </div>
             </article>
@@ -249,7 +283,11 @@ export default function WisataAlamSection() {
                   grabCursor
                   keyboard={{ enabled: true }}
                   pagination={{ clickable: true }}
-                  aria-label="Galeri wisata alam Evav"
+                  aria-label={
+                    lang === "en"
+                      ? "Evav natural tourism gallery"
+                      : "Galeri wisata alam Evav"
+                  }
                   className="!pb-12 alam-swiper"
                 >
                   {filtered.map((spot) => (
@@ -277,13 +315,13 @@ export default function WisataAlamSection() {
           </a>
 
           <a
-            href={spotAlam[0]?.mapsUrl ?? "#"}
+            href={data[0]?.mapsUrl ?? "#"}
             target="_blank"
             rel="noopener noreferrer"
             onMouseMove={onMouseMove}
             onMouseLeave={onMouseLeave}
             className="btn-spotlight btn-cta inline-flex items-center gap-2 font-sans text-sm md:text-base font-medium focus-ring rounded-full px-6 py-3"
-            aria-label={`Lihat ${spotAlam[0]?.nama ?? "destinasi"} di Google Maps`}
+            aria-label={`Lihat ${data[0]?.nama ?? "destinasi"} di Google Maps`}
           >
             <MapPinIcon className="h-4 w-4 md:h-5 md:w-5 text-current" />
             Lihat di Peta

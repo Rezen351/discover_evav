@@ -12,7 +12,9 @@ import {
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useSpotlight } from "@/hooks/useSpotlight";
-import { umkms, type UmkmItem } from "@/content/umkm";
+import { type UmkmItem } from "@/content/locales/id/umkm";
+import { getDictionary } from "@/content/dictionaries";
+type Dict = Awaited<ReturnType<typeof getDictionary>>;
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -26,7 +28,20 @@ const CATEGORIES: Array<UmkmItem["category"] | "Semua"> = [
   "Oleh-oleh",
 ];
 
-export default function UmkmCatalogSection() {
+const CATEGORY_LABEL: Record<string, { id: string; en: string }> = {
+  Semua: { id: "Semua", en: "All" },
+  Kuliner: { id: "Kuliner", en: "Culinary" },
+  Kerajinan: { id: "Kerajinan", en: "Crafts" },
+  "Oleh-oleh": { id: "Oleh-oleh", en: "Souvenirs" },
+};
+
+export default function UmkmCatalogSection({
+  lang,
+  data,
+}: {
+  lang: "id" | "en";
+  data: Dict["umkms"];
+}) {
   const sectionRef = useRef<HTMLElement>(null);
   const { onMouseMove, onMouseLeave } = useSpotlight();
   const [page, setPage] = useState(0);
@@ -35,9 +50,9 @@ export default function UmkmCatalogSection() {
   const filtered = useMemo(
     () =>
       filter === "Semua"
-        ? umkms
-        : umkms.filter((u) => u.category === filter),
-    [filter]
+        ? data
+        : data.filter((u) => u.category === filter),
+    [filter, data]
   );
 
   const totalPages = Math.ceil(filtered.length / PER_PAGE);
@@ -133,33 +148,41 @@ export default function UmkmCatalogSection() {
               className="font-sans text-fluid-small uppercase tracking-[0.25em] text-brand mb-4"
               style={{ fontFamily: "var(--font-sans)" }}
             >
-              Meja Kei, Ekonomi Lokal
+              {lang === "en" ? "Kei's Table, Local Economy" : "Meja Kei, Ekonomi Lokal"}
             </p>
             <h2
               id="taste-umkm-title"
               className="font-serif text-fluid-h2 leading-[1.12] text-black"
               style={{ fontFamily: "var(--font-serif)" }}
             >
-              UMKM yang Menyajikan{" "}
-              <span className="text-brand">Rasa Kei</span>
+              {lang === "en" ? (
+                <>
+                  UMKM Serving{" "}
+                  <span className="text-brand">Kei Flavors</span>
+                </>
+              ) : (
+                <>
+                  UMKM yang Menyajikan{" "}
+                  <span className="text-brand">Rasa Kei</span>
+                </>
+              )}
             </h2>
             <p
               className="mt-5 text-base md:text-lg leading-relaxed text-black/60 font-light"
               style={{ fontFamily: "var(--font-sans)" }}
             >
-              Di balik setiap hidangan, ada keluarga yang meracik, mengolah, dan
-              menjaga rasa Kei. Dukung pengrajin serta UMKM lokal yang membawa
-              cita rasa pulau ini ke meja dan oleh-olehmu.
+              {lang === "en"
+                ? "Behind every dish is a family that blends, processes, and preserves the taste of Kei. Support the local artisans and UMKM who bring the island's flavors to your table and souvenirs."
+                : "Di balik setiap hidangan, ada keluarga yang meracik, mengolah, dan menjaga rasa Kei. Dukung pengrajin serta UMKM lokal yang membawa cita rasa pulau ini ke meja dan oleh-olehmu."}
             </p>
           </div>
           <div className="relative aspect-[16/10] w-full overflow-hidden rounded-lg-design border border-brand/10 shadow-soft">
             <Image
-              src={umkms[0].image}
-              alt="Ragam produk UMKM Kepulauan Kei"
+              src={data[0].image}
+              alt={lang === "en" ? "Assorted Kei Islands UMKM products" : "Ragam produk UMKM Kepulauan Kei"}
               fill
               sizes="(max-width: 1024px) 100vw, 50vw"
               className="object-cover"
-              priority
             />
           </div>
         </div>
@@ -172,14 +195,15 @@ export default function UmkmCatalogSection() {
                 className="font-serif text-fluid-h3 text-black"
                 style={{ fontFamily: "var(--font-serif)" }}
               >
-                Katalog Produk UMKM
+                {lang === "en" ? "UMKM Product Catalog" : "Katalog Produk UMKM"}
               </h3>
               <p
                 className="mt-3 text-base md:text-lg leading-relaxed text-black/60 font-light"
                 style={{ fontFamily: "var(--font-sans)" }}
               >
-                Jelajahi ragam produk dari pengrajin dan UMKM lokal Kei — siap
-                menemani meja serta oleh-oleh perjalananmu.
+                {lang === "en"
+                  ? "Explore a variety of products from Kei's local artisans and UMKM — ready to accompany your table and travel souvenirs."
+                  : "Jelajahi ragam produk dari pengrajin dan UMKM lokal Kei — siap menemani meja serta oleh-oleh perjalananmu."}
               </p>
             </div>
 
@@ -187,7 +211,7 @@ export default function UmkmCatalogSection() {
             <div
               className="flex flex-wrap items-center gap-2"
               role="group"
-              aria-label="Filter kategori UMKM"
+              aria-label={lang === "en" ? "Filter UMKM by category" : "Filter kategori UMKM"}
             >
               {CATEGORIES.map((cat) => {
                 const active = cat === filter;
@@ -202,7 +226,7 @@ export default function UmkmCatalogSection() {
                       : "border border-brand/20 text-black/60 hover:text-brand hover:bg-brand/10"
                       }`}
                   >
-                    {cat}
+                    {lang === "en" ? CATEGORY_LABEL[cat].en : CATEGORY_LABEL[cat].id}
                   </button>
                 );
               })}
@@ -255,12 +279,16 @@ export default function UmkmCatalogSection() {
                     rel="noreferrer"
                     onMouseMove={onMouseMove}
                     onMouseLeave={onMouseLeave}
-                    aria-label={`Pesan ${u.name} via WhatsApp`}
+                    aria-label={
+                      lang === "en"
+                        ? `Order ${u.name} via WhatsApp`
+                        : `Pesan ${u.name} via WhatsApp`
+                    }
                     className="btn-spotlight mt-auto flex items-center justify-center gap-2 border border-black hover:border-brand text-black hover:text-brand px-5 py-2.5 rounded-xl font-semibold text-sm transition-all duration-300 hover:scale-[1.02] active:press cursor-pointer focus-ring"
                     style={{ fontFamily: "var(--font-sans)" }}
                   >
                     <ShoppingBagIcon className="w-4 h-4" />
-                    Pesan via WhatsApp
+                    {lang === "en" ? "Order via WhatsApp" : "Pesan via WhatsApp"}
                   </a>
                 </div>
               </figure>
@@ -275,7 +303,7 @@ export default function UmkmCatalogSection() {
               type="button"
               onClick={() => goto(safePage - 1)}
               disabled={safePage === 0}
-              aria-label="Halaman sebelumnya"
+              aria-label={lang === "en" ? "Previous page" : "Halaman sebelumnya"}
               className="flex items-center justify-center w-10 h-10 rounded-full border border-brand/20 text-brand transition-colors hover:bg-brand/10 focus-ring active:press disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-transparent"
             >
               <ChevronLeftIcon className="w-5 h-5" aria-hidden="true" />
@@ -286,7 +314,7 @@ export default function UmkmCatalogSection() {
                 key={i}
                 type="button"
                 onClick={() => goto(i)}
-                aria-label={`Halaman ${i + 1}`}
+                aria-label={lang === "en" ? `Page ${i + 1}` : `Halaman ${i + 1}`}
                 aria-current={i === safePage ? "page" : undefined}
                 className={`min-w-[40px] h-10 px-3 rounded-full font-sans text-sm font-semibold transition-all duration-300 focus-ring active:press ${i === safePage
                   ? "bg-nav-gradient text-brand border border-brand/100 shadow-soft"
@@ -301,7 +329,7 @@ export default function UmkmCatalogSection() {
               type="button"
               onClick={() => goto(safePage + 1)}
               disabled={safePage === totalPages - 1}
-              aria-label="Halaman berikutnya"
+              aria-label={lang === "en" ? "Next page" : "Halaman berikutnya"}
               className="flex items-center justify-center w-10 h-10 rounded-full border border-brand/20 text-brand transition-colors hover:bg-brand/10 focus-ring active:press disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-transparent"
             >
               <ChevronRightIcon className="w-5 h-5" aria-hidden="true" />

@@ -8,7 +8,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, A11y } from "swiper/modules";
 import type { SwiperOptions } from "swiper/types";
-import { heritageIntro, heritageItems } from "@/content/heritage";
+import type { HeritageItem } from "@/content/heritage";
 
 import "swiper/css";
 import "swiper/css/pagination";
@@ -24,7 +24,25 @@ const breakpoints: SwiperOptions["breakpoints"] = {
   1280: { slidesPerView: 4, spaceBetween: 24 },
 };
 
-export default function HeritageSection() {
+export default function HeritageSection({
+  data,
+}: {
+  data: {
+    intro: {
+      eyebrow: string;
+      title: string;
+      titleAccent: string;
+      subtitle: string;
+    };
+    items: HeritageItem[];
+    closing: {
+      quote: string;
+      attribution: string;
+      exploreLabel: string;
+    };
+  };
+}) {
+  const { intro: heritageIntro, items: heritageItems, closing } = data;
   const sectionRef = useRef<HTMLElement>(null);
   useEffect(() => {
     const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -161,9 +179,9 @@ export default function HeritageSection() {
                     className="flex items-center gap-1.5 text-brand text-xs font-semibold mt-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
                     style={{ fontFamily: "var(--font-sans)" }}
                   >
-                    Telusuri
-                    <ArrowLongRightIcon className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-                  </div>
+                    {closing.exploreLabel}
+                     <ArrowLongRightIcon className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                   </div>
                 </div>
               </SwiperSlide>
             ))}
@@ -180,13 +198,13 @@ export default function HeritageSection() {
               className="text-black/70 text-base md:text-xl leading-relaxed"
               style={{ fontFamily: "var(--font-sans)" }}
             >
-              Setiap kampung adat adalah perpustakaan hidup. Di sana, batu, gong, dan nyanyian masih berbicara dalam bahasa leluhur yang tak pernah benar-benar hilang.
+              {closing.quote}
             </blockquote>
             <figcaption
               className="mt-3 text-brand text-xs font-bold uppercase tracking-[0.2em]"
               style={{ fontFamily: "var(--font-sans)" }}
             >
-              — Warisan Tanah Evav
+              {closing.attribution}
             </figcaption>
           </figure>
         </div>

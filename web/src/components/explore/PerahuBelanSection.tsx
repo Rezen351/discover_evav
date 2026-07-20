@@ -23,27 +23,32 @@ if (typeof window !== "undefined") {
 const EVENT_LAT = -5.5725;
 const EVENT_LNG = 132.7606;
 const EVENT_MAPS_URL = `https://www.google.com/maps/search/?api=1&query=${EVENT_LAT},${EVENT_LNG}`;
-const EVENT_LOKASI = "Desa Ngadi, Pulau Dullah Utara (Start Lomba Perahu Belan)";
+const EVENT_LOKASI = {
+  id: "Desa Ngadi, Pulau Dullah Utara (Start Lomba Perahu Belan)",
+  en: "Ngadi Village, North Dullah Island (Belan Boat Race Start)",
+};
 
 const nilaiPerahu = [
-  { label: "Kecepatan", Icon: BoltIcon },
-  { label: "Ketangguhan", Icon: ShieldCheckIcon },
-  { label: "Kekompakan", Icon: UserGroupIcon },
+  { labelId: "Kecepatan", labelEn: "Speed", Icon: BoltIcon },
+  { labelId: "Ketangguhan", labelEn: "Endurance", Icon: ShieldCheckIcon },
+  { labelId: "Kekompakan", labelEn: "Teamwork", Icon: UserGroupIcon },
 ];
 
 // Slideshow perahu layar tradisional Belan & bahari Kei (autoplay 5s, §7.3).
-const PERAHU_PHOTOS: { src: string; alt: string }[] = [
+const PERAHU_PHOTOS: { src: string; altId: string; altEn: string }[] = [
   {
     src: "/images/budaya/perahu_belan_race_kei.png",
-    alt: "Lomba perahu layar tradisional Belan yang megah membelah laut jernih Kepulauan Kei",
+    altId: "Lomba perahu layar tradisional Belan yang megah membelah laut jernih Kepulauan Kei",
+    altEn: "The majestic traditional Belan sailboat race splitting the clear Kei Islands sea",
   },
   {
     src: "/images/budaya/lomba-perahu-belan-rri.jpg",
-    alt: "Dua armada perahu Belan bersaing ketat di selat Tual-Kei Kecil disaksikan warga",
+    altId: "Dua armada perahu Belan bersaing ketat di selat Tual-Kei Kecil disaksikan warga",
+    altEn: "Two Belan boat fleets competing closely in the Tual-Kei Kecil strait watched by locals",
   }
 ];
 
-export default function PerahuBelanSection() {
+export default function PerahuBelanSection({ lang }: { lang: "id" | "en" }) {
   const ref = useRef<HTMLElement>(null);
   const fotoRef = useRef<HTMLDivElement>(null);
   const { onMouseMove, onMouseLeave } = useSpotlight();
@@ -113,7 +118,7 @@ export default function PerahuBelanSection() {
             <Image
               key={photo.src}
               src={photo.src}
-              alt={photo.alt}
+                alt={lang === "en" ? photo.altEn : photo.altId}
               fill
               sizes="(max-width: 1024px) 100vw, 50vw"
               className={`object-cover transition-opacity duration-1000 ease-in-out ${i === perahuIndex ? "opacity-100" : "opacity-0"
@@ -130,35 +135,41 @@ export default function PerahuBelanSection() {
           <div className="max-w-[98%] xl:max-w-[1600px] mx-auto px-4 md:px-8 w-full py-16 md:py-24">
             <div className="perahu-fade w-full">
               <span className="font-sans uppercase tracking-[0.25em] text-brand text-xs md:text-sm font-semibold mb-4 block">
-                Menjelajahi Laut Kei
+                {lang === "en" ? "Exploring the Kei Sea" : "Menjelajahi Laut Kei"}
               </span>
 
               <h2 className="font-serif text-fluid-h2 md:text-6xl leading-tight text-black break-words">
-                Perahu Belan,{" "}
-                <span className="text-brand">Menyusuri Samudera</span>
+                {lang === "en" ? (
+                  <>
+                    Belan Boats,{" "}
+                    <span className="text-brand">Sailing the Ocean</span>
+                  </>
+                ) : (
+                  <>
+                    Perahu Belan,{" "}
+                    <span className="text-brand">Menyusuri Samudera</span>
+                  </>
+                )}
               </h2>
 
               <p className="mt-6 md:mt-8 font-serif text-base sm:text-lg md:text-2xl leading-relaxed text-black/80">
-                Dari Pantai Ngurbloat hingga Pulau Bair, perairan Kei adalah
-                surga bahari yang masih murni — air toska jernih, terumbu
-                karang bermekaran, dan gugusan pulau bagai permata di Banda.
-                Lomba perahu layar tradisional Belan merayakan keberanian
-                menjelajahi laut ini, mengingatkan kita pada leluhur Kei yang
-                merajut pulau-pulau dengan sentuhan dayung, bukan penaklukan.
+                {lang === "en"
+                  ? "From Ngurbloat Beach to Bair Island, Kei waters are a still-pristine maritime paradise — clear turquoise water, blooming coral reefs, and a cluster of islands like jewels in Banda. The traditional Belan sailboat race celebrates the courage to explore this sea, reminding us of the Kei ancestors who wove the islands together with the touch of oars, not conquest."
+                  : "Dari Pantai Ngurbloat hingga Pulau Bair, perairan Kei adalah surga bahari yang masih murni — air toska jernih, terumbu karang bermekaran, dan gugusan pulau bagai permata di Banda. Lomba perahu layar tradisional Belan merayakan keberanian menjelajahi laut ini, mengingatkan kita pada leluhur Kei yang merajut pulau-pulau dengan sentuhan dayung, bukan penaklukan."}
               </p>
 
               <div className="mt-8 flex flex-wrap items-center gap-2 sm:gap-3 gap-y-2 md:gap-4">
-                {nilaiPerahu.map(({ label, Icon }) => (
+                {nilaiPerahu.map(({ labelId, labelEn, Icon }) => (
                   <span
-                    key={label}
+                    key={labelId}
                     className="inline-flex items-center gap-2 rounded-full bg-brand/10 px-3 py-1.5 sm:px-4 sm:py-2 font-sans text-sm md:text-base font-medium text-brand"
                   >
                     <Icon
                       className="h-5 w-5 md:h-6 md:w-6 text-brand"
                       aria-hidden="true"
                     />
-                    <span aria-label={`Nilai lomba perahu Belan: ${label}`}>
-                      {label}
+                    <span aria-label={`${lang === "en" ? "Belan boat race value: " : "Nilai lomba perahu Belan: "}${lang === "en" ? labelEn : labelId}`}>
+                      {lang === "en" ? labelEn : labelId}
                     </span>
                   </span>
                 ))}
@@ -166,7 +177,7 @@ export default function PerahuBelanSection() {
 
               <p className="mt-5 font-sans text-sm md:text-base text-black/70 flex items-center gap-2">
                 <MapPinIcon className="h-4 w-4 md:h-5 md:w-5 text-brand shrink-0" aria-hidden="true" />
-                <span>{EVENT_LOKASI}</span>
+                <span>{lang === "en" ? EVENT_LOKASI.en : EVENT_LOKASI.id}</span>
               </p>
 
               <div className="mt-4">
@@ -177,10 +188,10 @@ export default function PerahuBelanSection() {
                   onMouseMove={onMouseMove}
                   onMouseLeave={onMouseLeave}
                   className="btn-spotlight btn-cta inline-flex items-center gap-2 font-sans text-sm md:text-base font-medium focus-ring rounded-full px-6 py-3"
-                  aria-label="Lihat lokasi Lomba Perahu Belan di Google Maps"
+                  aria-label={lang === "en" ? "View the Belan Boat Race location on Google Maps" : "Lihat lokasi Lomba Perahu Belan di Google Maps"}
                 >
                   <MapPinIcon className="h-4 w-4 md:h-5 md:w-5 text-current" />
-                  Lihat Lokasi di Peta
+                  {lang === "en" ? "View Location on Map" : "Lihat Lokasi di Peta"}
                 </a>
               </div>
             </div>

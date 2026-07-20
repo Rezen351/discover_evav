@@ -5,13 +5,21 @@ import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ChevronDownIcon } from "@heroicons/react/24/outline";
-import { heroBudaya } from "@/content/culture";
+import type { getDictionary } from "@/content/dictionaries";
+
+type Dict = Awaited<ReturnType<typeof getDictionary>>;
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
 }
 
-export default function HeroBudayaSection() {
+export default function HeroBudayaSection({
+  lang,
+  data,
+}: {
+  lang: "id" | "en";
+  data: Dict["heroBudaya"];
+}) {
   const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -46,14 +54,14 @@ export default function HeroBudayaSection() {
       id="budaya-hero"
       data-hero
       ref={sectionRef}
-      aria-label="Budaya & Sejarah Kepulauan Kei"
+      aria-label={data.ariaLabel}
       className="relative w-full min-h-screen snap-start snap-always flex items-center overflow-hidden bg-hero-dark z-[7]"
     >
       {/* Background image — subjek budaya utama, golden hour (art direction §18) */}
       <div className="absolute inset-0 z-0">
         <Image
-          src={heroBudaya.image}
-          alt={heroBudaya.imageAlt}
+          src={data.image}
+          alt={data.imageAlt}
           fill
           priority
           sizes="100vw"
@@ -76,24 +84,24 @@ export default function HeroBudayaSection() {
           {/* Split kiri — narasi utama */}
           <div className="lg:col-span-7">
             <p className="budaya-hero-reveal font-sans text-fluid-eyebrow uppercase tracking-[0.2em] sm:tracking-[0.3em] text-balance text-brand">
-              {heroBudaya.eyebrow}
+              {data.eyebrow}
             </p>
 
             <h1 className="budaya-hero-reveal mt-5 font-serif text-fluid-h1 text-white">
-              {heroBudaya.title}{" "}
-              <span className="text-brand">{heroBudaya.titleAccent}</span>
+              {data.title}{" "}
+              <span className="text-brand">{data.titleAccent}</span>
             </h1>
 
             <p className="budaya-hero-reveal mt-6 max-w-2xl font-sans text-fluid-body text-white/85 leading-relaxed">
-              {heroBudaya.subtitle}
+              {data.subtitle}
             </p>
 
             <a
               href="#larvul-ngabal"
               className="budaya-hero-reveal group mt-12 inline-flex items-center gap-2 font-sans text-fluid-small uppercase tracking-widest text-white/70 transition-colors hover:text-brand focus-ring rounded-sm-design"
-              aria-label={heroBudaya.scrollHint}
+              aria-label={data.scrollHint}
             >
-              <span>{heroBudaya.scrollHint}</span>
+              <span>{data.scrollHint}</span>
               <ChevronDownIcon
                 className="h-4 w-4 transition-transform duration-300 group-hover:translate-y-1"
                 aria-hidden="true"
@@ -105,10 +113,10 @@ export default function HeroBudayaSection() {
           <div className="budaya-hero-reveal hidden lg:block lg:col-span-5">
             <figure className="glass-dark rounded-xl-design p-6 md:p-8">
               <blockquote className="font-serif text-fluid-h4 leading-[1.4] text-balance text-white">
-                &ldquo;{heroBudaya.quote.text}&rdquo;
+                &ldquo;{data.quote.text}&rdquo;
               </blockquote>
               <figcaption className="mt-5 font-sans text-fluid-small uppercase tracking-[0.2em] text-brand">
-                {heroBudaya.quote.attribution}
+                {data.quote.attribution}
               </figcaption>
             </figure>
           </div>

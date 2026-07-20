@@ -1,77 +1,37 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, type ReactElement } from "react";
 import Image from "next/image";
 import { BanknotesIcon, ShieldExclamationIcon, HeartIcon, MapIcon, ScaleIcon, UsersIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
 import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, A11y } from "swiper/modules";
 import type { Swiper as SwiperType } from "swiper/types";
 import { useSpotlight } from "@/hooks/useSpotlight";
+import { getDictionary } from "@/content/dictionaries";
 
 import "swiper/css";
 import "swiper/css/pagination";
 
-const rules = [
-  {
-    id: "harta",
-    title: "Hak Milik",
-    badge: "Tidak Boleh Mencuri",
-    desc: "Hukum Larvul Ngabal melarang keras pencurian dalam bentuk apa pun. Setiap harta benda milik seseorang dilindungi oleh adat. Pelanggar akan dikenai denda berat berupa emas, kain tenun, atau hewan ternak sebagai ganti rugi kepada korban.",
-    image: "/images/budaya/belis-mas-kawin.png",
-    icon: <BanknotesIcon className="w-5 h-5" />,
-  },
-  {
-    id: "damai",
-    title: "Perdamaian",
-    badge: "Tidak Boleh Membunuh",
-    desc: "Nyawa manusia adalah hal paling sakral. Hukum ini melarang tindakan kekerasan yang menyakiti atau menghilangkan nyawa seseorang. Pelanggaran ini diadili dalam sidang adat besar dan denda tertinggi berupa emas dan penyerahan tanah.",
-    image: "/images/budaya/tari-perang-kompasiana.jpg",
-    icon: <ShieldExclamationIcon className="w-5 h-5" />,
-  },
-  {
-    id: "kekerasan",
-    title: "Kekerasan",
-    badge: "Tidak Boleh Menganiaya",
-    desc: "Melarang keras segala bentak penganiayaan atau kekerasan fisik terhadap sesama warga. Larvul Ngabal menjamin keselamatan fisik bagi setiap individu di bawah perlindungan hukum adat yang tegas.",
-    image: "/images/budaya/kei_warriors_dance.png",
-    icon: <ShieldExclamationIcon className="w-5 h-5" />,
-  },
-  {
-    id: "kehormatan",
-    title: "Kesusilaan",
-    badge: "Tidak Boleh Berzinah",
-    desc: "Menjaga kehormatan keluarga dan martabat perempuan adalah prinsip utama. Pelanggaran terhadap norma kesusilaan dianggap sebagai penghinaan terhadap seluruh marga dan dihukum dengan denda adat yang sangat berat.",
-    image: "/images/budaya/sumpah-adat-kei-infopublik.png",
-    icon: <HeartIcon className="w-5 h-5" />,
-  },
-  {
-    id: "keluarga",
-    title: "Rumah Tangga",
-    badge: "Tidak Boleh Ganggu Istri",
-    desc: "Melarang keras tindakan mengganggu atau merusak keharmonisan rumah tangga orang lain. Hukum ini menjaga kestabilan sosial dan kerukunan keluarga inti di dalam komunitas Evav.",
-    image: "/images/heritage/raja-raja-rat.png",
-    icon: <UsersIcon className="w-5 h-5" />
-  },
-  {
-    id: "tanah",
-    title: "Batas Tanah",
-    badge: "Tidak Boleh Merusak Batas",
-    desc: "Tanah warisan adalah hak suci yang diwariskan leluhur. Menggeser batas tanah atau mengklaim milik orang lain sama dengan melanggar kesepakatan antar marga. Pelanggaran ini diselesaikan dalam musyawarah besar seluruh ratschap.",
-    image: "/images/budaya/kei_rule_tanah.png",
-    icon: <MapIcon className="w-5 h-5" />,
-  },
-  {
-    id: "sumpah",
-    title: "Sumpah Adat",
-    badge: "Tidak Boleh Melanggar Sumpah",
-    desc: "Sumpah adat adalah ikatan sakral yang mengikat dua pihak di hadapan leluhur. Melanggar sumpah dipercaya akan mendatangkan kutukan. Tradisi ini menjaga kejujuran dan kepercayaan antar masyarakat Kei selama berabad-abad.",
-    image: "/images/budaya/ritual-penyambutan-tamu-rinin.jpg",
-    icon: <ScaleIcon className="w-5 h-5" />,
-  },
-];
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger);
+}
 
-export default function BudayaAdatSection() {
+type Dict = Awaited<ReturnType<typeof getDictionary>>;
+
+const ruleIcons: Record<string, ReactElement> = {
+  harta: <BanknotesIcon className="w-5 h-5" />,
+  damai: <ShieldExclamationIcon className="w-5 h-5" />,
+  kekerasan: <ShieldExclamationIcon className="w-5 h-5" />,
+  kehormatan: <HeartIcon className="w-5 h-5" />,
+  keluarga: <UsersIcon className="w-5 h-5" />,
+  tanah: <MapIcon className="w-5 h-5" />,
+  sumpah: <ScaleIcon className="w-5 h-5" />,
+};
+
+export default function BudayaAdatSection({ data }: { data: Dict["home"]["budaya"] }) {
+  const rules = data.rules;
   const sectionRef = useRef<HTMLElement>(null);
   const [activeRule, setActiveRule] = useState(0);
   const [reducedMotion] = useState(
@@ -158,7 +118,6 @@ export default function BudayaAdatSection() {
           fill
           sizes="(max-width: 768px) 280px, 480px"
           className="object-cover object-right-top mix-blend-soft-light"
-          priority
         />
       </div>
 
@@ -166,24 +125,24 @@ export default function BudayaAdatSection() {
 
         {/* HEADER ROW: Title */}
         <div className="w-full budaya-fade">
-          <div
-            className="text-brand font-bold tracking-[0.2em] uppercase text-xs md:text-sm mb-2"
-            style={{ fontFamily: "var(--font-sans)" }}
-          >
-            BUDAYA DAN ADAT
-          </div>
-          <h2
-            className="text-fluid-h2 text-black font-normal mb-2"
-            style={{ fontFamily: "var(--font-serif)" }}
-          >
-            Larvul Ngabal
-          </h2>
-          <p
-            className="text-black/60 text-base md:text-lg"
-            style={{ fontFamily: "var(--font-sans)" }}
-          >
-            Hukum Adat yang Menjaga Kehidupan
-          </p>
+            <div
+              className="text-brand font-bold tracking-[0.2em] uppercase text-xs md:text-sm mb-2"
+              style={{ fontFamily: "var(--font-sans)" }}
+            >
+              {data.eyebrow}
+            </div>
+            <h2
+              className="text-fluid-h2 text-black font-normal mb-2"
+              style={{ fontFamily: "var(--font-serif)" }}
+            >
+              {data.title}
+            </h2>
+            <p
+              className="text-black/60 text-base md:text-lg"
+              style={{ fontFamily: "var(--font-sans)" }}
+            >
+              {data.subtitle}
+            </p>
         </div>
 
         {/* Desktop Layout (3 Columns) — Visible on xl screens */}
@@ -212,17 +171,17 @@ export default function BudayaAdatSection() {
                   >
                     <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 p-6 text-center">
                       <div className="w-12 h-12 rounded-full flex items-center justify-center bg-brand text-white flex-shrink-0">
-                        <div>{rule.icon}</div>
+                        <div>{ruleIcons[rule.id]}</div>
                       </div>
                       <span className="text-sm md:text-base leading-snug text-brand font-extrabold" style={{ fontFamily: "var(--font-sans)" }}>
                         {rule.badge}
                       </span>
-                      <span className="text-xs text-black/50" style={{ fontFamily: "var(--font-sans)" }}>
-                        Pasal {idx + 1} dari {rules.length}
-                      </span>
-                    </div>
-                    <div className="absolute bottom-3 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center gap-1 text-brand text-xs font-semibold" style={{ fontFamily: "var(--font-sans)" }}>
-                      Pasal berikutnya
+                       <span className="text-xs text-black/50" style={{ fontFamily: "var(--font-sans)" }}>
+                         {data.pasalPrefix} {idx + 1} {data.pasalTotal} {rules.length}
+                       </span>
+                     </div>
+                     <div className="absolute bottom-3 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center gap-1 text-brand text-xs font-semibold" style={{ fontFamily: "var(--font-sans)" }}>
+                       {data.nextPasal}
                       <ChevronRightIcon className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
                     </div>
                   </button>
@@ -258,12 +217,12 @@ export default function BudayaAdatSection() {
               <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
               {/* Label pasal di atas foto */}
               <div className="absolute bottom-3 left-3 right-3">
-                <span
-                  className="inline-block bg-brand/90 text-white text-[10px] font-bold px-2 py-1 rounded-md uppercase tracking-wider backdrop-blur-sm"
-                  style={{ fontFamily: "var(--font-sans)" }}
-                >
-                  Pasal {activeRule + 1} dari {rules.length}
-                </span>
+                 <span
+                   className="inline-block bg-brand/90 text-white text-[10px] font-bold px-2 py-1 rounded-md uppercase tracking-wider backdrop-blur-sm"
+                   style={{ fontFamily: "var(--font-sans)" }}
+                 >
+                   {data.pasalPrefix} {activeRule + 1} {data.pasalTotal} {rules.length}
+                 </span>
               </div>
             </div>
           </div>
@@ -293,7 +252,7 @@ export default function BudayaAdatSection() {
                 onMouseLeave={onMouseLeave}
                 className="btn-spotlight self-start mt-4 group/btn flex items-center gap-2 border border-black hover:border-brand text-black hover:text-brand px-5 py-2.5 rounded-xl font-semibold text-sm transition-all duration-300 hover:scale-[1.02] active:press focus-ring cursor-pointer"
               >
-                Pelajari Lebih Lanjut
+                {data.learnMore}
                 <ChevronRightIcon className="w-3.5 h-3.5 text-current transition-transform group-hover/btn:translate-x-1" />
               </button>
             </div>
@@ -329,7 +288,7 @@ export default function BudayaAdatSection() {
                       className="inline-block bg-brand/90 text-white text-[10px] font-bold px-2 py-1 rounded-md uppercase tracking-wider backdrop-blur-sm"
                       style={{ fontFamily: "var(--font-sans)" }}
                     >
-                      Pasal {idx + 1} dari {rules.length}
+                       {data.pasalPrefix} {idx + 1} {data.pasalTotal} {rules.length}
                     </span>
                   </div>
                 </div>
@@ -354,8 +313,8 @@ export default function BudayaAdatSection() {
                     onMouseLeave={onMouseLeave}
                     className="btn-spotlight self-start mt-3 group/btn flex items-center gap-2 border border-black hover:border-brand text-black hover:text-brand px-5 py-2.5 rounded-xl font-semibold text-sm transition-all duration-300 hover:scale-[1.02] active:press focus-ring cursor-pointer"
                   >
-                    Pelajari Lebih Lanjut
-                    <ChevronRightIcon className="w-3.5 h-3.5 text-current transition-transform group-hover/btn:translate-x-1" />
+                       {data.learnMore}
+                       <ChevronRightIcon className="w-3.5 h-3.5 text-current transition-transform group-hover/btn:translate-x-1" />
                   </button>
                 </div>
               </SwiperSlide>
@@ -370,13 +329,13 @@ export default function BudayaAdatSection() {
               className="text-black/70 text-base md:text-xl leading-relaxed"
               style={{ fontFamily: "var(--font-sans)" }}
             >
-              Larvul Ngabal adalah pedoman hidup masyarakat tanah evav untuk menjaga keseimbangan antara manusia, alam, dan sang pencipta. Hukum adat tertua di Indonesia Timur ini terdiri dari 7 pasal sakral yang dijaga turun-temurun.
+              {data.closingQuote}
             </blockquote>
             <figcaption
               className="mt-3 text-brand text-xs font-bold uppercase tracking-[0.2em]"
               style={{ fontFamily: "var(--font-sans)" }}
             >
-              — Larvul Ngabal, Hukum Leluhur Evav
+              {data.closingAttribution}
             </figcaption>
           </figure>
         </div>

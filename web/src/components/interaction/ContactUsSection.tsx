@@ -25,28 +25,34 @@ if (typeof window !== "undefined") {
 }
 
 interface ChannelItem {
-  label: string;
+  idLabel: string;
+  enLabel: string;
   value: string;
+  enValue?: string;
   href: string;
   Icon: typeof EnvelopeIcon;
 }
 
 const channels: ChannelItem[] = [
   {
-    label: "Email",
+    idLabel: "Email",
+    enLabel: "Email",
     value: CONTACT_EMAIL,
     href: EMAIL_URL,
     Icon: EnvelopeIcon,
   },
   {
-    label: "Telepon & WhatsApp",
+    idLabel: "Telepon & WhatsApp",
+    enLabel: "Phone & WhatsApp",
     value: "+62 821-1234-5678",
     href: WHATSAPP_URL,
     Icon: PhoneIcon,
   },
   {
-    label: "Lokasi",
+    idLabel: "Lokasi",
+    enLabel: "Location",
     value: "Kepulauan Kei, Maluku Tenggara",
+    enValue: "Kei Islands, Southeast Maluku",
     href: "https://maps.google.com/?q=Kepulauan+Kei+Maluku+Tenggara",
     Icon: MapPinIcon,
   },
@@ -54,7 +60,7 @@ const channels: ChannelItem[] = [
 
 const socials = SOCIAL_LINKS;
 
-export default function ContactUsSection() {
+export default function ContactUsSection({ lang }: { lang: "id" | "en" }) {
   const sectionRef = useRef<HTMLElement>(null);
   const { onMouseMove, onMouseLeave } = useSpotlight();
 
@@ -94,7 +100,7 @@ export default function ContactUsSection() {
           >
             <Image
               src="/images/budaya/tari-sawat-infopublik.jpg"
-              alt="Tari Sawat Kepulauan Kei menyambut tamu sebagai saudara"
+              alt={lang === "en" ? "The Sawat dance of the Kei Islands welcoming guests as siblings" : "Tari Sawat Kepulauan Kei menyambut tamu sebagai saudara"}
               fill
               sizes="(max-width: 768px) 100vw, 50vw"
               className="object-cover object-center brightness-110 contrast-105"
@@ -118,9 +124,19 @@ export default function ContactUsSection() {
                 <p className="text-white leading-snug text-2xl md:text-3xl"
                   style={{ fontFamily: "var(--font-serif)" }}
                 >
-                  Satu kepulauan, satu keluarga.
-                  <br />
-                  Mari kita terhubung.
+                  {lang === "en" ? (
+                    <>
+                      One archipelago, one family.
+                      <br />
+                      Let&rsquo;s connect.
+                    </>
+                  ) : (
+                    <>
+                      Satu kepulauan, satu keluarga.
+                      <br />
+                      Mari kita terhubung.
+                    </>
+                  )}
                 </p>
               </blockquote>
               </div>
@@ -137,28 +153,38 @@ export default function ContactUsSection() {
             <span className="fade-up text-brand font-semibold tracking-[0.18em] uppercase text-xs md:text-sm mb-4 inline-block"
               style={{ fontFamily: "var(--font-sans)" }}
             >
-              Hubungi Kami
+              {lang === "en" ? "Contact Us" : "Hubungi Kami"}
             </span>
 
             <h2 className="fade-up text-fluid-h2 font-normal text-white leading-[1.12] mb-5"
               style={{ fontFamily: "var(--font-serif)" }}
             >
-              Mari Terhubung
-              <br />
-              dengan Keluarga Evav
+              {lang === "en" ? (
+                <>
+                  Connect With the
+                  <br />
+                  Evav Family
+                </>
+              ) : (
+                <>
+                  Mari Terhubung
+                  <br />
+                  dengan Keluarga Evav
+                </>
+              )}
             </h2>
 
             <p className="fade-up text-white/70 text-sm md:text-base leading-relaxed font-light mb-8 max-w-xl"
               style={{ fontFamily: "var(--font-sans)" }}
             >
-              Punya pertanyaan, ide kolaborasi, atau sekadar ingin menyapa? Tuliskan impian
-              perjalananmu, kirimkan saran, atau ajak kami berkolaborasi — kami akan menyapamu
-              kembali seperti menyambut saudara.
+              {lang === "en"
+                ? "Have a question, a collaboration idea, or just want to say hello? Write your travel dream, send a suggestion, or invite us to collaborate — we will greet you back like welcoming a sibling."
+                : "Punya pertanyaan, ide kolaborasi, atau sekadar ingin menyapa? Tuliskan impian perjalananmu, kirimkan saran, atau ajak kami berkolaborasi — kami akan menyapamu kembali seperti menyambut saudara."}
             </p>
 
             <ul className="fade-up flex flex-col">
-              {channels.map(({ label, value, href, Icon }) => (
-                <li key={label} className="border-t border-white/10 first:border-t-0">
+              {channels.map(({ idLabel, enLabel, value, enValue, href, Icon }) => (
+                <li key={idLabel} className="border-t border-white/10 first:border-t-0">
                   <a
                     href={href}
                     target={href.startsWith("mailto:") ? undefined : "_blank"}
@@ -170,12 +196,12 @@ export default function ContactUsSection() {
                       <span className="text-white/40 text-xs uppercase tracking-wide"
                         style={{ fontFamily: "var(--font-sans)" }}
                       >
-                        {label}
+                        {lang === "en" ? enLabel : idLabel}
                       </span>
                       <span className="text-white text-sm md:text-base"
                         style={{ fontFamily: "var(--font-sans)" }}
                       >
-                        {value}
+                        {lang === "en" && enValue ? enValue : value}
                       </span>
                     </span>
                   </a>
@@ -189,7 +215,7 @@ export default function ContactUsSection() {
                     <span className="text-white/40 text-xs uppercase tracking-wide mb-2"
                       style={{ fontFamily: "var(--font-sans)" }}
                     >
-                      Media Sosial
+                      {lang === "en" ? "Social Media" : "Media Sosial"}
                     </span>
                     <div className="flex items-center gap-3">
                       {socials.map(({ label, href, platform }) => (
@@ -198,7 +224,7 @@ export default function ContactUsSection() {
                           href={href}
                           target="_blank"
                           rel="noopener noreferrer"
-                          aria-label={label}
+                          aria-label={lang === "en" ? `Discover Evav on ${platform}` : `Discover Evav di ${platform}`}
                           className="w-10 h-10 flex items-center justify-center rounded-full border border-white/10 text-white/60 hover:text-brand hover:border-brand transition-colors focus-ring"
                         >
                           <SocialIcon platform={platform} className="w-5 h-5" />
@@ -218,7 +244,7 @@ export default function ContactUsSection() {
                 className="btn-cta-dark btn-cta-dark:hover group inline-flex items-center justify-center gap-2 rounded-xl py-3.5 px-6 text-sm md:text-base font-semibold active:press focus-ring"
                 style={{ fontFamily: "var(--font-sans)" }}
               >
-                Sapa Kami
+                {lang === "en" ? "Say Hello" : "Sapa Kami"}
                 <ChevronRightIcon className="w-4 h-4 text-current transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true" />
               </a>
             </div>

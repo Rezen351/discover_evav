@@ -13,30 +13,35 @@ if (typeof window !== "undefined") {
 }
 
 // Slideshow "Saat Alam Berpamit" — berganti antar beberapa foto (autoplay 5s, §7.3).
-const WERWARAT_PHOTOS: { src: string; alt: string }[] = [
+const WERWARAT_PHOTOS: { src: string; altId: string; altEn: string }[] = [
   {
     src: "/images/eksplorasi/wer_warat.png",
-    alt: "Warga Kei membentangkan tali janur kuning di air dangkal saat tradisi Wer Warat",
+    altId: "Warga Kei membentangkan tali janur kuning di air dangkal saat tradisi Wer Warat",
+    altEn: "Kei people stretching yellow janur ropes in shallow water during the Wer Warat tradition",
   },
   {
     src: "/images/eksplorasi/kei_ngurbloat.png",
-    alt: "Pantai Ngurbloat — pasir terhalus di dunia saat laut surut di Kepulauan Kei",
+    altId: "Pantai Ngurbloat — pasir terhalus di dunia saat laut surut di Kepulauan Kei",
+    altEn: "Ngurbloat Beach — the world's finest sand at low tide in the Kei Islands",
   },
   {
     src: "/images/eksplorasi/kei_ngurtavur.png",
-    alt: "Pasir Timbul Ngurtavur — jalur pasir putih membelah laut biru saat meti",
+    altId: "Pasir Timbul Ngurtavur — jalur pasir putih membelah laut biru saat meti",
+    altEn: "Ngurtavur Sandbar — a white-sand path splitting the blue sea at meti",
   },
   {
     src: "/images/eksplorasi/pelikan_migration_australia.png",
-    alt: "Kawanan burung pelikan Australia terbang bermigrasi di atas perairan jernih Pasir Timbul Ngurtavur",
+    altId: "Kawanan burung pelikan Australia terbang bermigrasi di atas perairan jernih Pasir Timbul Ngurtavur",
+    altEn: "A flock of Australian pelicans migrating over the clear waters of Ngurtavur Sandbar",
   },
   {
     src: "/images/eksplorasi/kei_beach.png",
-    alt: "Hamparan pasir Panjang Ohoililir yang terbuka luas saat surut ekstrem",
+    altId: "Hamparan pasir Panjang Ohoililir yang terbuka luas saat surut ekstrem",
+    altEn: "The wide expanse of Ohoililir Pasir Panjang sand opening at extreme low tide",
   },
 ];
 
-export default function WerWaratSection() {
+export default function WerWaratSection({ lang }: { lang: "id" | "en" }) {
   const ref = useRef<HTMLElement>(null);
   const { onMouseMove, onMouseLeave } = useSpotlight();
   const { index: werwaratIndex } = useSlideshow({
@@ -104,7 +109,7 @@ export default function WerWaratSection() {
               <Image
                 key={photo.src}
                 src={photo.src}
-                alt={photo.alt}
+                alt={lang === "en" ? photo.altEn : photo.altId}
                 fill
                 sizes="(max-width: 768px) 100vw, 58vw"
                 className={`object-cover transition-opacity duration-1000 ease-in-out ${i === werwaratIndex ? "opacity-100" : "opacity-0"
@@ -115,22 +120,45 @@ export default function WerWaratSection() {
 
           <div className="werwarat-fade md:col-span-1 lg:col-span-5 flex flex-col">
             <span className="font-sans uppercase tracking-[0.25em] text-brand text-xs md:text-sm font-semibold mb-4">
-              Saat Alam Berpamit
+              {lang === "en" ? "When Nature Bids Farewell" : "Saat Alam Berpamit"}
             </span>
 
             <h2 className="font-serif text-fluid-h2 md:text-5xl leading-tight text-black break-words">
-              Laut Surut,{" "}
-              <span className="text-brand">Hamparan Surga Terbuka</span>
+              {lang === "en" ? (
+                <>
+                  The Tide Recedes,{" "}
+                  <span className="text-brand">A Heavenly Expanse Opens</span>
+                </>
+              ) : (
+                <>
+                  Laut Surut,{" "}
+                  <span className="text-brand">Hamparan Surga Terbuka</span>
+                </>
+              )}
             </h2>
 
             <blockquote className="mt-6 md:mt-8 font-serif text-base sm:text-lg md:text-2xl leading-relaxed text-black/80 border-l-2 border-brand pl-5 md:pl-6">
-              &ldquo;Saat air surut bermil-mil jauhnya, laut membuka gerbangnya —
-              hamparan pasir putih sehalus tepung yang membelah birunya samudera.
-              Di Pantai Ngurbloat dan Pasir Timbul Ngurtavur, alam Kei
-              memperlihatkan wajahnya yang paling murni: pasir terhalus di dunia,
-              laut jernih sebening kaca, dan burung pelikan Australia yang
-              bermigrasi ke tepian. Inilah keindahan alam yang menyatu dengan
-              napas masyarakat Kei.&rdquo;
+              {lang === "en" ? (
+                <>
+                  &ldquo;When the water recedes miles away, the sea opens its
+                  gate — a stretch of powder-soft white sand splitting the
+                  ocean&rsquo;s blue. At Ngurbloat Beach and Ngurtavur Sandbar,
+                  Kei nature reveals its purest face: the world&rsquo;s finest
+                  sand, glass-clear water, and migrating Australian pelicans at
+                  the shore. This is natural beauty united with the breath of the
+                  Kei people.&rdquo;
+                </>
+              ) : (
+                <>
+                  &ldquo;Saat air surut bermil-mil jauhnya, laut membuka gerbangnya —
+                  hamparan pasir putih sehalus tepung yang membelah birunya samudera.
+                  Di Pantai Ngurbloat dan Pasir Timbul Ngurtavur, alam Kei
+                  memperlihatkan wajahnya yang paling murni: pasir terhalus di dunia,
+                  laut jernih sebening kaca, dan burung pelikan Australia yang
+                  bermigrasi ke tepian. Inilah keindahan alam yang menyatu dengan
+                  napas masyarakat Kei.&rdquo;
+                </>
+              )}
             </blockquote>
 
             {/* <div className="mt-8">

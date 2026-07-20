@@ -4,14 +4,22 @@ import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ChevronRightIcon } from "@heroicons/react/24/outline";
-import { breather } from "@/content/culture";
+import type { getDictionary } from "@/content/dictionaries";
 import { useSpotlight } from "@/hooks/useSpotlight";
+
+type Dict = Awaited<ReturnType<typeof getDictionary>>;
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
 }
 
-export default function BreatherSection() {
+export default function BreatherSection({
+  lang,
+  data,
+}: {
+  lang: "id" | "en";
+  data: Dict["breather"];
+}) {
   const sectionRef = useRef<HTMLElement>(null);
   const { onMouseMove, onMouseLeave } = useSpotlight();
 
@@ -49,27 +57,27 @@ export default function BreatherSection() {
     <section
       id="jeda-budaya"
       ref={sectionRef}
-      aria-label="Jeda napas budaya Kei"
+      aria-label={data.ariaLabel}
       className="relative w-full snap-start snap-always bg-section z-[5] py-16 md:py-24"
     >
       <div className="max-w-[98%] xl:max-w-[1600px] mx-auto px-4 md:px-8 w-full">
         <div className="bg-white border border-brand/10 shadow-soft rounded-xl-design py-16 md:py-24 px-6 md:px-12 text-center">
           <blockquote className="breather-reveal mx-auto max-w-4xl font-serif text-fluid-h3 leading-[1.35] text-black">
-            &ldquo;{breather.quote}&rdquo;
+            &ldquo;{data.quote}&rdquo;
           </blockquote>
           <p className="breather-reveal mt-6 font-sans italic text-fluid-small text-black/55">
-            {breather.attribution}
+            {data.attribution}
           </p>
 
           <div className="breather-reveal mt-10">
             <a
-              href={breather.ctaHref}
+              href={data.ctaHref}
               onMouseMove={onMouseMove}
               onMouseLeave={onMouseLeave}
               className="btn-spotlight btn-cta hover:text-brand border hover:border-brand/100 group inline-flex items-center gap-2 rounded-xl bg-nav-gradient px-6 py-3 font-sans text-fluid-small font-semibold text-black transition-all hover:brightness-105 focus-ring active:press"
-              aria-label={breather.ctaLabel}
+              aria-label={data.ctaLabel}
             >
-              {breather.ctaLabel}
+              {data.ctaLabel}
               <ChevronRightIcon
                 className="h-4 w-4 transition-transform group-hover:translate-x-1"
                 aria-hidden="true"

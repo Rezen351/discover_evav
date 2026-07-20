@@ -22,35 +22,42 @@ if (typeof window !== "undefined") {
 const EVENT_LAT = -5.6625;
 const EVENT_LNG = 132.6362;
 const EVENT_MAPS_URL = `https://www.google.com/maps/search/?api=1&query=${EVENT_LAT},${EVENT_LNG}`;
-const EVENT_LOKASI = "Pantai Ngurbloat, Langgur–Tual, Kepulauan Kei";
+const EVENT_LOKASI = {
+  id: "Pantai Ngurbloat, Langgur–Tual, Kepulauan Kei",
+  en: "Ngurbloat Beach, Langgur–Tual, Kei Islands",
+};
 
 const elemenBudaya = [
-  { label: "Tifa", Icon: MusicalNoteIcon },
-  { label: "Gong Dada", Icon: SpeakerWaveIcon },
-  { label: "Tari Sariat", Icon: SparklesIcon },
+  { labelId: "Tifa", labelEn: "Tifa", Icon: MusicalNoteIcon },
+  { labelId: "Gong Dada", labelEn: "Gong Dada", Icon: SpeakerWaveIcon },
+  { labelId: "Tari Sariat", labelEn: "Sariat Dance", Icon: SparklesIcon },
 ];
 
 // Slideshow tarian Kei (autoplay 5s, cross-fade §7.3).
-const TARIAN_PHOTOS: { src: string; alt: string }[] = [
+const TARIAN_PHOTOS: { src: string; altId: string; altEn: string }[] = [
   {
     src: "/images/budaya/tari-sawat-infopublik.jpg",
-    alt: "Tari Sawat — tarian adat dengan ayunan selendang khas Kepulauan Kei",
+    altId: "Tari Sawat — tarian adat dengan ayunan selendang khas Kepulauan Kei",
+    altEn: "Sawat Dance — a traditional dance with characteristic Kei sash movements",
   },
   {
     src: "/images/budaya/tari-perang-kompasiana.jpg",
-    alt: "Penari Kei membawakan Tari Sawat di atas panggung pasir putih",
+    altId: "Penari Kei membawakan Tari Sawat di atas panggung pasir putih",
+    altEn: "Kei dancers performing the Sawat Dance on a white-sand stage",
   },
   {
     src: "/images/budaya/tari-syariat-kemdikbud.png",
-    alt: "Gerakan Tari Sariat yang agung diiringi dentuman Tifa Kei",
+    altId: "Gerakan Tari Sariat yang agung diiringi dentuman Tifa Kei",
+    altEn: "The majestic Sariat Dance movements accompanied by Kei Tifa drumming",
   },
   {
     src: "/images/budaya/kei_warriors_dance.png",
-    alt: "Tarian perang masyarakat adat Kepulauan Kei sebagai panggung alam",
+    altId: "Tarian perang masyarakat adat Kepulauan Kei sebagai panggung alam",
+    altEn: "A war dance of the Kei customary community as a natural stage",
   },
 ];
 
-export default function PentasSeniSection() {
+export default function PentasSeniSection({ lang }: { lang: "id" | "en" }) {
   const ref = useRef<HTMLElement>(null);
   const { onMouseMove, onMouseLeave } = useSpotlight();
   const { index: tariIndex } = useSlideshow({
@@ -108,41 +115,49 @@ export default function PentasSeniSection() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
           <div className="pentas-fade md:col-span-1 lg:col-span-5 flex flex-col md:order-1 lg:order-1">
             <span className="font-sans uppercase tracking-[0.25em] text-brand text-xs md:text-sm font-semibold mb-4">
-              Alam sebagai Panggung
+              {lang === "en" ? "Nature as a Stage" : "Alam sebagai Panggung"}
             </span>
 
             <h2 className="font-serif text-fluid-h2 md:text-5xl leading-tight text-black break-words">
-              Di Atas Pasir,{" "}
-              <span className="text-brand">Alam Menari</span>
+              {lang === "en" ? (
+                <>
+                  Upon the Sand,{" "}
+                  <span className="text-brand">Nature Dances</span>
+                </>
+              ) : (
+                <>
+                  Di Atas Pasir,{" "}
+                  <span className="text-brand">Alam Menari</span>
+                </>
+              )}
             </h2>
 
             <p className="mt-6 md:mt-8 font-serif text-base sm:text-lg md:text-2xl leading-relaxed text-black/80">
-              Tak perlu panggung buatan. Di Kepulauan Kei, alam adalah
-              pentasnya — hamparan pasir putih, tebing kapur, dan laut jernih
-              menjadi latar Tari Belan dan Tari Sariat yang agung. Dentuman Tifa
-              dan alunan gong Dada mengiringi langkah penari di atas pasir yang
-              dihanyutkan surut, mementaskan harmoni antara manusia dan alam
-              kepulauan yang tak terlupakan.
+              {lang === "en"
+                ? "No artificial stage is needed. In the Kei Islands, nature is the stage — white-sand expanses, limestone cliffs, and clear seas become the backdrop for the grand Belan Dance and Sariat Dance. The beat of the Tifa and the melody of the Dada gong accompany the dancers' steps upon sand swept bare by the tide, staging an unforgettable harmony between humanity and the island's nature."
+                : "Tak perlu panggung buatan. Di Kepulauan Kei, alam adalah pentasnya — hamparan pasir putih, tebing kapur, dan laut jernih menjadi latar Tari Belan dan Tari Sariat yang agung. Dentuman Tifa dan alunan gong Dada mengiringi langkah penari di atas pasir yang dihanyutkan surut, mementaskan harmoni antara manusia dan alam kepulauan yang tak terlupakan."}
             </p>
 
             <div className="mt-8 flex flex-wrap items-center gap-3 md:gap-5">
-              {elemenBudaya.map(({ label, Icon }) => (
+              {elemenBudaya.map(({ labelId, labelEn, Icon }) => (
                 <span
-                  key={label}
+                  key={labelId}
                   className="inline-flex items-center gap-2 text-brand font-sans text-sm md:text-base font-medium"
                 >
                   <Icon
                     className="h-5 w-5 md:h-6 md:w-6 text-brand"
                     aria-hidden="true"
                   />
-                  <span aria-label={`Elemen budaya: ${label}`}>{label}</span>
+                  <span aria-label={`${lang === "en" ? "Cultural element: " : "Elemen budaya: "}${lang === "en" ? labelEn : labelId}`}>
+                    {lang === "en" ? labelEn : labelId}
+                  </span>
                 </span>
               ))}
             </div>
 
             <p className="mt-5 font-sans text-sm md:text-base text-black/70 flex items-center gap-2">
               <MapPinIcon className="h-4 w-4 md:h-5 md:w-5 text-brand shrink-0" aria-hidden="true" />
-              <span>{EVENT_LOKASI}</span>
+              <span>{lang === "en" ? EVENT_LOKASI.en : EVENT_LOKASI.id}</span>
             </p>
 
             <div className="mt-4">
@@ -153,10 +168,10 @@ export default function PentasSeniSection() {
                 onMouseMove={onMouseMove}
                 onMouseLeave={onMouseLeave}
                 className="btn-spotlight btn-cta w-full sm:w-auto justify-center text-center inline-flex items-center gap-2 font-sans text-sm md:text-base font-medium focus-ring rounded-full px-6 py-3"
-                aria-label="Lihat lokasi Pentas Seni di Google Maps"
+                aria-label={lang === "en" ? "View the Arts Stage location on Google Maps" : "Lihat lokasi Pentas Seni di Google Maps"}
               >
                 <MapPinIcon className="h-4 w-4 md:h-5 md:w-5 text-current" />
-                Lihat Betapa Indahnya Budaya Kei
+                {lang === "en" ? "Discover the Beauty of Kei Culture" : "Lihat Betapa Indahnya Budaya Kei"}
               </a>
             </div>
           </div>
@@ -166,7 +181,7 @@ export default function PentasSeniSection() {
               <Image
                 key={photo.src}
                 src={photo.src}
-                alt={photo.alt}
+                alt={lang === "en" ? photo.altEn : photo.altId}
                 fill
                 sizes="(max-width: 768px) 100vw, 58vw"
                 className={`object-cover rounded-xl-design shadow-soft transition-opacity duration-1000 ease-in-out ${i === tariIndex ? "opacity-100" : "opacity-0"

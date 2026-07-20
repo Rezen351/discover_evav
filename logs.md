@@ -89,6 +89,19 @@
 
 ---
 
+## 2026-07-20 — Audit LCP & Optimasi Pemuatan Media
+
+| Tanggal | Aktivitas | Status | Catatan |
+|---------|-----------|--------|---------|
+| 2026-07-20 | Audit & perbaikan masalah LCP (Largest Contentful Paint) & media loading di seluruh rute halaman | ✅ | Mengubah pemuatan video latar belakang homepage (`HeroSection.tsx`) dan halaman budaya (`EkspresiBudayaSection.tsx`) menjadi kondisional hanya saat aktif (menghemat download ~26.5 MB di beranda). Menyediakan static image fallback dengan `priority={true}` pada homepage hero slide 1 & featured news image (`[lang]/news/page.tsx`). |
+| 2026-07-20 | Pembersihan priority salah tempat pada elemen di bawah lipatan layar | ✅ | Menghapus `priority` dari image di `JedaJiwaSection`, `BudayaAdatSection`, `UmkmCatalogSection`, dan `ContactSection` untuk mereduksi pertikaian jaringan di awal loading. |
+| 2026-07-20 | Penghapusan redundansi parameter loading | ✅ | Menghapus `loading="eager"` di `InteractionHeroSection` yang bertabrakan dengan `priority`. |
+| 2026-07-20 | Lokalisasi Judul Hero Beranda ke Bahasa Inggris | ✅ | Memindahkan teks judul utama hero beranda dari hardcoded di JSX ke data terjemahan terpusat (`locales/{id,en}/home.ts`) agar judul berubah ke bahasa Inggris saat mode bahasa Inggris aktif. |
+| 2026-07-20 | Penambahan Background Blur pada Overlay Teks Kontak | ✅ | Menambahkan strip caption glassmorphic gelap (`bg-black/60 backdrop-blur-xl w-full left-0 right-0 bottom-0` tanpa sudut rounded) pada overlay teks narasi budaya (`ContactSection.tsx`) di kolom gambar kiri untuk memaksimalkan kontras dan keterbacaan teks putih di seluruh lebar foto, serta menyisakan ruang padding bawah (`pb-12`) agar tombol navigasi dot tetap berada di atasnya dengan rapi. |
+| 2026-07-20 | Validasi build & lint pasca-perubahan | ✅ | Build Next.js sukses (Exit 0) dan ESLint bersih tanpa error (Exit 0). |
+
+---
+
 ## 📌 Open Items / Kendala
 
 | Item | Status | Tindakan Diperlukan |

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, type ReactElement } from "react";
 import Image from "next/image";
 import { ChevronRightIcon, MapPinIcon, SunIcon, SparklesIcon, ArrowsPointingOutIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import gsap from "gsap";
@@ -9,90 +9,26 @@ import Map, { Marker, type MapRef } from "react-map-gl/maplibre";
 import type { Map as MaplibreMap } from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
 import { useSpotlight } from "@/hooks/useSpotlight";
+import { getDictionary } from "@/content/dictionaries";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
 }
 
-const locations = [
-  {
-    id: "bair",
-    region: "KEI KECIL",
-    title: "Pulau Bair",
-    subtitle: "Raja Ampat-nya Maluku Tenggara",
-    description: "Nikmati sensasi menyusuri lorong tebing karang laut dengan air sebening kaca.",
-    image: "/images/eksplorasi/snorkeling-ngurtavur-zanzztoy.jpg",
-    longitude: 132.6565,
-    latitude: -5.5891,
-    stats: [
-      { label: "Keunikan", value: "Tebing karang menjulang tinggi & lorong air", icon: <MapPinIcon className="w-5 h-5" /> },
-      { label: "Budaya", value: "Wilayah sasi laut yang dijaga kearifan lokal", icon: <SparklesIcon className="w-5 h-5" /> },
-      { label: "Pengalaman", value: "Berenang dan kayak di laguna tersembunyi", icon: <SunIcon className="w-5 h-5" /> }
-    ]
-  },
-  {
-    id: "ngurbloat",
-    region: "KEI KECIL",
-    title: "Pantai Ngurbloat",
-    subtitle: "Pasir Putih Terhalus di Dunia",
-    description: "Bersantai di atas hamparan pasir putih sehalus tepung sepanjang 3 kilometer sambil menikmati keajaiban matahari terbenam.",
-    image: "/images/eksplorasi/pantai-pasir-panjang-ilhamarch.jpg",
-    longitude: 132.6362,
-    latitude: -5.6625,
-    stats: [
-      { label: "Keunikan", value: "Pasir pantai paling halus di dunia versi NatGeo", icon: <SunIcon className="w-5 h-5" /> },
-      { label: "Budaya", value: "Pusat perayaan festival pesona meti Kei", icon: <MapPinIcon className="w-5 h-5" /> },
-      { label: "Pengalaman", value: "Menikmati pisang goreng Enbal di pinggir pantai", icon: <SparklesIcon className="w-5 h-5" /> }
-    ]
-  },
-  {
-    id: "hawang",
-    region: "KEI KECIL",
-    title: "Goa Hawang",
-    subtitle: "Kolam Biru Mata Air Suci",
-    description: "Berenang di dalam goa karst alami dengan air tawar yang sangat jernih dan menyegarkan tubuh.",
-    image: "/images/eksplorasi/goa-hawang.jpg",
-    longitude: 132.6781,
-    latitude: -5.7197,
-    stats: [
-      { label: "Keunikan", value: "Mata air tawar jernih terhubung laut bawah tanah", icon: <SparklesIcon className="w-5 h-5" /> },
-      { label: "Budaya", value: "Legenda batu kutukan anjing dan pemburu", icon: <MapPinIcon className="w-5 h-5" /> },
-      { label: "Pengalaman", value: "Sensasi menyelam di kolam biru kristal", icon: <SunIcon className="w-5 h-5" /> }
-    ]
-  },
-  {
-    id: "ngurtavur",
-    region: "KEI KECIL",
-    title: "Pantai Ngurtavur",
-    subtitle: "Pasir Timbul Membelah Lautan",
-    description: "Berjalan sejauh 2 kilometer di atas pasir putih yang membelah samudra jernih menuju habitat burung Pelikan.",
-    image: "/images/eksplorasi/kei_ngurtavur.png",
-    longitude: 132.5510,
-    latitude: -5.7483,
-    stats: [
-      { label: "Keunikan", value: "Hamparan pasir putih meliuk 2km di tengah laut", icon: <MapPinIcon className="w-5 h-5" /> },
-      { label: "Budaya", value: "Kawasan alam yang dijaga dan dilindungi warga lokal", icon: <SparklesIcon className="w-5 h-5" /> },
-      { label: "Pengalaman", value: "Berjumpa langsung dengan migrasi burung Pelikan", icon: <SunIcon className="w-5 h-5" /> }
-    ]
-  },
-  {
-    id: "ngilngof",
-    region: "KEI KECIL",
-    title: "Kampung Ngilngof",
-    subtitle: "Pusat Ekowisata & Adat",
-    description: "Desa wisata tertua yang menjadi pusat pelestarian budaya Evav dan gerbang utama menuju Pantai Ngurbloat.",
-    image: "/images/eksplorasi/desa-wisata-ngilngof-candra-gunawan.jpg",
-    longitude: 132.6431,
-    latitude: -5.6740,
-    stats: [
-      { label: "Keunikan", value: "Desa wisata peraih penghargaan dengan tata ruang asri", icon: <SunIcon className="w-5 h-5" /> },
-      { label: "Budaya", value: "Menjaga kelestarian ritual leluhur dan hukum Larvul Ngabal", icon: <MapPinIcon className="w-5 h-5" /> },
-      { label: "Pengalaman", value: "Menyusuri keramahan warga lokal di sepanjang jalan ohoi", icon: <SparklesIcon className="w-5 h-5" /> }
-    ]
-  }
-];
+type Dict = Awaited<ReturnType<typeof getDictionary>>;
 
-export default function JourneyMapSection() {
+const statIcons: Record<string, ReactElement> = {
+  MapPinIcon: <MapPinIcon className="w-5 h-5" />,
+  SunIcon: <SunIcon className="w-5 h-5" />,
+  SparklesIcon: <SparklesIcon className="w-5 h-5" />,
+};
+
+export default function JourneyMapSection({ data }: { data: Dict["home"]["journey"] }) {
+  const statIconOrder = [statIcons.MapPinIcon, statIcons.SparklesIcon, statIcons.SunIcon];
+  const locations = data.locations.map((loc) => ({
+    ...loc,
+    stats: loc.stats.map((s, i) => ({ ...s, icon: statIconOrder[i % statIconOrder.length] })),
+  }));
   const [activeId, setActiveId] = useState(locations[0].id);
   const [cardOpen, setCardOpen] = useState(false);
   const [cardOverlay, setCardOverlay] = useState(true);
@@ -335,10 +271,10 @@ export default function JourneyMapSection() {
         <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end gap-6 w-full fade-up-item pb-4 pointer-events-auto">
           <div className="flex-none">
             <span className="text-brand text-xs font-bold uppercase tracking-widest" style={{ fontFamily: "var(--font-sans)" }}>
-              PETA PENJELAJAHAN KEI
+              {data.eyebrow}
             </span>
             <h2 className="text-4xl md:text-5xl text-black font-normal mt-1" style={{ fontFamily: "var(--font-serif)" }}>
-              Rencanakan Perjalanan Anda
+              {data.title}
             </h2>
           </div>
 
@@ -371,8 +307,8 @@ export default function JourneyMapSection() {
               mapRef.current?.fitBounds(initialBounds, { padding: getFitPadding(), duration: 1500, pitch: 0, bearing: 0 });
             }}
             className="absolute left-0 top-0 z-30 bg-white/85 hover:bg-brand hover:text-white text-brand p-3 md:p-2.5 rounded-full backdrop-blur-sm transition-all group border-0 cursor-pointer shadow-md pointer-events-auto min-w-[44px] min-h-[44px] hidden lg:flex items-center justify-center"
-            title="Tampilkan Semua Titik (Fit Bounds)"
-            aria-label="Tampilkan Semua Titik"
+            title={data.fitBoundsLabel}
+            aria-label={data.fitBoundsLabel}
           >
             <ArrowsPointingOutIcon className="w-4 h-4 transition-transform group-hover:scale-110" />
           </button>
@@ -399,7 +335,7 @@ export default function JourneyMapSection() {
                     e.stopPropagation();
                     setCardOpen(false);
                   }}
-                  aria-label="Tutup info lokasi"
+                  aria-label={data.closeLabel}
                   className="absolute bottom-6 left-1/2 -translate-x-1/2 z-40 bg-white/85 hover:bg-brand hover:text-white text-brand w-9 h-9 rounded-full backdrop-blur-sm transition-all border-0 cursor-pointer shadow-md flex items-center justify-center lg:hidden"
                 >
                   <XMarkIcon className="w-4 h-4" />
@@ -413,7 +349,7 @@ export default function JourneyMapSection() {
                   }}
                   role="button"
                   tabIndex={0}
-                  aria-label={cardOverlay ? "Sembunyikan info teks" : "Tampilkan info teks"}
+                  aria-label={cardOverlay ? data.toggleHideLabel : data.toggleShowLabel}
                   onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); setCardOverlay((v) => !v); } }}
                   className="relative w-full max-w-[420px] lg:max-w-none lg:w-[55%] xl:w-[52%] flex flex-col justify-between overflow-hidden shadow-md group border border-white rounded-lg-design min-h-[440px] lg:min-h-[500px] max-h-[85vh] overflow-y-auto cursor-pointer bg-tropical-dark"
                 >
@@ -480,8 +416,8 @@ export default function JourneyMapSection() {
                           onClick={(e) => e.stopPropagation()}
                           className="flex-none group/btn flex items-center gap-2 border border-white/80 hover:border-brand text-white hover:text-brand px-5 py-3 rounded-xl font-semibold text-xs transition-all duration-300 hover:scale-[1.02] active:press focus-ring cursor-pointer backdrop-blur-sm bg-white/10 hover:bg-white/20"
                         >
-                          Jelajahi Tempat Ini
-                          <ChevronRightIcon className="w-3.5 h-3.5 text-current transition-transform group-hover/btn:translate-x-1" />
+                           {data.ctaText}
+                           <ChevronRightIcon className="w-3.5 h-3.5 text-current transition-transform group-hover/btn:translate-x-1" />
                         </button>
                       </div>
                     </div>
@@ -505,8 +441,8 @@ export default function JourneyMapSection() {
               mapRef.current?.fitBounds(initialBounds, { padding: getFitPadding(), duration: 1500, pitch: 0, bearing: 0 });
             }}
             className="absolute left-4 bottom-4 lg:hidden z-30 bg-white/85 lg:hover:bg-brand lg:hover:text-white text-brand p-3 rounded-full backdrop-blur-sm transition-all group border-0 cursor-pointer shadow-md min-w-[44px] min-h-[44px] flex items-center justify-center"
-            title="Tampilkan Semua Titik (Fit Bounds)"
-            aria-label="Tampilkan Semua Titik"
+            title={data.fitBoundsLabel}
+            aria-label={data.fitBoundsLabel}
           >
             <ArrowsPointingOutIcon className="w-4 h-4 transition-transform group-hover:scale-110" />
           </button>

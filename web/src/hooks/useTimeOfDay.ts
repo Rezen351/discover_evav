@@ -20,9 +20,9 @@ export function useTimeOfDay(): TimeOfDay {
   return time;
 }
 
-export const temporalGreetings: Record<TimeOfDay, { kei: string; id: string }> = {
-  pagi: { kei: "Marhoba vu'un", id: "Selamat pagi, selamat datang" },
-  siang: { kei: "Marhoba", id: "Selamat datang" },
-  senja: { kei: "Marhoba ukat", id: "Selamat sore, waktu paling indah di Kei" },
-  malam: { kei: "Marhoba vuan", id: "Selamat malam, bintang Kei menyambut" },
+export const temporalGreetings: Record<TimeOfDay, { kei: string; id: string; en: string }> = {
+  pagi: { kei: "Marhoba vu'un", id: "Selamat pagi, selamat datang", en: "Good morning, welcome" },
+  siang: { kei: "Marhoba", id: "Selamat datang", en: "Welcome" },
+  senja: { kei: "Marhoba ukat", id: "Selamat sore, waktu paling indah di Kei", en: "Good afternoon, the most beautiful time in Kei" },
+  malam: { kei: "Marhoba vuan", id: "Selamat malam, bintang Kei menyambut", en: "Good evening, the stars of Kei welcome you" },
 };

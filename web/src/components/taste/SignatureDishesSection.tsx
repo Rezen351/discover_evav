@@ -4,13 +4,20 @@ import { useEffect, useRef } from "react";
 import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { signatureDishes } from "@/content/taste";
+import { getDictionary } from "@/content/dictionaries";
+type Dict = Awaited<ReturnType<typeof getDictionary>>;
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
 }
 
-export default function SignatureDishesSection() {
+export default function SignatureDishesSection({
+  lang,
+  data,
+}: {
+  lang: "id" | "en";
+  data: Dict["signatureDishes"];
+}) {
   const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -53,21 +60,21 @@ export default function SignatureDishesSection() {
       <div className="max-w-[98%] xl:max-w-[1600px] mx-auto px-4 md:px-8 w-full">
         <div className="max-w-3xl mb-12 md:mb-16">
           <p className="taste-dish-reveal font-sans text-fluid-eyebrow uppercase tracking-[0.3em] text-brand mb-4">
-            {signatureDishes.eyebrow}
+            {data.eyebrow}
           </p>
           <h2
             id="signature-dishes-title"
             className="taste-dish-reveal font-serif text-fluid-h2 text-black mb-5"
           >
-            {signatureDishes.title}
+            {data.title}
           </h2>
           <p className="taste-dish-reveal font-sans text-fluid-body text-black/70 leading-relaxed text-left">
-            {signatureDishes.intro}
+            {data.intro}
           </p>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-5 md:gap-6">
-          {signatureDishes.dishes.map((dish) => (
+          {data.dishes.map((dish) => (
             <article
               key={dish.id}
               className="taste-dish-reveal group relative w-full h-[420px] rounded-lg-design overflow-hidden shadow-card border border-brand/10 hover:border-brand/30 transition-colors bg-white"

@@ -1,15 +1,26 @@
 "use client";
 
-const quotes = [
-  "Pasir Ngurbloat sehalus tepung, legit di kaki setiap pejalan.",
-  "Di atas pasir putih ini, leluhur mengajarkan menjaga alam.",
-  "Laut Kei dua warna — biru tenang membelai pasir timbul.",
-  "Larvul Ngabal jaga tatanan, sejak ratusan tahun silam.",
-  "Meti Kei memanggil: mari panen ikan bersama warga Evav.",
-  "Terumbu karang Kei rumah ribuan spesies di segitiga emas.",
-];
+const QUOTES: Record<"id" | "en", string[]> = {
+  id: [
+    "Pasir Ngurbloat sehalus tepung, legit di kaki setiap pejalan.",
+    "Di atas pasir putih ini, leluhur mengajarkan menjaga alam.",
+    "Laut Kei dua warna — biru tenang membelai pasir timbul.",
+    "Larvul Ngabal jaga tatanan, sejak ratusan tahun silam.",
+    "Meti Kei memanggil: mari panen ikan bersama warga Evav.",
+    "Terumbu karang Kei rumah ribuan spesies di segitiga emas.",
+  ],
+  en: [
+    "Ngurbloat sand, soft as flour, gentle beneath every traveler's feet.",
+    "Upon this white sand, our ancestors teach us to guard nature.",
+    "Kei's sea holds two colors — calm blue caressing the emerged sand.",
+    "Larvul Ngabal keeps the order, for hundreds of years since.",
+    "Kei Meti calls: come harvest fish together with the Evav people.",
+    "Kei coral reefs host thousands of species in the golden triangle.",
+  ],
+};
 
-export default function QuoteMarquee() {
+export default function QuoteMarquee({ lang = "id" }: { lang?: "id" | "en" }) {
+  const quotes = QUOTES[lang];
   const loop = [...quotes, ...quotes];
   return (
     <div

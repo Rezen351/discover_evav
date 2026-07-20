@@ -13,25 +13,37 @@ if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
 }
 
-const janjiSambutan = [
+const janjiSambutan: {
+  icon: typeof HandRaisedIcon;
+  idLabel: string;
+  enLabel: string;
+  idAriaLabel: string;
+  enAriaLabel: string;
+}[] = [
   {
     icon: HandRaisedIcon,
-    label: "Kami baca setiap sapaan seperti surat dari saudara.",
-    ariaLabel: "Janji sambutan: membaca sapaan seperti surat dari saudara",
+    idLabel: "Kami baca setiap sapaan seperti surat dari saudara.",
+    enLabel: "We read every greeting like a letter from a sibling.",
+    idAriaLabel: "Janji sambutan: membaca sapaan seperti surat dari saudara",
+    enAriaLabel: "Welcome promise: reading every greeting like a letter from a sibling",
   },
   {
     icon: HeartIcon,
-    label: "Tidak ada pertanyaan yang terlalu kecil untuk Kei.",
-    ariaLabel: "Janji sambutan: tiada pertanyaan terlalu kecil untuk Kei",
+    idLabel: "Tidak ada pertanyaan yang terlalu kecil untuk Kei.",
+    enLabel: "No question is too small for Kei.",
+    idAriaLabel: "Janji sambutan: tiada pertanyaan terlalu kecil untuk Kei",
+    enAriaLabel: "Welcome promise: no question too small for Kei",
   },
   {
     icon: ChatBubbleLeftIcon,
-    label: "Jika kau tersesat, kami yang akan menuntunmu kembali.",
-    ariaLabel: "Janji sambutan: menuntunmu kembali jika tersesat",
+    idLabel: "Jika kau tersesat, kami yang akan menuntunmu kembali.",
+    enLabel: "If you get lost, we are the ones who will guide you back.",
+    idAriaLabel: "Janji sambutan: menuntunmu kembali jika tersesat",
+    enAriaLabel: "Welcome promise: guiding you back if you get lost",
   },
 ];
 
-export default function KeterhubunganIntroSection() {
+export default function KeterhubunganIntroSection({ lang }: { lang: "id" | "en" }) {
   const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -76,38 +88,64 @@ export default function KeterhubunganIntroSection() {
               className="text-brand font-sans tracking-wide uppercase text-fluid-eyebrow mb-5 inline-block"
               style={{ fontFamily: "var(--font-sans)" }}
             >
-              Keluarga Evav
+              {lang === "en" ? "Evav Family" : "Keluarga Evav"}
             </span>
 
             <h2
               className="text-fluid-h2 text-black font-normal mb-5 leading-[1.12]"
               style={{ fontFamily: "var(--font-serif)" }}
             >
-              Kami Bukan{" "}
-              <span className="text-brand">Brand</span> Tempat Wisata
+              {lang === "en" ? (
+                <>
+                  We Are Not a{" "}
+                  <span className="text-brand">Tourism Brand</span>
+                </>
+              ) : (
+                <>
+                  Kami Bukan{" "}
+                  <span className="text-brand">Brand</span> Tempat Wisata
+                </>
+              )}
             </h2>
 
             <p
               className="text-black/60 font-sans text-fluid-body leading-relaxed mb-8 max-w-2xl"
               style={{ fontFamily: "var(--font-sans)" }}
             >
-              Kami adalah anak cucu Evav yang membukakan pintu. Teknologi di
-              halaman ini hanyalah jembatan — bukan etalase.
+              {lang === "en"
+                ? "We are the descendants of Evav who open the door. The technology on this page is merely a bridge — not a storefront."
+                : "Kami adalah anak cucu Evav yang membukakan pintu. Teknologi di halaman ini hanyalah jembatan — bukan etalase."}
             </p>
 
             <p
               className="text-black/60 font-sans text-fluid-body leading-relaxed max-w-2xl"
               style={{ fontFamily: "var(--font-sans)" }}
             >
-              Dalam bahasa Kei,{" "}
-              <span className="text-black">
-                <em>Ain Ni Ain</em>
-              </span>{" "}
-              berarti &ldquo;satu punya satu, kita semua bersaudara&rdquo;. Maka
-              menghubungi kami bukan mengisi formulir — ia adalah mengetuk pintu
-              saudara. Pilih jalur yang paling nyaman bagimu: menulis surat,
-              menyapa lewat pesan, atau sekadar mengikuti kisah kami di media
-              sosial.
+              {lang === "en" ? (
+                <>
+                  In the Kei language,{" "}
+                  <span className="text-black">
+                    <em>Ain Ni Ain</em>
+                  </span>{" "}
+                  means &ldquo;one belongs to one, we are all siblings&rdquo;. So
+                  reaching us is not filling a form — it is knocking on a
+                  sibling&rsquo;s door. Pick the path most comfortable for you:
+                  writing a letter, saying hello via message, or simply following
+                  our stories on social media.
+                </>
+              ) : (
+                <>
+                  Dalam bahasa Kei,{" "}
+                  <span className="text-black">
+                    <em>Ain Ni Ain</em>
+                  </span>{" "}
+                  berarti &ldquo;satu punya satu, kita semua bersaudara&rdquo;. Maka
+                  menghubungi kami bukan mengisi formulir — ia adalah mengetuk pintu
+                  saudara. Pilih jalur yang paling nyaman bagimu: menulis surat,
+                  menyapa lewat pesan, atau sekadar mengikuti kisah kami di media
+                  sosial.
+                </>
+              )}
             </p>
           </div>
 
@@ -116,13 +154,15 @@ export default function KeterhubunganIntroSection() {
             <div
               className="bg-white/70 border border-brand/20 rounded-lg-design shadow-soft p-6 flex flex-col gap-5"
               role="list"
-              aria-label="Janji sambutan keluarga Evav"
+              aria-label={lang === "en" ? "Evav family welcome promises" : "Janji sambutan keluarga Evav"}
             >
               {janjiSambutan.map((item) => {
                 const Icon = item.icon;
+                const label = lang === "en" ? item.enLabel : item.idLabel;
+                const ariaLabel = lang === "en" ? item.enAriaLabel : item.idAriaLabel;
                 return (
                   <div
-                    key={item.label}
+                    key={label}
                     role="listitem"
                     className="keterhubungan-card flex items-start gap-4"
                   >
@@ -136,9 +176,9 @@ export default function KeterhubunganIntroSection() {
                       className="text-black/80 font-sans text-fluid-body leading-relaxed pt-1.5"
                       style={{ fontFamily: "var(--font-sans)" }}
                     >
-                      {item.label}
+                      {label}
                     </p>
-                    <span className="sr-only">{item.ariaLabel}</span>
+                    <span className="sr-only">{ariaLabel}</span>
                   </div>
                 );
               })}

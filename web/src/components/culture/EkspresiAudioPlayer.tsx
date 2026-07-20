@@ -8,11 +8,16 @@ import {
   SpeakerXMarkIcon,
 } from "@heroicons/react/24/outline";
 import type { EkspresiTrack } from "@/content/culture";
+import type { getDictionary } from "@/content/dictionaries";
 
 export default function EkspresiAudioPlayer({
+  lang,
+  audio,
   tracks,
   fallbackCover,
 }: {
+  lang: "id" | "en";
+  audio: Awaited<ReturnType<typeof getDictionary>>["cultureCommon"]["audio"];
   tracks: EkspresiTrack[];
   fallbackCover: string;
 }) {
@@ -59,12 +64,14 @@ export default function EkspresiAudioPlayer({
               <button
                 type="button"
                 onClick={playFromCover}
-                aria-label={`Putar lagu ${current.title}`}
+                aria-label={
+                  audio.playSong.replace("{title}", current.title)
+                }
                 className="absolute inset-0 flex items-center justify-center focus-ring"
               >
                 <Image
                   src={cover}
-                  alt={`Sampul ${current.title}`}
+                  alt={audio.coverOf.replace("{title}", current.title)}
                   fill
                   sizes="(max-width: 768px) 80vw, 320px"
                   className="object-cover brightness-90"
@@ -88,12 +95,12 @@ export default function EkspresiAudioPlayer({
       <div className="flex min-h-0 flex-1 flex-col gap-2 lg:border-l lg:border-white/10 lg:pl-6">
         <div className="flex shrink-0 items-center justify-between">
           <span className="font-sans text-[0.7rem] uppercase tracking-[0.2em] text-white/40">
-            Playlist
+            {audio.playlist}
           </span>
           <button
             type="button"
             onClick={toggleMute}
-            aria-label={muted ? "Nyalakan suara" : "Bisukan suara"}
+            aria-label={muted ? audio.unmute : audio.mute}
             className="text-white/60 transition-colors hover:text-white focus-ring rounded-full"
           >
             {muted ? (

@@ -5,7 +5,10 @@ import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { CalendarHeart, Award, MapPin, Users } from "lucide-react";
-import { festivalMetiKei, type FestivalPilar } from "@/content/culture";
+import { type FestivalPilar } from "@/content/locales/id/culture";
+import type { getDictionary } from "@/content/dictionaries";
+
+type Dict = Awaited<ReturnType<typeof getDictionary>>;
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -21,7 +24,13 @@ const ICONS: Record<
   Users,
 };
 
-export default function FestivalMetiSection() {
+export default function FestivalMetiSection({
+  lang,
+  data,
+}: {
+  lang: "id" | "en";
+  data: Dict["festivalMetiKei"];
+}) {
   const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -65,16 +74,16 @@ export default function FestivalMetiSection() {
       <div className="max-w-[98%] xl:max-w-[1600px] mx-auto px-4 md:px-8 w-full">
         <div className="max-w-3xl mb-12 md:mb-16">
           <p className="festival-reveal font-sans text-fluid-eyebrow uppercase tracking-[0.2em] sm:tracking-[0.3em] text-balance text-brand mb-4">
-            {festivalMetiKei.eyebrow}
+            {data.eyebrow}
           </p>
           <h2
             id="festival-title"
             className="festival-reveal font-serif text-fluid-h2 text-black mb-5"
           >
-            {festivalMetiKei.title}
+            {data.title}
           </h2>
           <p className="festival-reveal font-sans text-fluid-body text-black/70 leading-relaxed text-left">
-            {festivalMetiKei.intro}
+            {data.intro}
           </p>
         </div>
 
@@ -82,8 +91,8 @@ export default function FestivalMetiSection() {
           {/* Kiri: gambar festival dengan badge statistik KEN */}
           <figure className="festival-reveal relative lg:col-span-5 xl:col-span-5 rounded-lg-design overflow-hidden shadow-card border border-brand/10 min-h-[300px] sm:min-h-[360px] lg:min-h-full">
             <Image
-              src={festivalMetiKei.image}
-              alt={festivalMetiKei.imageAlt}
+              src={data.image}
+              alt={data.imageAlt}
               fill
               sizes="(max-width: 1024px) 100vw, 42vw"
               className="object-cover object-center"
@@ -95,21 +104,21 @@ export default function FestivalMetiSection() {
             <figcaption className="absolute inset-x-0 bottom-0 p-5 sm:p-6 md:p-8">
               <div className="flex items-end gap-3 sm:gap-4">
                 <span className="font-serif text-white leading-[0.9] text-[clamp(2.5rem,11vw,4.5rem)]">
-                  {festivalMetiKei.stat.value}
+                  {data.stat.value}
                 </span>
                 <span className="mb-1 flex-1 min-w-0 font-sans text-white/90 text-fluid-small leading-snug text-balance">
-                  {festivalMetiKei.stat.label}
+                  {data.stat.label}
                 </span>
               </div>
               <p className="mt-2 font-sans text-white/70 text-fluid-small">
-                {festivalMetiKei.stat.context}
+                {data.stat.context}
               </p>
             </figcaption>
           </figure>
 
           {/* Kanan: 4 pilar festival */}
           <div className="lg:col-span-7 xl:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-5 xl:gap-6">
-            {festivalMetiKei.pilar.map((p) => {
+            {data.pilar.map((p) => {
               const Icon = ICONS[p.icon];
               return (
                 <article

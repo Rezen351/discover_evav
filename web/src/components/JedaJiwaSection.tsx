@@ -5,12 +5,15 @@ import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useSpotlight } from "@/hooks/useSpotlight";
+import { getDictionary } from "@/content/dictionaries";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
 }
 
-export default function JedaJiwaSection() {
+type Dict = Awaited<ReturnType<typeof getDictionary>>;
+
+export default function JedaJiwaSection({ data }: { data: Dict["home"]["jeda"] }) {
   const sectionRef = useRef<HTMLElement>(null);
   const { onMouseMove, onMouseLeave } = useSpotlight({
     radius: 260,
@@ -57,7 +60,6 @@ export default function JedaJiwaSection() {
         fill
         sizes="100vw"
         className="object-cover object-center brightness-110 contrast-105"
-        priority
       />
       {/* Tint senja pink-biru (token §3.1) agar nuansa sunset Kei lebih terasa */}
       <div
@@ -90,25 +92,25 @@ export default function JedaJiwaSection() {
           className="text-white/80 text-xs tracking-[0.4em] uppercase mb-6"
           style={{ fontFamily: "var(--font-sans)", textShadow: "0 2px 12px rgba(0,0,0,0.55)" }}
         >
-          PEPATAH KEI
+          {data.eyebrow}
         </p>
         <blockquote
           className="text-white text-3xl md:text-5xl leading-relaxed mb-6"
           style={{ fontFamily: "var(--font-cursive)", textShadow: "0 2px 18px rgba(0,0,0,0.6)" }}
         >
-          Umat I Minan Ne Harta I Bulir
+          {data.quote}
         </blockquote>
         <p
           className="text-white text-base tracking-[0.15em]"
           style={{ fontFamily: "var(--font-sans)", textShadow: "0 2px 12px rgba(0,0,0,0.55)" }}
         >
-          &ldquo;Manusia lebih berharga daripada harta&rdquo;
+          {data.quoteMeaning}
         </p>
         <p
           className="text-white/70 text-xs mt-2 tracking-[0.2em]"
           style={{ fontFamily: "var(--font-sans)", textShadow: "0 2px 10px rgba(0,0,0,0.5)" }}
         >
-          — Pepatah Masyarakat Kepulauan Kei
+          {data.attribution}
         </p>
       </div>
 

@@ -12,26 +12,30 @@ if (typeof window !== "undefined") {
 }
 
 // Slideshow pantai Kei di balik video timelapse (autoplay 5s, cross-fade §7.3).
-const HERO_PHOTOS: { src: string; alt: string }[] = [
+const HERO_PHOTOS: { src: string; altId: string; altEn: string }[] = [
   {
     src: "/images/eksplorasi/kei_ngurtavur.png",
-    alt: "Lautan Kepulauan Kei yang surut membuka hamparan pasir saat Festival Pesona Meti Kei",
+    altId: "Lautan Kepulauan Kei yang surut membuka hamparan pasir saat Festival Pesona Meti Kei",
+    altEn: "The ebbing Kei Islands ocean opening a sand expanse during the Meti Kei Charm Festival",
   },
   {
     src: "/images/eksplorasi/kei_ngurbloat.png",
-    alt: "Pantai Ngurbloat — pasir terhalus di dunia dengan air toska jernih di Kepulauan Kei",
+    altId: "Pantai Ngurbloat — pasir terhalus di dunia dengan air toska jernih di Kepulauan Kei",
+    altEn: "Ngurbloat Beach — the world's finest sand with clear turquoise water in the Kei Islands",
   },
   {
     src: "/images/eksplorasi/kei_beach.png",
-    alt: "Gugusan Pantai Pasir Panjang saat surut di Kepulauan Kei",
+    altId: "Gugusan Pantai Pasir Panjang saat surut di Kepulauan Kei",
+    altEn: "The Pasir Panjang beach cluster at low tide in the Kei Islands",
   },
   {
     src: "/images/eksplorasi/kei_resort.png",
-    alt: "Pulau Dullah dengan laut landai biru jernih di selat Tual–Kei Kecil",
+    altId: "Pulau Dullah dengan laut landai biru jernih di selat Tual–Kei Kecil",
+    altEn: "Dullah Island with calm, clear blue sea in the Tual–Kei Kecil strait",
   },
 ];
 
-export default function HeroMetiSection() {
+export default function HeroMetiSection({ lang }: { lang: "id" | "en" }) {
   const sectionRef = useRef<HTMLElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isActive, setIsActive] = useState(false);
@@ -78,7 +82,7 @@ export default function HeroMetiSection() {
         duration: 1.1,
         stagger: 0.18,
         ease: "power2.out",
-        delay: 4,
+        delay: 0.4,
       });
 
       gsap.to(".meti-parallax", {
@@ -101,7 +105,7 @@ export default function HeroMetiSection() {
       id="meti-hero"
       data-hero
       ref={sectionRef}
-      aria-label="Festival Pesona Meti Kei"
+      aria-label={lang === "en" ? "The Meti Kei Charm Festival" : "Festival Pesona Meti Kei"}
       className="relative w-full min-h-screen snap-start snap-always flex items-center overflow-hidden bg-[#000] z-[8]"
     >
       <div className="absolute inset-0 z-0">
@@ -109,7 +113,7 @@ export default function HeroMetiSection() {
           <Image
             key={photo.src}
             src={photo.src}
-            alt={photo.alt}
+            alt={lang === "en" ? photo.altEn : photo.altId}
             fill
             priority={i === 0}
             sizes="100vw"
@@ -141,27 +145,35 @@ export default function HeroMetiSection() {
 
       <div className="relative z-[2] max-w-[98%] xl:max-w-[1600px] mx-auto px-4 md:px-8 w-full pt-20 sm:pt-0">
         <p className="meti-reveal text-fluid-eyebrow uppercase tracking-[0.2em] sm:tracking-[0.35em] text-white/60 font-sans">
-          Festival Pesona Meti Kei
+          {lang === "en" ? "The Meti Kei Charm Festival" : "Festival Pesona Meti Kei"}
         </p>
 
         <h1 className="meti-reveal mt-5 font-serif text-fluid-h1 text-white">
-          Ketika Samudera{" "}
-          <span className="font-cursive text-brand">Berpamit</span>
+          {lang === "en" ? (
+            <>
+              When the Ocean{" "}
+              <span className="font-cursive text-brand">Bids Farewell</span>
+            </>
+          ) : (
+            <>
+              Ketika Samudera{" "}
+              <span className="font-cursive text-brand">Berpamit</span>
+            </>
+          )}
         </h1>
 
         <p className="meti-reveal mt-6 max-w-2xl font-sans text-fluid-body text-white/85 leading-relaxed">
-          Ketika laut mundur hingga berkilo-kilometer, ia membuka gerbang
-          menuju keajaiban alam: pasir terhalus di dunia, laut jernih sebening
-          kaca, dan gugusan pulau bagai permata. Selamat datang di surga
-          tersembunyi Kepulauan Kei.
+          {lang === "en"
+            ? "When the sea retreats for kilometers, it opens a gateway to natural wonders: the world's finest sand, glass-clear water, and a cluster of islands like jewels. Welcome to the hidden paradise of the Kei Islands."
+            : "Ketika laut mundur hingga berkilo-kilometer, ia membuka gerbang menuju keajaiban alam: pasir terhalus di dunia, laut jernih sebening kaca, dan gugusan pulau bagai permata. Selamat datang di surga tersembunyi Kepulauan Kei."}
         </p>
 
         <a
           href="#wer-warat"
           className="meti-reveal group mt-12 inline-flex items-center gap-2 font-sans text-fluid-small uppercase tracking-widest text-white/70 transition-colors hover:text-brand focus-ring rounded-sm-design"
-          aria-label="Selami lebih dalam"
+          aria-label={lang === "en" ? "Dive in deeper" : "Selami lebih dalam"}
         >
-          <span>Selami lebih dalam</span>
+          <span>{lang === "en" ? "Dive in deeper" : "Selami lebih dalam"}</span>
           <ChevronDownIcon
             className="h-4 w-4 transition-transform duration-300 group-hover:translate-y-1"
             aria-hidden="true"

@@ -78,7 +78,7 @@ html, body {
 }
 
 /* Scroll-snap magnetik landing page — diaktifkan via class .snap-active
-   (ScrollSnapController) HANYA di halaman "/" (pathname === "/").
+   (ScrollSnapController) HANYA di landing page terlokalisasi ("/id" / "/en").
    Root (<html>) adalah scroll container default browser; cukup beri
    scroll-snap-type agar setiap <section class="snap-start"> menjadi target
    magnetik. Tidak mengubah height/overflow agar tetap kompatibel lintas

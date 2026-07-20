@@ -12,92 +12,118 @@ if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
 }
 
-type MosaicTile = {
+type MosaicTileLang = {
   src: string;
-  alt: string;
-  caption: string;
+  idAlt: string;
+  enAlt: string;
+  idCaption: string;
+  enCaption: string;
   /** kelas aspect-ratio bervariasi untuk kolase */
   aspect: string;
 };
 
-const TILES: MosaicTile[] = [
+const TILES: MosaicTileLang[] = [
   {
     src: "/images/eksplorasi/kei_ngurbloat.png",
-    alt: "Pantai Ngurbloat — pasir terhalus di dunia, Kei",
-    caption: "Senja di Ngurbloat — Kei",
+    idAlt: "Pantai Ngurbloat — pasir terhalus di dunia, Kei",
+    enAlt: "Ngurbloat Beach — the softest sand in the world, Kei",
+    idCaption: "Senja di Ngurbloat — Kei",
+    enCaption: "Sunset at Ngurbloat — Kei",
     aspect: "aspect-[4/5]",
   },
   {
     src: "/images/budaya/tari-sawat-infopublik.jpg",
-    alt: "Tarian Sawat penyambut tamu dalam upacara adat Kei",
-    caption: "Tari Sawat — warisan adat Evav",
+    idAlt: "Tarian Sawat penyambut tamu dalam upacara adat Kei",
+    enAlt: "The Sawat dance welcoming guests in a Kei traditional ceremony",
+    idCaption: "Tari Sawat — warisan adat Evav",
+    enCaption: "Sawat Dance — Evav cultural heritage",
     aspect: "aspect-[4/3]",
   },
   {
     src: "/images/eksplorasi/kei_ngurtavur.png",
-    alt: "Pulau Ngurtavur dengan pasir putih melengkung di tengah laut biru",
-    caption: "Ngurtavur — pasir putih melengkung",
+    idAlt: "Pulau Ngurtavur dengan pasir putih melengkung di tengah laut biru",
+    enAlt: "Ngurtavur Island with curved white sand in the middle of blue sea",
+    idCaption: "Ngurtavur — pasir putih melengkung",
+    enCaption: "Ngurtavur — curved white sand",
     aspect: "aspect-[1/1]",
   },
   {
     src: "/images/eksplorasi/kei_mosaic_1.png",
-    alt: "Warga Kei beraktivitas di tepian pantai saat fenomena Meti",
-    caption: "Meti Kei — laut surut serentak",
+    idAlt: "Warga Kei beraktivitas di tepian pantai saat fenomena Meti",
+    enAlt: "Kei locals gathering at the shoreline during the Meti low-tide phenomenon",
+    idCaption: "Meti Kei — laut surut serentak",
+    enCaption: "Kei Meti — the sea recedes at once",
     aspect: "aspect-[3/4]",
   },
   {
     src: "/images/eksplorasi/kei_hawang.png",
-    alt: "Danau Hawang dengan air jernih kehijauan di Kepulauan Kei",
-    caption: "Danau Hawang — air jernih kehijauan",
+    idAlt: "Danau Hawang dengan air jernih kehijauan di Kepulauan Kei",
+    enAlt: "Lake Hawang with clear greenish water in the Kei Islands",
+    idCaption: "Danau Hawang — air jernih kehijauan",
+    enCaption: "Lake Hawang — clear greenish water",
     aspect: "aspect-[4/5]",
   },
   {
     src: "/images/budaya/kei_warriors_dance.png",
-    alt: "Penari perang tradisional Kei dalam busana adat",
-    caption: "Tarian perang penyambut tamu",
+    idAlt: "Penari perang tradisional Kei dalam busana adat",
+    enAlt: "Traditional Kei war dancers in ceremonial attire",
+    idCaption: "Tarian perang penyambut tamu",
+    enCaption: "War dance welcoming guests",
     aspect: "aspect-[4/3]",
   },
   {
     src: "/images/eksplorasi/snorkeling-ngurtavur-zanzztoy.jpg",
-    alt: "Wisatawan snorkeling menikmati terumbu karang di perairan Kei",
-    caption: "Snorkeling — terumbu karang Kei",
+    idAlt: "Wisatawan snorkeling menikmati terumbu karang di perairan Kei",
+    enAlt: "A traveler snorkeling among coral reefs in Kei waters",
+    idCaption: "Snorkeling — terumbu karang Kei",
+    enCaption: "Snorkeling — Kei coral reefs",
     aspect: "aspect-[1/1]",
   },
   {
     src: "/images/eksplorasi/kei_waving.png",
-    alt: "Warga Kei menyapa pengunjung dengan tangan melambai khas keramahtamahan Evav",
-    caption: "Keramahtamahan Evav",
+    idAlt: "Warga Kei menyapa pengunjung dengan tangan melambai khas keramahtamahan Evav",
+    enAlt: "Kei locals waving to visitors with the warm Evav hospitality",
+    idCaption: "Keramahtamahan Evav",
+    enCaption: "Evav hospitality",
     aspect: "aspect-[3/4]",
   },
   {
     src: "/images/eksplorasi/kei_beach.png",
-    alt: "Pesisir pantai Kei dengan perahu nelayan tradisional",
-    caption: "Pesisir dan perahu nelayan",
+    idAlt: "Pesisir pantai Kei dengan perahu nelayan tradisional",
+    enAlt: "Kei coastline with traditional fishing boats",
+    idCaption: "Pesisir dan perahu nelayan",
+    enCaption: "Coastline and fishing boats",
     aspect: "aspect-[4/5]",
   },
   {
     src: "/images/budaya/kei_coast_sunset.png",
-    alt: "Pesisir Kei saat senja dengan cahaya jingga memantul di laut",
-    caption: "Senja di pesisir Evav",
+    idAlt: "Pesisir Kei saat senja dengan cahaya jingga memantul di laut",
+    enAlt: "Kei coast at dusk with orange light reflecting on the sea",
+    idCaption: "Senja di pesisir Evav",
+    enCaption: "Dusk on the Evav coast",
     aspect: "aspect-[4/3]",
   },
   {
     src: "/images/eksplorasi/kei_resort.png",
-    alt: "Sawah Laut resort dengan pondokan di atas air di Kei",
-    caption: "Istirahat di atas pasir",
+    idAlt: "Sawah Laut resort dengan pondokan di atas air di Kei",
+    enAlt: "Sawah Laut resort with overwater huts in Kei",
+    idCaption: "Istirahat di atas pasir",
+    enCaption: "Resting above the sand",
     aspect: "aspect-[1/1]",
   },
   {
     src: "/images/heritage/kampung-selayar-.png",
-    alt: "Kampung Selayar — salah satu dari tujuh kampung adat Kei dengan rumah tradisional",
-    caption: "Kampung Selayar — rumah adat",
+    idAlt: "Kampung Selayar — salah satu dari tujuh kampung adat Kei dengan rumah tradisional",
+    enAlt: "Selayar Village — one of the seven Kei adat villages with traditional houses",
+    idCaption: "Kampung Selayar — rumah adat",
+    enCaption: "Selayar Village — traditional houses",
     aspect: "aspect-[3/4]",
   },
 ];
 
 const CHANNELS = SOCIAL_MOSAIC_CHANNELS;
 
-export default function SocialMosaicSection() {
+export default function SocialMosaicSection({ lang }: { lang: "id" | "en" }) {
   const sectionRef = useRef<HTMLElement>(null);
   const wallRef = useRef<HTMLDivElement>(null);
   // Indeks gambar yang sedang ditampilkan tiap tile (untuk efek ganti acak)
@@ -168,22 +194,31 @@ export default function SocialMosaicSection() {
             className="text-brand font-bold tracking-[0.25em] uppercase text-xs md:text-sm mb-4 inline-block"
             style={{ fontFamily: "var(--font-sans)" }}
           >
-            Ruang Bersama
+            {lang === "en" ? "Shared Space" : "Ruang Bersama"}
           </span>
           <h2
             className="text-fluid-h2 font-normal text-black"
             style={{ fontFamily: "var(--font-serif)" }}
           >
-            Kei yang{" "}
-            <span className="text-brand">Hidup Hari Ini</span>
+            {lang === "en" ? (
+              <>
+                Kei,{" "}
+                <span className="text-brand">Alive Today</span>
+              </>
+            ) : (
+              <>
+                Kei yang{" "}
+                <span className="text-brand">Hidup Hari Ini</span>
+              </>
+            )}
           </h2>
           <p
             className="mt-5 text-base md:text-lg leading-relaxed text-black/60 font-light"
             style={{ fontFamily: "var(--font-sans)" }}
           >
-            Sebagian besar kisah kami berdenyut di media sosial — dari debur ombak pagi
-            hingga senja di atas pasir Ngurbloat. Lihat kehidupan Evav sehari-hari, lalu
-            jadilah bagian darinya.
+            {lang === "en"
+              ? "Most of our stories pulse on social media — from the morning surf to the sunset over Ngurbloat's sand. See everyday Evav life, then become part of it."
+              : "Sebagian besar kisah kami berdenyut di media sosial — dari debur ombak pagi hingga senja di atas pasir Ngurbloat. Lihat kehidupan Evav sehari-hari, lalu jadilah bagian darinya."}
           </p>
         </div>
 
@@ -201,7 +236,7 @@ export default function SocialMosaicSection() {
                 <div className="relative w-full h-full">
                   <Image
                     src={active.src}
-                    alt={active.alt}
+                    alt={lang === "en" ? active.enAlt : active.idAlt}
                     fill
                     sizes="(max-width: 768px) 50vw, (max-width: 1280px) 33vw, 25vw"
                     className="object-cover w-full h-full transition-all duration-700 ease-in-out group-hover:scale-105"
@@ -211,7 +246,7 @@ export default function SocialMosaicSection() {
                     className="absolute bottom-0 left-0 right-0 p-4 text-white text-sm md:text-base leading-snug font-light translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 line-clamp-2"
                     style={{ fontFamily: "var(--font-sans)" }}
                   >
-                    {active.caption}
+                    {lang === "en" ? active.enCaption : active.idCaption}
                   </figcaption>
                 </div>
               </figure>
@@ -227,7 +262,7 @@ export default function SocialMosaicSection() {
                 href={href}
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label={`Ikuti Discover Evav di ${label}`}
+                aria-label={lang === "en" ? `Follow Discover Evav on ${label}` : `Ikuti Discover Evav di ${label}`}
                 className="flex items-center gap-2 bg-white/70 border border-brand/30 text-black/60 hover:text-brand hover:bg-white rounded-full p-3 focus-ring transition-colors"
                 style={{ fontFamily: "var(--font-sans)" }}
               >
@@ -241,18 +276,18 @@ export default function SocialMosaicSection() {
             className="mt-6 text-sm md:text-base text-black/60 font-light"
             style={{ fontFamily: "var(--font-sans)" }}
           >
-            Tap satu untuk masuk ke ruang kami
+            {lang === "en" ? "Tap one to enter our space" : "Tap satu untuk masuk ke ruang kami"}
           </p>
 
           <a
             href="https://instagram.com/discoverkei"
             target="_blank"
             rel="noopener noreferrer"
-            aria-label="Lihat galeri Discover Evav"
+            aria-label={lang === "en" ? "View the Discover Evav gallery" : "Lihat galeri Discover Evav"}
             className="btn-cta inline-flex items-center gap-2 mt-4 rounded-full px-6 py-2.5 text-sm font-semibold focus-ring"
             style={{ fontFamily: "var(--font-sans)" }}
           >
-            Lihat Galeri
+            {lang === "en" ? "View Gallery" : "Lihat Galeri"}
             <ChevronRightIcon className="w-4 h-4 text-current" />
           </a>
         </div>

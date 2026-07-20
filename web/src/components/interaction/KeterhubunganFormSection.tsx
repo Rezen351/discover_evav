@@ -17,22 +17,19 @@ if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
 }
 
-type TopicTab = {
-  id: string;
-  label: string;
-};
+type TopicTabLang = { id: string; idLabel: string; enLabel: string };
 
-const TOPIC_TABS: TopicTab[] = [
-  { id: "umum", label: "Pertanyaan Umum" },
-  { id: "partner", label: "Kerja Sama & Partnership" },
-  { id: "saran", label: "Saran & Masukan" },
-  { id: "masalah", label: "Laporan Masalah" },
-  { id: "lainnya", label: "Lainnya" },
+const TOPIC_TABS: TopicTabLang[] = [
+  { id: "umum", idLabel: "Pertanyaan Umum", enLabel: "General Questions" },
+  { id: "partner", idLabel: "Kerja Sama & Partnership", enLabel: "Partnership & Collaboration" },
+  { id: "saran", idLabel: "Saran & Masukan", enLabel: "Suggestions & Feedback" },
+  { id: "masalah", idLabel: "Laporan Masalah", enLabel: "Report an Issue" },
+  { id: "lainnya", idLabel: "Lainnya", enLabel: "Others" },
 ];
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-export default function KeterhubunganFormSection() {
+export default function KeterhubunganFormSection({ lang }: { lang: "id" | "en" }) {
   const sectionRef = useRef<HTMLElement>(null);
   const formPanelRef = useRef<HTMLDivElement>(null);
   const { onMouseMove, onMouseLeave } = useSpotlight();
@@ -70,15 +67,27 @@ export default function KeterhubunganFormSection() {
   const validate = () => {
     const next: typeof errors = {};
     if (!formData.name.trim()) {
-      next.name = "Tuliskan nama panggilanmu dulu ya 🌊";
+      next.name =
+        lang === "en"
+          ? "Tell us your nickname first 🌊"
+          : "Tuliskan nama panggilanmu dulu ya 🌊";
     }
     if (!formData.email.trim()) {
-      next.email = "Kami perlu alamat yang bisa kami balas 🏖️";
+      next.email =
+        lang === "en"
+          ? "We need an address we can reply to 🏖️"
+          : "Kami perlu alamat yang bisa kami balas 🏖️";
     } else if (!EMAIL_RE.test(formData.email.trim())) {
-      next.email = "Alamat email ini sepertinya belum pas. Coba periksa lagi 🏖️";
+      next.email =
+        lang === "en"
+          ? "This email address doesn't look quite right. Please check again 🏖️"
+          : "Alamat email ini sepertinya belum pas. Coba periksa lagi 🏖️";
     }
     if (!formData.message.trim()) {
-      next.message = "Ceritakan dulu impianmu ke Kei 🌊";
+      next.message =
+        lang === "en"
+          ? "Share your dream for Kei first 🌊"
+          : "Ceritakan dulu impianmu ke Kei 🌊";
     }
     return next;
   };
@@ -120,31 +129,32 @@ export default function KeterhubunganFormSection() {
                 className="text-brand font-bold tracking-[0.2em] uppercase text-xs md:text-sm mb-1 inline-block"
                 style={{ fontFamily: "var(--font-sans)" }}
               >
-                JALUR LAIN
+                {lang === "en" ? "OTHER CHANNELS" : "JALUR LAIN"}
               </span>
               <h2
                 className="text-fluid-h3 text-black font-normal leading-[1.2] mb-2"
                 style={{ fontFamily: "var(--font-serif)" }}
               >
-                Atau Sapa Lewat Jalur Lain
+                {lang === "en" ? "Or Say Hello Another Way" : "Atau Sapa Lewat Jalur Lain"}
               </h2>
               <p
                 className="text-black/60 text-sm md:text-base leading-relaxed mb-4"
                 style={{ fontFamily: "var(--font-sans)" }}
               >
-                Tidak suka menulis form? Pilih jalur yang paling nyaman. Kami
-                menyambut setiap sapa sehangat sambutan orang Kei.
+                {lang === "en"
+                  ? "Not a fan of forms? Pick the channel you're most comfortable with. We welcome every hello as warmly as the Kei people welcome you."
+                  : "Tidak suka menulis form? Pilih jalur yang paling nyaman. Kami menyambut setiap sapa sehangat sambutan orang Kei."}
               </p>
 
               <a
                 href={WHATSAPP_URL}
                 className="group flex items-center gap-4 bg-white/70 border border-brand/20 rounded-md-design p-4 hover:border-brand transition-colors focus-ring"
                 style={{ fontFamily: "var(--font-sans)" }}
-                aria-label="Hubungi kami lewat WhatsApp dan telepon di nomor +62 821-1234-5678"
+                aria-label={lang === "en" ? "Contact us via WhatsApp and phone at +62 821-1234-5678" : "Hubungi kami lewat WhatsApp dan telepon di nomor +62 821-1234-5678"}
               >
                 <PhoneIcon className="w-6 h-6 text-brand shrink-0" />
                 <span className="flex flex-col">
-                  <span className="text-sm font-semibold text-black">WhatsApp &amp; Telepon</span>
+                  <span className="text-sm font-semibold text-black">{lang === "en" ? "WhatsApp & Phone" : "WhatsApp &amp; Telepon"}</span>
                   <span className="text-sm text-black/60 group-hover:text-brand transition-colors">
                     +62 821-1234-5678
                   </span>
@@ -155,11 +165,11 @@ export default function KeterhubunganFormSection() {
                 href={EMAIL_URL}
                 className="group flex items-center gap-4 bg-white/70 border border-brand/20 rounded-md-design p-4 hover:border-brand transition-colors focus-ring"
                 style={{ fontFamily: "var(--font-sans)" }}
-                aria-label={`Kirim surel langsung ke ${CONTACT_EMAIL}`}
+                aria-label={lang === "en" ? `Send an email directly to ${CONTACT_EMAIL}` : `Kirim surel langsung ke ${CONTACT_EMAIL}`}
               >
                 <EnvelopeIcon className="w-6 h-6 text-brand shrink-0" />
                 <span className="flex flex-col">
-                  <span className="text-sm font-semibold text-black">Surel</span>
+                  <span className="text-sm font-semibold text-black">{lang === "en" ? "Email" : "Surel"}</span>
                   <span className="text-sm text-black/60 group-hover:text-brand transition-colors">
                     keluarga@evav.id
                   </span>
@@ -172,9 +182,11 @@ export default function KeterhubunganFormSection() {
               >
                 <ClockIcon className="w-6 h-6 text-brand shrink-0 mt-0.5" />
                 <span className="flex flex-col">
-                  <span className="text-sm font-semibold text-black">Jam Sambutan</span>
+                  <span className="text-sm font-semibold text-black">{lang === "en" ? "Response Hours" : "Jam Sambutan"}</span>
                   <span className="text-sm text-black/60">
-                    Kami membalas dalam 1–2 hari, seperti surat antar pulau.
+                    {lang === "en"
+                      ? "We reply within 1–2 days, like a letter sent between islands."
+                      : "Kami membalas dalam 1–2 hari, seperti surat antar pulau."}
                   </span>
                 </span>
               </div>
@@ -188,21 +200,31 @@ export default function KeterhubunganFormSection() {
                 className="text-brand font-bold tracking-[0.2em] uppercase text-xs md:text-sm mb-3 inline-block"
                 style={{ fontFamily: "var(--font-sans)" }}
               >
-                SAPA KELUARGA EVAv
+                {lang === "en" ? "SAY HELLO TO THE EVAv FAMILY" : "SAPA KELUARGA EVAv"}
               </span>
               <h2
                 className="text-fluid-h2 leading-[1.12] text-black font-normal mb-4"
                 style={{ fontFamily: "var(--font-serif)" }}
               >
-                Tuliskan Sapamu{" "}
-                <span className="text-brand">untuk Kei</span>
+                {lang === "en" ? (
+                  <>
+                    Write Your Hello{" "}
+                    <span className="text-brand">for Kei</span>
+                  </>
+                ) : (
+                  <>
+                    Tuliskan Sapamu{" "}
+                    <span className="text-brand">untuk Kei</span>
+                  </>
+                )}
               </h2>
               <p
                 className="text-black/60 text-sm md:text-base leading-relaxed mb-8"
                 style={{ fontFamily: "var(--font-sans)" }}
               >
-                Satu pesan darimu cukup untuk memulai percakapan. Kami baca setiap
-                sapaan seperti surat dari saudara.
+                {lang === "en"
+                  ? "One message from you is enough to start a conversation. We read every hello like a letter from a sibling."
+                  : "Satu pesan darimu cukup untuk memulai percakapan. Kami baca setiap sapaan seperti surat dari saudara."}
               </p>
 
               {submitted ? (
@@ -219,11 +241,12 @@ export default function KeterhubunganFormSection() {
                     className="text-fluid-h3 font-normal text-black mb-2"
                     style={{ fontFamily: "var(--font-serif)" }}
                   >
-                    Terima kasih! Sampai jumpa di Kei 🌊
+                    {lang === "en" ? "Thank you! See you in Kei 🌊" : "Terima kasih! Sampai jumpa di Kei 🌊"}
                   </h3>
                   <p className="text-sm text-black/60">
-                    Sapaanmu sudah kami terima. Kami akan membalas lewat jalur
-                    yang paling dekat denganmu.
+                    {lang === "en"
+                      ? "We have received your hello. We will reply through the channel closest to you."
+                      : "Sapaanmu sudah kami terima. Kami akan membalas lewat jalur yang paling dekat denganmu."}
                   </p>
                 </div>
               ) : (
@@ -231,7 +254,7 @@ export default function KeterhubunganFormSection() {
                   {/* Topic tabs */}
                   <div
                     role="tablist"
-                    aria-label="Pilih topik sapaan"
+                    aria-label={lang === "en" ? "Choose a greeting topic" : "Pilih topik sapaan"}
                     className="flex flex-nowrap gap-2 overflow-x-auto no-scrollbar sm:flex-wrap sm:overflow-visible"
                   >
                     {TOPIC_TABS.map((tab) => {
@@ -251,7 +274,7 @@ export default function KeterhubunganFormSection() {
                           ].join(" ")}
                           style={{ fontFamily: "var(--font-sans)" }}
                         >
-                          {tab.label}
+                          {lang === "en" ? tab.enLabel : tab.idLabel}
                         </button>
                       );
                     })}
@@ -264,7 +287,7 @@ export default function KeterhubunganFormSection() {
                       className="text-sm font-medium text-black"
                       style={{ fontFamily: "var(--font-sans)" }}
                     >
-                      Nama panggilanmu
+                      {lang === "en" ? "Your nickname" : "Nama panggilanmu"}
                     </label>
                     <input
                       id="kh-name"
@@ -292,7 +315,7 @@ export default function KeterhubunganFormSection() {
                       className="text-sm font-medium text-black"
                       style={{ fontFamily: "var(--font-sans)" }}
                     >
-                      Email yang bisa kami balas
+                      {lang === "en" ? "Email we can reply to" : "Email yang bisa kami balas"}
                     </label>
                     <input
                       id="kh-email"
@@ -320,14 +343,14 @@ export default function KeterhubunganFormSection() {
                       className="text-sm font-medium text-black"
                       style={{ fontFamily: "var(--font-sans)" }}
                     >
-                      Pesan
+                      {lang === "en" ? "Message" : "Pesan"}
                     </label>
                     <textarea
                       id="kh-message"
                       value={formData.message}
                       onChange={handleChange("message")}
                       aria-invalid={isError("message")}
-                      placeholder="Ceritakan impian perjalananmu ke Kei..."
+                      placeholder={lang === "en" ? "Tell us your travel dream for Kei..." : "Ceritakan impian perjalananmu ke Kei..."}
                       className="w-full bg-white/95 rounded-xl px-4 py-3.5 border border-brand/10 focus:border-brand outline-none text-black transition-all placeholder:text-black/40 text-sm md:text-base h-32 resize-none"
                       style={{ fontFamily: "var(--font-sans)" }}
                     />
@@ -347,10 +370,10 @@ export default function KeterhubunganFormSection() {
                     onMouseLeave={onMouseLeave}
                     className="btn-cta group/btn w-full rounded-xl py-3.5 font-semibold text-sm md:text-base active:press focus-ring"
                     style={{ fontFamily: "var(--font-sans)" }}
-                  >
-                    Kirim Sapaan
-                    <ChevronRightIcon className="w-4 h-4 text-current transition-transform duration-300 group-hover/btn:translate-x-1" />
-                  </button>
+                    >
+                      {lang === "en" ? "Send Your Hello" : "Kirim Sapaan"}
+                      <ChevronRightIcon className="w-4 h-4 text-current transition-transform duration-300 group-hover/btn:translate-x-1" />
+                    </button>
                 </form>
               )}
             </div>

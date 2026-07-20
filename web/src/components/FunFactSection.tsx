@@ -1,245 +1,33 @@
 "use client";
 
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef, useCallback, type ReactElement } from "react";
 import Image from "next/image";
 import { GlobeAltIcon, BookOpenIcon, SparklesIcon, ShoppingBagIcon, ShieldCheckIcon, CheckCircleIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import StatsCounter from "@/components/StatsCounter";
 import { useSpotlight } from "@/hooks/useSpotlight";
+import { getDictionary } from "@/content/dictionaries";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
 }
 
-const tabs = [
-  { name: "Alam", icon: <GlobeAltIcon className="w-5 h-5" /> },
-  { name: "Budaya", icon: <BookOpenIcon className="w-5 h-5" /> },
-  { name: "Satwa", icon: <SparklesIcon className="w-5 h-5" /> },
-  { name: "Kuliner", icon: <ShoppingBagIcon className="w-5 h-5" /> },
-  { name: "Teknologi", icon: <ShieldCheckIcon className="w-5 h-5" /> },
-];
+type Dict = Awaited<ReturnType<typeof getDictionary>>;
 
 type TabName = "Alam" | "Budaya" | "Satwa" | "Kuliner" | "Teknologi";
 
-interface DestinationItem {
-  tag: string;
-  image: string;
-  title: string;
-  subtitle: string;
-  descTitle: string;
-  descPoints: string[];
-}
-
-const tabData: Record<TabName, { items: DestinationItem[]; ctaText: string }> = {
-  Alam: {
-    ctaText: "EKSPLORASI",
-    items: [
-      {
-        tag: "DESTINASI UTAMA",
-        image: "/images/eksplorasi/kei_ngurbloat.png",
-        title: "Pantai Ngurbloat",
-        subtitle: "Pasir Sehalus Tepung",
-        descTitle: "Pantai Ngurbloat memiliki pasir sehalus tepung",
-        descPoints: [
-          "5.8 KM garis pantai pasir putih terpanjang di Asia Tenggara",
-          "Butiran pasir selembut bedak bayi yang sangat unik dan ikonik",
-          "Pemandangan matahari terbenam yang memukau mata dunia"
-        ]
-      },
-      {
-        tag: "WISATA KARST",
-        image: "/images/eksplorasi/kei_bair.jpg",
-        title: "Tebing Karst Bair",
-        subtitle: "Raja Ampat-nya Kei",
-        descTitle: "Pulau Bair menyajikan tebing karst & air kristal",
-        descPoints: [
-          "Tebing batu karang megah mengelilingi perairan biru jernih",
-          "Labirin air laut alami yang sangat eksotis untuk berkayak",
-          "Habitat alami hiu blacktip kecil yang ramah pengunjung"
-        ]
-      },
-      {
-        tag: "GOA ALAMI",
-        image: "/images/eksplorasi/kei_hawang.png",
-        title: "Goa Hawang",
-        subtitle: "Misteri Air Biru Sebening Kaca",
-        descTitle: "Goa Hawang menyimpan kolam biru sebening kristal",
-        descPoints: [
-          "Kolam air tawar alami yang sangat jernih di dalam goa",
-          "Struktur stalaktit purba yang bergelantungan secara eksotis",
-          "Legenda batu kutukan pemburu yang penuh nilai sejarah kuno"
-        ]
-      }
-    ]
-  },
-  Budaya: {
-    ctaText: "PELAJARI",
-    items: [
-      {
-        tag: "FESTIVAL AKBAR",
-        image: "/images/budaya/festival-pesona-meti-kei-2025-triptrus.jpg",
-        title: "Pesona Festival Meti",
-        subtitle: "Tradisi Bahari & Pesta Rakyat",
-        descTitle: "Perayaan tahunan menyambut fenomena surut air laut ekstrem",
-        descPoints: [
-          "Wer Warat: Tradisi menangkap ikan massal dengan bentangan tali janur kuning",
-          "Lomba Perahu Belan: Balapan perahu adat yang membakar semangat persatuan",
-          "Pentas Seni & Kuliner: Eksibisi budaya, tari adat, dan pameran kuliner khas Evav"
-        ]
-      },
-      {
-        tag: "HUKUM ADAT",
-        image: "/images/budaya/landmark_langgur_kei_larvul_spear.jpeg",
-        title: "Larvul Ngabal",
-        subtitle: "Pedoman Hidup Suci",
-        descTitle: "Tujuh pasal hukum suci penjaga tatanan sosial Evav",
-        descPoints: [
-          "Mengatur perlindungan hak asasi manusia dan kesusilaan",
-          "Menjaga keharmonisan hubungan persaudaraan antar warga",
-          "Sanksi adat yang tegas demi kelestarian moral masyarakat"
-        ]
-      },
-      {
-        tag: "SENI TRADISI",
-        image: "/images/budaya/tari-sawat-infopublik.jpg",
-        title: "Tari Tradisional",
-        subtitle: "Ekspresi Jiwa Kei",
-        descTitle: "Tarian adat penyambut tamu dan perayaan syukur panen",
-        descPoints: [
-          "Gerakan ritmis gemulai menceritakan kebersamaan melaut",
-          "Penggunaan aksesoris bulu burung cenderawasih dan gelang perak",
-          "Iringan musik tifa tradisional yang membakar semangat persatuan"
-        ]
-      }
-    ]
-  },
-  Satwa: {
-    ctaText: "LIHAT",
-    items: [
-      {
-        tag: "MAMALIA LAUT",
-        image: "/images/satwa/kei_dolphin.png",
-        title: "Lumba-Lumba Kei",
-        subtitle: "Sahabat Bahari Selat Bair",
-        descTitle: "Kawanan lumba-lumba yang ceria di perairan Kepulauan Kei",
-        descPoints: [
-          "Sering muncul menari mengiringi perahu di perairan Pulau Bair",
-          "Navigasi alami nelayan tradisional yang menandakan kelimpahan ikan",
-          "Dihormati oleh masyarakat adat setempat sebagai pelindung lautan"
-        ]
-      },
-      {
-        tag: "REPTIL PURBA",
-        image: "/images/satwa/kei_seaturtle.png",
-        title: "Penyu Belimbing",
-        subtitle: "Raksasa Penjelajah Pasifik",
-        descTitle: "Jalur migrasi dan tempat bertelur penyu terbesar di dunia",
-        descPoints: [
-          "Menjelajah ribuan kilometer dari pesisir Amerika hingga pantai Kei",
-          "Memiliki cangkang lunak seperti kulit dengan berat mencapai 500–900 kg",
-          "Dilindungi ketat oleh masyarakat lokal melalui hukum adat sasi (Hawear)"
-        ]
-      },
-      {
-        tag: "FAUNA ENDEMIK",
-        image: "/images/satwa/kei_kacamata_bird.png",
-        title: "Kacamata Kei",
-        subtitle: "Permata Hijau Pulau Besar",
-        descTitle: "Spesies burung penyanyi langka yang hanya ada di Kepulauan Kei",
-        descPoints: [
-          "Hanya dapat ditemukan di hutan tropis basah Pulau Kei Besar",
-          "Ciri khas lingkaran putih tebal seperti bingkai kacamata di sekitar mata",
-          "Kicauan merdu yang khas menjadi melodi alami rimba Evav"
-        ]
-      }
-    ]
-  },
-  Kuliner: {
-    ctaText: "CICIPI",
-    items: [
-      {
-        tag: "MAKANAN POKOK",
-        image: "/images/kuliner/kei_culinary_enbal.png",
-        title: "Enbal Evav",
-        subtitle: "Olahan Singkong Ikonik",
-        descTitle: "Makanan pokok unik pengganti nasi berbahan singkong",
-        descPoints: [
-          "Detoksifikasi Alami: Diolah khusus secara tradisional untuk menghilangkan racun sianida",
-          "Daya Tahan Tinggi: Tekstur kering keras yang awet disimpan berbulan-bulan tanpa pengawet",
-          "Tradisi Kuliner: Biasa dinikmati hangat dengan cara dicelupkan ke dalam kuah ikan kuning"
-        ]
-      },
-      {
-        tag: "KUDAPAN SEHAT",
-        image: "/images/kuliner/kei_lat.png",
-        title: "Lat (Anggur Laut)",
-        subtitle: "Kaviar Hijau Selat Kei",
-        descTitle: "Rumput laut segar alami bertekstur unik yang kaya nutrisi",
-        descPoints: [
-          "Sensasi Unik: Butiran kecil yang meletup saat digigit, memberikan kesegaran laut instan",
-          "Penyajian Tradisional: Dinikmati segar dengan parutan kelapa muda sangrai dan cabai",
-          "Ekologi Bersih: Hanya tumbuh subur di perairan laut jernih Kei yang bebas polusi"
-        ]
-      },
-      {
-        tag: "KONDIMEN UTAMA",
-        image: "/images/kuliner/kei_ikan_colocolo.png",
-        title: "Colo-Colo",
-        subtitle: "Sambal Cuka Penyegar Lidah",
-        descTitle: "Sambal khas kebanggaan Maluku pendamping seafood bakar",
-        descPoints: [
-          "Cita Rasa Segar: Perpaduan irisan cabai rawit, bawang merah, tomat muda, cuka, dan jeruk nipis",
-          "Peredam Amis: Rasa asam pedas yang tajam dan segar sangat cocok menetralisir aroma amis laut",
-          "Kenikmatan Hakiki: Disiram langsung di atas ikan karang bakar panas di tepi pasir putih"
-        ]
-      }
-    ]
-  },
-  Teknologi: {
-    ctaText: "TELUSURI",
-    items: [
-      {
-        tag: "TELEKOMUNIKASI",
-        image: "/images/teknologi/telekomunikasi_palapa.png",
-        title: "Infrastruktur Digital",
-        subtitle: "Konektivitas Palapa Ring",
-        descTitle: "Tulang punggung jaringan telekomunikasi modern Kepulauan Kei",
-        descPoints: [
-          "Palapa Ring Timur: Interkoneksi kabel bawah laut di Tual & Langgur menyalurkan serat optik sejak 2019",
-          "BTS 4G Bakti Kominfo: Puluhan menara pemancar di wilayah 3T membuka isolasi komunikasi di Pulau Kei Besar",
-          "Digitalisasi Desa: Membuka akses komunikasi harian, video call, hingga transaksi perbankan digital warga"
-        ]
-      },
-      {
-        tag: "TEKNOLOGI MARITIM",
-        image: "/images/teknologi/kelautan_perikanan.png",
-        title: "Kelautan & Perikanan",
-        subtitle: "Cold Storage & GPS",
-        descTitle: "Penerapan teknologi maritim modern pendukung lumbung ikan nasional",
-        descPoints: [
-          "Cold Storage Terintegrasi: Fasilitas pendingin kapasitas ratusan ton di PPN Tual menjaga kesegaran ikan",
-          "GPS & Fish Finder: Alat echosounder maritim membantu kapten melacak titik kumpul ikan di Laut Banda & Arafura",
-          "Dampak Nelayan: Mengoptimalkan tangkapan armada menengah-besar serta efisiensi rute pelayaran operasional"
-        ]
-      },
-      {
-        tag: "ENERGI TERBARUKAN",
-        image: "/images/teknologi/energi_plts.png",
-        title: "Energi & Elektrifikasi",
-        subtitle: "PLTS Terpusat Off-Grid",
-        descTitle: "Pemerataan akses listrik ramah lingkungan di pulau-pulau kecil",
-        descPoints: [
-          "PLTS Komunal: Pembangkit listrik tenaga surya menyuplai desa nelayan terpencil yang tak terjangkau kabel PLN",
-          "Kemandirian Energi: Menyuplai kebutuhan daya harian rumah tangga pesisir memanfaatkan energi matahari",
-          "Keberlanjutan Alam: Mengurangi ketergantungan pada generator solar impor dan menekan emisi karbon lokal"
-        ]
-      }
-    ]
-  }
+const tabIcons: Record<string, ReactElement> = {
+  GlobeAltIcon: <GlobeAltIcon className="w-5 h-5" />,
+  BookOpenIcon: <BookOpenIcon className="w-5 h-5" />,
+  SparklesIcon: <SparklesIcon className="w-5 h-5" />,
+  ShoppingBagIcon: <ShoppingBagIcon className="w-5 h-5" />,
+  ShieldCheckIcon: <ShieldCheckIcon className="w-5 h-5" />,
 };
 
-export default function FunFactSection() {
+export default function FunFactSection({ data }: { data: Dict["home"]["funfact"] }) {
+  const tabs = data.tabs.map((t) => ({ id: t.id as TabName, name: t.name, icon: tabIcons[t.icon] }));
+  const tabData = data.tabData as unknown as Record<TabName, { items: typeof data.tabData.Alam.items; ctaText: string }>;
   const [activeTab, setActiveTab] = useState<TabName>("Alam");
   const [activeDest, setActiveDest] = useState<number>(0);
   const [progress, setProgress] = useState(0);
@@ -452,10 +240,10 @@ export default function FunFactSection() {
           {/* Left: Headline */}
           <div className="w-full xl:w-[35%] flex-none">
             <div className="text-brand font-bold tracking-[0.2em] uppercase text-fluid-eyebrow mb-1" style={{ fontFamily: "var(--font-sans)" }}>
-              FUN FACT
+              {data.eyebrow}
             </div>
             <h2 className="text-fluid-h2 text-white font-normal" style={{ fontFamily: "var(--font-serif)" }}>
-              Mengapa Kepulauan Kei <br className="hidden md:block" /> Begitu <span className="text-brand">Istimewa</span>
+              {data.titleLead} <br className="hidden md:block" /> {data.titleAccent}
             </h2>
           </div>
 
@@ -464,15 +252,15 @@ export default function FunFactSection() {
             <div className="flex items-center flex-wrap justify-start xl:justify-end gap-2 xl:gap-3">
               {tabs.map((tab) => (
                 <button
-                  key={tab.name}
-                  onClick={() => changeTab(tab.name as TabName)}
-                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full border text-sm transition-all duration-200 focus-ring whitespace-nowrap ${activeTab === tab.name
+                  key={tab.id}
+                  onClick={() => changeTab(tab.id)}
+                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full border text-sm transition-all duration-200 focus-ring whitespace-nowrap ${activeTab === tab.id
                     ? "bg-brand/20 border-brand text-brand"
                     : "bg-white/5 border-white/20 text-white/60 hover:border-brand/50 hover:text-white"
                     }`}
                   style={{ fontFamily: "var(--font-sans)" }}
                 >
-                  <span className={`flex-none ${activeTab === tab.name ? "text-brand" : "text-white/50"}`}>
+                  <span className={`flex-none ${activeTab === tab.id ? "text-brand" : "text-white/50"}`}>
                     {tab.icon}
                   </span>
                   <span className="font-medium text-xs md:text-sm">{tab.name}</span>
@@ -581,7 +369,7 @@ export default function FunFactSection() {
 
         {/* Human-oriented microcopy: quote budaya */}
         <p className="text-center text-white/50 text-fluid-small italic mt-3 md:mt-4 fade-up-item max-w-2xl mx-auto" style={{ fontFamily: "var(--font-serif)" }}>
-          &ldquo;Di atas pasir putih ini, kami diajarkan bahwa alam bukan milik kita, melainkan titipan leluhur untuk anak cucu.&rdquo;
+          &ldquo;{data.culturalQuote}&rdquo;
         </p>
 
         {/* Insight: wisata berbasis masyarakat (community-based tourism) */}
@@ -593,10 +381,10 @@ export default function FunFactSection() {
               </span>
               <div>
                 <h4 className="text-white font-normal text-base md:text-lg mb-1" style={{ fontFamily: "var(--font-serif)" }}>
-                  Wisata yang Dikelola, sekaligus Mensejahterakan Masyarakat Lokal
+                  {data.insightTitle}
                 </h4>
                 <p className="text-white/80 text-xs md:text-sm font-light leading-relaxed text-justify" style={{ fontFamily: "var(--font-sans)" }}>
-                  Destinasi di Kepulauan Kei dikelola langsung oleh masyarakat adat setempat melalui sistem sasi dan hukum Larvul Ngabal, sehingga setiap kunjungan wisata menjadi bagian dari pelestarian budaya dan alam. Dengan berwisata di sini, Anda turut menyejahterakan warga lokal &mdash; mulai dari pemandu desa, perajin kuliner khas, hingga nelayan yang menjaga kelestarian laut. Keuntungan kembali ke ohoi (desa), memperkuat ekonomi komunitas dan melestarikan warisan leluhur bagi generasi mendatang.
+                  {data.insightDesc}
                 </p>
               </div>
             </div>

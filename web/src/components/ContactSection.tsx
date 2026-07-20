@@ -6,36 +6,16 @@ import { ChevronRightIcon, CheckCircleIcon } from "@heroicons/react/24/outline";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useSpotlight } from "@/hooks/useSpotlight";
+import { getDictionary } from "@/content/dictionaries";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
 }
 
-const slides = [
-  {
-    image: "/images/budaya/tari-sawat-infopublik.jpg",
-    alt: "Tari Sawat penyambut tamu kehormatan",
-    title: "Tari Sawat",
-    desc: "Tarian adat penyambut tamu kehormatan, melambangkan persahabatan, kehangatan, dan hubungan kekerabatan yang damai.",
-    tag: "Ain Ni Ain — kita semua bersaudara"
-  },
-  {
-    image: "/images/budaya/tari-perang-kompasiana.jpg",
-    alt: "Tari Perang atau Tari Panah Temar Rubil",
-    title: "Tari Perang (Temar Rubil)",
-    desc: "Tarian kepahlawanan menggunakan busur panah tradisional untuk mengenang sejarah perjuangan leluhur sekaligus simbol perdamaian.",
-    tag: "Larvul Ngabal — kedaulatan adat & hukum"
-  },
-  {
-    image: "/images/budaya/tari-syariat-kemdikbud.png",
-    alt: "Tari Syariat atau Sariat warisan religi",
-    title: "Tari Syariat",
-    desc: "Tari kreasi kultural yang memadukan keindahan seni gerak tradisional dengan nilai-nilai sejarah syiar religi di Kepulauan Kei.",
-    tag: "Harmoni Religi — persaudaraan lintas iman"
-  }
-];
+type Dict = Awaited<ReturnType<typeof getDictionary>>;
 
-export default function ContactSection() {
+export default function ContactSection({ data }: { data: Dict["home"]["contact"] }) {
+  const slides = data.slides;
   const sectionRef = useRef<HTMLElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
   const imageRef = useRef<HTMLDivElement>(null);
@@ -140,18 +120,17 @@ export default function ContactSection() {
                   fill
                   sizes="(max-width: 768px) 100vw, 50vw"
                   className="object-cover object-center transition-transform duration-1000 hover:scale-105"
-                  priority={idx === 0}
                 />
                 
                 {/* Vignette overlay for blending */}
                 <div className="absolute inset-0 bg-gradient-to-r from-black/30 via-transparent to-black/20 pointer-events-none z-[2]"></div>
                 
                 {/* Caption narasi budaya di pojok bawah kiri agar kolom tidak kosong */}
-                <div className="absolute bottom-12 left-6 right-6 z-[5] hidden lg:block text-left">
-                  <span className="text-white/60 text-xs font-bold tracking-[0.2em] uppercase mb-2 inline-block" style={{ fontFamily: "var(--font-sans)" }}>
+                <div className="absolute bottom-0 left-0 right-0 w-full z-[5] hidden lg:block text-left bg-black/60 backdrop-blur-xl p-6 pb-12 border-t border-white/10 shadow-xl">
+                  <span className="text-white/85 text-xs font-bold tracking-[0.2em] uppercase mb-1 inline-block" style={{ fontFamily: "var(--font-sans)" }}>
                     {slide.title}
                   </span>
-                  <p className="text-white text-lg font-light leading-snug drop-shadow-md max-w-md" style={{ fontFamily: "var(--font-serif)" }}>
+                  <p className="text-white text-base md:text-lg font-light leading-snug" style={{ fontFamily: "var(--font-serif)" }}>
                     {slide.desc}
                   </p>
                   <p className="text-brand text-xs tracking-[0.2em] uppercase mt-2 font-medium" style={{ fontFamily: "var(--font-sans)" }}>
@@ -168,7 +147,7 @@ export default function ContactSection() {
               <button
                 key={idx}
                 onClick={() => setActiveSlide(idx)}
-                aria-label={`Pilih slide tarian ${idx + 1}`}
+                aria-label={`${data.dotLabel} ${idx + 1}`}
                 className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${
                   activeSlide === idx ? "bg-white w-4" : "bg-white/40 hover:bg-white/60"
                 }`}
@@ -194,21 +173,21 @@ export default function ContactSection() {
           {/* Form Content wrapped in relative z-10 */}
           <div className="relative z-10 w-full flex flex-col">
             <div className="form-fade">
-              <span className="text-brand font-bold tracking-[0.2em] uppercase text-xs md:text-sm mb-3 inline-block" style={{ fontFamily: "var(--font-sans)" }}>
-                JADI BAGIAN DARI KELUARGA EVAV
-              </span>
-              <h2 
-                className="text-3xl md:text-4xl lg:text-[40px] leading-[1.15] text-black font-normal mb-4"
-                style={{ fontFamily: "var(--font-serif)" }}
-              >
-                Mari Terhubung dan <br className="hidden md:block" /> Menjaga Keindahan Bersama
-              </h2>
-              <p 
-                className="text-black/60 text-sm md:text-base leading-relaxed mb-8 font-light"
-                style={{ fontFamily: "var(--font-sans)" }}
-              >
-                Bergabunglah dengan kami untuk mendapatkan cerita dan informasi seputar budaya serta alam Kepulauan Kei.
-              </p>
+                <span className="text-brand font-bold tracking-[0.2em] uppercase text-xs md:text-sm mb-3 inline-block" style={{ fontFamily: "var(--font-sans)" }}>
+                  {data.eyebrow}
+                </span>
+                <h2 
+                  className="text-3xl md:text-4xl lg:text-[40px] leading-[1.15] text-black font-normal mb-4"
+                  style={{ fontFamily: "var(--font-serif)" }}
+                >
+                  {data.titleLead} <br className="hidden md:block" /> {data.titleAccent}
+                </h2>
+                <p 
+                  className="text-black/60 text-sm md:text-base leading-relaxed mb-8 font-light"
+                  style={{ fontFamily: "var(--font-sans)" }}
+                >
+                  {data.intro}
+                </p>
             </div>
 
             {submitted ? (
@@ -217,10 +196,10 @@ export default function ContactSection() {
                   <CheckCircleIcon className="w-8 h-8" />
                 </div>
                 <h3 className="text-xl font-bold text-black mb-2" style={{ fontFamily: "var(--font-serif)" }}>
-                  Terima Kasih Telah Bergabung!
+                  {data.thanksTitle}
                 </h3>
                 <p className="text-sm text-black/60" style={{ fontFamily: "var(--font-sans)" }}>
-                  Pesan Anda telah kami terima. Kami akan segera menghubungi Anda melalui email.
+                  {data.thanksDesc}
                 </p>
               </div>
             ) : (
@@ -231,7 +210,7 @@ export default function ContactSection() {
                     <input
                       type="text"
                       required
-                      placeholder="Nama Lengkap"
+                      placeholder={data.namePlaceholder}
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                       className="w-full bg-white rounded-xl px-4 py-3.5 border border-brand/10 focus:border-brand outline-none text-black transition-all placeholder:text-black/40 text-sm md:text-base"
@@ -242,7 +221,7 @@ export default function ContactSection() {
                     <input
                       type="email"
                       required
-                      placeholder="Email"
+                      placeholder={data.emailPlaceholder}
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                       className="w-full bg-white rounded-xl px-4 py-3.5 border border-brand/10 focus:border-brand outline-none text-black transition-all placeholder:text-black/40 text-sm md:text-base"
@@ -254,7 +233,7 @@ export default function ContactSection() {
                 {/* Message Box */}
                 <div className="w-full">
                   <textarea
-                    placeholder="Pesan"
+                    placeholder={data.messagePlaceholder}
                     value={formData.message}
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                       className="w-full bg-white rounded-xl px-4 py-3.5 border border-brand/10 focus:border-brand outline-none text-black transition-all placeholder:text-black/40 text-sm md:text-base h-28 resize-none"
@@ -270,7 +249,7 @@ export default function ContactSection() {
                   className="btn-spotlight group/btn flex items-center justify-center gap-2 border border-black hover:border-brand text-black hover:text-brand w-full rounded-xl py-3.5 text-center font-extrabold text-sm md:text-base transition-all duration-300 hover:scale-[1.02] active:press focus-ring cursor-pointer"
                   style={{ fontFamily: "var(--font-sans)" }}
                 >
-                  Bergabung Sekarang
+                  {data.submitText}
                   <ChevronRightIcon className="w-4 h-4 text-current transition-transform duration-300 group-hover/btn:translate-x-1" />
                 </button>
               </form>

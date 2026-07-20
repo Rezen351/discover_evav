@@ -18,11 +18,8 @@ import {
   PauseIcon,
 } from "@heroicons/react/24/outline";
 import { Shirt, Sailboat } from "lucide-react";
-import {
-  ekspresiBudaya,
-  type EkspresiItem,
-  type EkspresiKelompok,
-} from "@/content/culture";
+import { type EkspresiItem, type EkspresiKelompok } from "@/content/locales/id/culture";
+import type { getDictionary } from "@/content/dictionaries";
 import EkspresiAudioPlayer from "./EkspresiAudioPlayer";
 
 if (typeof window !== "undefined") {
@@ -44,12 +41,16 @@ const ICONS: Record<
 // Panel isi satu kelompok: deskripsi + carousel card (Swiper) bila >1 item.
 // Dipisah sebagai komponen tingkat-atas agar tidak dibuat ulang saat render.
 function KelompokPanel({
+  lang,
   kelompok,
+  common,
   activeSlide,
   onSlideChange,
   renderCard,
 }: {
+  lang: "id" | "en";
   kelompok: EkspresiKelompok;
+  common: Dict["cultureCommon"];
   activeSlide: number;
   onSlideChange: (index: number) => void;
   renderCard: (item: EkspresiItem, isActive?: boolean) => React.ReactNode;
@@ -90,8 +91,8 @@ function KelompokPanel({
           <div
             className={`ekspresi-pagination-${kelompok.id} flex items-center justify-center gap-2`}
           />
-          <p className="text-center font-sans text-fluid-small text-black/45">
-            Geser untuk menjelajahi:{" "}
+           <p className="text-center font-sans text-fluid-small text-black/45">
+            {common.ekspresi.swipeHint}
             {kItems.map((it, i) => (
               <span key={it.id}>
                 {i > 0 && ", "}
@@ -111,10 +112,20 @@ function KelompokPanel({
   );
 }
 
-export default function EkspresiBudayaSection() {
+type Dict = Awaited<ReturnType<typeof getDictionary>>;
+
+export default function EkspresiBudayaSection({
+  lang,
+  data,
+  common,
+}: {
+  lang: "id" | "en";
+  data: Dict["ekspresiBudaya"];
+  common: Dict["cultureCommon"];
+}) {
   const sectionRef = useRef<HTMLElement>(null);
 
-  const kelompokList = ekspresiBudaya.kelompokList;
+  const kelompokList = data.kelompokList;
   const [activeKelompok, setActiveKelompok] = useState(0);
   const [activeSlide, setActiveSlide] = useState(0);
   const [isPlaying, setIsPlaying] = useState(
@@ -158,6 +169,7 @@ export default function EkspresiBudayaSection() {
       const v = videoRefs.current[it.id];
       if (!v) return;
       if (isPlaying && it.video && items[activeSlide]?.id === it.id) {
+        v.muted = true; // Force muted in DOM to satisfy mobile Safari's policy
         v.play().catch(() => { });
       } else {
         v.pause();
@@ -224,6 +236,8 @@ export default function EkspresiBudayaSection() {
         <div className="bg-white border border-brand/10 rounded-xl-design overflow-hidden">
           <EkspresiAudioPlayer
             key={item.id}
+            lang={lang}
+            audio={common.audio}
             tracks={item.tracks}
             fallbackCover={item.images[0]}
           />
@@ -239,51 +253,33 @@ export default function EkspresiBudayaSection() {
         className="bg-white border border-brand/10 rounded-xl-design overflow-hidden"
       >
         <div className="relative w-full aspect-[4/3] md:aspect-[16/9] bg-black/5">
-          {videoActive ? (
+          {item.video && videoActive && (
             <video
               ref={(el) => {
                 videoRefs.current[item.id] = el;
               }}
-              className="absolute inset-0 h-full w-full object-cover"
+              className="absolute inset-0 h-full w-full object-cover z-10"
               poster={item.images[0]}
-              preload="none"
-              muted
-              loop
-              playsInline
+              preload="metadata"
+              autoPlay={true}
+              muted={true}
+              loop={true}
+              playsInline={true}
               controls={false}
               aria-label={`Video ${item.title}`}
             >
               <source src={item.video} type="video/mp4" />
             </video>
-          ) : (
-            <Image
-              key={`${item.id}-0`}
-              src={item.images[0]}
-              alt={item.imageAlt}
-              fill
-              sizes="(max-width: 768px) 100vw, 50vw"
-              className="object-cover object-center"
-            />
           )}
 
-          {item.video && (
-            <button
-              type="button"
-              onClick={toggleVideo}
-              aria-label={
-                videoActive
-                  ? `Jeda video ${item.title}`
-                  : `Putar video ${item.title}`
-              }
-              className="absolute right-3 top-3 z-10 flex h-12 w-12 lg:h-10 lg:w-10 items-center justify-center rounded-full bg-brand text-white transition-transform hover:scale-105 active:press focus-ring"
-            >
-              {videoActive ? (
-                <PauseIcon className="h-5 w-5" aria-hidden="true" />
-              ) : (
-                <PlayIcon className="h-5 w-5" aria-hidden="true" />
-              )}
-            </button>
-          )}
+          <Image
+            key={`${item.id}-0`}
+            src={item.images[0]}
+            alt={item.imageAlt}
+            fill
+            sizes="(max-width: 768px) 100vw, 50vw"
+            className="object-cover object-center z-0"
+          />
         </div>
 
         <div className="p-6 md:p-8">
@@ -328,16 +324,16 @@ export default function EkspresiBudayaSection() {
       <div className="relative z-[1] max-w-[98%] xl:max-w-[1600px] mx-auto px-4 md:px-8 w-full">
         <div className="max-w-3xl mb-12 md:mb-16">
           <p className="ekspresi-reveal font-sans text-fluid-eyebrow uppercase tracking-[0.2em] sm:tracking-[0.3em] text-balance text-brand mb-4">
-            {ekspresiBudaya.eyebrow}
+            {data.eyebrow}
           </p>
           <h2
             id="ekspresi-title"
             className="ekspresi-reveal font-serif text-fluid-h2 text-black mb-5"
           >
-            {ekspresiBudaya.title}
+            {data.title}
           </h2>
           <p className="ekspresi-reveal font-sans text-fluid-body text-black/70 leading-relaxed text-left">
-            {ekspresiBudaya.intro}
+            {data.intro}
           </p>
         </div>
 
@@ -426,8 +422,8 @@ export default function EkspresiBudayaSection() {
                         <div
                           className={`ekspresi-pagination-${k.id} flex items-center justify-center gap-2`}
                         />
-                        <p className="text-center font-sans text-fluid-small text-black/45">
-                          Geser untuk menjelajahi:{" "}
+                         <p className="text-center font-sans text-fluid-small text-black/45">
+                          {common.ekspresi.swipeHint}
                           {kItems.map((it, i) => (
                             <span key={it.id}>
                               {i > 0 && ", "}
@@ -456,7 +452,7 @@ export default function EkspresiBudayaSection() {
           <div
             className="lg:col-span-5 xl:col-span-4 flex flex-col gap-3"
             role="tablist"
-            aria-label="Daftar ekspresi budaya Kei"
+            aria-label={common.ekspresi.tablistLabel}
           >
             {kelompokList.map((k, index) => {
               const Icon = ICONS[k.icon];
@@ -502,7 +498,9 @@ export default function EkspresiBudayaSection() {
                   className="bg-white/60 border border-brand/10 rounded-xl-design p-5 md:p-8"
                 >
                   <KelompokPanel
+                    lang={lang}
                     kelompok={kelompok}
+                    common={common}
                     activeSlide={activeSlide}
                     onSlideChange={(i) => setActiveSlide(i)}
                     renderCard={renderCard}

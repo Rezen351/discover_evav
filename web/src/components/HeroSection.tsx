@@ -5,17 +5,19 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Image from "next/image";
 import { useTimeOfDay, temporalGreetings } from "@/hooks/useTimeOfDay";
+import { getDictionary } from "@/content/dictionaries";
+import { usePathname } from "next/navigation";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
 }
-const slides = [
-  { id: 1, src: "/images/budaya/tari-syariat-kemdikbud.png", video: "/videos/human.mov", title: "Budaya Adat", subtitle: "Harmoni tradisi dan kearifan lokal leluhur Kei" },
-  { id: 2, src: "/images/eksplorasi/kei_ngurbloat.png", video: "/videos/nature.mov", title: "Keindahan Alam", subtitle: "Surga tersembunyi berpasir putih dan laut jernih" },
-  { id: 3, src: "/images/satwa/kei_kacamata_bird.png", video: "/videos/animal.mov", title: "Kehidupan Satwa", subtitle: "Keanekaragaman fauna endemik yang menakjubkan" },
-];
 
-export default function HeroSection() {
+type Dict = Awaited<ReturnType<typeof getDictionary>>;
+
+export default function HeroSection({ data }: { data: Dict["home"]["hero"] }) {
+  const pathname = usePathname();
+  const currentLang = pathname.startsWith("/en") ? "en" : "id";
+  const slides = data.slides;
   const containerRef = useRef<HTMLDivElement>(null);
   const textRef = useRef<HTMLDivElement>(null);
   const cardsRef = useRef<HTMLDivElement>(null);
@@ -32,16 +34,11 @@ export default function HeroSection() {
   const [contentVisible, setContentVisible] = useState(false);
   // Sync slideshow with video duration
   useEffect(() => {
-    videoRefs.current.forEach((vid, idx) => {
-      if (vid) {
-        if (idx === activeSlide) {
-          vid.currentTime = 0;
-          vid.play().catch(() => { });
-        } else {
-          vid.pause();
-        }
-      }
-    });
+    const activeVid = videoRefs.current[activeSlide];
+    if (activeVid) {
+      activeVid.currentTime = 0;
+      activeVid.play().catch(() => { });
+    }
   }, [activeSlide]);
 
   // Animate content IN (reveal)
@@ -212,22 +209,34 @@ export default function HeroSection() {
             key={`bg-${slide.id}`}
             className={`bg-video-container absolute inset-0 w-full h-full transition-opacity duration-1500 ease-in-out ${idx === activeSlide ? "opacity-100" : "opacity-0"}`}
           >
-            <video
-              ref={(el) => {
-                videoRefs.current[idx] = el;
-              }}
-              autoPlay
-              muted
-              playsInline
-              onEnded={() => {
-                if (idx === activeSlide) {
-                  setActiveSlide((prev) => (prev + 1) % slides.length);
-                }
-              }}
-              className="w-full h-full object-cover object-center"
-            >
-              <source src={slide.video} type="video/mp4" />
-            </video>
+            {/* Fallback Static Image (optimized LCP for slide 0) */}
+            <Image
+              src={slide.src}
+              alt={slide.title}
+              fill
+              priority={idx === 0}
+              sizes="100vw"
+              className="absolute inset-0 w-full h-full object-cover object-center brightness-[0.8] z-0"
+            />
+            {/* Conditional Video (only rendered for the active slide to optimize LCP & network) */}
+            {idx === activeSlide && (
+              <video
+                ref={(el) => {
+                  videoRefs.current[idx] = el;
+                }}
+                autoPlay
+                muted
+                playsInline
+                onEnded={() => {
+                  if (idx === activeSlide) {
+                    setActiveSlide((prev) => (prev + 1) % slides.length);
+                  }
+                }}
+                className="absolute inset-0 w-full h-full object-cover object-center z-[1]"
+              >
+                <source src={slide.video} type="video/mp4" />
+              </video>
+            )}
           </div>
         ))}
       </div>
@@ -254,7 +263,7 @@ export default function HeroSection() {
               className="text-white/90 text-sm md:text-lg tracking-[0.12em] font-light text-center max-w-[90vw]"
               style={{ fontFamily: "var(--font-sans)" }}
             >
-              <span className="text-brand">{greeting.kei}</span> — {greeting.id}
+              <span className="text-brand">{greeting.kei}</span> — {currentLang === "en" ? greeting.en : greeting.id}
             </span>
           </div>
         </div>
@@ -274,7 +283,7 @@ export default function HeroSection() {
           SIMFONI EVAV
         </h2>
         <p className="text-[10px] md:text-[clamp(0.8rem,1vw,1rem)] font-light drop-shadow-sm opacity-90" style={{ fontFamily: "var(--font-sans)" }}>
-          Peradaban di Atas Pasir Putih
+          {data.logoSubtitle}
         </p>
       </div>
 
@@ -287,12 +296,14 @@ export default function HeroSection() {
         {/* Left Content */}
         <div className="flex flex-col text-center md:text-left items-center md:items-start w-full md:w-[52%] xl:w-[46%] mr-auto" ref={textRef} style={{ opacity: 0 }}>
           <h1 className="text-[clamp(1.6rem,7vw,2.5rem)] md:text-fluid-h1 font-normal leading-[1.12] drop-shadow-lg mb-2 flex flex-col" style={{ fontFamily: "var(--font-serif)" }}>
-            <span className="block overflow-hidden pb-[0.12em]"><span className="hero-line-inner block">Eksplorasi Surga</span></span>
-            <span className="block overflow-hidden pb-[0.12em]"><span className="hero-line-inner block">Tersembunyi dan</span></span>
-            <span className="block overflow-hidden pb-[0.12em]"><span className="hero-line-inner block">Keajaiban Budaya</span></span>
+            {data.titleLines.map((line, index) => (
+              <span key={index} className="block overflow-hidden pb-[0.12em]">
+                <span className="hero-line-inner block">{line}</span>
+              </span>
+            ))}
           </h1>
           <div className="text-[clamp(1.8rem,8vw,2.8rem)] md:text-fluid-h1 font-normal -mt-2 mb-6 drop-shadow-md text-brand overflow-hidden pb-[0.12em]" style={{ fontFamily: "var(--font-cursive)" }}>
-            <span className="hero-accent-inner block">di Kepulauan Kei</span>
+            <span className="hero-accent-inner block">{data.titleAccent}</span>
           </div>
           <div key={`desc-${activeSlide}`} className="hero-desc-wrap slide-desc opacity-0">
             <p className="text-base md:text-lg font-light max-w-full md:max-w-[600px] leading-relaxed drop-shadow-md mx-auto md:mx-0 text-white/90" style={{ fontFamily: "var(--font-sans)" }}>
@@ -382,7 +393,7 @@ export default function HeroSection() {
           nextSection?.scrollIntoView({ behavior: "smooth" });
         }}
       >
-        <span className="text-white/80 text-[10px] md:text-xs font-light tracking-[0.25em] uppercase" style={{ fontFamily: "var(--font-sans)" }}>Scroll Down</span>
+        <span className="text-white/80 text-[10px] md:text-xs font-light tracking-[0.25em] uppercase" style={{ fontFamily: "var(--font-sans)" }}>{data.scrollDown}</span>
         <div className="w-[2px] h-10 md:h-12 bg-white/20 overflow-hidden relative mt-1 rounded-full">
           <div className="w-full h-1/2 absolute top-0 left-0 animate-[scrolldown_1.5s_ease-in-out_infinite] rounded-full" style={{ background: "linear-gradient(to bottom, #E6677C, #6FC2BE, #EAF5F9)" }}></div>
         </div>

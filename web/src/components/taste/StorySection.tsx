@@ -4,13 +4,20 @@ import { useEffect, useRef } from "react";
 import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { tasteStory } from "@/content/taste";
+import { getDictionary } from "@/content/dictionaries";
+type Dict = Awaited<ReturnType<typeof getDictionary>>;
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
 }
 
-export default function StorySection() {
+export default function StorySection({
+  lang,
+  data,
+}: {
+  lang: "id" | "en";
+  data: Dict["tasteStory"];
+}) {
   const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -55,8 +62,8 @@ export default function StorySection() {
           {/* Kiri — kartu gambar */}
           <div className="taste-story-reveal relative w-full h-[280px] md:h-[480px] rounded-xl-design overflow-hidden shadow-card border border-brand/10">
             <Image
-              src={tasteStory.image}
-              alt={tasteStory.imageAlt}
+              src={data.image}
+              alt={data.imageAlt}
               fill
               sizes="(max-width: 1024px) 100vw, 50vw"
               className="object-cover object-center transition-transform duration-700 hover:scale-105"
@@ -70,16 +77,16 @@ export default function StorySection() {
           {/* Kanan — narasi */}
           <div>
             <p className="taste-story-reveal font-sans text-fluid-eyebrow uppercase tracking-[0.15em] sm:tracking-[0.3em] text-brand mb-4">
-              {tasteStory.eyebrow}
+              {data.eyebrow}
             </p>
             <h2
               id="taste-story-title"
               className="taste-story-reveal font-serif text-fluid-h2 text-black mb-6 break-words"
             >
-              {tasteStory.title}
+              {data.title}
             </h2>
             <div className="space-y-4">
-              {tasteStory.paragraphs.map((para, i) => (
+              {data.paragraphs.map((para, i) => (
                 <p
                   key={i}
                   className="taste-story-reveal font-sans text-fluid-body text-black/70 leading-relaxed text-left"
@@ -89,13 +96,13 @@ export default function StorySection() {
                       className="text-brand not-italic mr-1"
                       style={{ fontFamily: "var(--font-cursive)" }}
                     >
-                      {tasteStory.accentWord}
+                      {data.accentWord}
                     </em>
                   )}
                   {para}
                   {i === 1 && (
                     <span className="text-black/55 text-[13px] sm:text-xs ml-1">
-                      {tasteStory.accentNote}
+                      {data.accentNote}
                     </span>
                   )}
                 </p>

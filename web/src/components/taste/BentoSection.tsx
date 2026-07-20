@@ -5,7 +5,9 @@ import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Fish, Wheat, Flame, CakeSlice, Nut, type LucideIcon } from "lucide-react";
-import { bentoTaste, type BentoItem } from "@/content/taste";
+import { type BentoItem } from "@/content/locales/id/taste";
+import { getDictionary } from "@/content/dictionaries";
+type Dict = Awaited<ReturnType<typeof getDictionary>>;
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -19,7 +21,13 @@ const ICONS: Record<BentoItem["icon"], LucideIcon> = {
   Coconut: Nut,
 };
 
-export default function BentoSection() {
+export default function BentoSection({
+  lang,
+  data,
+}: {
+  lang: "id" | "en";
+  data: Dict["bentoTaste"];
+}) {
   const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -63,18 +71,18 @@ export default function BentoSection() {
       <div className="max-w-[98%] xl:max-w-[1600px] mx-auto px-4 md:px-8 w-full">
         <div className="max-w-3xl mb-12 md:mb-16">
             <p className="taste-bento-reveal font-sans text-fluid-eyebrow uppercase tracking-[0.15em] sm:tracking-[0.3em] text-brand mb-4">
-            {bentoTaste.eyebrow}
+            {data.eyebrow}
           </p>
           <h2
             id="taste-bento-title"
             className="taste-bento-reveal font-serif text-fluid-h2 text-black mb-5"
           >
-            {bentoTaste.title}
+            {data.title}
           </h2>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 md:auto-rows-[220px] lg:auto-rows-[240px]">
-          {bentoTaste.items.map((item) => {
+          {data.items.map((item) => {
             const Icon = ICONS[item.icon];
             return (
               <article

@@ -6,7 +6,10 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { LanguageIcon, BookOpenIcon } from "@heroicons/react/24/outline";
 import { Fish } from "lucide-react";
-import { warisanTakbenda, type WarisanItem } from "@/content/culture";
+import { type WarisanItem } from "@/content/locales/id/culture";
+import type { getDictionary } from "@/content/dictionaries";
+
+type Dict = Awaited<ReturnType<typeof getDictionary>>;
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -21,7 +24,13 @@ const ICONS: Record<
   Fish,
 };
 
-export default function WarisanTakbendaSection() {
+export default function WarisanTakbendaSection({
+  lang,
+  data,
+}: {
+  lang: "id" | "en";
+  data: Dict["warisanTakbenda"];
+}) {
   const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -65,21 +74,21 @@ export default function WarisanTakbendaSection() {
       <div className="max-w-[98%] xl:max-w-[1600px] mx-auto px-4 md:px-8 w-full">
         <div className="max-w-3xl mb-12 md:mb-16">
           <p className="warisan-reveal font-sans text-fluid-eyebrow uppercase tracking-[0.2em] sm:tracking-[0.3em] text-balance text-brand mb-4">
-            {warisanTakbenda.eyebrow}
+            {data.eyebrow}
           </p>
           <h2
             id="warisan-title"
             className="warisan-reveal font-serif text-fluid-h2 text-black mb-5"
           >
-            {warisanTakbenda.title}
+            {data.title}
           </h2>
           <p className="warisan-reveal font-sans text-fluid-body text-black/70 leading-relaxed text-left">
-            {warisanTakbenda.metiIntro}
+            {data.metiIntro}
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 xl:gap-8">
-          {warisanTakbenda.items.map((item) => {
+          {data.items.map((item) => {
             const Icon = ICONS[item.icon];
             return (
               <article

@@ -2,9 +2,9 @@
 
 import { useState } from "react";
 import { ChevronDownIcon } from "@heroicons/react/24/outline";
-import { faqItems } from "@/content/keterhubungan";
+import type { FaqItem } from "@/content/keterhubungan";
 
-export default function FaqAccordionSection() {
+export default function FaqAccordionSection({ lang, faqItems }: { lang: "id" | "en"; faqItems: FaqItem[] }) {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   const toggle = (index: number) => {
@@ -23,7 +23,7 @@ export default function FaqAccordionSection() {
             className="text-brand font-bold tracking-[0.2em] uppercase text-fluid-eyebrow mb-3"
             style={{ fontFamily: "var(--font-sans)" }}
           >
-            Tanya Jawab
+            {lang === "en" ? "Questions & Answers" : "Tanya Jawab"}
           </p>
 
           <h2
@@ -31,17 +31,28 @@ export default function FaqAccordionSection() {
             className="text-fluid-h2 leading-[1.12] text-white font-normal"
             style={{ fontFamily: "var(--font-serif)" }}
           >
-            Pertanyaan yang Sering
-            <br className="hidden md:block" />
-            Terlintas
+            {lang === "en" ? (
+              <>
+                Questions That Often
+                <br className="hidden md:block" />
+                Cross Your Mind
+              </>
+            ) : (
+              <>
+                Pertanyaan yang Sering
+                <br className="hidden md:block" />
+                Terlintas
+              </>
+            )}
           </h2>
 
           <p
             className="text-fluid-body text-white/60 mt-4 mb-10 leading-relaxed"
             style={{ fontFamily: "var(--font-sans)" }}
           >
-            Belum yakin tentang sesuatu? Berikut jawaban dari saudara-saudari kami
-            di Evav.
+            {lang === "en"
+              ? "Not sure about something? Here are answers from our brothers and sisters in Evav."
+              : "Belum yakin tentang sesuatu? Berikut jawaban dari saudara-saudari kami di Evav."}
           </p>
 
           <div className="flex flex-col">

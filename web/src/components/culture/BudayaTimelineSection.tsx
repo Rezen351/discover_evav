@@ -3,13 +3,21 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { linimasa } from "@/content/culture";
+import type { getDictionary } from "@/content/dictionaries";
+
+type Dict = Awaited<ReturnType<typeof getDictionary>>;
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
 }
 
-export default function BudayaTimelineSection() {
+export default function BudayaTimelineSection({
+  lang,
+  data,
+}: {
+  lang: "id" | "en";
+  data: Dict["linimasa"];
+}) {
   const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -53,21 +61,21 @@ export default function BudayaTimelineSection() {
       <div className="max-w-[98%] xl:max-w-[1600px] mx-auto px-4 md:px-8 w-full">
         <div className="max-w-3xl mb-12 md:mb-16">
           <p className="linimasa-reveal font-sans text-fluid-eyebrow uppercase tracking-[0.2em] sm:tracking-[0.3em] text-balance text-brand mb-4">
-            {linimasa.eyebrow}
+            {data.eyebrow}
           </p>
           <h2
             id="linimasa-title"
             className="linimasa-reveal font-serif text-fluid-h2 text-black mb-5"
           >
-            {linimasa.title}
+            {data.title}
           </h2>
           <p className="linimasa-reveal font-sans text-fluid-body text-black/75 leading-relaxed text-left">
-            {linimasa.intro}
+            {data.intro}
           </p>
         </div>
 
         <ol className="relative ml-2 md:ml-6 border-l-2 border-brand/30">
-          {linimasa.nodes.map((node) => (
+          {data.nodes.map((node) => (
             <li
               key={node.id}
               className="linimasa-reveal relative pl-6 md:pl-12 pb-10 last:pb-0"

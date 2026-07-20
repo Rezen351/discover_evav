@@ -5,13 +5,23 @@ import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ScrollText } from "lucide-react";
-import { larvulNgabal } from "@/content/culture";
+import type { getDictionary } from "@/content/dictionaries";
+
+type Dict = Awaited<ReturnType<typeof getDictionary>>;
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
 }
 
-export default function LarvulNgabalSection() {
+export default function LarvulNgabalSection({
+  lang,
+  data,
+  common,
+}: {
+  lang: "id" | "en";
+  data: Dict["larvulNgabal"];
+  common: Dict["cultureCommon"];
+}) {
   const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -58,20 +68,20 @@ export default function LarvulNgabalSection() {
           {/* Kiri — teks */}
           <div>
             <p className="larvul-reveal font-sans text-fluid-eyebrow uppercase tracking-[0.2em] sm:tracking-[0.3em] text-balance text-brand mb-4">
-              {larvulNgabal.eyebrow}
+              {data.eyebrow}
             </p>
             <h2
               id="larvul-title"
               className="larvul-reveal font-serif text-fluid-h2 text-black mb-4"
             >
-              {larvulNgabal.title}
+              {data.title}
             </h2>
             {/* Tagline — SERIF, bukan cursive (§2.4 / §3.2) */}
             <p className="larvul-reveal font-serif text-fluid-h4 text-brand mb-6">
-              {larvulNgabal.tagline}
+              {data.tagline}
             </p>
             <p className="larvul-reveal font-sans text-fluid-body text-black/70 leading-relaxed text-left">
-              {larvulNgabal.intro}
+              {data.intro}
             </p>
 
             {/* Etimologi callout — surface solid (§3.2) */}
@@ -83,7 +93,7 @@ export default function LarvulNgabalSection() {
                 <ScrollText className="h-5 w-5" />
               </span>
               <p className="font-sans text-fluid-small text-black/70 leading-relaxed">
-                {larvulNgabal.etymology.text}
+                {data.etymology.text}
               </p>
             </div>
           </div>
@@ -91,8 +101,8 @@ export default function LarvulNgabalSection() {
           {/* Kanan — gambar tombak */}
           <div className="larvul-reveal relative w-full h-[320px] md:h-[460px] rounded-xl-design overflow-hidden shadow-card group">
             <Image
-              src={larvulNgabal.image}
-              alt={larvulNgabal.imageAlt}
+              src={data.image}
+              alt={data.imageAlt}
               fill
               sizes="(max-width: 1024px) 100vw, 50vw"
               className="object-cover object-center transition-transform duration-700 group-hover:scale-105"
@@ -106,11 +116,11 @@ export default function LarvulNgabalSection() {
 
         {/* 3 Pillars */}
         <div className="mt-16 md:mt-20">
-          <h3 className="larvul-reveal font-serif text-fluid-h3 text-black mb-8">
-            Tiga Rumpun Nilai
-          </h3>
+            <h3 className="larvul-reveal font-serif text-fluid-h3 text-black mb-8">
+              {common.larvul.pillarsHeading}
+            </h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 xl:gap-8">
-            {larvulNgabal.pillars.map((pillar) => (
+            {data.pillars.map((pillar) => (
               <div
                 key={pillar.id}
                 className="larvul-reveal bg-white border border-brand/10 rounded-lg-design p-6 md:p-7 shadow-soft hover:border-brand/30 transition-colors"
@@ -131,17 +141,14 @@ export default function LarvulNgabalSection() {
 
         {/* 7 Pasal Sakral */}
         <div className="mt-16 md:mt-20">
-          <h3 className="larvul-reveal font-serif text-fluid-h3 text-black mb-2">
-            Tujuh Pasal Sakral
-          </h3>
-          <p className="larvul-reveal font-sans text-fluid-body text-black/65 leading-relaxed max-w-3xl mb-8">
-            Larvul Ngabal terdiri dari tujuh pasal yang diwariskan lisan. Empat
-            pasal pertama dari hukum Larvul (Nevnev), tiga pasal sisanya dari
-            hukum Ngabal (Hanilit & Hawear Balwirin) — bersatu dalam satu janji
-            leluhur.
-          </p>
+            <h3 className="larvul-reveal font-serif text-fluid-h3 text-black mb-2">
+              {common.larvul.pasalHeading}
+            </h3>
+            <p className="larvul-reveal font-sans text-fluid-body text-black/65 leading-relaxed max-w-3xl mb-8">
+              {common.larvul.pasalIntro}
+            </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 xl:gap-8">
-            {larvulNgabal.pasalList.map((pasal) => (
+            {data.pasalList.map((pasal) => (
               <div
                 key={pasal.nomor}
                 className="larvul-reveal bg-white border border-brand/10 rounded-lg-design p-6 shadow-soft hover:border-brand/30 transition-colors"
@@ -171,10 +178,10 @@ export default function LarvulNgabalSection() {
         {/* Peran historis */}
         <div className="larvul-reveal mt-12 md:mt-16 bg-white border border-brand/10 rounded-xl-design shadow-soft p-6 md:p-10">
           <p className="font-sans text-fluid-eyebrow uppercase tracking-[0.2em] text-brand mb-3">
-            Peran Historis
+            {common.larvul.historicalRoleEyebrow}
           </p>
           <p className="font-sans text-fluid-body text-black/70 leading-relaxed max-w-4xl">
-            {larvulNgabal.historicalNote}
+            {data.historicalNote}
           </p>
         </div>
       </div>

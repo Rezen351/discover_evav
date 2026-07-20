@@ -12,7 +12,7 @@ if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
 }
 
-export default function PenutupHeritageSection() {
+export default function PenutupHeritageSection({ lang }: { lang: "id" | "en" }) {
   const ref = useRef<HTMLElement>(null);
   const spotlightPrimary = useSpotlight({
     radius: 250,
@@ -66,7 +66,11 @@ export default function PenutupHeritageSection() {
           <div className="penutup-heritage-fade relative w-full aspect-[4/3] md:aspect-[16/10] rounded-xl-design overflow-hidden brightness-110 contrast-105">
             <Image
               src="/images/eksplorasi/kei_night_stars.png"
-              alt="Langit malam Kepulauan Kei yang berbintang dengan siluet pohon dan perahu di kejauhan"
+              alt={
+                lang === "en"
+                  ? "Starry night sky over the Kei Islands with silhouettes of trees and a boat in the distance"
+                  : "Langit malam Kepulauan Kei yang berbintang dengan siluet pohon dan perahu di kejauhan"
+              }
               fill
               className="object-cover object-center rounded-xl-design"
               sizes="(max-width: 1024px) 100vw, 50vw"
@@ -75,22 +79,30 @@ export default function PenutupHeritageSection() {
 
           <div className="flex flex-col gap-6">
             <p className="penutup-heritage-fade font-sans text-fluid-small uppercase tracking-[0.3em] text-white/60">
-              Sambutan Keluarga Evav
+              {lang === "en" ? "A Word from the Evav Family" : "Sambutan Keluarga Evav"}
             </p>
 
             <h2
               id="heritage-penutup-title"
               className="penutup-heritage-fade font-serif text-fluid-h2 lg:text-6xl leading-tight text-white"
             >
-              Warisan ini{" "}
-              <span className="text-brand">Milik Kita Bersama</span>
+              {lang === "en" ? (
+                <>
+                  This Heritage Is{" "}
+                  <span className="text-brand">Ours to Share</span>
+                </>
+              ) : (
+                <>
+                  Warisan ini{" "}
+                  <span className="text-brand">Milik Kita Bersama</span>
+                </>
+              )}
             </h2>
 
             <p className="penutup-heritage-fade font-sans text-fluid-body leading-relaxed text-white/80">
-              Di Kei, kita semua bersaudara — termasuk dengan leluhur yang
-              menulis sejarah ini. Setelah menelusuri jejaknya, mari bawa pulang
-              bukan sekadar cerita, tapi juga rasa meja Kei yang hangat.
-              Sampai jumpa di Tanah Evav.
+              {lang === "en"
+                ? "In Kei we are all kin — including the ancestors who wrote this history. Having traced their footsteps, let us bring home not just a story, but the warmth of the Kei table. Until we meet again in the Land of Evav."
+                : "Di Kei, kita semua bersaudara — termasuk dengan leluhur yang menulis sejarah ini. Setelah menelusuri jejaknya, mari bawa pulang bukan sekadar cerita, tapi juga rasa meja Kei yang hangat. Sampai jumpa di Tanah Evav."}
             </p>
 
             <div className="penutup-heritage-fade flex flex-col sm:flex-row flex-wrap items-start gap-4 mt-2">
@@ -98,10 +110,10 @@ export default function PenutupHeritageSection() {
                 href="/culture"
                 onMouseMove={spotlightPrimary.onMouseMove}
                 onMouseLeave={spotlightPrimary.onMouseLeave}
-                aria-label="Jelajahi Jiwa Kei"
+                aria-label={lang === "en" ? "Explore the Soul of Kei" : "Jelajahi Jiwa Kei"}
                 className="btn-spotlight btn-cta-dark group/btn flex items-center gap-2 rounded-full px-6 py-3 font-sans text-sm md:text-base font-semibold transition-all duration-300 hover:scale-[1.02] active:press focus-ring cursor-pointer"
               >
-                Jelajahi Jiwa Kei
+                {lang === "en" ? "Explore the Soul of Kei" : "Jelajahi Jiwa Kei"}
                 <ArrowRightIcon
                   className="h-5 w-5 text-current transition-transform group-hover/btn:translate-x-1"
                   aria-hidden="true"
@@ -112,10 +124,10 @@ export default function PenutupHeritageSection() {
                 href="/explore"
                 onMouseMove={spotlightSecondary.onMouseMove}
                 onMouseLeave={spotlightSecondary.onMouseLeave}
-                aria-label="Rasakan Festivnya"
+                aria-label={lang === "en" ? "Experience the Excitement" : "Rasakan Festivnya"}
                 className="btn-spotlight btn-cta-dark group/btn flex items-center gap-2 rounded-full px-6 py-3 font-sans text-sm md:text-base font-semibold transition-all duration-300 hover:scale-[1.02] active:press focus-ring cursor-pointer"
               >
-                Eksplorasi Keseruannya
+                {lang === "en" ? "Explore the Fun" : "Eksplorasi Keseruannya"}
                 <ArrowRightIcon
                   className="h-5 w-5 text-current transition-transform group-hover/btn:translate-x-1"
                   aria-hidden="true"
@@ -123,13 +135,13 @@ export default function PenutupHeritageSection() {
               </Link>
 
               <Link
-                href="/taste"
+                href={`/${lang}/taste`}
                 onMouseMove={spotlightSecondary.onMouseMove}
                 onMouseLeave={spotlightSecondary.onMouseLeave}
-                aria-label="Cicipi Rasa Kei"
+                aria-label={lang === "en" ? "Taste the Flavors of Kei" : "Cicipi Rasa Kei"}
                 className="btn-spotlight btn-cta-dark group/btn flex items-center gap-2 rounded-full px-6 py-3 font-sans text-sm md:text-base font-semibold transition-all duration-300 hover:scale-[1.02] active:press focus-ring cursor-pointer"
               >
-                Cicipi Rasa Kei
+                {lang === "en" ? "Taste the Flavors of Kei" : "Cicipi Rasa Kei"}
                 <ArrowRightIcon
                   className="h-5 w-5 text-current transition-transform group-hover/btn:translate-x-1"
                   aria-hidden="true"
@@ -138,7 +150,7 @@ export default function PenutupHeritageSection() {
             </div>
 
             <p className="penutup-heritage-fade font-sans text-xs md:text-sm tracking-[0.3em] uppercase text-white/40 mb-1">
-              Salam penutup
+              {lang === "en" ? "Closing words" : "Salam penutup"}
             </p>
 
             <p
