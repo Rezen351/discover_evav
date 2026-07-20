@@ -20,10 +20,10 @@ if (typeof window !== "undefined") {
 // Lokasi lomba perahu Belan — start dari Desa Ngadi melewati Tual & finis di
 // selat pemisah Tual–Kei Kecil (sumber: liputan Festival Pesona Meti Kei).
 // Titik representatif: Pantai Ngurbloat / selat utama area Langgur–Tual.
-const EVENT_LAT = -5.6625;
-const EVENT_LNG = 132.6362;
+const EVENT_LAT = -5.5725;
+const EVENT_LNG = 132.7606;
 const EVENT_MAPS_URL = `https://www.google.com/maps/search/?api=1&query=${EVENT_LAT},${EVENT_LNG}`;
-const EVENT_LOKASI = "Selat Tual–Kei Kecil (start Desa Ngadi, finis Pulau Dullah)";
+const EVENT_LOKASI = "Desa Ngadi, Pulau Dullah Utara (Start Lomba Perahu Belan)";
 
 const nilaiPerahu = [
   { label: "Kecepatan", Icon: BoltIcon },
@@ -34,17 +34,13 @@ const nilaiPerahu = [
 // Slideshow perahu layar tradisional Belan & bahari Kei (autoplay 5s, §7.3).
 const PERAHU_PHOTOS: { src: string; alt: string }[] = [
   {
-    src: "/images/eksplorasi/wer_warat.png",
-    alt: "Perahu layar tradisional Belan berlomba membelah air dalam Festival Pesona Meti Kei",
+    src: "/images/budaya/perahu_belan_race_kei.png",
+    alt: "Lomba perahu layar tradisional Belan yang megah membelah laut jernih Kepulauan Kei",
   },
   {
-    src: "/images/eksplorasi/kei_bair.png",
-    alt: "Pulau Bair dengan tebing karang dan lorong air jernih di Kepulauan Kei",
-  },
-  {
-    src: "/images/eksplorasi/snorkeling-ngurtavur-zanzztoy.jpg",
-    alt: "Perairan jernih Kepulauan Kei dengan terumbu karang bermekaran",
-  },
+    src: "/images/budaya/lomba-perahu-belan-rri.jpg",
+    alt: "Dua armada perahu Belan bersaing ketat di selat Tual-Kei Kecil disaksikan warga",
+  }
 ];
 
 export default function PerahuBelanSection() {

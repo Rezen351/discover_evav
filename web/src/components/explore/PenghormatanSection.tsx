@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -9,8 +9,34 @@ if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
 }
 
+const EKA_BAGUS_IMAGES = [
+  "/images/eksplorasi/spot-eka-bagus-kkn-ugm.png",
+  "/images/eksplorasi/spot-eka-bagus-2-kkn-ugm.jpg",
+  "/images/eksplorasi/spot-eka-bagus-3-kkn-ugm.jpg",
+];
+
+const EKA_BAGUS_ALT = [
+  "Eka Bagus Spot — bentangan alam asri Kepulauan Kei yang terjaga dan tenang",
+  "Eka Bagus Spot — vegetasi hijau dan air jernih di Kei yang masih murni",
+  "Eka Bagus Spot — ekosistem pantai Kei yang damai dan terlindungi",
+];
+
 export default function PenghormatanSection() {
   const ref = useRef<HTMLElement>(null);
+  const [order, setOrder] = useState([0, 1, 2]);
+
+  useEffect(() => {
+    const prefersReduced = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+    if (prefersReduced) return;
+
+    const interval = window.setInterval(() => {
+      setOrder((prev) => [prev[1], prev[2], prev[0]]);
+    }, 4500);
+
+    return () => window.clearInterval(interval);
+  }, []);
 
   useEffect(() => {
     const prefersReduced = window.matchMedia(
@@ -46,13 +72,50 @@ export default function PenghormatanSection() {
       className="relative w-full min-h-screen snap-start snap-always flex items-center justify-center overflow-hidden bg-tropical-dark z-[3]"
       aria-labelledby="penghormatan-title"
     >
-      <Image
-        src="/images/eksplorasi/pantai-pasir-panjang-ilhamarch.jpg"
-        alt="Eka Bagus Spot — bentangan alam asri Kepulauan Kei yang terjaga dan tenang"
-        fill
-        className="object-cover brightness-110 contrast-105"
-        priority={false}
-      />
+      {/* Mobile: satu foto penuh sebagai background */}
+      <div className="absolute inset-0 md:hidden">
+        {EKA_BAGUS_IMAGES.map((src, i) => {
+          const isActive = order[0] === i;
+          return (
+            <Image
+              key={src}
+              src={src}
+              alt={EKA_BAGUS_ALT[i]}
+              fill
+              sizes="100vw"
+              className={`object-cover brightness-110 contrast-105 transition-opacity duration-1000 ease-in-out ${
+                isActive ? "opacity-100" : "opacity-0"
+              }`}
+              priority={false}
+            />
+          );
+        })}
+      </div>
+
+      {/* Desktop: dua foto Eka Bagus berjejer memenuhi section; satu foto
+          mengantri dan bergantian masuk via transisi crossfade otomatis. */}
+      <div className="absolute inset-0 hidden md:flex">
+        {[0, 1].map((slot) => (
+          <div key={slot} className="relative h-full w-1/2 overflow-hidden">
+            {EKA_BAGUS_IMAGES.map((src, i) => {
+              const isActive = order[slot] === i;
+              return (
+                <Image
+                  key={src}
+                  src={src}
+                  alt={EKA_BAGUS_ALT[i]}
+                  fill
+                  sizes="50vw"
+                  className={`object-cover brightness-110 contrast-105 transition-opacity duration-1000 ease-in-out ${
+                    isActive ? "opacity-100" : "opacity-0"
+                  }`}
+                  priority={false}
+                />
+              );
+            })}
+          </div>
+        ))}
+      </div>
 
       <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/65 to-black/70" />
 

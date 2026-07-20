@@ -22,7 +22,6 @@ export type KategoriAlam =
   | "Pulau"
   | "Snorkeling & Dive"
   | "Gua"
-  | "Satwa"
   | "Viewpoint";
 
 export interface SpotAlam {
@@ -80,7 +79,7 @@ const rawSpots: Omit<SpotAlam, "mapsUrl">[] = [
     kategori: "Pulau",
     deskripsi:
       "Raja Ampat-nya Maluku Tenggara. Tebing karang menjulang tinggi membentuk lorong air sebening kaca, dengan laguna tersembunyi untuk berenang dan kayak.",
-    gambar: "/images/eksplorasi/kei_bair.png",
+    gambar: "/images/eksplorasi/kei_bair.jpg",
     alt: "Pulau Bair — tebing karang dan lorong air jernih di Kepulauan Kei",
     lat: -5.5891,
     lng: 132.6565,
@@ -108,48 +107,15 @@ const rawSpots: Omit<SpotAlam, "mapsUrl">[] = [
     lng: 132.674,
   },
   {
-    id: "dullah",
-    nama: "Pulau Dullah",
-    kategori: "Pulau",
-    deskripsi:
-      "Pulau di selat antara Tual dan Kei Kecil, pintu gerbang bahari dengan hutan bakau dan spot memancing tradisional. Jembatan timbang menawarkan panorama selat yang luas.",
-    gambar: "/images/eksplorasi/kei_resort.png",
-    alt: "Pulau Dullah — pulau di selat Tual-Kei Kecil, Kepulauan Kei",
-    lat: -5.633,
-    lng: 132.74,
-  },
-  {
     id: "ngiarvarat",
     nama: "Pantai Ngiarvarat",
     kategori: "Pantai",
     deskripsi:
       "Pantai di Ohoidertawun yang menjadi pusat kegiatan Festival Pesona Meti Kei. Saat surut ekstrem, hamparan pasir dan air dangkal terbuka untuk Wer Warat.",
-    gambar: "/images/eksplorasi/snorkeling-ngurtavur-zanzztoy.jpg",
-    alt: "Pantai Ngiarvarat Ohoidertawun — pusat Festival Meti Kei saat surut",
+    gambar: "/images/eksplorasi/pantai_ngiarvarat.png",
+    alt: "Pantai Ngiarvarat Ohoidertawun saat surut ekstrem (meti) dengan refleksi langit senja",
     lat: -5.7,
     lng: 132.62,
-  },
-  {
-    id: "masbait",
-    nama: "Bukit Masbait",
-    kategori: "Viewpoint",
-    deskripsi:
-      "Bukit di Kei Kecil yang menyajikan viewpoint menatap gugusan pulau dan laut Banda dari ketinggian. Tempat terbaik menangkap matahari terbit di Tanah Evav.",
-    gambar: "/images/eksplorasi/spot-eka-bagus-2-kkn-ugm.jpg",
-    alt: "Bukit Masbait — viewpoint menatap gugusan pulau Kei dari ketinggian",
-    lat: -5.615,
-    lng: 132.62,
-  },
-  {
-    id: "ohoilim",
-    nama: "Goa Ohoilim",
-    kategori: "Gua",
-    deskripsi:
-      "Goa alam di pesisir Pulau Kei Besar (Ohoi Lerohoilim), menyimpan misteri sasi pasir dan pantai tersembunyi. Kawasan ekowisata baru yang masih perawan.",
-    gambar: "/images/eksplorasi/goa-hawang.jpg",
-    alt: "Goa Ohoilim Ohoiluk — goa alam di pesisir Pulau Kei Besar",
-    lat: -5.93,
-    lng: 132.43,
   },
   {
     id: "tanimbar_kei",
@@ -175,6 +141,5 @@ export const kategoriAlam: ("Semua" | KategoriAlam)[] = [
   "Pulau",
   "Snorkeling & Dive",
   "Gua",
-  "Satwa",
   "Viewpoint",
 ];

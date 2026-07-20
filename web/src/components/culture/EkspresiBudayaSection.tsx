@@ -4,18 +4,24 @@ import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Pagination, A11y, Keyboard } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/pagination";
 import {
   SparklesIcon,
   MusicalNoteIcon,
   SwatchIcon,
   MicrophoneIcon,
-  ChevronLeftIcon,
   ChevronRightIcon,
   PlayIcon,
   PauseIcon,
 } from "@heroicons/react/24/outline";
-import { Shirt } from "lucide-react";
-import { ekspresiBudaya, type EkspresiItem } from "@/content/culture";
+import { Shirt, Sailboat } from "lucide-react";
+import {
+  ekspresiBudaya,
+  type EkspresiItem,
+} from "@/content/culture";
 import EkspresiAudioPlayer from "./EkspresiAudioPlayer";
 
 if (typeof window !== "undefined") {
@@ -31,42 +37,62 @@ const ICONS: Record<
   Shirt,
   Palette: SwatchIcon,
   Mic2: MicrophoneIcon,
+  Boat: Sailboat,
 };
 
 export default function EkspresiBudayaSection() {
   const sectionRef = useRef<HTMLElement>(null);
-  const videoRef = useRef<HTMLVideoElement>(null);
 
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [imageIndex, setImageIndex] = useState(0);
-  const [isPlaying, setIsPlaying] = useState(false);
+  const kelompokList = ekspresiBudaya.kelompokList;
+  const [activeKelompok, setActiveKelompok] = useState(0);
+  const [activeSlide, setActiveSlide] = useState(0);
+  const [isPlaying, setIsPlaying] = useState(
+    () =>
+      ((kelompokList[0]?.items ?? []) as EkspresiItem[]).some((it) => it.video) ??
+      false
+  );
 
-  const active = activeIndex >= 0 ? ekspresiBudaya.items[activeIndex] : null;
-  const totalImages = active ? active.images.length : 0;
+  const kelompok = kelompokList[activeKelompok];
 
-  // Klik tab: buka jika belum aktif, tutup (collapse) jika sudah aktif
-  const selectItem = (index: number) => {
-    setActiveIndex((prev) => (prev === index ? -1 : index));
-    setImageIndex(0);
-    setIsPlaying(false);
-    videoRef.current?.pause();
+  // Buka kelompok: klik buka panel; klik lagi pada tab yang sama menutup (collapse)
+  const selectKelompok = (index: number) => {
+    setActiveKelompok((prev) => {
+      const willOpen = prev !== index;
+      setActiveSlide(0);
+      const target = willOpen ? index : prev;
+      const nextHasVideo =
+        ((kelompokList[target]?.items ?? []) as EkspresiItem[]).some(
+          (it) => it.video
+        ) ?? false;
+      // Jika menutup, hentikan video; jika membuka yang bervideo, auto-play
+      setIsPlaying(willOpen && nextHasVideo);
+      if (!willOpen || !nextHasVideo) {
+        Object.values(videoRefs.current).forEach((v) => v?.pause());
+      }
+      return willOpen ? index : -1;
+    });
   };
-
-  const prevImage = () =>
-    setImageIndex((i) => (i - 1 + totalImages) % totalImages);
-  const nextImage = () => setImageIndex((i) => (i + 1) % totalImages);
 
   const toggleVideo = () => {
-    const video = videoRef.current;
-    if (!video) return;
-    if (video.paused) {
-      video.play().catch(() => {});
-      setIsPlaying(true);
-    } else {
-      video.pause();
-      setIsPlaying(false);
-    }
+    setIsPlaying((prev) => !prev);
   };
+
+  // Mainkan/jedakan video pada slide aktif sesuai state isPlaying.
+  const videoRefs = useRef<Record<string, HTMLVideoElement | null>>({});
+
+  useEffect(() => {
+    const kelompok = kelompokList[activeKelompok];
+    const items: EkspresiItem[] = kelompok?.items ?? [];
+    items.forEach((it) => {
+      const v = videoRefs.current[it.id];
+      if (!v) return;
+      if (isPlaying && it.video && items[activeSlide]?.id === it.id) {
+        v.play().catch(() => {});
+      } else {
+        v.pause();
+      }
+    });
+  }, [isPlaying, activeSlide, activeKelompok, kelompokList]);
 
   // Hentikan video saat section keluar viewport (hemat resource, §7.3.2)
   useEffect(() => {
@@ -75,7 +101,7 @@ export default function EkspresiBudayaSection() {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (!entry.isIntersecting) {
-          videoRef.current?.pause();
+          Object.values(videoRefs.current).forEach((v) => v?.pause());
           setIsPlaying(false);
         }
       },
@@ -116,15 +142,11 @@ export default function EkspresiBudayaSection() {
     return () => ctx.revert();
   }, []);
 
-  // Refresh ScrollTrigger agar hitungan posisi scroll diperbarui setelah accordion buka/tutup
-  useEffect(() => {
-    ScrollTrigger.refresh();
-  }, [activeIndex]);
-
-  // Kartu konten untuk satu item (media di atas, narasi di bawah — dipisah dari overlay)
-  const renderCard = (item: EkspresiItem, index: number) => {
+  // Kartu konten untuk satu item (media di atas, narasi di bawah).
+  // Untuk grup dengan >1 item, kartu di-render sebagai SwiperSlide.
+  const renderCard = (item: EkspresiItem, isActive = true) => {
     const Icon = ICONS[item.icon];
-    const total = item.images.length;
+    const videoActive = !!(item.video && isPlaying && isActive);
 
     if (item.tracks && item.tracks.length > 0) {
       return (
@@ -142,84 +164,49 @@ export default function EkspresiBudayaSection() {
       <div
         id={`ekspresi-card-${item.id}`}
         role="tabpanel"
-        aria-labelledby={`ekspresi-tab-${item.id}`}
+        aria-labelledby={`ekspresi-tab-${kelompok?.id}`}
         className="bg-white border border-brand/10 rounded-xl-design shadow-card overflow-hidden"
       >
-        {/* Media — tanpa overlay teks agar rasio tetap bersih */}
         <div className="relative w-full aspect-[4/3] md:aspect-[16/9] bg-black/5">
-          {item.video && isPlaying && index === activeIndex ? (
+          {videoActive ? (
             <video
-              ref={videoRef}
+              ref={(el) => {
+                videoRefs.current[item.id] = el;
+              }}
               className="absolute inset-0 h-full w-full object-cover"
-              poster={item.images[imageIndex]}
+              poster={item.images[0]}
               preload="none"
               muted
               loop
               playsInline
+              controls={false}
               aria-label={`Video ${item.title}`}
             >
               <source src={item.video} type="video/mp4" />
             </video>
           ) : (
             <Image
-              key={`${item.id}-${imageIndex}`}
-              src={item.images[imageIndex]}
+              key={`${item.id}-0`}
+              src={item.images[0]}
               alt={item.imageAlt}
               fill
-              sizes="(max-width: 1024px) 100vw, 60vw"
+              sizes="(max-width: 768px) 100vw, 50vw"
               className="object-cover object-center"
             />
           )}
 
-          {/* Kontrol carousel — hanya bila lebih dari 1 gambar & video tidak main */}
-          {total > 1 && !(item.video && isPlaying && index === activeIndex) && (
-            <>
-              <button
-                type="button"
-                onClick={prevImage}
-                aria-label="Gambar sebelumnya"
-                className="absolute left-3 top-1/2 -translate-y-1/2 z-10 flex h-12 w-12 lg:h-10 lg:w-10 items-center justify-center rounded-full bg-white/90 text-brand shadow-soft transition-colors lg:hover:bg-brand lg:hover:text-white focus-ring"
-              >
-                <ChevronLeftIcon className="h-5 w-5" aria-hidden="true" />
-              </button>
-              <button
-                type="button"
-                onClick={nextImage}
-                aria-label="Gambar berikutnya"
-                className="absolute right-3 top-1/2 -translate-y-1/2 z-10 flex h-12 w-12 lg:h-10 lg:w-10 items-center justify-center rounded-full bg-white/90 text-brand shadow-soft transition-colors lg:hover:bg-brand lg:hover:text-white focus-ring"
-              >
-                <ChevronRightIcon className="h-5 w-5" aria-hidden="true" />
-              </button>
-              <div className="absolute top-3 left-1/2 -translate-x-1/2 flex gap-2 z-10 p-2 -m-2">
-                {item.images.map((_, i) => (
-                  <button
-                    key={i}
-                    type="button"
-                    onClick={() => setImageIndex(i)}
-                    aria-label={`Tampilkan gambar ${i + 1} dari ${total}`}
-                    aria-current={i === imageIndex}
-                    className={`h-2 rounded-full transition-all focus-ring ${
-                      i === imageIndex ? "w-6 bg-brand" : "w-2 bg-black/30"
-                    }`}
-                  />
-                ))}
-              </div>
-            </>
-          )}
-
-          {/* Tombol video (lazy — hanya untuk item bervideo) */}
           {item.video && (
             <button
               type="button"
               onClick={toggleVideo}
               aria-label={
-                isPlaying && index === activeIndex
+                videoActive
                   ? `Jeda video ${item.title}`
                   : `Putar video ${item.title}`
               }
               className="absolute right-3 top-3 z-10 flex h-12 w-12 lg:h-10 lg:w-10 items-center justify-center rounded-full bg-brand text-white shadow-soft transition-transform hover:scale-105 active:press focus-ring"
             >
-              {isPlaying && index === activeIndex ? (
+              {videoActive ? (
                 <PauseIcon className="h-5 w-5" aria-hidden="true" />
               ) : (
                 <PlayIcon className="h-5 w-5" aria-hidden="true" />
@@ -228,7 +215,6 @@ export default function EkspresiBudayaSection() {
           )}
         </div>
 
-        {/* Narasi — dipisah di bawah media (bukan overlay) */}
         <div className="p-6 md:p-8">
           <div className="flex items-center gap-3 mb-3">
             <span
@@ -254,7 +240,6 @@ export default function EkspresiBudayaSection() {
       aria-labelledby="ekspresi-title"
       className="relative w-full snap-start snap-always bg-section z-[5] py-20 md:py-28 overflow-hidden"
     >
-      {/* Foto dekoratif kanan atas */}
       <div
         aria-hidden="true"
         className="pointer-events-none absolute -top-10 -right-10 md:-top-16 md:-right-16 w-[45vw] max-w-[520px] aspect-square z-0"
@@ -285,46 +270,42 @@ export default function EkspresiBudayaSection() {
           </p>
         </div>
 
-        {/* Mobile: accordion — kartu muncul tepat di bawah tab yang diklik.
-            Semua tab (termasuk Nyanyian & Sastra Lisan) bisa di-collapse. */}
-        <div className="lg:hidden flex flex-col gap-3 ekspresi-reveal">
-          {ekspresiBudaya.items.map((item, index) => {
-            const Icon = ICONS[item.icon];
-            const isOpen = index === activeIndex;
+        {/* Dropdown kelompok — susunan ke bawah, klik buka panel card */}
+        <div className="ekspresi-reveal flex flex-col gap-3">
+          {kelompokList.map((k, index) => {
+            const Icon = ICONS[k.icon];
+            const isOpen = index === activeKelompok;
+            const kItems: EkspresiItem[] = k.items ?? [];
+            const kShowSwipe = kItems.length > 1;
             return (
-              <div key={item.id}>
+              <div
+                key={k.id}
+                className="rounded-xl-design border border-brand/10 bg-white/60 overflow-hidden"
+              >
                 <button
-                  id={`ekspresi-tab-${item.id}`}
+                  id={`ekspresi-kelompok-tab-${k.id}`}
                   type="button"
                   role="tab"
-                  aria-selected={index === activeIndex}
+                  aria-selected={isOpen}
                   aria-expanded={isOpen}
-                  aria-controls={`ekspresi-card-${item.id}`}
-                  onClick={() => selectItem(index)}
-                  className={`w-full flex items-center justify-between gap-4 rounded-lg-design border p-4 text-left transition-colors focus-ring ${
-                    index === activeIndex
-                      ? "bg-white border-brand/30 shadow-soft"
-                      : "bg-white/60 border-brand/10 hover:border-brand/30 hover:bg-white"
+                  aria-controls={`ekspresi-kelompok-panel-${k.id}`}
+                  onClick={() => selectKelompok(index)}
+                  className={`w-full flex items-center gap-3 p-4 md:p-5 text-left transition-colors focus-ring ${
+                    isOpen
+                      ? "bg-white border-b border-brand/15 shadow-soft"
+                      : "bg-white/60 hover:bg-white"
                   }`}
                 >
-                  <span className="flex items-center gap-4 min-w-0">
-                    <span
-                      className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-full transition-colors ${
-                        index === activeIndex
-                          ? "bg-brand text-white"
-                          : "bg-brand/10 text-brand"
-                      }`}
-                      aria-hidden="true"
-                    >
-                      <Icon className="h-5 w-5" />
-                    </span>
-                    <span
-                      className={`font-serif text-fluid-h4 truncate ${
-                        index === activeIndex ? "text-black" : "text-black/70"
-                      }`}
-                    >
-                      {item.title}
-                    </span>
+                  <span
+                    className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full transition-colors ${
+                      isOpen ? "bg-brand text-white" : "bg-brand/10 text-brand"
+                    }`}
+                    aria-hidden="true"
+                  >
+                    <Icon className="h-5 w-5" />
+                  </span>
+                  <span className="flex-1 font-serif text-fluid-h4 text-black/80">
+                    {k.label}
                   </span>
                   <ChevronRightIcon
                     className={`h-5 w-5 shrink-0 text-brand transition-transform duration-300 ${
@@ -333,69 +314,72 @@ export default function EkspresiBudayaSection() {
                     aria-hidden="true"
                   />
                 </button>
-                {isOpen && <div className="mt-3">{renderCard(item, index)}</div>}
+
+                {isOpen && (
+                  <div
+                    id={`ekspresi-kelompok-panel-${k.id}`}
+                    role="tabpanel"
+                    aria-labelledby={`ekspresi-kelompok-tab-${k.id}`}
+                    className="p-5 md:p-8"
+                  >
+                    <p className="font-sans text-fluid-body text-black/65 leading-relaxed max-w-3xl mb-6">
+                      {k.desc}
+                    </p>
+
+                    {kShowSwipe ? (
+                      <Swiper
+                        modules={[Pagination, A11y, Keyboard]}
+                        slidesPerView={1}
+                        spaceBetween={16}
+                        keyboard={{ enabled: true }}
+                        pagination={{
+                          clickable: true,
+                          el: `.ekspresi-pagination-${k.id}`,
+                        }}
+                        onSlideChange={(s) => setActiveSlide(s.activeIndex)}
+                        className="!pb-12 max-w-3xl mx-auto ekspresi-swiper"
+                      >
+                        {kItems.map((it, i) => (
+                          <SwiperSlide key={it.id} className="!h-auto">
+                            {renderCard(it, i === activeSlide)}
+                          </SwiperSlide>
+                        ))}
+                      </Swiper>
+                    ) : (
+                      kItems[0] && (
+                        <div className="max-w-3xl mx-auto">
+                          {renderCard(kItems[0])}
+                        </div>
+                      )
+                    )}
+
+                    {kShowSwipe && (
+                      <>
+                        <div
+                          className={`ekspresi-pagination-${k.id} flex items-center justify-center gap-2 mt-4`}
+                        />
+                        <p className="mt-6 text-center font-sans text-fluid-small text-black/45">
+                          Geser untuk menjelajahi:{" "}
+                          {kItems.map((it, i) => (
+                            <span key={it.id}>
+                              {i > 0 && ", "}
+                              <span
+                                className={
+                                  i === activeSlide ? "text-brand font-medium" : ""
+                                }
+                              >
+                                {it.title}
+                              </span>
+                            </span>
+                          ))}
+                        </p>
+                      </>
+                    )}
+                  </div>
+                )}
               </div>
             );
           })}
-        </div>
-
-        {/* Desktop: split dua kolom (tabs kiri, panel kanan) — tampilan tetap */}
-        <div className="hidden lg:grid grid-cols-12 gap-6 xl:gap-10 items-stretch">
-          <div
-            className="lg:col-span-4 flex flex-col gap-3"
-            role="tablist"
-            aria-label="Daftar ekspresi budaya Kei"
-          >
-            {ekspresiBudaya.items.map((item, index) => {
-              const Icon = ICONS[item.icon];
-              const isActive = index === activeIndex;
-              return (
-                <button
-                  key={item.id}
-                  id={`ekspresi-tab-${item.id}`}
-                  type="button"
-                  role="tab"
-                  aria-selected={isActive}
-                  aria-controls={`ekspresi-card-${item.id}`}
-                  onClick={() => selectItem(index)}
-                  className={`flex items-center gap-4 rounded-lg-design border p-5 text-left transition-colors focus-ring ${
-                    isActive
-                      ? "bg-white border-brand/30 shadow-soft"
-                      : "bg-white/60 border-brand/10 hover:border-brand/30 hover:bg-white"
-                  }`}
-                >
-                  <span
-                    className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-full transition-colors ${
-                      isActive ? "bg-brand text-white" : "bg-brand/10 text-brand"
-                    }`}
-                    aria-hidden="true"
-                  >
-                    <Icon className="h-5 w-5" />
-                  </span>
-                  <span
-                    className={`font-serif text-fluid-h4 ${
-                      isActive ? "text-black" : "text-black/70"
-                    }`}
-                  >
-                    {item.title}
-                  </span>
-                </button>
-              );
-            })}
-          </div>
-
-          <div className="lg:col-span-8 relative">
-            {active ? (
-              renderCard(active, activeIndex)
-            ) : (
-              <div className="bg-white/60 border border-brand/10 rounded-xl-design shadow-card h-full min-h-[320px] flex items-center justify-center p-8 text-center">
-                <p className="font-sans text-fluid-body text-black/50">
-                  Pilih salah satu ekspresi budaya Kei di sebelah kiri untuk
-                  melihat lebih lanjut.
-                </p>
-              </div>
-            )}
-          </div>
         </div>
       </div>
     </section>

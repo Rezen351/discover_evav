@@ -23,11 +23,11 @@ export const SOCIAL_HANDLES = {
   whatsapp: "6282112345678",
 } as const;
 
-export const INSTAGRAM_URL = `https://instagram.com/${SOCIAL_HANDLES.instagram}`;
-export const TIKTOK_URL = `https://tiktok.com/${SOCIAL_HANDLES.tiktok}`;
-export const YOUTUBE_URL = `https://youtube.com/${SOCIAL_HANDLES.youtube}`;
-export const FACEBOOK_URL = `https://facebook.com/${SOCIAL_HANDLES.facebook}`;
-export const WHATSAPP_URL = `https://wa.me/${SOCIAL_HANDLES.whatsapp}`;
+export const INSTAGRAM_URL = "#";
+export const TIKTOK_URL = "#";
+export const YOUTUBE_URL = "#";
+export const FACEBOOK_URL = "#";
+export const WHATSAPP_URL = "#";
 
 // Daftar tautan sosial untuk dirender sebagai ikon (SocialIcon).
 export const SOCIAL_LINKS: SocialLink[] = [
@@ -44,8 +44,8 @@ export const EMAIL_URL = `mailto:${CONTACT_EMAIL}`;
 // Daftar channel untuk dinding sosial (SocialMosaicSection) — handles berbeda
 // dari tautan footer, namun tetap dikelola dari satu file ini.
 export const SOCIAL_MOSAIC_CHANNELS: SocialLink[] = [
-  { platform: "instagram", label: "Instagram", href: "https://instagram.com/discoverkei" },
-  { platform: "tiktok", label: "TikTok", href: "https://tiktok.com/@discoverkei" },
-  { platform: "youtube", label: "YouTube", href: "https://youtube.com/@simfonievav" },
-  { platform: "facebook", label: "Facebook", href: "https://facebook.com/discoverkei" },
+  { platform: "instagram", label: "Instagram", href: "#" },
+  { platform: "tiktok", label: "TikTok", href: "#" },
+  { platform: "youtube", label: "YouTube", href: "#" },
+  { platform: "facebook", label: "Facebook", href: "#" },
 ];

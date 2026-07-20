@@ -434,6 +434,20 @@ body {
 .cloud-scroll { animation: cloudScroll 11s linear infinite; will-change: transform; }
 .cloud-scroll-slow { animation: cloudScroll 18s linear infinite reverse; will-change: transform; }
 
+/* Ekspresi Budaya (card carousel) pagination dots — aksen brand pink (§3.1) */
+.ekspresi-swiper .swiper-pagination-bullet {
+  background: color-mix(in srgb, var(--color-primary-pink) 30%, transparent) !important;
+  opacity: 1;
+  width: 8px;
+  height: 8px;
+  transition: width 0.3s ease, background-color 0.3s ease;
+}
+.ekspresi-swiper .swiper-pagination-bullet-active {
+  background: var(--color-primary-pink) !important;
+  width: 24px;
+  border-radius: 9999px;
+}
+
 /* Ekspresi audio player — range slider (Spotify-style) */
 .ekspresi-range::-webkit-slider-thumb {
   -webkit-appearance: none;

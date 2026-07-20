@@ -107,7 +107,7 @@ export default function LarvulNgabalSection() {
         {/* 3 Pillars */}
         <div className="mt-16 md:mt-20">
           <h3 className="larvul-reveal font-serif text-fluid-h3 text-black mb-8">
-            Tiga Rumpun Nilai, Tujuh Pasal Sakral
+            Tiga Rumpun Nilai
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 xl:gap-8">
             {larvulNgabal.pillars.map((pillar) => (
@@ -123,6 +123,45 @@ export default function LarvulNgabalSection() {
                 </p>
                 <p className="mt-4 font-sans text-fluid-body text-black/65 leading-relaxed">
                   {pillar.desc}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* 7 Pasal Sakral */}
+        <div className="mt-16 md:mt-20">
+          <h3 className="larvul-reveal font-serif text-fluid-h3 text-black mb-2">
+            Tujuh Pasal Sakral
+          </h3>
+          <p className="larvul-reveal font-sans text-fluid-body text-black/65 leading-relaxed max-w-3xl mb-8">
+            Larvul Ngabal terdiri dari tujuh pasal yang diwariskan lisan. Empat
+            pasal pertama dari hukum Larvul (Nevnev), tiga pasal sisanya dari
+            hukum Ngabal (Hanilit & Hawear Balwirin) — bersatu dalam satu janji
+            leluhur.
+          </p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 xl:gap-8">
+            {larvulNgabal.pasalList.map((pasal) => (
+              <div
+                key={pasal.nomor}
+                className="larvul-reveal bg-white border border-brand/10 rounded-lg-design p-6 shadow-soft hover:border-brand/30 transition-colors"
+              >
+                <div className="flex items-center gap-3 mb-4">
+                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-brand/15 text-brand font-serif text-fluid-h4">
+                    {pasal.nomor}
+                  </span>
+                  <span className="font-sans text-fluid-small uppercase tracking-[0.15em] text-brand">
+                    {pasal.kelompok}
+                  </span>
+                </div>
+                <h4 className="font-serif text-fluid-h4 text-black">
+                  {pasal.istilahKei}
+                </h4>
+                <p className="mt-1 font-sans text-fluid-small text-black/55">
+                  {pasal.artiKei}
+                </p>
+                <p className="mt-3 font-sans text-fluid-body text-black/80 leading-relaxed">
+                  {pasal.desc}
                 </p>
               </div>
             ))}

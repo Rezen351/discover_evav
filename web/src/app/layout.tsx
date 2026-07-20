@@ -123,7 +123,7 @@ export default function RootLayout({
         description:
           "Simfoni Evav memperkenalkan keindahan, sejarah, dan kebudayaan Kepulauan Kei, Maluku Tenggara kepada dunia.",
         areaServed: "Kepulauan Kei, Maluku Tenggara, Indonesia",
-        sameAs: [INSTAGRAM_URL, TIKTOK_URL, YOUTUBE_URL, FACEBOOK_URL],
+        sameAs: [INSTAGRAM_URL, TIKTOK_URL, YOUTUBE_URL, FACEBOOK_URL].filter((url) => url && url !== "#"),
       },
       {
         "@type": "WebSite",

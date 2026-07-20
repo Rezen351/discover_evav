@@ -34,6 +34,7 @@ export const assetAttributions: { file: string; source: string; author: string; 
   { file: "images/budaya/kei-busana-adat-arnol-arnol-pinterest.png", source: "Pinterest", author: "Arnol Arnol", license: "Hak cipta pihak ketiga (dipakai dengan atribusi)", url: "https://www.pinterest.com/" },
   { file: "images/budaya/tenun-ikat-elat-kompas.png", source: "Kompasiana", author: "Kompasiana", license: "Hak cipta pihak ketiga (dipakai dengan atribusi)", url: "https://www.kompasiana.com/" },
   { file: "images/budaya/kei_gong_dada_ilustration.jpeg", source: "Wikimedia Commons", author: "Wikimedia user (ilustrasi)", license: "CC BY-SA", url: "https://commons.wikimedia.org/" },
+  { file: "images/budaya/perahu_belan_race_kei.png", source: "Gemini Image Generator", author: "Simfoni Evav (AI Generated)", license: "CC BY (lokal)", url: "" },
   // === KATEGORI 3 — HERITAGE & SEJARAH ===
   { file: "images/heritage/kampung_debut.jpeg", source: "Unsplash", author: "Unsplash", license: "Unsplash License (free)", url: "https://images.unsplash.com/" },
   { file: "images/heritage/kampung-selayar-.png", source: "Unsplash", author: "Unsplash", license: "Unsplash License (free)", url: "https://images.unsplash.com/" },
@@ -48,7 +49,7 @@ export const assetAttributions: { file: string; source: string; author: string; 
   { file: "images/heritage/raja-raja-rat.png", source: "Original (Simfoni Evav)", author: "Simfoni Evav", license: "CC0", url: "" },
 
   // === KATEGORI 4 — EKSPLORASI / METI KEI ===
-  { file: "images/eksplorasi/wer_warat.png", source: "Unsplash", author: "Sean O. (Unsplash)", license: "Unsplash License (free)", url: "https://images.unsplash.com/photo-1505228395891-9a51e7e86bf6" },
+  { file: "images/eksplorasi/wer_warat_custom.png", source: "Gemini Image Generator", author: "Simfoni Evav (AI Generated)", license: "CC BY (lokal)", url: "" },
   { file: "images/eksplorasi/kei_waving.png", source: "Unsplash", author: "Sean O. (Unsplash)", license: "Unsplash License (free)", url: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e" },
   { file: "images/eksplorasi/kei_bair.jpg", source: "Unsplash", author: "Unsplash", license: "Unsplash License (free)", url: "https://images.unsplash.com/" },
   { file: "images/eksplorasi/kei_beach.png", source: "Unsplash", author: "Unsplash", license: "Unsplash License (free)", url: "https://images.unsplash.com/" },
@@ -59,6 +60,7 @@ export const assetAttributions: { file: string; source: string; author: string; 
   { file: "images/eksplorasi/kei_mosaic_1.png", source: "Unsplash", author: "Unsplash", license: "Unsplash License (free)", url: "https://images.unsplash.com/" },
   { file: "images/eksplorasi/kei_night_stars.png", source: "Wikimedia Commons", author: "Wikimedia user", license: "CC BY-SA", url: "https://commons.wikimedia.org/" },
   { file: "images/eksplorasi/pantai-kelapa-miring.jpg", source: "Fotografer Kei (Original)", author: "Simfoni Evav", license: "CC BY (lokal)", url: "" },
+  { file: "images/eksplorasi/pelikan_migration_australia.png", source: "Gemini Image Generator", author: "Simfoni Evav (AI Generated)", license: "CC BY (lokal)", url: "" },
 
   // === KATEGORI 4B — EKSPLORASI (aset web eksternal, format title-credit) ===
   { file: "images/eksplorasi/desa-wisata-ngilngof-antara.jpg", source: "Antara Megapolitan News", author: "Antara", license: "Hak cipta pihak ketiga (dipakai dengan atribusi)", url: "https://megapolitan.news/" },
@@ -102,7 +104,7 @@ export const assetAttributions: { file: string; source: string; author: string; 
   // === KATEGORI 6 — SATWA & ALAM ===
   { file: "images/satwa/kei_underwater.png", source: "Wikimedia Commons", author: "Wikimedia user (Moore Reef underwater ReefScape)", license: "CC BY-SA", url: "https://commons.wikimedia.org/wiki/File:Moore_Reef_underwater_ReefScape.jpg" },
   { file: "images/satwa/kei_dolphin.png", source: "Wikimedia Commons", author: "Wikimedia user (Tursiops truncatus 01)", license: "CC BY-SA", url: "https://commons.wikimedia.org/wiki/File:Tursiops_truncatus_01.jpg" },
-  { file: "images/satwa/kei_mangrove.png", source: "Wikimedia Commons", author: "Wikimedia user (Benoa Bali Indonesia-Mangrove-forest-01)", license: "CC BY-SA", url: "https://commons.wikimedia.org/wiki/File:Benoa_Bali_Indonesia-Mangrove-forest-01.jpg" },
+  { file: "images/satwa/kei_mangrove.png", source: "Gemini Image Generator", author: "Simfoni Evav (AI Generated)", license: "CC BY (lokal)", url: "" },
   { file: "images/satwa/kei_coral.png", source: "Wikimedia Commons", author: "Wikimedia user", license: "CC BY-SA", url: "https://commons.wikimedia.org/" },
   { file: "images/satwa/kei_seaturtle.png", source: "Wikimedia Commons", author: "Wikimedia user", license: "CC BY-SA", url: "https://commons.wikimedia.org/" },
   { file: "images/satwa/kei_bubut.png", source: "Wikimedia Commons", author: "Wikimedia user", license: "CC BY-SA", url: "https://commons.wikimedia.org/" },
@@ -110,10 +112,14 @@ export const assetAttributions: { file: string; source: string; author: string; 
   { file: "images/satwa/kei_kakatua.png", source: "Wikimedia Commons", author: "Wikimedia user", license: "CC BY-SA", url: "https://commons.wikimedia.org/" },
   { file: "images/satwa/kei_kangguru.png", source: "Wikimedia Commons", author: "Wikimedia user", license: "CC BY-SA", url: "https://commons.wikimedia.org/" },
   { file: "images/satwa/kei_elang.png", source: "Wikimedia Commons", author: "Wikimedia user", license: "CC BY-SA", url: "https://commons.wikimedia.org/" },
+  { file: "images/satwa/kei_kuskus.png", source: "Gemini Image Generator", author: "Simfoni Evav (AI Generated)", license: "CC BY (lokal)", url: "" },
   // === KATEGORI 7 — TEKNOLOGI ===
   { file: "images/teknologi/kei_technology_hawear.png", source: "Unsplash (representative / ilustratif)", author: "Unsplash", license: "Unsplash License (bebas, ilustratif)", url: "https://images.unsplash.com/" },
   { file: "images/teknologi/kei_technology_meti.png", source: "Unsplash (representative / ilustratif)", author: "Unsplash", license: "Unsplash License (bebas, ilustratif)", url: "https://images.unsplash.com/" },
   { file: "images/teknologi/kei_technology_sasi.png", source: "Unsplash (representative / ilustratif)", author: "Unsplash", license: "Unsplash License (bebas, ilustratif)", url: "https://images.unsplash.com/" },
+
+  // === KATEGORI 2C — VIDEO EKSPRESI BUDAYA ===
+  { file: "videos/tari-belan.mp4", source: "Original (Simfoni Evav)", author: "Simfoni Evav", license: "CC BY (lokal)", url: "" },
 
   // === KATEGORI 8 — AUDIO, OG & IKON BRAND ===
   { file: "sounds/kei-waves.webm", source: "Freesound", author: "dobroide", license: "CC0 1.0 (public domain)", url: "https://freesound.org/people/dobroide/sounds/93647/" },

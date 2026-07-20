@@ -40,8 +40,8 @@ export const satwaEndemik: SatwaEndemik[] = [
     lokasi: "Pasir Timbul Ngurtavur, Pulau Woha, Kei Kecil",
     deskripsi:
       "Setiap meti, kawanan pelikan Australia datang dari benua selatan dan singgah di Pasir Timbul Ngurtavur, menjadikan hamparan pasir putih di tengah laut sebagai rumah singgahnya yang tenang.",
-    gambar: "/images/satwa/kei_kacamata_bird.png",
-    alt: "Pelikan Australia yang sedang beristirahat di hamparan Pasir Timbul Ngurtavur, Kepulauan Kei",
+    gambar: "/images/eksplorasi/pelikan_migration_australia.png",
+    alt: "Kawanan burung pelikan Australia terbang bermigrasi di atas perairan jernih Pasir Timbul Ngurtavur, Kepulauan Kei",
   },
   {
     id: "kuskus",
@@ -52,8 +52,8 @@ export const satwaEndemik: SatwaEndemik[] = [
     lokasi: "Hutan pantai & kebun kelapa, Pulau Kei Kecil",
     deskripsi:
       "Penghuni pepohonan yang malu-malu ini aktif saat rembulan terbit, merayap pelan di dahan kelapa. Bagi masyarakat Kei, kuskus adalah saudara hutan yang dijaga, bukan sekadar buruan.",
-    gambar: "/images/satwa/kei_kangguru.png",
-    alt: "Kuskus (phalanger) bersembunyi di antara dahan pohon di hutan Kepulauan Kei",
+    gambar: "/images/satwa/kei_kuskus.png",
+    alt: "Kuskus (phalanger) memanjat dahan pohon kelapa di malam hari, Kepulauan Kei",
   },
   {
     id: "penyu",
@@ -100,7 +100,67 @@ export const satwaEndemik: SatwaEndemik[] = [
     lokasi: "Hutan pamah Pulau Kai Besar & Kei Kecil",
     deskripsi:
       "Kepulauan Kai memelihara belasan spesies burung yang tak ditemukan di tempat lain, seperti Kai Coucal dan Kai White-eye. Kicauan mereka adalah suara asli hutan Evav.",
-    gambar: "/images/satwa/kei_underwater.png",
-    alt: "Burung endemik Kepulauan Kai di antenna hutan pamah Kepulauan Kei",
+    gambar: "/images/satwa/kei_bubut.png",
+    alt: "Burung endemik Bubut Kai (Centropus spilopterus) bertengger di ranting pohon hutan Evav",
+  },
+  {
+    id: "kacamata-kei",
+    nama: "Kacamata Kei",
+    namaLatin: "Zosterops grayi",
+    status: "Endemik",
+    habitat: "Hutan sekunder & semak",
+    lokasi: "Hutan dataran tinggi, Pulau Kai Besar",
+    deskripsi:
+      "Burung mungil dengan lingkaran kacamata putih khas yang hidup berkelompok. Kicauan melodi mereka yang nyaring dan riang menjadi alunan musik pagi di belantara Kai Besar.",
+    gambar: "/images/satwa/kei_kacamata_bird.png",
+    alt: "Burung mungil Kacamata Kei (Zosterops grayi) hinggap di dahan kecil",
+  },
+  {
+    id: "kakatua",
+    nama: "Kakatua Jambul Kuning",
+    namaLatin: "Cacatua sulphurea",
+    status: "Dilindungi",
+    habitat: "Kanopi hutan primer dataran rendah",
+    lokasi: "Hutan rimba, Pulau Kei Besar",
+    deskripsi:
+      "Burung cerdas berbulu putih salju dengan jambul kuning megah yang dapat ditegakkan. Kehadirannya melambangkan keanggunan eksotis satwa dirgantara tanah Evav.",
+    gambar: "/images/satwa/kei_kakatua.png",
+    alt: "Kakatua jambul kuning bertengger anggun di atas dahan pohon tropis",
+  },
+  {
+    id: "elang-laut",
+    nama: "Elang Laut Dada Putih",
+    namaLatin: "Haliaeetus leucogaster",
+    status: "Dilindungi",
+    habitat: "Pesisir pantai & tebing laut",
+    lokasi: "Kawasan Pulau Bair & Tanjung Kei Kecil",
+    deskripsi:
+      "Penguasa langit bahari Kei dengan bentang sayap kokoh. Terbang melayang tinggi menyisir pantai untuk mencari ikan di perairan jernih, simbol kegagahan adat marga.",
+    gambar: "/images/satwa/kei_elang.png",
+    alt: "Elang laut dada putih terbang mengepakkan sayap lebar di atas perairan Kei",
+  },
+  {
+    id: "mangrove-kei",
+    nama: "Hutan Mangrove",
+    namaLatin: "Rhizophora spp.",
+    status: "Ekosistem Penjaga",
+    habitat: "Zona pasang surut lumpur pesisir",
+    lokasi: "Hutan Bakau Ohoi Ruat, Kei Kecil",
+    deskripsi:
+      "Benteng hijau kokoh yang meredam ombak samudera dan melindungi daratan Evav. Jalinan akar bakau menjadi rumah pembibitan alami kepiting, udang, dan ikan karang muda.",
+    gambar: "/images/satwa/kei_mangrove.png",
+    alt: "Ekosistem hutan mangrove hijau subur di pesisir pasang surut Kei",
+  },
+  {
+    id: "kangguru-hutan",
+    nama: "Kangguru Hutan / Pademelon",
+    namaLatin: "Thylogale brunii",
+    status: "Dilindungi",
+    habitat: "Lantai hutan hujan dataran rendah",
+    lokasi: "Hutan belantara Pulau Kei Besar",
+    deskripsi:
+      "Marsupial kecil khas kepulauan Maluku Tenggara yang lincah bergerak di semak-semak. Keberadaannya membuktikan keunikan fauna transisi Wallacea-Sahul di tanah Evav.",
+    gambar: "/images/satwa/kei_kangguru.png",
+    alt: "Kangguru hutan (pademelon) berdiri waspada di lantai hutan tropis Kei",
   },
 ];

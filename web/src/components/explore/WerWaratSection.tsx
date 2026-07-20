@@ -27,6 +27,10 @@ const WERWARAT_PHOTOS: { src: string; alt: string }[] = [
     alt: "Pasir Timbul Ngurtavur — jalur pasir putih membelah laut biru saat meti",
   },
   {
+    src: "/images/eksplorasi/pelikan_migration_australia.png",
+    alt: "Kawanan burung pelikan Australia terbang bermigrasi di atas perairan jernih Pasir Timbul Ngurtavur",
+  },
+  {
     src: "/images/eksplorasi/kei_beach.png",
     alt: "Hamparan pasir Panjang Ohoililir yang terbuka luas saat surut ekstrem",
   },

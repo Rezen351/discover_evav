@@ -180,7 +180,7 @@ const destData: Record<DestTabName, { items: DestItem[] }> = {
         location: "Ohoi Elat, Kei Besar",
         rating: 4.7,
         reviews: "150 ulasan",
-        desc: "Tarian sakral nan elok dibawakan para penari putri Kei menggunakan kipas tenun tradisional, melambangkan hembusan kedamaian sosial.",
+        desc: "Tarian sakral nan elok dibawakan para penari putri Kei menggunakan kipas tenun tradisional. Setiap desa di Kepulauan Kei memiliki “woma”: pusat pelaksanaan upacara sakral, pengukuhan raja/pemimpin adat, serta tempat penyelesaian sasi dan hukum adat.",
         tags: ["Tari Kipas", "Sakral", "Kedamaian"],
         image: "/images/budaya/ritual-penyambutan-tamu-rinin.jpg",
       },
