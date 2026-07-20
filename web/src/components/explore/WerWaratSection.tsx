@@ -15,19 +15,19 @@ if (typeof window !== "undefined") {
 // Slideshow "Saat Alam Berpamit" — berganti antar beberapa foto (autoplay 5s, §7.3).
 const WERWARAT_PHOTOS: { src: string; alt: string }[] = [
   {
-    src: "/images/meti/wer_warat.png",
+    src: "/images/eksplorasi/wer_warat.png",
     alt: "Warga Kei membentangkan tali janur kuning di air dangkal saat tradisi Wer Warat",
   },
   {
-    src: "/images/meti/kei_ngurbloat.png",
+    src: "/images/eksplorasi/kei_ngurbloat.png",
     alt: "Pantai Ngurbloat — pasir terhalus di dunia saat laut surut di Kepulauan Kei",
   },
   {
-    src: "/images/meti/kei_ngurtavur.png",
+    src: "/images/eksplorasi/kei_ngurtavur.png",
     alt: "Pasir Timbul Ngurtavur — jalur pasir putih membelah laut biru saat meti",
   },
   {
-    src: "/images/meti/kei_beach.png",
+    src: "/images/eksplorasi/kei_beach.png",
     alt: "Hamparan pasir Panjang Ohoililir yang terbuka luas saat surut ekstrem",
   },
 ];

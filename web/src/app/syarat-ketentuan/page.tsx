@@ -46,6 +46,13 @@ export default function TermsOfServicePage() {
         syarat ini, mohon untuk tidak menggunakan Situs.
       </p>
       <p>
+        <strong>Status Pengembangan:</strong> Situs ini masih dalam tahap
+        pengembangan dan akan terus berkembang dari waktu ke waktu. Kami
+        menyadari bahwa kekurangan, ketidaksempurnaan, atau kesalahan penyajian
+        masih mungkin ditemukan, dan seluruh kekurangan tersebut akan terus kami
+        pantau serta perbaiki secara berkala seiring berjalannya pengembangan.
+      </p>
+      <p>
         Istilah &ldquo;Situs&rdquo;, &ldquo;kami&rdquo;, atau &ldquo;Simfoni
         Evav&rdquo; merujuk pada pengelola situs promosi pariwisata Simfoni
         Evav. Istilah &ldquo;Anda&rdquo; atau &ldquo;Pengguna&rdquo; merujuk pada
@@ -117,6 +124,17 @@ export default function TermsOfServicePage() {
           ke domain publik).
         </li>
         <li>
+          <strong>Ilustrasi &amp; aset generatif (AI-generated)</strong> —
+          sebagian gambar/ilustrasi (termasuk namun tidak terbatas pada ikon,
+          motif dekoratif, dan aset bertanda &ldquo;generated&rdquo; dalam berkas{" "}
+          <code>asset-attributions</code>) dihasilkan secara sintesis
+          (kecerdasan buatan / alat generatif) atau berasal dari pustaka
+          representatif, dan <strong>bukan</strong> foto dokumenter asli
+          Kepulauan Kei. Aset tersebut disajikan untuk tujuan ilustratif dengan
+          lisensi <em>CC0</em> atau milik pengelola, tanpa klaim
+          merepresentasikan kondisi objek asli secara persis.
+        </li>
+        <li>
           <strong>Unsplash</strong> — lisensi <em>Unsplash License</em> (bebas
           digunakan).
         </li>
@@ -145,6 +163,14 @@ export default function TermsOfServicePage() {
         edukasi atau dokumentasi pribadi) dengan <strong>syarat menyertakan
         atribusi yang layak</strong> kepada Simfoni Evav dan pihak sumber sesuai
         lisensi masing-masing.
+      </p>
+      <p>
+        Beberapa ilustrasi dalam Situs dihasilkan secara generatif
+        (kecerdasan buatan / alat sintesis gambar) atau menggunakan aset
+        representatif dari pustaka pihak ketiga (seperti Unsplash) yang{" "}
+        <strong>tidak sepenuhnya merepresentasikan</strong> objek, kondisi,
+        atau tampilan asli di lapangan. Ilustrasi tersebut bersifat pendukung
+        visual semata dan tidak dimaksudkan sebagai dokumentasi faktual.
       </p>
       <p>
         Penggunaan konten untuk tujuan komersial, modifikasi yang merugikan, atau

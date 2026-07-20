@@ -7,18 +7,18 @@ import SocialIcon from "@/components/SocialIcon";
 import { SOCIAL_LINKS } from "@/content/social";
 
 const allImages = [
-  { src: "/images/meti/kei_mosaic_4.png", alt: "Spot Wisata Kei" },
-  { src: "/images/meti/kei_mosaic_5.png", alt: "Kehidupan Laut Kei" },
-  { src: "/images/satwa/kei_reef_fish.png", alt: "Ikan Terumbu Karang" },
+  { src: "/images/eksplorasi/kei_mosaic_1.png", alt: "Spot Wisata Kei" },
+  { src: "/images/eksplorasi/kei_mosaic_1.png", alt: "Kehidupan Laut Kei" },
+  { src: "/images/satwa/kei_coral.png", alt: "Ikan Terumbu Karang" },
   { src: "/images/satwa/kei_underwater.png", alt: "Bawah Laut Kei" },
   { src: "/images/kuliner/kei_culinary_fish.png", alt: "Hidangan Laut Kei" },
-  { src: "/images/kuliner/kei_enbal_bunga.png", alt: "Kuliner Enbal" },
-  { src: "/images/kuliner/kei_mangrove_stick.png", alt: "Olahan Mangrove" },
-  { src: "/images/kuliner/kei_sagu_process.png", alt: "Proses Sagu" },
-  { src: "/images/budaya/kei_umkm_face_2.png", alt: "Wajah UMKM Kei" },
-  { src: "/images/budaya/kei_umkm_face_3.png", alt: "Masyarakat Kei" },
-  { src: "/images/meti/wer_warat.png", alt: "Pantai Wer Warat" },
-  { src: "/images/meti/kei_ngurbloat.png", alt: "Pantai Ngurbloat" },
+  { src: "/images/kuliner/kei_umkm_enbal_bunga_1.jpeg", alt: "Kuliner Enbal" },
+  { src: "/images/kuliner/kei_umkm_kacang_botol_1.jpeg", alt: "Olahan Mangrove" },
+  { src: "/images/kuliner/kei_sagu.jpg", alt: "Proses Sagu" },
+  { src: "/images/kuliner/kei_umkm_enbal_bunga_2.jpeg", alt: "Wajah UMKM Kei" },
+  { src: "/images/kuliner/kei_umkm_kacang_botol_1.jpeg", alt: "Masyarakat Kei" },
+  { src: "/images/eksplorasi/wer_warat.png", alt: "Pantai Wer Warat" },
+  { src: "/images/eksplorasi/kei_ngurbloat.png", alt: "Pantai Ngurbloat" },
 ];
 
 // Tautan sosial media (sumber terpusat: src/content/social.ts).
@@ -154,7 +154,7 @@ export default function Footer() {
           {/* Logo & Description */}
           <div className="flex flex-col md:flex-row items-center gap-3 mt-1">
             <div className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center flex-shrink-0 bg-white/5">
-              <Image src="/Logo White.svg" alt="Simfoni Evav" width={28} height={28} unoptimized className="w-7 h-7 object-contain brightness-0 invert" />
+              <Image src="/logo-white.svg" alt="Simfoni Evav" width={28} height={28} unoptimized className="w-7 h-7 object-contain brightness-0 invert" />
             </div>
             <div className="flex flex-col">
               <span className="text-sm font-bold tracking-widest text-white/95 uppercase" style={{ fontFamily: "var(--font-sans)" }}>

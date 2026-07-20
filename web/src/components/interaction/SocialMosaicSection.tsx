@@ -22,31 +22,31 @@ type MosaicTile = {
 
 const TILES: MosaicTile[] = [
   {
-    src: "/images/meti/kei_ngurbloat.png",
+    src: "/images/eksplorasi/kei_ngurbloat.png",
     alt: "Pantai Ngurbloat — pasir terhalus di dunia, Kei",
     caption: "Senja di Ngurbloat — Kei",
     aspect: "aspect-[4/5]",
   },
   {
-    src: "/images/budaya/kei_tari_sawat_1.png",
+    src: "/images/budaya/tari-sawat-infopublik.jpg",
     alt: "Tarian Sawat penyambut tamu dalam upacara adat Kei",
     caption: "Tari Sawat — warisan adat Evav",
     aspect: "aspect-[4/3]",
   },
   {
-    src: "/images/meti/kei_ngurtavur.png",
+    src: "/images/eksplorasi/kei_ngurtavur.png",
     alt: "Pulau Ngurtavur dengan pasir putih melengkung di tengah laut biru",
     caption: "Ngurtavur — pasir putih melengkung",
     aspect: "aspect-[1/1]",
   },
   {
-    src: "/images/meti/kei_mosaic_1.png",
+    src: "/images/eksplorasi/kei_mosaic_1.png",
     alt: "Warga Kei beraktivitas di tepian pantai saat fenomena Meti",
     caption: "Meti Kei — laut surut serentak",
     aspect: "aspect-[3/4]",
   },
   {
-    src: "/images/meti/kei_hawang.png",
+    src: "/images/eksplorasi/kei_hawang.png",
     alt: "Danau Hawang dengan air jernih kehijauan di Kepulauan Kei",
     caption: "Danau Hawang — air jernih kehijauan",
     aspect: "aspect-[4/5]",
@@ -58,19 +58,19 @@ const TILES: MosaicTile[] = [
     aspect: "aspect-[4/3]",
   },
   {
-    src: "/images/meti/kei_snorkeling.png",
+    src: "/images/eksplorasi/snorkeling-ngurtavur-zanzztoy.jpg",
     alt: "Wisatawan snorkeling menikmati terumbu karang di perairan Kei",
     caption: "Snorkeling — terumbu karang Kei",
     aspect: "aspect-[1/1]",
   },
   {
-    src: "/images/heritage/kei_warriors_dance.png",
+    src: "/images/budaya/kei_warriors_dance.png",
     alt: "Pertunjukan budaya warisan leluhur masyarakat Evav",
     caption: "Warisan jiwa masyarakat Evav",
     aspect: "aspect-[3/4]",
   },
   {
-    src: "/images/meti/kei_beach.png",
+    src: "/images/eksplorasi/kei_beach.png",
     alt: "Pesisir pantai Kei dengan perahu nelayan tradisional",
     caption: "Pesisir dan perahu nelayan",
     aspect: "aspect-[4/5]",
@@ -82,13 +82,13 @@ const TILES: MosaicTile[] = [
     aspect: "aspect-[4/3]",
   },
   {
-    src: "/images/meti/kei_resort.png",
+    src: "/images/eksplorasi/kei_resort.png",
     alt: "Sawah Laut resort dengan pondokan di atas air di Kei",
     caption: "Istirahat di atas pasir",
     aspect: "aspect-[1/1]",
   },
   {
-    src: "/images/heritage/kampung_ohoiluk.png",
+    src: "/images/heritage/kampung-selayar-.png",
     alt: "Kampung adat Ohoiluk dengan rumah tradisional Kei",
     caption: "Kampung Ohoiluk — rumah adat",
     aspect: "aspect-[3/4]",

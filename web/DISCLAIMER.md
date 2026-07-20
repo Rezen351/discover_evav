@@ -6,6 +6,8 @@
 
 Situs **Simfoni Evav** (https://discoverevav.id) adalah sebuah platform informasi dan edukasi pariwisata yang memperkenalkan keindahan alam, kebudayaan, sejarah, dan kuliner Kepulauan Kei (Evav), Maluku Tenggara, Indonesia. Situs ini **bukan** penyedia layanan perjalanan resmi, biro perjalanan (travel agent), operator tur, maupun lembaga pemerintah. Seluruh konten disajikan semata-mata untuk tujuan informasi, apresiasi budaya, dan promosi pariwisata daerah.
 
+**Status Pengembangan:** Situs ini masih dalam tahap pengembangan dan akan terus berkembang dari waktu ke waktu. Kami menyadari bahwa kekurangan, ketidaksempurnaan, atau kesalahan penyajian masih mungkin ditemukan. Seluruh kekurangan tersebut akan terus kami pantau, perbaiki, dan tingkatkan secara berkala seiring berjalannya pengembangan.
+
 Penggunaan situs ini menandakan bahwa Anda telah membaca, memahami, dan menyetujui ketentuan dalam dokumen disclaimer ini.
 
 ## Batasan atas Informasi
@@ -29,6 +31,16 @@ Kami **tidak memberi jaminan** atas keamanan, kenyamanan, keselamatan, maupun ke
 Materi terkait adat, filsafat, dan sejarah Kepulauan Kei — termasuk Larvul Ngabal, Ain Ni Ain, Belis, Tenun Ikat Elat, Tradisi Meti & Sasi Laut, serta linimasa sejarah — disajikan sebagai bentuk **apresiasi dan edukasi** terhadap warisan lisan dan takbenda masyarakat Kei.
 
 Sebagian besar hukum adat Kei diwariskan secara **lisan turun-temurun**, sehingga terdapat kemungkinan perbedaan interpretasi, versi narasi, atau penyederhanaan dalam penyajiannya. Konten ini tidak dimaksudkan sebagai otoritas hukum, teks keagamaan, maupun rujukan akademis yang final. Untuk keperluan penelitian, upacara adat, atau kepentingan formal, pengguna diharapkan berkonsultasi langsung dengan tetua adat, pemangku adat, atau informan lokal Kei yang berwenang.
+
+## Ilustrasi & Konten Generatif (AI)
+
+Sebagian gambar, ikon, motif dekoratif, dan aset visual dalam situs ini **dihasilkan secara sintesis (kecerdasan buatan / alat generatif gambar)** atau menggunakan **aset representatif** dari pustaka pihak ketiga (seperti Unsplash). Aset-aset tersebut:
+
+- **Bukan** foto dokumenter asli Kepulauan Kei, dan tidak diklaim merepresentasikan kondisi, bentuk, atau tampilan objek asli secara persis;
+- Disajikan semata-mata untuk tujuan ilustratif, pendukung visual, dan apresiasi budaya;
+- Dilepas dengan lisensi *CC0* (domain publik) atau merupakan karya milik pengelola, kecuali dinyatakan lain dalam catatan atribusi.
+
+Penggunaan aset generatif maupun representatif tidak bermaksud menyesatkan; apabila terdapat keraguan terhadap keaslian atau akurasi visual suatu objek, pengguna disarankan merujuk pada sumber foto dokumenter resmi atau dokumentasi lapangan. Rincian sumber, penulis, dan lisensi tiap aset tercatat secara terpusat dalam berkas `asset-attributions` (lihat juga Syarat & Ketentuan, bagian Hak Kekayaan Intelektual).
 
 ## Tautan Pihak Ketiga
 

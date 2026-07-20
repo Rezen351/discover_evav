@@ -17,7 +17,7 @@ export const heroBudaya = {
     "Mari mengenal jiwa Kepulauan Kei, di mana adat, iman, dan kekerabatan berpadu dalam satu napas peradaban yang damai.",
   intro:
     "Di ujung timur Nusantara, Kei menyimpan kekayaan yang tak terukur peta. Hukum tak tertulis diwariskan dari mulut ke mulut, mas kawin bukan sekadar mahar, dan ratusan tahun hidup berdampingan dalam damai lintas agama. Ayo, telusuri jejak mulia yang menjadikan Evav rumah bagi banyak hati.",
-  image: "/images/budaya/kei_culture_ritual.png",
+  image: "/images/budaya/ritual-penyambutan-tamu-rinin.jpg",
   imageAlt:
     "Ritual budaya masyarakat Kepulauan Kei saat golden hour — busana adat merah keemasan menyambut tamu",
   scrollHint: "Selami Budaya Kei",
@@ -39,7 +39,7 @@ export const larvulNgabal = {
     // Larvul = lar (darah) + vul (merah); Ngabal = nga (tombak) + bal (Bali)
     text: "Hukum adat tertinggi masyarakat Kei ini hidup dan diwariskan secara lisan turun-temurun. Namanya lahir dari dua hukum yang digabung: Larvul — lar (darah) + vul (merah), \u201Cdarah merah membakar\u201D — dan Ngabal — nga (tombak) + bal (Bali), \u201Ctombak dari Bali\u201D sang penjaga perdamaian dan keluhuran martabat. Larvul lahir dari persekutuan Ur Siw / Lor Siw (9 Rat di Elaar, Kei Kecil), Ngabal dari Lor Lim (5 Rat di Lerohoilim, Kei Besar); keduanya dipersatukan menjadi satu hukum adat setelah perjanjian damai.",
   },
-  image: "/images/budaya/kei_larvul_spear.png",
+  image: "/images/budaya/landmark_langgur_kei_larvul_spear.jpeg",
   imageAlt:
     "Tombak adat berujung emas dengan pita darah merah — lambang hukum Larvul Ngabal Kepulauan Kei",
   pillars: [
@@ -88,7 +88,7 @@ export const filosofi = {
       icon: "HeartHandshake",
       title: "Ain Ni Ain",
       desc: "\u201CSatu memiliki satu\u201D — setiap orang memandang liyan (yang lain) sebagai saudara kandung. Diperkuat citra Vuut Ain Mehe Ni Ngifun dan Manut Ain Mehe Ni Tilur: semua orang Kei bersaudara karena satu keturunan. Manifestasinya hidup dalam Maren — gotong royong lintas keyakinan.",
-      image: "/images/budaya/kei_people_portrait.png",
+      image: "/images/budaya/masyarakat-kei-thespiceroute.jpg",
       imageAlt:
         "Potret masyarakat Kepulauan Kei dengan ekspresi bangga — wujud persaudaraan Ain Ni Ain",
       hero: true,
@@ -116,7 +116,7 @@ export const filosofi = {
       icon: "Landmark",
       title: "Islam 1252 M",
       desc: "Jejak Islam masuk ke Kei sejak 1252 M melalui Rat Nara, Tahiyat Yemru, dan Langgiar Fer — awal harmoni lintas iman yang bertahan hingga kini.",
-      image: "/images/budaya/kei_culture.png",
+      image: "/images/budaya/kei_batik.png",
       imageAlt:
         "Jejak keharmonisan lintas iman dalam kehidupan budaya masyarakat Kepulauan Kei",
     },
@@ -134,7 +134,7 @@ export type EkspresiTrack = {
   id: string;
   title: string;
   artist: string;
-  src: string;
+  youtubeId: string;
   cover?: string;
 };
 
@@ -161,9 +161,9 @@ export const ekspresiBudaya = {
       title: "Tari Sawat",
       desc: "Tarian pergaulan penyambut tamu yang mengandung pesan perdamaian dan kekerabatan. Gerak gemulai penari berpadu dengan Tifa Totobuang — simbol toleransi lintas agama, sebab Sawat bernapas Islam sementara Tifa Totobuang lahir dari warga Kristen.",
       images: [
-        "/images/budaya/kei_tari_sawat_1.png",
-        "/images/budaya/kei_tari_sawat_2.png",
-        "/images/budaya/kei_tari_sawat_3.png",
+        "/images/budaya/tari-sawat-infopublik.jpg",
+        "/images/budaya/tari-perang-kompasiana.jpg",
+        "/images/budaya/tari-syariat-kemdikbud.png",
       ],
       imageAlt:
         "Penari Tari Sawat Kepulauan Kei dalam busana adat menyambut tamu dengan gerak gemulai",
@@ -183,7 +183,7 @@ export const ekspresiBudaya = {
       icon: "Shirt",
       title: "Busana Adat",
       desc: "Pria mengenakan Benian Vuil-vuil, celana Sarwo Bloat Ngametan, dan topi vuil-vuil merah; wanita Siting Vuil-vuil, Sbo, serta selendang tom mas-mas emas. Merah berarti keberanian dan penjagaan hukum adat; emas berarti kehangatan cinta dan kehormatan.",
-      images: ["/images/budaya/kei_tanimbar.png"],
+      images: ["/images/budaya/suku-tanimbar-tropenmuseum.jpg"],
       imageAlt:
         "Busana adat Kepulauan Kei berwarna merah dan kuning emas — lambang keberanian dan kehormatan",
     },
@@ -206,25 +206,32 @@ export const ekspresiBudaya = {
         "Simbol bahasa dan sastra lisan Kepulauan Kei — jembatan spiritual antargenerasi",
       tracks: [
         {
-          id: "tiva-ngelngel",
-          title: "Tiva Ngelngel",
-          artist: "Nyanyian Kegembiraan Kei",
-          src: "/audio/budaya/tiva-ngelngel.mp3",
+          id: "ning-nuhu-tanat",
+          title: "Ning Nuhu Tanat",
+          artist: "Musik Tradisi Kei",
+          youtubeId: "TXt9B-xdM_o",
           cover: "/images/budaya/kei_language_symbol.png",
         },
         {
-          id: "pantun-laut",
-          title: "Pantun Ritual Laut",
-          artist: "Sastra Lisan Evav",
-          src: "/audio/budaya/pantun-laut.mp3",
-          cover: "/images/budaya/kei_meti_reef.png",
+          id: "vadat-vil-vil",
+          title: "Vadat Vil Vil",
+          artist: "Musik Tradisi Kei",
+          youtubeId: "AMmRGr8CjGE",
+          cover: "/images/budaya/kei_coast_sunset.png",
         },
         {
-          id: "kidung-adat",
-          title: "Kidung Adat Larvul Ngabal",
-          artist: "Warisan Tetua Kei",
-          src: "/audio/budaya/kidung-adat.mp3",
-          cover: "/images/budaya/kei_culture_ritual.png",
+          id: "meti-kei",
+          title: "Meti Kei",
+          artist: "Musik Tradisi Kei",
+          youtubeId: "efB4EbP9EtY",
+          cover: "/images/budaya/ritual-penyambutan-tamu-rinin.jpg",
+        },
+        {
+          id: "arwan-sir-sir",
+          title: "Arwan Sir Sir",
+          artist: "Musik Tradisi Kei",
+          youtubeId: "9ZVvJYoNMQc",
+          cover: "/images/budaya/kei_batik.png",
         },
       ],
     },
@@ -261,7 +268,7 @@ export const warisanTakbenda = {
       icon: "Languages",
       title: "Bahasa Kei (Evav)",
       desc: "Identitas inti sekaligus sarana komunikasi yang dinamis. Kosakata seperti Marhoba, Ain Ni Ain, Yelim, Sasi, Maren, dan Enma masih hidup sebagai aksen di keseharian masyarakat Kei.",
-      image: "/images/budaya/kei_umkm_face_1.png",
+      image: "/images/budaya/pembuatan-embal-umkm.jpg",
       imageAlt:
         "Simbol bahasa daerah Kei (Evav) — identitas inti masyarakat Kepulauan Kei",
     },
@@ -279,7 +286,7 @@ export const warisanTakbenda = {
       icon: "Fish",
       title: "Tradisi Meti & Sasi Laut",
       desc: "Meti — surutnya air laut secara ekstrem setiap Oktober\u2013November hingga ratusan meter. Warga memanen hasil laut lewat Wer Warat / Hair Yot (tarik tali janur kuning menggiring ikan ke darat), diperkuat sasi. Dirayakan dalam Festival Pesona Meti Kei.",
-      image: "/images/budaya/kei_meti_reef.png",
+      image: "/images/budaya/kei_coast_sunset.png",
       imageAlt:
         "Terumbu karang Kepulauan Kei yang tersingkap saat Meti — laut surut ekstrem di bulan Oktober",
     },

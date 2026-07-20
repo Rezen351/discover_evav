@@ -32,7 +32,7 @@ export const heritageItems: HeritageItem[] = [
     title: "Kampung Adat Ngilngof",
     location: "Kei Besar",
     desc: "Salah satu ohoi tertua yang masih memegang teguh tatanan Rat dan ritual adat warisan leluhur Evav.",
-    image: "/images/heritage/kampung_ngilngof.png",
+    image: "/images/eksplorasi/desa-wisata-ngilngof-candra-gunawan.jpg",
     imageAlt: "Kampung adat Ngilngof di Kepulauan Kei dengan rumah kayu tradisional",
   },
   {
@@ -40,8 +40,8 @@ export const heritageItems: HeritageItem[] = [
     era: "Pusaka Abad",
     title: "Gong Dada Wadlau",
     location: "Tanimbar Kei",
-    desc: "Gong perunggu pusaka yang hanya dibunyikan dalam upacara adat dan penobatan rat — suara memanggil leluhur.",
-    image: "/images/heritage/gong_dada_wadlau.png",
+    desc: "Gong perunggu pusaka yang hanya dibunyikan dalam upacara adat dan penobatan rat — suara memanggil leluhur.Instrumen ini sering kali dimainkan dalam pola ritme siklis untuk mengiringi tarian tradisional lokal, seperti Tari Sawat.",
+    image: "/images/budaya/kei_gong_dada_ilustration.jpeg",
     imageAlt: "Gong perunggu pusaka Dada Wadlau masyarakat Kepulauan Kei",
   },
   {
@@ -50,7 +50,7 @@ export const heritageItems: HeritageItem[] = [
     title: "Elang Kecil",
     location: "Lambang Kei",
     desc: "Burung elang dalam motif ukiran dan tenun yang melambangkan kejayaan serta kebanggaan marga tanah Evav.",
-    image: "/images/heritage/elang_kecil.png",
+    image: "/images/satwa/kei_elang.png",
     imageAlt: "Elang kecil sebagai lambang marga dalam ukiran Kepulauan Kei",
   },
   {
@@ -59,7 +59,7 @@ export const heritageItems: HeritageItem[] = [
     title: "Monumen Karel",
     location: "Ohoi Rumadian, Maluku Tenggara",
     desc: "Tugu mengenang perjuangan dan tragedi sejarah yang menyatu dalam ingatan kolektif masyarakat Kei.",
-    image: "/images/heritage/karel_monument.png",
+    image: "/images/heritage/karel_monument_tragedy.jpeg",
     imageAlt: "Monumen Karel di Ohoi Rumadian, Maluku Tenggara mengenang perjuangan sejarah Kepulauan Kei",
   },
   {
@@ -68,7 +68,7 @@ export const heritageItems: HeritageItem[] = [
     title: "Warisan Evav",
     location: "Kepulauan Kei",
     desc: "Perpaduan adat, iman, dan kekerabatan yang dirawat turun-temurun menjadi identitas abadi tanah Evav.",
-    image: "/images/heritage/evav_legacy.png",
+    image: "/images/heritage/raja-kei.png",
     imageAlt: "Representasi warisan budaya lintas zaman Kepulauan Kei",
   },
   {
@@ -77,7 +77,7 @@ export const heritageItems: HeritageItem[] = [
     title: "Kampung Debut",
     location: "Kei Kecil",
     desc: "Permukiman adat yang menyimpan cerita pelayaran nenek moyang dan tradisi sambut-tamu yang hangat.",
-    image: "/images/heritage/kampung_debut.png",
+    image: "/images/heritage/kampung_debut.jpeg",
     imageAlt: "Kampung adat Debut di Kei Kecil dengan suasana permukiman tradisional",
   },
 ];

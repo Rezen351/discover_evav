@@ -14,19 +14,19 @@ if (typeof window !== "undefined") {
 // Slideshow pantai Kei di balik video timelapse (autoplay 5s, cross-fade §7.3).
 const HERO_PHOTOS: { src: string; alt: string }[] = [
   {
-    src: "/images/meti/kei_ngurtavur.png",
+    src: "/images/eksplorasi/kei_ngurtavur.png",
     alt: "Lautan Kepulauan Kei yang surut membuka hamparan pasir saat Festival Pesona Meti Kei",
   },
   {
-    src: "/images/meti/kei_ngurbloat.png",
+    src: "/images/eksplorasi/kei_ngurbloat.png",
     alt: "Pantai Ngurbloat — pasir terhalus di dunia dengan air toska jernih di Kepulauan Kei",
   },
   {
-    src: "/images/meti/kei_beach.png",
+    src: "/images/eksplorasi/kei_beach.png",
     alt: "Gugusan Pantai Pasir Panjang saat surut di Kepulauan Kei",
   },
   {
-    src: "/images/meti/kei_resort.png",
+    src: "/images/eksplorasi/kei_resort.png",
     alt: "Pulau Dullah dengan laut landai biru jernih di selat Tual–Kei Kecil",
   },
 ];
@@ -122,7 +122,7 @@ export default function HeroMetiSection() {
           <video
             ref={videoRef}
             className="meti-parallax absolute inset-0 h-[130%] w-full object-cover brightness-90"
-            poster="/images/meti/kei_ngurtavur.png"
+            poster="/images/eksplorasi/kei_ngurtavur.png"
             preload="none"
             muted
             loop

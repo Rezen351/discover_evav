@@ -75,22 +75,23 @@
 
 html, body {
   max-width: 100%;
-  /* clip (bukan hidden) agar scroll horizontal tercegah TANPA membatalkan
-     scroll-snap vertical pada <html> (hidden mengubah overflow-y jadi auto
-     dan membatalkan snap di beberapa browser desktop). */
-  overflow-x: clip;
 }
 
 /* Scroll-snap magnetik landing page — diaktifkan via class .snap-active
-   (ScrollSnapController). Didefinisikan eksplisit di CSS agar tidak bergantung
-   utility Tailwind yang di-inject lewat JS. */
+   (ScrollSnapController) HANYA di halaman "/" (pathname === "/").
+   Root (<html>) adalah scroll container default browser; cukup beri
+   scroll-snap-type agar setiap <section class="snap-start"> menjadi target
+   magnetik. Tidak mengubah height/overflow agar tetap kompatibel lintas
+   browser. Di layar kecil (<=640px) tetap aktif namun pakai "proximity"
+   (lebih ringan dari mandatory) agar scroll terasa natural di mobile. */
 html.snap-active {
   scroll-snap-type: y mandatory;
-  scroll-behavior: smooth;
 }
 
 @media (max-width: 640px) {
-  html.snap-active { scroll-snap-type: none; }
+  html.snap-active {
+    scroll-snap-type: y proximity;
+  }
 }
 
 body {
@@ -458,5 +459,11 @@ body {
   height: 6px;
   border-radius: 9999px;
   background: transparent;
+}
+
+/* Equalizer bars (now-playing indicator in Ekspresi playlist) */
+@keyframes equalize {
+  0%, 100% { transform: scaleY(0.4); }
+  50% { transform: scaleY(1); }
 }
 

@@ -40,7 +40,7 @@ export const satwaEndemik: SatwaEndemik[] = [
     lokasi: "Pasir Timbul Ngurtavur, Pulau Woha, Kei Kecil",
     deskripsi:
       "Setiap meti, kawanan pelikan Australia datang dari benua selatan dan singgah di Pasir Timbul Ngurtavur, menjadikan hamparan pasir putih di tengah laut sebagai rumah singgahnya yang tenang.",
-    gambar: "/images/satwa/kei_endemic_bird.png",
+    gambar: "/images/satwa/kei_kacamata_bird.png",
     alt: "Pelikan Australia yang sedang beristirahat di hamparan Pasir Timbul Ngurtavur, Kepulauan Kei",
   },
   {
@@ -52,7 +52,7 @@ export const satwaEndemik: SatwaEndemik[] = [
     lokasi: "Hutan pantai & kebun kelapa, Pulau Kei Kecil",
     deskripsi:
       "Penghuni pepohonan yang malu-malu ini aktif saat rembulan terbit, merayap pelan di dahan kelapa. Bagi masyarakat Kei, kuskus adalah saudara hutan yang dijaga, bukan sekadar buruan.",
-    gambar: "/images/satwa/kei_wildlife.png",
+    gambar: "/images/satwa/kei_kangguru.png",
     alt: "Kuskus (phalanger) bersembunyi di antara dahan pohon di hutan Kepulauan Kei",
   },
   {
@@ -88,7 +88,7 @@ export const satwaEndemik: SatwaEndemik[] = [
     lokasi: "Terumbu karang Ngurtavur & Pulau Bair",
     deskripsi:
       "Ribuan ikan berwarna menghuni taman karang Kei yang masih perawan. Mereka adalah jiwa terumbu yang memberi makan dan kehidupan bagi seluruh ekosistem pesisir.",
-    gambar: "/images/satwa/kei_reef_fish.png",
+    gambar: "/images/satwa/kei_coral.png",
     alt: "Kawanan ikan karang berwarna-warni di terumbu karang Kepulauan Kei",
   },
   {

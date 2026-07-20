@@ -77,6 +77,18 @@
 
 ---
 
+## 2026-07-20 — Perbaikan Bug & Penyelarasan UI Mobile Budaya
+
+| Tanggal | Aktivitas | Status | Catatan |
+|---------|-----------|--------|---------|
+| 2026-07-20 | Fix bug tab Ekspresi Budaya hilang di mobile saat card ditutup | ✅ | Pindah kelas `.ekspresi-reveal` ke wrapper utama mobile accordion dan trigger `ScrollTrigger.refresh()` saat `activeIndex` berubah. |
+| 2026-07-20 | Redesain tombol Putar Video di culture card | ✅ | Mengubah tombol Putar Video menjadi bentuk bundar berisi ikon play/pause saja (tanpa label teks) sesuai permintaan. |
+| 2026-07-20 | Perbaikan sticky hover navigation buttons di mobile | ✅ | Membatasi gaya hover tombol navigasi gambar (kiri/kanan) hanya pada desktop (`lg:hover:`) guna mencegah efek hover bertahan saat di-tap pada layar sentuh. |
+| 2026-07-20 | Perbaikan sticky hover Fit Bounds & Ambient Sound buttons di mobile | ✅ | Membatasi gaya hover tombol Fit Bounds (`JourneyMapSection.tsx`) dan tombol suara latar (`AmbientSound.tsx`) hanya pada desktop (`lg:hover:`) guna mencegah tombol stuck berwarna pink setelah di-tap. |
+| 2026-07-20 | Daftarkan asset landmark Langgur (sumber rri.co.id) & ganti ilustrasi Larvul Ngabal | ✅ | Tambah `images/budaya/landmark_langgur_kei_larvul_spear.jpeg` menggantikan `kei_larvul_spear.png` (Unsplash, sudah dihapus). Update referensi di `culture.ts` & `DestinasiTerbaikSection.tsx`, atribusi baru di `asset-attributions.ts` (source RRI, url `https://rri.co.id`), sinkron docs (`list-asset.md`, `page-designs/culture.md`, `view_budaya.html`). Bersihkan file `:Zone.Identifier`. Asset lokal (`next/image`) — tidak perlu `remotePatterns`. |
+
+---
+
 ## 📌 Open Items / Kendala
 
 | Item | Status | Tindakan Diperlukan |

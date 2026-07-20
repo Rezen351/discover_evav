@@ -170,7 +170,7 @@ Story Brand membagi narasi budaya Kepulauan Kei ke dalam empat bagian utama:
 
 Daftar aset sudah tersedia — rujuk langsung, jangan buat placeholder:
 
-- **Larvul Ngabal:** `images/budaya/kei_larvul_spear.png` (tombak emas/darah merah).
+- **Larvul Ngabal:** `images/budaya/landmark_langgur_kei_larvul_spear.jpeg` (tombak emas/darah merah).
 - **Simbol bahasa daerah:** `images/budaya/kei_language_symbol.png`.
 - **Elemen laut saat surut (Meti):** `images/budaya/kei_meti_reef.png`; video `videos/eksplorasi/meti-timelapse.mp4`.
 - **Tari Sawat:** `images/budaya/kei_tari_sawat_1.png`, `_2.png`, `_3.png`.

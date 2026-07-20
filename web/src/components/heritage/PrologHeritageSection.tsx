@@ -51,10 +51,10 @@ export default function PrologHeritageSection() {
       id="heritage-prolog"
       ref={ref}
       aria-labelledby="heritage-prolog-title"
-      className="relative w-full min-h-screen snap-start snap-always flex items-center bg-section z-[6] overflow-hidden"
+      className="relative w-full min-h-screen md:snap-start md:snap-always flex items-center bg-section z-[6] overflow-hidden"
     >
       <div className="relative z-[1] max-w-[98%] xl:max-w-[1600px] mx-auto px-4 md:px-8 w-full py-24 md:py-32">
-        <p className="heritage-prolog-reveal text-fluid-eyebrow uppercase tracking-[0.3em] text-brand font-sans">
+        <p           className="heritage-prolog-reveal text-fluid-eyebrow uppercase tracking-[0.18em] min-[400px]:tracking-[0.25em] sm:tracking-[0.3em] text-brand font-sans">
           Mengapa Warisan Ini Hidup
         </p>
 
@@ -125,7 +125,7 @@ export default function PrologHeritageSection() {
         <div className="mt-12 grid grid-cols-1 gap-4 sm:grid-cols-2 md:gap-6">
           <figure className="heritage-prolog-reveal relative aspect-[16/9] w-full overflow-hidden rounded-xl-design shadow-card">
             <Image
-              src="/images/sejarah/arsip_monumen.png"
+              src="/images/heritage/napak-tilas-pengangkatan-raja.jpeg"
               alt="Arsip monumen sejarah Evav — jejak dokumentasi perjuangan dan pengabdian"
               fill
               sizes="(max-width: 640px) 100vw, 50vw"
@@ -139,7 +139,7 @@ export default function PrologHeritageSection() {
           </figure>
           <figure className="heritage-prolog-reveal relative aspect-[16/9] w-full overflow-hidden rounded-xl-design shadow-card">
             <Image
-              src="/images/sejarah/arsip_koperasi.png"
+              src="/images/heritage/napak-tilas-pengangkatan-raja.jpeg"
               alt="Arsip koperasi Kei — jejak ekonomi gotong-royong warga Evav"
               fill
               sizes="(max-width: 640px) 100vw, 50vw"

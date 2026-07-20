@@ -11,6 +11,30 @@ if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
 }
 
+const slides = [
+  {
+    image: "/images/budaya/tari-sawat-infopublik.jpg",
+    alt: "Tari Sawat penyambut tamu kehormatan",
+    title: "Tari Sawat",
+    desc: "Tarian adat penyambut tamu kehormatan, melambangkan persahabatan, kehangatan, dan hubungan kekerabatan yang damai.",
+    tag: "Ain Ni Ain — kita semua bersaudara"
+  },
+  {
+    image: "/images/budaya/tari-perang-kompasiana.jpg",
+    alt: "Tari Perang atau Tari Panah Temar Rubil",
+    title: "Tari Perang (Temar Rubil)",
+    desc: "Tarian kepahlawanan menggunakan busur panah tradisional untuk mengenang sejarah perjuangan leluhur sekaligus simbol perdamaian.",
+    tag: "Larvul Ngabal — kedaulatan adat & hukum"
+  },
+  {
+    image: "/images/budaya/tari-syariat-kemdikbud.png",
+    alt: "Tari Syariat atau Sariat warisan religi",
+    title: "Tari Syariat",
+    desc: "Tari kreasi kultural yang memadukan keindahan seni gerak tradisional dengan nilai-nilai sejarah syiar religi di Kepulauan Kei.",
+    tag: "Harmoni Religi — persaudaraan lintas iman"
+  }
+];
+
 export default function ContactSection() {
   const sectionRef = useRef<HTMLElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
@@ -19,6 +43,14 @@ export default function ContactSection() {
   
   const [formData, setFormData] = useState({ name: "", email: "", message: "" });
   const [submitted, setSubmitted] = useState(false);
+  const [activeSlide, setActiveSlide] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setActiveSlide((prev) => (prev + 1) % slides.length);
+    }, 5000);
+    return () => clearInterval(timer);
+  }, []);
 
   useEffect(() => {
     const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -89,35 +121,63 @@ export default function ContactSection() {
       {/* Split Screen Container (Viewport Full Width & Height) */}
       <div className="w-full flex flex-col lg:flex-row items-stretch bg-section">
         
-        {/* LEFT COLUMN: Cultural Image */}
+        {/* LEFT COLUMN: Cultural Image Slider */}
         <div 
           ref={imageRef}
-          className="w-full lg:w-1/2 min-h-[350px] lg:min-h-screen relative overflow-hidden"
+          className="w-full lg:w-1/2 min-h-[400px] lg:min-h-screen relative overflow-hidden"
         >
           <div ref={imageInnerRef} className="absolute inset-0 -top-[10%] h-[120%] will-change-transform">
-          <Image
-            src="/images/budaya/kei_warriors_dance.png"
-            alt="Kei traditional dance warriors"
-            fill
-            sizes="(max-width: 768px) 100vw, 50vw"
-            className="object-cover object-center transition-transform duration-1000 hover:scale-105"
-          />
+            {slides.map((slide, idx) => (
+              <div 
+                key={idx} 
+                className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
+                  idx === activeSlide ? "opacity-100 z-10" : "opacity-0 z-0 pointer-events-none"
+                }`}
+              >
+                <Image
+                  src={slide.image}
+                  alt={slide.alt}
+                  fill
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                  className="object-cover object-center transition-transform duration-1000 hover:scale-105"
+                  priority={idx === 0}
+                />
+                
+                {/* Vignette overlay for blending */}
+                <div className="absolute inset-0 bg-gradient-to-r from-black/30 via-transparent to-black/20 pointer-events-none z-[2]"></div>
+                
+                {/* Caption narasi budaya di pojok bawah kiri agar kolom tidak kosong */}
+                <div className="absolute bottom-12 left-6 right-6 z-[5] hidden lg:block text-left">
+                  <span className="text-white/60 text-xs font-bold tracking-[0.2em] uppercase mb-2 inline-block" style={{ fontFamily: "var(--font-sans)" }}>
+                    {slide.title}
+                  </span>
+                  <p className="text-white text-lg font-light leading-snug drop-shadow-md max-w-md" style={{ fontFamily: "var(--font-serif)" }}>
+                    {slide.desc}
+                  </p>
+                  <p className="text-brand text-xs tracking-[0.2em] uppercase mt-2 font-medium" style={{ fontFamily: "var(--font-sans)" }}>
+                    {slide.tag}
+                  </p>
+                </div>
+              </div>
+            ))}
           </div>
-          {/* Vignette overlay for blending */}
-          <div className="absolute inset-0 bg-gradient-to-r from-black/20 via-transparent to-black/10 pointer-events-none"></div>
 
-          {/* Caption narasi budaya di pojok bawah kiri agar kolom tidak kosong */}
-          <div className="absolute bottom-6 left-6 right-6 z-[5] hidden lg:block">
-            <p className="text-white/90 text-lg leading-snug drop-shadow-md" style={{ fontFamily: "var(--font-serif)" }}>
-              Tarian perang penyambut tamu, <br />warisan jiwa masyarakat Evav.
-            </p>
-            <p className="text-white/50 text-xs tracking-[0.2em] uppercase mt-2" style={{ fontFamily: "var(--font-sans)" }}>
-              Ain Ni Ain — kita semua bersaudara
-            </p>
+          {/* Slide Indicator Dots on the image column (Absolute bottom left) */}
+          <div className="absolute bottom-4 left-6 z-[20] flex gap-1.5">
+            {slides.map((_, idx) => (
+              <button
+                key={idx}
+                onClick={() => setActiveSlide(idx)}
+                aria-label={`Pilih slide tarian ${idx + 1}`}
+                className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${
+                  activeSlide === idx ? "bg-white w-4" : "bg-white/40 hover:bg-white/60"
+                }`}
+              />
+            ))}
           </div>
 
           {/* Vertical Blue Gradient Border (Lis) */}
-          <div className="absolute right-0 top-0 bottom-0 w-[1px] md:w-[1px] bg-gradient-to-b from-[var(--color-accent-navy)] via-[var(--color-primary-teal)] to-[var(--color-primary-navy)] z-[4] hidden lg:block"></div>
+          <div className="absolute right-0 top-0 bottom-0 w-[1px] bg-gradient-to-b from-[var(--color-accent-navy)] via-[var(--color-primary-teal)] to-[var(--color-primary-navy)] z-[4] hidden lg:block"></div>
         </div>
 
         {/* RIGHT COLUMN: Form Panel */}
@@ -128,7 +188,7 @@ export default function ContactSection() {
           {/* Background image with opacity-50 and mix-blend-soft-light */}
           <div 
             className="absolute inset-0 bg-cover bg-center opacity-50 mix-blend-soft-light pointer-events-none z-0"
-            style={{ backgroundImage: "url('/images/meti/kei_ngurbloat.png')" }}
+            style={{ backgroundImage: "url('images/eksplorasi/kei_ngurbloat.png')" }}
           ></div>
 
           {/* Form Content wrapped in relative z-10 */}

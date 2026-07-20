@@ -60,7 +60,7 @@ export default function InteractionHeroSection() {
       {/* Secondary circular culture image (portrait accent) */}
       <div className="absolute right-6 top-24 md:right-16 md:top-28 z-[3] w-24 h-24 md:w-36 md:h-36 rounded-full overflow-hidden border border-white/40 shadow-soft hidden sm:block">
         <Image
-          src="/images/budaya/kei_culture.png"
+          src="/images/budaya/kei_batik.png"
           alt="Tarian adat Kei"
           fill
           sizes="(max-width: 768px) 96px, 144px"

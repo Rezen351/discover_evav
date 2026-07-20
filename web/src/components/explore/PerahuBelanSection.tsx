@@ -34,15 +34,15 @@ const nilaiPerahu = [
 // Slideshow perahu layar tradisional Belan & bahari Kei (autoplay 5s, §7.3).
 const PERAHU_PHOTOS: { src: string; alt: string }[] = [
   {
-    src: "/images/meti/perahu_belan.png",
+    src: "/images/eksplorasi/wer_warat.png",
     alt: "Perahu layar tradisional Belan berlomba membelah air dalam Festival Pesona Meti Kei",
   },
   {
-    src: "/images/meti/kei_bair.png",
+    src: "/images/eksplorasi/kei_bair.png",
     alt: "Pulau Bair dengan tebing karang dan lorong air jernih di Kepulauan Kei",
   },
   {
-    src: "/images/meti/kei_snorkeling.png",
+    src: "/images/eksplorasi/snorkeling-ngurtavur-zanzztoy.jpg",
     alt: "Perairan jernih Kepulauan Kei dengan terumbu karang bermekaran",
   },
 ];

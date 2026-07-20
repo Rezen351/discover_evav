@@ -59,13 +59,13 @@ export default function PenutupHeritageSection() {
       id="heritage-penutup"
       ref={ref}
       aria-labelledby="heritage-penutup-title"
-      className="relative w-full min-h-screen snap-start snap-always flex items-center bg-[#0C121D] z-[2] py-20 md:py-28"
+      className="relative w-full min-h-screen md:snap-start md:snap-always flex items-center bg-[#0C121D] z-[2] py-20 md:py-28"
     >
       <div className="max-w-[98%] xl:max-w-[1600px] mx-auto px-4 md:px-8 w-full">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
           <div className="penutup-heritage-fade relative w-full aspect-[4/3] md:aspect-[16/10] rounded-xl-design overflow-hidden brightness-110 contrast-105">
             <Image
-              src="/images/heritage/kei_night_stars.png"
+              src="/images/eksplorasi/kei_night_stars.png"
               alt="Langit malam Kepulauan Kei yang berbintang dengan siluet pohon dan perahu di kejauhan"
               fill
               className="object-cover object-center rounded-xl-design"

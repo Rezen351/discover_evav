@@ -125,7 +125,7 @@ export default function InformasiPenutupSection() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
             <div className="penutup-fade relative w-full aspect-[4/3] md:aspect-[16/10] rounded-xl-design overflow-hidden brightness-110 contrast-105">
               <Image
-                src="/images/meti/kei_beach.png"
+                src="/images/eksplorasi/kei_beach.png"
                 alt="Masyarakat Kei melambai menyambut wisatawan di pantai saat senja"
                 fill
                 className="object-cover rounded-xl-design"

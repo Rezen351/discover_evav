@@ -10,6 +10,8 @@ import { Autoplay, A11y } from "swiper/modules";
 import "swiper/css";
 import QuoteMarquee from "@/components/QuoteMarquee";
 import { useSpotlight } from "@/hooks/useSpotlight";
+import { news as newsArticles } from "@/content/news";
+import { umkms as umkmList } from "@/content/umkm";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -22,6 +24,7 @@ type NewsItem = {
   excerpt: string;
   date: string;
   image: string;
+  slug: string;
   featured?: boolean;
 };
 
@@ -35,197 +38,26 @@ type UmkmItem = {
   whatsapp: string;
 };
 
-const news: NewsItem[] = [
-  {
-    id: "n1",
-    category: "Event",
-    title: "Festival Pesona Meti Kei 2026 Siap Digelar",
-    excerpt: "Ribuan warga dan wisatawan akan berkumpul memanen ikan bersama saat surut ekstrem di perairan Kei Kecil.",
-    date: "12 Juli 2026",
-    image: "/images/budaya/kei_coast_sunset.png",
-    featured: true,
-  },
-  {
-    id: "n2",
-    category: "Budaya",
-    title: "Pelestarian Rumah Adat Tanimbar Kei",
-    excerpt: "Upaya warga menjaga arsitektur kayu purba sebagai warisan tak benda Indonesia Timur.",
-    date: "28 Juni 2026",
-    image: "/images/budaya/kei_umkm_face_1.png",
-  },
-  {
-    id: "n3",
-    category: "Infrastruktur",
-    title: "Akses Pelabuhan Tual Makin Lancar",
-    excerpt: "Penambahan jadwal kapol dan perbaikan dermaga memudahkan wisatawan menjangkau Kepulauan Kei.",
-    date: "15 Juni 2026",
-    image: "/images/meti/kei_community_1.png",
-  },
-  {
-    id: "n4",
-    category: "Pengumuman",
-    title: "Pembukaan Rute Wisata Bahari Baru",
-    excerpt: "Pemerintah daerah meresmikan paket eksplorasi laut menuju laguna tersembunyi Pulau Bair.",
-    date: "5 Juni 2026",
-    image: "/images/meti/kei_community_2.png",
-  },
-];
+const news: NewsItem[] = newsArticles.map((a) => ({
+  id: a.id,
+  category: a.category,
+  title: a.title,
+  excerpt: a.excerpt,
+  date: a.date,
+  image: a.image,
+  slug: a.slug,
+  featured: a.featured,
+}));
 
-const umkms: UmkmItem[] = [
-  {
-    id: "u1",
-    name: "Rumah Enbal Mbak Yuli",
-    category: "Kuliner",
-    location: "Langgur, Kei Kecil",
-    rating: 4.7,
-    image: "/images/umkm/kei_umkm_enbal_kacang_1.jpeg",
-    whatsapp: "6281234567890",
-  },
-  {
-    id: "u2",
-    name: "Tenun Kei Suster Maria",
-    category: "Kerajinan",
-    location: "Tual, Maluku Tenggara",
-    rating: 4.9,
-    image: "/images/meti/kei_mosaic_3.png",
-    whatsapp: "6281234567891",
-  },
-  {
-    id: "u3",
-    name: "Oleh-oleh Khas Bumi Evav",
-    category: "Oleh-oleh",
-    location: "Ohoililir, Kei Kecil",
-    rating: 4.6,
-    image: "/images/umkm/kei_umkm_kacang_botol_1.jpeg",
-    whatsapp: "6281234567892",
-  },
-  {
-    id: "u4",
-    name: "Enbal Bunga Mbak Rina",
-    category: "Kuliner",
-    location: "Langgur, Kei Kecil",
-    rating: 4.8,
-    image: "/images/umkm/kei_umkm_enbal_bunga_1.jpeg",
-    whatsapp: "6281234567893",
-  },
-  {
-    id: "u5",
-    name: "Enbal Bunga Khas Kei",
-    category: "Kuliner",
-    location: "Tual, Maluku Tenggara",
-    rating: 4.5,
-    image: "/images/umkm/kei_umkm_enbal_bunga_2.jpeg",
-    whatsapp: "6281234567894",
-  },
-  {
-    id: "u6",
-    name: "Crispy Rumput Laut Evav",
-    category: "Kuliner",
-    location: "Ohoililir, Kei Kecil",
-    rating: 4.6,
-    image: "/images/umkm/kei_umkm_enbal_crispy_rumput_laut.jpeg",
-    whatsapp: "6281234567895",
-  },
-  {
-    id: "u7",
-    name: "Enbal Kacang Bundo",
-    category: "Kuliner",
-    location: "Langgur, Kei Kecil",
-    rating: 4.7,
-    image: "/images/umkm/kei_umkm_enbal_kacang_2.jpeg",
-    whatsapp: "6281234567896",
-  },
-  {
-    id: "u8",
-    name: "Stick Enbal Rumah Kita",
-    category: "Kuliner",
-    location: "Tual, Maluku Tenggara",
-    rating: 4.8,
-    image: "/images/umkm/kei_umkm_enbal_stick_1.jpeg",
-    whatsapp: "6281234567897",
-  },
-  {
-    id: "u9",
-    name: "Stick Enbal Mama Tonce",
-    category: "Kuliner",
-    location: "Ohoililir, Kei Kecil",
-    rating: 4.6,
-    image: "/images/umkm/kei_umkm_enbal_stick_2.jpeg",
-    whatsapp: "6281234567898",
-  },
-  {
-    id: "u10",
-    name: "Stick Enbal Kei Prime",
-    category: "Kuliner",
-    location: "Langgur, Kei Kecil",
-    rating: 4.5,
-    image: "/images/umkm/kei_umkm_enbal_stick_3.jpeg",
-    whatsapp: "6281234567899",
-  },
-  {
-    id: "u11",
-    name: "Kacang Botol Makmur",
-    category: "Oleh-oleh",
-    location: "Tual, Maluku Tenggara",
-    rating: 4.7,
-    image: "/images/umkm/kei_umkm_kacang_botol_2.jpeg",
-    whatsapp: "6281234567900",
-  },
-  {
-    id: "u12",
-    name: "Kerupuk Enbal Super",
-    category: "Kuliner",
-    location: "Ohoililir, Kei Kecil",
-    rating: 4.6,
-    image: "/images/umkm/kei_umkm_kerupuk_enbal_super.jpeg",
-    whatsapp: "6281234567901",
-  },
-  {
-    id: "u13",
-    name: "Kue Kering Mocaf Makmur",
-    category: "Oleh-oleh",
-    location: "Langgur, Kei Kecil",
-    rating: 4.8,
-    image: "/images/umkm/kei_umkm_kue_kering_mocaf_makmur_1.jpeg",
-    whatsapp: "6281234567902",
-  },
-  {
-    id: "u14",
-    name: "Kue Kering Mocaf Makmur 2",
-    category: "Oleh-oleh",
-    location: "Tual, Maluku Tenggara",
-    rating: 4.7,
-    image: "/images/umkm/kei_umkm_kue_kering_mocaf_makmur_2.jpeg",
-    whatsapp: "6281234567903",
-  },
-  {
-    id: "u15",
-    name: "Kue Kering Mocaf Saleha",
-    category: "Oleh-oleh",
-    location: "Ohoililir, Kei Kecil",
-    rating: 4.9,
-    image: "/images/umkm/kei_umkm_kue_kering_mocaf_saleha.jpeg",
-    whatsapp: "6281234567904",
-  },
-  {
-    id: "u16",
-    name: "Piece Enbal & Tepung Mocaf",
-    category: "Kuliner",
-    location: "Langgur, Kei Kecil",
-    rating: 4.6,
-    image: "/images/umkm/kei_umkm_piece_enbal.jpeg",
-    whatsapp: "6281234567905",
-  },
-  {
-    id: "u17",
-    name: "Tepung Mocaf Bumi Evav",
-    category: "Oleh-oleh",
-    location: "Tual, Maluku Tenggara",
-    rating: 4.7,
-    image: "/images/umkm/kei_umkm_tepung_mocaf.jpeg",
-    whatsapp: "6281234567906",
-  },
-];
+const umkms: UmkmItem[] = umkmList.map((u) => ({
+  id: u.id,
+  name: u.name,
+  category: u.category,
+  location: u.location,
+  rating: u.rating,
+  image: u.image,
+  whatsapp: u.whatsapp,
+}));
 
 const categoryStyle: Record<NewsItem["category"], string> = {
   Budaya: "bg-brand/10 text-brand",
@@ -342,7 +174,7 @@ export default function BeritaUmkmSection() {
             <div className="flex flex-col xl:flex-row gap-6 xl:gap-8 items-stretch">
               {/* FEATURED NEWS (2/3) */}
               <a
-                href="#berita-umkm"
+                href={`/news/${featured.slug}`}
                 className="group relative w-full xl:w-[60%] h-[320px] md:h-[420px] rounded-lg-design overflow-hidden shadow-sm cursor-pointer"
               >
                 <Image
@@ -377,7 +209,7 @@ export default function BeritaUmkmSection() {
                 {regularNews.map((item) => (
                   <a
                     key={item.id}
-                    href="#berita-umkm"
+                    href={`/news/${item.slug}`}
                     className="group flex flex-1 gap-4 items-center bg-white/55 hover:bg-white/80 border border-brand/10 hover:border-brand/30 rounded-2xl p-3 transition-all duration-300 min-h-[96px]"
                   >
                     <div className="relative w-24 h-full min-h-[80px] md:w-28 rounded-lg overflow-hidden flex-shrink-0">

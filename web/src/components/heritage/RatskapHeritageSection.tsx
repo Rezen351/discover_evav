@@ -134,7 +134,7 @@ export default function RatskapHeritageSection() {
       id="ratskap"
       ref={sectionRef}
       aria-labelledby="ratskap-title"
-      className="relative w-full snap-start snap-always z-[4] bg-section"
+      className="relative w-full md:snap-start md:snap-always z-[4] bg-section"
     >
       {/* 5.1 Pengantar */}
       <div className="relative w-full py-20 md:py-28">
@@ -153,7 +153,7 @@ export default function RatskapHeritageSection() {
             <div className="ratskap-reveal relative w-full h-[360px] md:h-[480px] rounded-xl-design overflow-hidden shadow-card group">
               <div className="ratskap-parallax absolute -top-[12%] left-0 h-[124%] w-full">
                 <Image
-                  src="/images/heritage/ohoi_tel_nangan.png"
+                  src="/images/heritage/kriel_356.png"
                   alt="Lanskap Ohoi Tel Nangan saat senja — kampung adat dalam naungan Ratskap Manyeuw Rumadian"
                   fill
                   sizes="(max-width: 768px) 100vw, 50vw"
@@ -193,7 +193,7 @@ export default function RatskapHeritageSection() {
             <div className="ratskap-reveal relative w-full h-[320px] md:h-[420px] rounded-xl-design overflow-hidden shadow-card group">
               <div className="ratskap-parallax absolute -top-[12%] left-0 h-[124%] w-full">
                 <Image
-                  src="/images/heritage/elang_kecil.png"
+                  src="/images/heritage/kriel_356.png"
                   alt="Elang kecil — lambang filosofi Rat Manyeuw dalam kepemimpinan adat Kei"
                   fill
                   sizes="(max-width: 768px) 100vw, 50vw"
@@ -229,15 +229,15 @@ export default function RatskapHeritageSection() {
             Tujuh Kampung Adat Bersumpah
           </h3>
 
-          <div className="grid grid-cols-2 gap-4 md:gap-6 sm:grid-cols-3 lg:grid-cols-4">
+          <div className="grid grid-cols-1 min-[400px]:grid-cols-2 gap-4 md:gap-6 sm:grid-cols-3 lg:grid-cols-4">
             {[
-              { src: "/images/heritage/ohoi_rumadian.png", alt: "Ohoi Rumadian — kampung adat leluhur dalam naungan Ratskap Manyeuw Rumadian", label: "Ohoi Rumadian" },
-              { src: "/images/heritage/kampung_debut.png", alt: "Kampung Debut — salah satu dari tujuh kampung adat Kei", label: "Kampung Debut" },
-              { src: "/images/heritage/kampung_lairngaggas.png", alt: "Kampung Lairngaggas — lanskap ohoi adat Kei", label: "Kampung Lairngaggas" },
-              { src: "/images/heritage/kampung_selayar.png", alt: "Kampung Selayar — lanskap ohoi adat Kei", label: "Kampung Selayar" },
-              { src: "/images/heritage/kampung_namar.png", alt: "Kampung Namar — lanskap ohoi adat Kei", label: "Kampung Namar" },
-              { src: "/images/heritage/kampung_ngilngof.png", alt: "Kampung Ngilngof — lanskap ohoi adat Kei", label: "Kampung Ngilngof" },
-              { src: "/images/heritage/kampung_ngayub.png", alt: "Kampung Ngayub — lanskap ohoi adat Kei", label: "Kampung Ngayub" },
+              { src: "/images/heritage/kriel_356.png", alt: "Ohoi Rumadian — kampung adat leluhur dalam naungan Ratskap Manyeuw Rumadian", label: "Ohoi Rumadian" },
+              { src: "/images/heritage/kampung_debut.jpeg", alt: "Kampung Debut — salah satu dari tujuh kampung adat Kei", label: "Kampung Debut" },
+              { src: "/images/heritage/kampung-selayar-.png", alt: "Kampung Lairngaggas — lanskap ohoi adat Kei", label: "Kampung Lairngaggas" },
+              { src: "/images/heritage/kampung-selayar-.png", alt: "Kampung Selayar — lanskap ohoi adat Kei", label: "Kampung Selayar" },
+              { src: "/images/heritage/kampung-selayar-.png", alt: "Kampung Namar — lanskap ohoi adat Kei", label: "Kampung Namar" },
+              { src: "/images/heritage/kampung-selayar-.png", alt: "Kampung Ngilngof — lanskap ohoi adat Kei", label: "Kampung Ngilngof" },
+              { src: "/images/heritage/kampung-selayar-.png", alt: "Kampung Ngayub — lanskap ohoi adat Kei", label: "Kampung Ngayub" },
             ].map((kampung) => (
               <figure key={kampung.label} className="ratskap-reveal relative aspect-[4/3] w-full overflow-hidden rounded-xl-design shadow-card group">
                 <Image
@@ -249,7 +249,7 @@ export default function RatskapHeritageSection() {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
                 <figcaption className="absolute inset-x-0 bottom-0 p-3 md:p-4">
-                  <span className="font-sans text-sm font-medium text-white md:text-base">
+                  <span className="font-sans text-xs font-medium leading-tight text-center text-white md:text-base">
                     {kampung.label}
                   </span>
                 </figcaption>
@@ -273,7 +273,7 @@ export default function RatskapHeritageSection() {
             <figure className="ratskap-reveal relative w-full h-[260px] sm:h-full rounded-xl-design overflow-hidden shadow-card group sm:col-span-2 sm:row-span-2">
               <div className="ratskap-parallax absolute -top-[12%] left-0 h-[124%] w-full">
                 <Image
-                  src="/images/heritage/gong_dada_wadlau.png"
+                  src="/images/heritage/karel_street.png"
                   alt="Gong adat Dada Wadlau — simbol legitimasi Ratskap Manyeuw Rumadian"
                   fill
                   sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
@@ -338,11 +338,11 @@ export default function RatskapHeritageSection() {
             bersumpah dalam naungan hukum leluhur yang sama.
           </p>
 
-          <ul className="ratskap-reveal grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-4">
+          <ul className="ratskap-reveal grid grid-cols-2 gap-2 md:grid-cols-3 md:gap-3 lg:grid-cols-4">
             {KAMPUNG_ADAT.map((kampung) => (
               <li
                 key={kampung}
-                className="flex items-center justify-center gap-2 rounded-full bg-brand/10 px-4 py-3 text-center font-sans text-sm font-medium text-brand"
+                className="flex items-center justify-center gap-2 rounded-full bg-brand/10 px-3 py-2.5 text-center font-sans text-xs font-medium text-brand md:px-4 md:py-3 md:text-sm"
               >
                 <MapIcon className="h-4 w-4 shrink-0" aria-hidden="true" />
                 {kampung}
@@ -362,19 +362,19 @@ export default function RatskapHeritageSection() {
             Garis Suksesi Marga Watratan
           </h3>
 
-          <ol className="relative ml-4 md:ml-6 border-l-2 border-brand/30">
+          <ol className="relative ml-3 md:ml-6 border-l-2 border-brand/30">
             {SUCCESSION.map((node) => (
-              <li
-                key={node.title}
-                className="ratskap-reveal relative pl-8 md:pl-12 pb-10 last:pb-0"
-              >
+                <li
+                  key={node.title}
+                  className="ratskap-reveal relative pl-6 md:pl-12 pb-10 last:pb-0"
+                >
                 <span
                   className="absolute -left-[11px] top-2 flex h-5 w-5 items-center justify-center rounded-full bg-brand shadow-soft"
                   aria-hidden="true"
                 >
                   <span className="h-2 w-2 rounded-full bg-white" />
                 </span>
-                <div className="bg-white border border-brand/10 rounded-lg-design shadow-card hover:border-brand/30 transition-colors p-6 md:p-8">
+                <div className="bg-white border border-brand/10 rounded-lg-design shadow-card hover:border-brand/30 transition-colors p-5 md:p-8">
                   <div className="flex flex-wrap items-center gap-3 mb-3">
                     <FlagIcon className="h-5 w-5 text-brand" aria-hidden="true" />
                     <span className="font-serif text-fluid-h4 text-brand">

@@ -47,7 +47,7 @@ export default function PenghormatanSection() {
       aria-labelledby="penghormatan-title"
     >
       <Image
-        src="/images/eksplorasi/pasir_panjang.png"
+        src="/images/eksplorasi/pantai-pasir-panjang-ilhamarch.jpg"
         alt="Eka Bagus Spot — bentangan alam asri Kepulauan Kei yang terjaga dan tenang"
         fill
         className="object-cover brightness-110 contrast-105"

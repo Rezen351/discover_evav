@@ -116,6 +116,11 @@ export default function EkspresiBudayaSection() {
     return () => ctx.revert();
   }, []);
 
+  // Refresh ScrollTrigger agar hitungan posisi scroll diperbarui setelah accordion buka/tutup
+  useEffect(() => {
+    ScrollTrigger.refresh();
+  }, [activeIndex]);
+
   // Kartu konten untuk satu item (media di atas, narasi di bawah — dipisah dari overlay)
   const renderCard = (item: EkspresiItem, index: number) => {
     const Icon = ICONS[item.icon];
@@ -173,7 +178,7 @@ export default function EkspresiBudayaSection() {
                 type="button"
                 onClick={prevImage}
                 aria-label="Gambar sebelumnya"
-                className="absolute left-3 top-1/2 -translate-y-1/2 z-10 flex h-12 w-12 lg:h-10 lg:w-10 items-center justify-center rounded-full bg-white/90 text-brand shadow-soft transition-colors hover:bg-brand hover:text-white focus-ring"
+                className="absolute left-3 top-1/2 -translate-y-1/2 z-10 flex h-12 w-12 lg:h-10 lg:w-10 items-center justify-center rounded-full bg-white/90 text-brand shadow-soft transition-colors lg:hover:bg-brand lg:hover:text-white focus-ring"
               >
                 <ChevronLeftIcon className="h-5 w-5" aria-hidden="true" />
               </button>
@@ -181,7 +186,7 @@ export default function EkspresiBudayaSection() {
                 type="button"
                 onClick={nextImage}
                 aria-label="Gambar berikutnya"
-                className="absolute right-3 top-1/2 -translate-y-1/2 z-10 flex h-12 w-12 lg:h-10 lg:w-10 items-center justify-center rounded-full bg-white/90 text-brand shadow-soft transition-colors hover:bg-brand hover:text-white focus-ring"
+                className="absolute right-3 top-1/2 -translate-y-1/2 z-10 flex h-12 w-12 lg:h-10 lg:w-10 items-center justify-center rounded-full bg-white/90 text-brand shadow-soft transition-colors lg:hover:bg-brand lg:hover:text-white focus-ring"
               >
                 <ChevronRightIcon className="h-5 w-5" aria-hidden="true" />
               </button>
@@ -212,14 +217,13 @@ export default function EkspresiBudayaSection() {
                   ? `Jeda video ${item.title}`
                   : `Putar video ${item.title}`
               }
-              className="absolute right-3 top-3 z-10 flex items-center gap-2 min-h-[44px] lg:min-h-0 rounded-full bg-brand px-4 py-2 font-sans text-fluid-small font-semibold text-white shadow-soft transition-transform hover:scale-105 active:press focus-ring"
+              className="absolute right-3 top-3 z-10 flex h-12 w-12 lg:h-10 lg:w-10 items-center justify-center rounded-full bg-brand text-white shadow-soft transition-transform hover:scale-105 active:press focus-ring"
             >
               {isPlaying && index === activeIndex ? (
-                <PauseIcon className="h-4 w-4" aria-hidden="true" />
+                <PauseIcon className="h-5 w-5" aria-hidden="true" />
               ) : (
-                <PlayIcon className="h-4 w-4" aria-hidden="true" />
+                <PlayIcon className="h-5 w-5" aria-hidden="true" />
               )}
-              {isPlaying && index === activeIndex ? "Jeda" : "Putar Video"}
             </button>
           )}
         </div>
@@ -283,12 +287,12 @@ export default function EkspresiBudayaSection() {
 
         {/* Mobile: accordion — kartu muncul tepat di bawah tab yang diklik.
             Semua tab (termasuk Nyanyian & Sastra Lisan) bisa di-collapse. */}
-        <div className="lg:hidden flex flex-col gap-3">
+        <div className="lg:hidden flex flex-col gap-3 ekspresi-reveal">
           {ekspresiBudaya.items.map((item, index) => {
             const Icon = ICONS[item.icon];
             const isOpen = index === activeIndex;
             return (
-              <div key={item.id} className="ekspresi-reveal">
+              <div key={item.id}>
                 <button
                   id={`ekspresi-tab-${item.id}`}
                   type="button"

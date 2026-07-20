@@ -76,7 +76,7 @@ export default function HeritageSection() {
         }}
       >
         <Image
-          src="/images/heritage/elang_kecil.png"
+          src="/images/heritage/kriel_356.png"
           alt=""
           aria-hidden="true"
           fill
@@ -104,7 +104,7 @@ export default function HeritageSection() {
             </h2>
           </div>
           <p
-            className="text-black/60 text-sm md:text-base max-w-xs md:text-right leading-snug line-clamp-3 md:line-clamp-2"
+            className="text-black/60 text-sm md:text-base max-w-md md:text-right leading-relaxed"
             style={{ fontFamily: "var(--font-sans)" }}
           >
             {heritageIntro.subtitle}

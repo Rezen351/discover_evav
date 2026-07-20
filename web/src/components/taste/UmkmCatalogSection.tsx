@@ -47,6 +47,7 @@ export default function UmkmCatalogSection() {
     safePage * PER_PAGE + PER_PAGE
   );
 
+  // Animate static sections once on mount
   useEffect(() => {
     const prefersReduced = window.matchMedia(
       "(prefers-reduced-motion: reduce)"
@@ -54,10 +55,39 @@ export default function UmkmCatalogSection() {
 
     const ctx = gsap.context(() => {
       if (prefersReduced) {
-        gsap.set(".umkm-catalog-reveal", { opacity: 1, y: 0 });
+        gsap.set(".umkm-catalog-reveal-static", { opacity: 1, y: 0 });
         return;
       }
-      gsap.utils.toArray<HTMLElement>(".umkm-catalog-reveal").forEach((el) => {
+      gsap.utils.toArray<HTMLElement>(".umkm-catalog-reveal-static").forEach((el) => {
+        gsap.from(el, {
+          opacity: 0,
+          y: 30,
+          duration: 0.8,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: el,
+            start: "top 88%",
+            toggleActions: "play none none reverse",
+          },
+        });
+      });
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
+  // Animate dynamic cards when page or filter changes
+  useEffect(() => {
+    const prefersReduced = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+
+    const ctx = gsap.context(() => {
+      if (prefersReduced) {
+        gsap.set(".umkm-card-reveal", { opacity: 1, y: 0 });
+        return;
+      }
+      gsap.utils.toArray<HTMLElement>(".umkm-card-reveal").forEach((el) => {
         gsap.from(el, {
           opacity: 0,
           y: 30,
@@ -97,7 +127,7 @@ export default function UmkmCatalogSection() {
     >
       <div className="max-w-[98%] xl:max-w-[1600px] mx-auto px-4 md:px-8 w-full">
         {/* Div 1: Headline deskripsi (kiri) + foto landscape (kanan) */}
-        <div className="umkm-catalog-reveal mb-12 md:mb-16 grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+        <div className="umkm-catalog-reveal-static mb-12 md:mb-16 grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
           <div className="max-w-xl">
             <p
               className="font-sans text-fluid-small uppercase tracking-[0.25em] text-brand mb-4"
@@ -136,7 +166,7 @@ export default function UmkmCatalogSection() {
 
         {/* Div 2: Judul + Filter + Catalog grid */}
         <div className="mt-16 md:mt-20">
-          <div className="umkm-catalog-reveal flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-8 md:mb-10">
+          <div className="umkm-catalog-reveal-static flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-8 md:mb-10">
             <div className="max-w-2xl">
               <h3
                 className="font-serif text-fluid-h3 text-black"
@@ -183,7 +213,7 @@ export default function UmkmCatalogSection() {
             {visible.map((u) => (
               <figure
                 key={u.id}
-                className="umkm-catalog-reveal group flex flex-col h-full bg-white border border-brand/10 hover:border-brand/30 rounded-lg-design overflow-hidden shadow-soft transition-all duration-300"
+                className="umkm-card-reveal group flex flex-col h-full bg-white border border-brand/10 hover:border-brand/30 rounded-lg-design overflow-hidden shadow-soft transition-all duration-300"
               >
                 <div className="relative aspect-[4/3] w-full overflow-hidden">
                   <Image

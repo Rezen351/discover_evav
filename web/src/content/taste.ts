@@ -78,7 +78,7 @@ export const signatureDishes = {
       name: "Mangrove Stick",
       desc: "Hasil hutan bakau yang ditusuk dan dibakar perlahan, tekstur kenyal dengan semburat asap. Camilan tepi laut yang jujur dan sederhana.",
       tag: "Camilan Bakar",
-      image: "/images/kuliner/kei_mangrove_stick.png",
+      image: "/images/kuliner/kei_umkm_kacang_botol_1.jpeg",
       imageAlt: "Mangrove stick — camilan bakar dari hutan bakau Kei",
     },
     {
@@ -102,7 +102,7 @@ export const signatureDishes = {
       name: "Enbal Bunga",
       desc: "Variasi Enbal dengan hiasan bunga pangan lokal, memadukan rasa dan keindahan dalam satu hidangan. Kei menyajikan makanan seindah menyambut tamu.",
       tag: "Ikan Bakar",
-      image: "/images/kuliner/kei_enbal_bunga.png",
+      image: "/images/kuliner/kei_umkm_enbal_bunga_1.jpeg",
       imageAlt: "Enbal bunga — variasi ikan bakar berciri khas Kei",
     },
     {
@@ -110,7 +110,7 @@ export const signatureDishes = {
       name: "Enbal Stik",
       desc: "Enbal yang dibentuk ramping dan dipanggang, praktis dinikmati sambil duduk di atas pasir. Camilan jalanan pinggir laut yang menggugah selera.",
       tag: "Camilan",
-      image: "/images/kuliner/kei_enbal_stik.png",
+      image: "/images/kuliner/kei_umkm_enbal_stick_1.jpeg",
       imageAlt: "Enbal stik — camilan ikan panggang khas Kepulauan Kei",
     },
     {
@@ -118,7 +118,7 @@ export const signatureDishes = {
       name: "Enbal Love",
       desc: "Enbal dibentuk menjadi hati sebagai simbol kasih masyarakat Kei kepada setiap tamu. Renyah di luar, lembut di dalam, penuh makna.",
       tag: "Camilan",
-      image: "/images/kuliner/kei_enbal_love.png",
+      image: "/images/kuliner/kei_umkm_piece_enbal.jpeg",
       imageAlt: "Enbal love — enbal berbentuk hati khas Kepulauan Kei",
     },
   ] satisfies SignatureDish[],
@@ -128,7 +128,7 @@ export const signatureDishes = {
 export const tasteStory = {
   eyebrow: "FILSOFOSI RASA",
   title: "Dapur Kei adalah Meja Kebersamaan",
-  image: "/images/kuliner/kei_sagu_process.png",
+  image: "/images/kuliner/kei_sagu.jpg",
   imageAlt:
     "Proses memasak bersama di Kepulauan Kei — sagu dan hasil laut diolah secara komunal",
   paragraphs: [
@@ -179,7 +179,7 @@ export const bentoTaste = {
       icon: "Wheat",
       title: "Sagu",
       desc: "Makanan pokok pengikat keluarga — lembut, netral, siap menyerap rasa laut di setiap piring.",
-      image: "/images/kuliner/kei_sagu_process.png",
+      image: "/images/kuliner/kei_sagu.jpg",
       imageAlt: "Proses sagu — makanan pokok masyarakat Kepulauan Kei",
     },
     {

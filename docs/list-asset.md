@@ -93,7 +93,7 @@ public/
 | Ritual budaya Kei | `images/budaya/kei_culture_ritual.png` | ✅ |
 | Alat musik Dada/Tifa | `images/budaya/kei_dada_tifa.png` | ✅ |
 | Simbol bahasa daerah | `images/budaya/kei_language_symbol.png` | ✅ |
-| Larvul Ngabal (ilustrasi) | `images/budaya/kei_larvul_spear.png` | ✅ |
+| Larvul Ngabal (ilustrasi) | `images/budaya/landmark_langgur_kei_larvul_spear.jpeg` | ✅ |
 | Elemen laut surut (Meti) | `images/budaya/kei_meti_reef.png` | ✅ |
 | Busana adat Kei | `images/budaya/kei_busana_adat.png` | ✅ |
 | 7 Pilar adat — Damai | `images/budaya/kei_rule_damai.png` | ✅ |

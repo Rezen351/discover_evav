@@ -9,11 +9,10 @@ import { useTimeOfDay, temporalGreetings } from "@/hooks/useTimeOfDay";
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
 }
-
 const slides = [
-  { id: 1, src: "/images/budaya/kei_culture.png", video: "/hero/video/culture.mp4", title: "Budaya Adat", subtitle: "Harmoni tradisi dan kearifan lokal leluhur Kei" },
-  { id: 2, src: "/images/meti/kei_beach.png", video: "/hero/video/nature.mp4", title: "Keindahan Alam", subtitle: "Surga tersembunyi berpasir putih dan laut jernih" },
-  { id: 3, src: "/images/satwa/kei_endemic_bird.png", video: "/hero/video/animal.mp4", title: "Kehidupan Satwa", subtitle: "Keanekaragaman fauna endemik yang menakjubkan" },
+  { id: 1, src: "/images/budaya/tari-syariat-kemdikbud.png", video: "/videos/human.mov", title: "Budaya Adat", subtitle: "Harmoni tradisi dan kearifan lokal leluhur Kei" },
+  { id: 2, src: "/images/eksplorasi/kei_ngurbloat.png", video: "/videos/nature.mov", title: "Keindahan Alam", subtitle: "Surga tersembunyi berpasir putih dan laut jernih" },
+  { id: 3, src: "/images/satwa/kei_kacamata_bird.png", video: "/videos/animal.mov", title: "Kehidupan Satwa", subtitle: "Keanekaragaman fauna endemik yang menakjubkan" },
 ];
 
 export default function HeroSection() {
@@ -264,7 +263,7 @@ export default function HeroSection() {
       {/* Top Logo */}
       <div className={`absolute top-6 left-1/2 -translate-x-1/2 z-[10] flex flex-col items-center justify-center w-full transition-opacity duration-700 ${contentVisible ? "opacity-100" : "opacity-0"}`}>
         <Image
-          src="/Logo White.svg"
+          src="/logo-white.svg"
           alt="Simfoni Evav"
           width={180}
           height={65}

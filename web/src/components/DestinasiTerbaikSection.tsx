@@ -44,7 +44,7 @@ const destData: Record<DestTabName, { items: DestItem[] }> = {
         reviews: "850 ulasan",
         desc: "Dikenal sebagai Raja Ampat-nya Maluku Tenggara. Menawarkan labirin tebing karst raksasa eksotik yang mengelilingi laguna tenang berair toska super jernih.",
         tags: ["Tebing Karst", "Laguna Indah", "Petualangan"],
-        image: "/images/meti/kei_waving.png",
+        image: "/images/eksplorasi/kei_bair.jpg",
       },
       {
         name: "Pantai Ngurbloat",
@@ -53,7 +53,7 @@ const destData: Record<DestTabName, { items: DestItem[] }> = {
         reviews: "1.2k ulasan",
         desc: "Pantai dengan pasir putih terhalus di dunia selembut tepung sepanjang 5.8 kilometer. Sangat ideal untuk menikmati sunset emas dan berenang.",
         tags: ["Pasir Halus", "Sunset Emas", "Berenang"],
-        image: "/images/eksplorasi/ohoiluk_gua.png",
+        image: "/images/eksplorasi/kei_ngurbloat.png",
       },
       {
         name: "Goa Hawang",
@@ -62,7 +62,7 @@ const destData: Record<DestTabName, { items: DestItem[] }> = {
         reviews: "620 ulasan",
         desc: "Goa stalaktit eksotis dengan kolam air tawar alami berwarna biru safir kristal yang sangat bening, terhubung langsung dengan mata air bawah tanah.",
         tags: ["Kolam Kristal", "Goa Alam", "Misteri"],
-        image: "/images/eksplorasi/pulau_tersembunyi.png",
+        image: "/images/eksplorasi/goa-hawang.jpg",
       },
       {
         name: "Spot Snorkeling Kei",
@@ -71,7 +71,7 @@ const destData: Record<DestTabName, { items: DestItem[] }> = {
         reviews: "340 ulasan",
         desc: "Jelajahi keindahan bawah laut Kepulauan Kei yang dipenuhi terumbu karang warna-warni yang sehat dan beragam biota laut tropis yang eksotis.",
         tags: ["Snorkeling", "Terumbu Karst", "Biota Laut"],
-        image: "/images/eksplorasi/snorkeling_ngurtavur.png",
+        image: "/images/eksplorasi/snorkeling-ngurtavur-zanzztoy.jpg",
       },
       {
         name: "Pantai Kelapa Miring",
@@ -80,7 +80,7 @@ const destData: Record<DestTabName, { items: DestItem[] }> = {
         reviews: "210 ulasan",
         desc: "Dikenal sebagai Pantai Ngur Vat Namsir, primadonanya adalah deretan pohon kelapa yang tumbuh miring menyeruak ke laut, di atas pasir putih selembut tepung dan air biru yang jernih. Surga tersembunyi terjaga lewat Festival Budaya Ohoi Wab.",
         tags: ["Kelapa Miring", "Pasir Halus", "Tersembunyi"],
-        image: "/images/eksplorasi/pantai-kelapa-miring.jpeg",
+        image: "/images/eksplorasi/pantai-kelapa-miring.jpg",
       }
     ]
   },
@@ -93,7 +93,7 @@ const destData: Record<DestTabName, { items: DestItem[] }> = {
         reviews: "450 ulasan",
         desc: "Sajikan Enbal (makanan pokok pengganti nasi dari singkong khas Kei) renyah. Sangat nikmat dimakan dengan dicelup kuah sup ikan segar.",
         tags: ["Enbal", "Kuliner Lokal", "Tradisional"],
-        image: "/images/kuliner/kei_food_atmosfer.png",
+        image: "/images/kuliner/kei_culinary_enbal.png",
       },
       {
         name: "Sayur Sir-Sir Gurih",
@@ -102,7 +102,7 @@ const destData: Record<DestTabName, { items: DestItem[] }> = {
         reviews: "320 ulasan",
         desc: "Olahan tumisan legendaris berbahan dasar daun singkong dan bunga pepaya muda dengan santan kental serta rempah aromatik khas Kei.",
         tags: ["Sayur Sir-Sir", "Bunga Pepaya", "Khas Kei"],
-        image: "/images/kuliner/kei_pisang_enbal.png",
+        image: "/images/kuliner/kei_culinary_sirsir.png",
       },
       {
         name: "Ikan Bakar Colo-Colo",
@@ -111,7 +111,7 @@ const destData: Record<DestTabName, { items: DestItem[] }> = {
         reviews: "540 ulasan",
         desc: "Ikan karang segar tangkapan nelayan lokal yang dibakar harum di atas arang kelapa, disiram sambal colo-colo pedas asam manis pedas segar.",
         tags: ["Seafood", "Colo-Colo", "Ikan Bakar"],
-        image: "/images/kuliner/kei_lat.png",
+        image: "/images/kuliner/kei_ikan_colocolo.png",
       },
       {
         name: "Kue Lad & Enbal Bubuk",
@@ -120,7 +120,7 @@ const destData: Record<DestTabName, { items: DestItem[] }> = {
         reviews: "210 ulasan",
         desc: "Camilan manis tradisional Kei berbahan parutan enbal kering yang disajikan hangat bersama kopi atau teh jahe saat sore hari.",
         tags: ["Kue Lad", "Enbal Manis", "Camilan"],
-        image: "/images/kuliner/kei_enbal_stik.png",
+        image: "/images/kuliner/kei_umkm_enbal_stick_1.jpeg",
       }
     ]
   },
@@ -133,7 +133,7 @@ const destData: Record<DestTabName, { items: DestItem[] }> = {
         reviews: "310 ulasan",
         desc: "Bungalow kayu ramah lingkungan yang dibangun di bibir pantai pasir putih. Menyuguhkan akses langsung ke pantai dan ketenangan maksimal.",
         tags: ["Eco-Resort", "Bungalow Pantai", "Tenang"],
-        image: "/images/meti/kei_resort.png",
+        image: "/images/eksplorasi/kei_resort.png",
       },
       {
         name: "Cottage Pantai Ngurbloat",
@@ -142,7 +142,7 @@ const destData: Record<DestTabName, { items: DestItem[] }> = {
         reviews: "180 ulasan",
         desc: "Cottage bergaya tradisional Maluku dengan fasilitas modern yang nyaman. Hanya melangkah langsung ke hamparan pasir terhalus sedunia.",
         tags: ["Cottage", "Ngurbloat", "Keluarga"],
-        image: "/images/meti/wer_warat.png",
+        image: "/images/eksplorasi/desa-wisata-ngilngof-antara.jpg",
       },
       {
         name: "Pulau Bair Camp & Glamping",
@@ -151,7 +151,7 @@ const destData: Record<DestTabName, { items: DestItem[] }> = {
         reviews: "95 ulasan",
         desc: "Pengalaman camping premium di tepi perairan karst tenang Pulau Bair. Menawarkan ketenangan malam bertabur bintang di bay privat.",
         tags: ["Glamping", "Private Bay", "Petualangan"],
-        image: "/images/meti/perahu_belan.png",
+        image: "/images/eksplorasi/pulau-bair-rizkipambudi.jpg",
       },
       {
         name: "Homestay Pantai Pasir Panjang",
@@ -160,7 +160,7 @@ const destData: Record<DestTabName, { items: DestItem[] }> = {
         reviews: "150 ulasan",
         desc: "Penginapan ramah kantong bernuansa kekeluargaan yang dikelola langsung oleh penduduk lokal, menyajikan hidangan sarapan tradisional Kei.",
         tags: ["Homestay", "Lokal", "Ramah Kantong"],
-        image: "/images/satwa/kei_mangrove.png",
+        image: "/images/eksplorasi/pantai-pasir-panjang-ilhamarch.jpg",
       }
     ]
   },
@@ -173,7 +173,7 @@ const destData: Record<DestTabName, { items: DestItem[] }> = {
         reviews: "280 ulasan",
         desc: "Tarian adat penyambutan tamu kehormatan dengan iringan dinamis alat musik tifa dan gong, menggambarkan persahabatan hangat warga Evav.",
         tags: ["Tari Sawat", "Penyambutan", "Tifa"],
-        image: "/images/budaya/kei_dada_tifa.png",
+        image: "/images/budaya/tari-sawat-infopublik.jpg",
       },
       {
         name: "Ritual Tari Kipas Evav",
@@ -182,7 +182,7 @@ const destData: Record<DestTabName, { items: DestItem[] }> = {
         reviews: "150 ulasan",
         desc: "Tarian sakral nan elok dibawakan para penari putri Kei menggunakan kipas tenun tradisional, melambangkan hembusan kedamaian sosial.",
         tags: ["Tari Kipas", "Sakral", "Kedamaian"],
-        image: "/images/budaya/kei_larvul_spear.png",
+        image: "/images/budaya/ritual-penyambutan-tamu-rinin.jpg",
       },
       {
         name: "Musik Suling Bambu Evav",
@@ -191,7 +191,7 @@ const destData: Record<DestTabName, { items: DestItem[] }> = {
         reviews: "190 ulasan",
         desc: "Harmoni pertunjukan musik tiup suling bambu kolosal oleh pemuda Kei yang melantunkan lagu-lagu daerah dengan melodi instrumental yang syahdu.",
         tags: ["Suling Bambu", "Melodi Syahdu", "Instrumental"],
-        image: "/images/budaya/kei_busana_adat.png",
+        image: "/images/budaya/kei_dada_tifa.png",
       },
       {
         name: "Pertunjukan Adat Tanimbar Kei",
@@ -200,7 +200,7 @@ const destData: Record<DestTabName, { items: DestItem[] }> = {
         reviews: "170 ulasan",
         desc: "Saksikan teatrikal sejarah dan kebudayaan Kei langsung di desa adat terlindung yang mempertahankan kepercayaan leluhur mereka.",
         tags: ["Teater Adat", "Sejarah", "Desa Adat"],
-        image: "/images/budaya/kei_tari_sawat_1.png",
+        image: "/images/budaya/tari-perang-kompasiana.jpg",
       }
     ]
   },
@@ -213,7 +213,7 @@ const destData: Record<DestTabName, { items: DestItem[] }> = {
         reviews: "980 ulasan",
         desc: "Festival tahunan terbesar saat air laut surut ekstrem (meti). Ribuan warga berkumpul menangkap ikan bersama secara tradisional dengan tali janur.",
         tags: ["Meti Kei", "Panen Raya", "Budaya Massal"],
-        image: "/images/budaya/kei_language_symbol.png",
+        image: "/images/budaya/festival-pesona-meti-kei-2025-triptrus.jpg",
       },
       {
         name: "Ritual Hawear (Sasi Adat)",
@@ -222,7 +222,7 @@ const destData: Record<DestTabName, { items: DestItem[] }> = {
         reviews: "410 ulasan",
         desc: "Upacara adat pemasangan janur kuning (Hawear) sebagai tanda pelarangan pengambilan hasil laut/hutan sementara demi menjaga kelestarian alam.",
         tags: ["Sasi Adat", "Hawear", "Konservasi"],
-        image: "/images/budaya/kei_meti_reef.png",
+        image: "/images/budaya/sumpah-adat-kei-infopublik.png",
       },
       {
         name: "Upacara Cuci Darah Adat",
@@ -231,7 +231,7 @@ const destData: Record<DestTabName, { items: DestItem[] }> = {
         reviews: "230 ulasan",
         desc: "Upacara sakral penyucian diri dan sumpah perdamaian antar marga yang melanggar hukum Larvul Ngabal demi memulihkan keharmonisan sosial.",
         tags: ["Ritual Sakral", "Penyucian", "Larvul Ngabal"],
-        image: "/images/budaya/kei_tari_sawat_2.png",
+        image: "/images/budaya/tari-perang-kompasiana.jpg",
       },
       {
         name: "Pesta Rakyat Makan Enbal",
@@ -240,7 +240,7 @@ const destData: Record<DestTabName, { items: DestItem[] }> = {
         reviews: "320 ulasan",
         desc: "Perayaan budaya menyantap hidangan enbal raksasa secara massal sebagai bentuk ucapan syukur atas panen hasil bumi yang melimpah.",
         tags: ["Pesta Rakyat", "Syukuran", "Enbal Raksasa"],
-        image: "/images/budaya/kei_tari_sawat_3.png",
+        image: "/images/budaya/pembuatan-embal-umkm.jpg",
       }
     ]
   },

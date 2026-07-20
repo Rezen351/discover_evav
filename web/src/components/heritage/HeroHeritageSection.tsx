@@ -47,11 +47,11 @@ export default function HeroHeritageSection() {
       data-hero
       ref={sectionRef}
       aria-label="Warisan Kepulauan Kei"
-      className="relative w-full min-h-screen snap-start snap-always flex items-center overflow-hidden bg-hero-dark z-[5]"
+      className="relative w-full min-h-screen md:snap-start md:snap-always flex items-center overflow-hidden bg-hero-dark z-[5]"
     >
       <div className="absolute inset-0 z-0">
         <Image
-          src="/images/heritage/kei_warriors_dance.png"
+          src="/images/budaya/kei_warriors_dance.png"
           alt="Tarian perang prajurit adat Kepulauan Kei yang melestarikan semangat leluhur Evav"
           fill
           priority
@@ -66,7 +66,7 @@ export default function HeroHeritageSection() {
       />
 
       <div className="relative z-[2] max-w-[98%] xl:max-w-[1600px] mx-auto px-4 md:px-8 w-full">
-        <p className="heritage-hero-reveal text-fluid-eyebrow uppercase tracking-[0.35em] text-white/60 font-sans">
+        <p           className="heritage-hero-reveal text-fluid-eyebrow uppercase tracking-[0.18em] min-[400px]:tracking-[0.25em] sm:tracking-[0.35em] text-white/60 font-sans">
           Warisan Kepulauan Kei
         </p>
 

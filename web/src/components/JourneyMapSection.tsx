@@ -21,7 +21,7 @@ const locations = [
     title: "Pulau Bair",
     subtitle: "Raja Ampat-nya Maluku Tenggara",
     description: "Nikmati sensasi menyusuri lorong tebing karang laut dengan air sebening kaca.",
-    image: "/images/meti/kei_snorkeling.png",
+    image: "/images/eksplorasi/snorkeling-ngurtavur-zanzztoy.jpg",
     longitude: 132.6565,
     latitude: -5.5891,
     stats: [
@@ -36,7 +36,7 @@ const locations = [
     title: "Pantai Ngurbloat",
     subtitle: "Pasir Putih Terhalus di Dunia",
     description: "Bersantai di atas hamparan pasir putih sehalus tepung sepanjang 3 kilometer sambil menikmati keajaiban matahari terbenam.",
-    image: "/images/eksplorasi/pasir_panjang.png",
+    image: "/images/eksplorasi/pantai-pasir-panjang-ilhamarch.jpg",
     longitude: 132.6362,
     latitude: -5.6625,
     stats: [
@@ -51,7 +51,7 @@ const locations = [
     title: "Goa Hawang",
     subtitle: "Kolam Biru Mata Air Suci",
     description: "Berenang di dalam goa karst alami dengan air tawar yang sangat jernih dan menyegarkan tubuh.",
-    image: "/images/eksplorasi/gua_hawang_inner.png",
+    image: "/images/eksplorasi/goa-hawang.jpg",
     longitude: 132.6781,
     latitude: -5.7197,
     stats: [
@@ -66,7 +66,7 @@ const locations = [
     title: "Pantai Ngurtavur",
     subtitle: "Pasir Timbul Membelah Lautan",
     description: "Berjalan sejauh 2 kilometer di atas pasir putih yang membelah samudra jernih menuju habitat burung Pelikan.",
-    image: "/images/meti/kei_ngurtavur.png",
+    image: "/images/eksplorasi/kei_ngurtavur.png",
     longitude: 132.5510,
     latitude: -5.7483,
     stats: [
@@ -76,18 +76,18 @@ const locations = [
     ]
   },
   {
-    id: "tanimbar_kei",
-    region: "KEI KECIL BARAT",
-    title: "Tanimbar Kei",
-    subtitle: "Jantung Budaya Leluhur",
-    description: "Desa adat kuno yang terisolasi, menyimpan peninggalan purbakala dan memegang teguh hukum adat kuno.",
-    image: "/images/eksplorasi/viewpoint_bukit.png",
-    longitude: 132.3275,
-    latitude: -5.9922,
+    id: "ngilngof",
+    region: "KEI KECIL",
+    title: "Kampung Ngilngof",
+    subtitle: "Pusat Ekowisata & Adat",
+    description: "Desa wisata tertua yang menjadi pusat pelestarian budaya Evav dan gerbang utama menuju Pantai Ngurbloat.",
+    image: "/images/eksplorasi/desa-wisata-ngilngof-candra-gunawan.jpg",
+    longitude: 132.6431,
+    latitude: -5.6740,
     stats: [
-      { label: "Keunikan", value: "Rumah adat asli & altar batu pengorbanan suci", icon: <SunIcon className="w-5 h-5" /> },
-      { label: "Budaya", value: "Masyarakat menjaga kemurnian hukum Larvul Ngabal", icon: <MapPinIcon className="w-5 h-5" /> },
-      { label: "Pengalaman", value: "Merasakan suasana magis kembali ke ratusan tahun lalu", icon: <SparklesIcon className="w-5 h-5" /> }
+      { label: "Keunikan", value: "Desa wisata peraih penghargaan dengan tata ruang asri", icon: <SunIcon className="w-5 h-5" /> },
+      { label: "Budaya", value: "Menjaga kelestarian ritual leluhur dan hukum Larvul Ngabal", icon: <MapPinIcon className="w-5 h-5" /> },
+      { label: "Pengalaman", value: "Menyusuri keramahan warga lokal di sepanjang jalan ohoi", icon: <SparklesIcon className="w-5 h-5" /> }
     ]
   }
 ];
@@ -315,7 +315,7 @@ export default function JourneyMapSection() {
               onClick={(e) => handleMarkerClick(loc, e)}
             >
               <div className="flex flex-col items-center cursor-pointer group">
-                <div className={`mt-2 px-3 py-1 rounded-full text-[10px] font-medium max-[639px]:max-w-[110px] max-[639px]:truncate max-[639px]:whitespace-normal whitespace-nowrap transition-all duration-300 mb-1 shadow-sm ${activeId === loc.id ? 'bg-brand text-white translate-y-0 opacity-100' : 'bg-white text-black/60 opacity-80 group-hover:opacity-100 group-hover:-translate-y-1 group-hover:bg-brand/10'}`} style={{ fontFamily: "var(--font-sans)" }}>
+                <div className={`mt-2 px-3 py-1 rounded-full text-[10px] font-medium whitespace-nowrap transition-all duration-300 mb-1 shadow-sm ${activeId === loc.id ? 'bg-brand text-white translate-y-0 opacity-100' : 'bg-white text-black/60 opacity-80 group-hover:opacity-100 group-hover:-translate-y-1 group-hover:bg-brand/10'}`} style={{ fontFamily: "var(--font-sans)" }}>
                   {loc.title}
                 </div>
                 <div className="relative flex justify-center items-center w-4 h-4">
@@ -419,7 +419,6 @@ export default function JourneyMapSection() {
                 >
                   {/* Background image */}
                   <Image
-                    key={activeLoc.id}
                     src={activeLoc.image}
                     alt={activeLoc.title}
                     fill
@@ -505,7 +504,7 @@ export default function JourneyMapSection() {
               setActiveId("");
               mapRef.current?.fitBounds(initialBounds, { padding: getFitPadding(), duration: 1500, pitch: 0, bearing: 0 });
             }}
-            className="absolute left-4 bottom-4 lg:hidden z-30 bg-white/85 hover:bg-brand hover:text-white text-brand p-3 rounded-full backdrop-blur-sm transition-all group border-0 cursor-pointer shadow-md min-w-[44px] min-h-[44px] flex items-center justify-center"
+            className="absolute left-4 bottom-4 lg:hidden z-30 bg-white/85 lg:hover:bg-brand lg:hover:text-white text-brand p-3 rounded-full backdrop-blur-sm transition-all group border-0 cursor-pointer shadow-md min-w-[44px] min-h-[44px] flex items-center justify-center"
             title="Tampilkan Semua Titik (Fit Bounds)"
             aria-label="Tampilkan Semua Titik"
           >

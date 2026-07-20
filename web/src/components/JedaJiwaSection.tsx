@@ -52,7 +52,7 @@ export default function JedaJiwaSection() {
     >
       {/* Foto senja laut Kei — full bleed */}
       <Image
-        src="/images/meti/kei-sunset-jeda.jpg"
+        src="/images/eksplorasi/kei_mosaic_1.png"
         alt="Senja di laut Kepulauan Kei — momen dunia berhenti sejenak"
         fill
         sizes="100vw"

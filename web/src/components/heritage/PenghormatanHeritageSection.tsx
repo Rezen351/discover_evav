@@ -43,11 +43,11 @@ export default function PenghormatanHeritageSection() {
     <section
       id="heritage-penghormatan"
       ref={ref}
-      className="relative w-full min-h-screen snap-start snap-always flex items-center justify-center overflow-hidden bg-tropical-dark z-[3]"
+      className="relative w-full min-h-screen md:snap-start md:snap-always flex items-center justify-center overflow-hidden bg-tropical-dark z-[3]"
       aria-labelledby="heritage-penghormatan-title"
     >
       <Image
-        src="/images/heritage/evav_legacy.png"
+        src="/images/heritage/raja-kei.png"
         alt="Bentangan warisan hidup Kepulauan Kei — persilangan alam asri dan jejak leluhur yang masih terjaga"
         fill
         className="object-cover object-center scale-105 brightness-110 contrast-105"
@@ -58,7 +58,7 @@ export default function PenghormatanHeritageSection() {
 
       <div className="relative z-[1] max-w-[98%] xl:max-w-[1600px] mx-auto px-4 md:px-8 w-full flex justify-center">
         <div className="max-w-3xl text-center py-24 md:py-32">
-          <p className="penghormatan-heritage-fade font-sans text-fluid-small uppercase tracking-[0.35em] text-white/60 mb-6">
+          <p             className="penghormatan-heritage-fade font-sans text-fluid-small uppercase tracking-[0.18em] min-[400px]:tracking-[0.25em] sm:tracking-[0.35em] text-white/60 mb-6">
             Penghormatan
           </p>
 

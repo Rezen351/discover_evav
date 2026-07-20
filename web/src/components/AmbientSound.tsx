@@ -25,7 +25,7 @@ export default function AmbientSound() {
         type="button"
         onClick={() => setEnabled((v) => !v)}
         aria-label={enabled ? "Bisukan suara ombak Kei" : "Putar suara ombak Kei"}
-        className="flex h-11 w-11 items-center justify-center rounded-full border border-brand/30 bg-white/90 text-brand shadow-lg backdrop-blur transition-colors hover:bg-brand hover:text-white"
+        className="flex h-11 w-11 items-center justify-center rounded-full border border-brand/30 bg-white/90 text-brand shadow-lg backdrop-blur transition-colors lg:hover:bg-brand lg:hover:text-white"
       >
         {enabled ? (
           <svg className="h-5 w-5 fill-current" viewBox="0 0 24 24" aria-hidden="true">

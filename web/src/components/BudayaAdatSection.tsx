@@ -18,7 +18,7 @@ const rules = [
     title: "Hak Milik",
     badge: "Tidak Boleh Mencuri",
     desc: "Hukum Larvul Ngabal melarang keras pencurian dalam bentuk apa pun. Setiap harta benda milik seseorang dilindungi oleh adat. Pelanggar akan dikenai denda berat berupa emas, kain tenun, atau hewan ternak sebagai ganti rugi kepada korban.",
-    image: "/images/budaya/kei_rule_harta.png",
+    image: "/images/budaya/belis-mas-kawin.png",
     icon: <BanknotesIcon className="w-5 h-5" />,
   },
   {
@@ -26,7 +26,7 @@ const rules = [
     title: "Perdamaian",
     badge: "Tidak Boleh Membunuh",
     desc: "Nyawa manusia adalah hal paling sakral. Hukum ini melarang tindakan kekerasan yang menyakiti atau menghilangkan nyawa seseorang. Pelanggaran ini diadili dalam sidang adat besar dan denda tertinggi berupa emas dan penyerahan tanah.",
-    image: "/images/budaya/kei_rule_damai.png",
+    image: "/images/budaya/tari-perang-kompasiana.jpg",
     icon: <ShieldExclamationIcon className="w-5 h-5" />,
   },
   {
@@ -34,7 +34,7 @@ const rules = [
     title: "Kekerasan",
     badge: "Tidak Boleh Menganiaya",
     desc: "Melarang keras segala bentak penganiayaan atau kekerasan fisik terhadap sesama warga. Larvul Ngabal menjamin keselamatan fisik bagi setiap individu di bawah perlindungan hukum adat yang tegas.",
-    image: "/images/budaya/kei_rule_kekerasan.png",
+    image: "/images/budaya/kei_warriors_dance.png",
     icon: <ShieldExclamationIcon className="w-5 h-5" />,
   },
   {
@@ -42,7 +42,7 @@ const rules = [
     title: "Kesusilaan",
     badge: "Tidak Boleh Berzinah",
     desc: "Menjaga kehormatan keluarga dan martabat perempuan adalah prinsip utama. Pelanggaran terhadap norma kesusilaan dianggap sebagai penghinaan terhadap seluruh marga dan dihukum dengan denda adat yang sangat berat.",
-    image: "/images/budaya/kei_rule_kehormatan.png",
+    image: "/images/budaya/sumpah-adat-kei-infopublik.png",
     icon: <HeartIcon className="w-5 h-5" />,
   },
   {
@@ -50,8 +50,8 @@ const rules = [
     title: "Rumah Tangga",
     badge: "Tidak Boleh Ganggu Istri",
     desc: "Melarang keras tindakan mengganggu atau merusak keharmonisan rumah tangga orang lain. Hukum ini menjaga kestabilan sosial dan kerukunan keluarga inti di dalam komunitas Evav.",
-    image: "/images/budaya/kei_rule_keluarga.png",
-    icon: <UsersIcon className="w-5 h-5" />,
+    image: "/images/heritage/raja-raja-rat.png",
+    icon: <UsersIcon className="w-5 h-5" />
   },
   {
     id: "tanah",
@@ -66,7 +66,7 @@ const rules = [
     title: "Sumpah Adat",
     badge: "Tidak Boleh Melanggar Sumpah",
     desc: "Sumpah adat adalah ikatan sakral yang mengikat dua pihak di hadapan leluhur. Melanggar sumpah dipercaya akan mendatangkan kutukan. Tradisi ini menjaga kejujuran dan kepercayaan antar masyarakat Kei selama berabad-abad.",
-    image: "/images/budaya/kei_rule_sumpah.png",
+    image: "/images/budaya/ritual-penyambutan-tamu-rinin.jpg",
     icon: <ScaleIcon className="w-5 h-5" />,
   },
 ];
@@ -137,8 +137,8 @@ export default function BudayaAdatSection() {
         }}
       >
         <Image
-          src="/images/budaya/tenun_elat_watermark.svg"
-          alt="Watermark Tenun Elat Kei"
+          src="/images/budaya/tenun-ikat-elat-kompas.png"
+          alt="Tenun Ikat Elat Kei"
           fill
           sizes="(max-width: 768px) 280px, 480px"
           className="object-cover object-left-bottom mix-blend-soft-light"

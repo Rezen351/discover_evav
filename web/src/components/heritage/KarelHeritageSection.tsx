@@ -99,7 +99,7 @@ const LEGACY: LegacyItem[] = [
     title: "Bandara Karel Sadsuitubun",
     description:
       "Bandara di Langgur yang memakai namanya — pintu udara menuju Tanah Evav.",
-    image: "/images/heritage/karel_airport.png",
+    image: "/images/heritage/karel_street.png",
     alt: "Bandara Karel Sadsuitubun di Langgur — gerbang udara menuju Kepulauan Kei",
     className: "sm:col-span-2 sm:row-span-2",
     icon: MapPinIcon,
@@ -126,7 +126,7 @@ const LEGACY: LegacyItem[] = [
     title: "Potret Formal Karel Sadsuitubun",
     description:
       "Potret resmi sang putra Evav yang menghiasi ruang kenegaraan sebagai pengingat akan jasa pengabdiannya.",
-    image: "/images/heritage/karel_formal_portrait.png",
+    image: "/images/heritage/karel_street.png",
     alt: "Potret formal Karel Sadsuitubun — pengingat jasa pengabdiannya bagi bangsa",
     className: "md:col-span-1 md:row-span-1",
     icon: CameraIcon,
@@ -135,7 +135,7 @@ const LEGACY: LegacyItem[] = [
     title: "Monumen Pengabdian",
     description:
       "Monumen yang berdiri mengenang semangat dan pengorbanannya bagi merah-putih.",
-    image: "/images/heritage/karel_monument.png",
+    image: "/images/heritage/karel_monument_tragedy.jpeg",
     alt: "Monumen peringatan Karel Sadsuitubun yang mengenang pengabdiannya",
     className: "sm:col-span-2 sm:row-span-1",
     icon: BuildingLibraryIcon,
@@ -201,7 +201,7 @@ export default function KarelHeritageSection() {
       id="karel"
       ref={sectionRef}
       aria-labelledby="karel-title"
-      className="relative w-full snap-start snap-always z-[5] bg-section"
+      className="relative w-full md:snap-start md:snap-always z-[5] bg-section"
     >
       {/* 4.1 Pengantar */}
       <div className="relative w-full py-20 md:py-28">
@@ -220,7 +220,7 @@ export default function KarelHeritageSection() {
             <div className="karel-reveal relative w-full h-[360px] md:h-[480px] rounded-xl-design overflow-hidden shadow-card group">
               <div className="karel-parallax absolute -top-[12%] left-0 h-[124%] w-full">
                 <Image
-                  src="/images/heritage/karel_portrait.png"
+                  src="/images/heritage/karel_street.png"
                   alt="Potret formal Karel Sadsuitubun — pahlawan dari Ohoi Rumadian"
                   fill
                   sizes="(max-width: 768px) 100vw, 50vw"
@@ -278,7 +278,7 @@ export default function KarelHeritageSection() {
             <div className="karel-reveal order-1 md:order-2 relative w-full h-[320px] md:h-[420px] rounded-xl-design overflow-hidden shadow-card group">
               <div className="karel-parallax absolute -top-[12%] left-0 h-[124%] w-full">
                 <Image
-                  src="/images/heritage/karel_rumadian.png"
+                  src="/images/heritage/karel_street.png"
                   alt="Ohoi Rumadian — kampung halaman Karel Sadsuitubun di Kepulauan Kei"
                   fill
                   sizes="(max-width: 768px) 100vw, 50vw"
@@ -300,18 +300,18 @@ export default function KarelHeritageSection() {
             Rekam Jejak
           </h3>
 
-          <ol className="relative ml-4 md:ml-6 border-l-2 border-brand/30">
+          <ol className="relative ml-3 md:ml-6 border-l-2 border-brand/30">
             {TIMELINE.map((node) => {
               const Icon = node.icon;
               return (
-                <li key={node.year} className="karel-reveal relative pl-8 md:pl-12 pb-10 last:pb-0">
+                <li key={node.year} className="karel-reveal relative pl-6 md:pl-12 pb-10 last:pb-0">
                   <span
                     className="absolute -left-[11px] top-2 flex h-5 w-5 items-center justify-center rounded-full bg-brand shadow-soft"
                     aria-hidden="true"
                   >
                     <span className="h-2 w-2 rounded-full bg-white" />
                   </span>
-                  <div className="bg-white border border-brand/10 rounded-lg-design shadow-card hover:border-brand/30 transition-colors p-6 md:p-8">
+                  <div className="bg-white border border-brand/10 rounded-lg-design shadow-card hover:border-brand/30 transition-colors p-5 md:p-8">
                     <div className="flex items-center gap-3 mb-3">
                       <Icon className="h-5 w-5 text-brand" aria-hidden="true" />
                       <span className="font-serif text-fluid-h4 text-brand">
@@ -346,7 +346,7 @@ export default function KarelHeritageSection() {
             <div className="karel-reveal relative w-full h-[360px] md:h-[480px] rounded-xl-design overflow-hidden shadow-card group">
               <div className="karel-parallax absolute -top-[12%] left-0 h-[124%] w-full">
                 <Image
-                  src="/images/heritage/karel_monument_tragedy.png"
+                  src="/images/heritage/karel_monument_tragedy.jpeg"
                   alt="Monumen peringatan gugurnya Karel Sadsuitubun dalam peristiwa G30S/PKI"
                   fill
                   sizes="(max-width: 768px) 100vw, 50vw"

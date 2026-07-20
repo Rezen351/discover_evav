@@ -33,15 +33,15 @@ const elemenBudaya = [
 // Slideshow tarian Kei (autoplay 5s, cross-fade §7.3).
 const TARIAN_PHOTOS: { src: string; alt: string }[] = [
   {
-    src: "/images/budaya/kei_tari_sawat_1.png",
+    src: "/images/budaya/tari-sawat-infopublik.jpg",
     alt: "Tari Sawat — tarian adat dengan ayunan selendang khas Kepulauan Kei",
   },
   {
-    src: "/images/budaya/kei_tari_sawat_2.png",
+    src: "/images/budaya/tari-perang-kompasiana.jpg",
     alt: "Penari Kei membawakan Tari Sawat di atas panggung pasir putih",
   },
   {
-    src: "/images/budaya/kei_tari_sawat_3.png",
+    src: "/images/budaya/tari-syariat-kemdikbud.png",
     alt: "Gerakan Tari Sariat yang agung diiringi dentuman Tifa Kei",
   },
   {
@@ -97,7 +97,7 @@ export default function PentasSeniSection() {
         className="pointer-events-none absolute inset-0 z-0 opacity-[0.06]"
       >
         <Image
-          src="/images/budaya/kei_tari_sawat_2.png"
+          src="/images/budaya/tari-perang-kompasiana.jpg"
           alt=""
           fill
           sizes="100vw"

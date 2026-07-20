@@ -119,7 +119,7 @@ export default function RootLayout({
         "@id": `${SITE_URL}/#organization`,
         name: SITE_NAME,
         url: SITE_URL,
-        logo: `${SITE_URL}/Logo White.svg`,
+        logo: `${SITE_URL}/logo-white.svg`,
         description:
           "Simfoni Evav memperkenalkan keindahan, sejarah, dan kebudayaan Kepulauan Kei, Maluku Tenggara kepada dunia.",
         areaServed: "Kepulauan Kei, Maluku Tenggara, Indonesia",

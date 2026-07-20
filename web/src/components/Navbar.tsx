@@ -134,7 +134,7 @@ export default function Navbar() {
           {/* Left: Logo & Brand Name */}
           <Link href="/" className="flex items-center gap-3 cursor-pointer focus-ring rounded-md">
             <Image
-              src={isDarkTheme ? "/Logo White.svg" : "/Logo%20Color.svg"}
+              src={isDarkTheme ? "/logo-white.svg" : "/logo-color.svg"}
               alt="Logo Simfoni Evav"
               width={36}
               height={36}
