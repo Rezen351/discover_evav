@@ -22,7 +22,6 @@ const ICONS: Record<BentoItem["icon"], LucideIcon> = {
 };
 
 export default function BentoSection({
-  lang,
   data,
 }: {
   lang: "id" | "en";

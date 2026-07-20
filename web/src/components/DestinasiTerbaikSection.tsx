@@ -32,6 +32,7 @@ export default function DestinasiTerbaikSection({ data }: { data: Dict["home"]["
   const destData = data.data;
   const [activeDestTab, setActiveDestTab] = useState<DestTabName>("Wisata");
   const [activeDest, setActiveDest] = useState<number>(0);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [progress, setProgress] = useState(0);
 
   const sectionRef = useRef<HTMLElement>(null);
@@ -91,6 +92,7 @@ export default function DestinasiTerbaikSection({ data }: { data: Dict["home"]["
     window.addEventListener("hashchange", handleHashTab);
     handleHashTab();
     return () => window.removeEventListener("hashchange", handleHashTab);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // Keyboard navigation (Arrow Left/Right) saat section terlihat
@@ -109,6 +111,7 @@ export default function DestinasiTerbaikSection({ data }: { data: Dict["home"]["
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeDest, totalItems]);
 
   useEffect(() => {

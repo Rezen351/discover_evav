@@ -138,6 +138,7 @@ export default function JourneyMapSection({ data }: { data: Dict["home"]["journe
       }
     }, 50);
     return () => window.clearTimeout(t);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cardOpen]);
   const handleMarkerClick = (loc: typeof locations[0], e: { originalEvent: { stopPropagation: () => void } }) => {
     e.originalEvent.stopPropagation();

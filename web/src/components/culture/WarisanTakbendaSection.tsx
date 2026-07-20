@@ -25,7 +25,6 @@ const ICONS: Record<
 };
 
 export default function WarisanTakbendaSection({
-  lang,
   data,
 }: {
   lang: "id" | "en";

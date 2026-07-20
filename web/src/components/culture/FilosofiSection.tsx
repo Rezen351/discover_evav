@@ -30,7 +30,6 @@ const ICONS: Record<FilosofiTile["icon"], React.ComponentType<React.SVGProps<SVG
 };
 
 export default function FilosofiSection({
-  lang,
   data,
 }: {
   lang: "id" | "en";

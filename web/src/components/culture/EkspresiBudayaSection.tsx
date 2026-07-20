@@ -13,10 +13,7 @@ import {
   MusicalNoteIcon,
   SwatchIcon,
   MicrophoneIcon,
-  ChevronRightIcon,
-  PlayIcon,
-  PauseIcon,
-} from "@heroicons/react/24/outline";
+  ChevronRightIcon,} from "@heroicons/react/24/outline";
 import { Shirt, Sailboat } from "lucide-react";
 import { type EkspresiItem, type EkspresiKelompok } from "@/content/locales/id/culture";
 import type { getDictionary } from "@/content/dictionaries";
@@ -41,7 +38,6 @@ const ICONS: Record<
 // Panel isi satu kelompok: deskripsi + carousel card (Swiper) bila >1 item.
 // Dipisah sebagai komponen tingkat-atas agar tidak dibuat ulang saat render.
 function KelompokPanel({
-  lang,
   kelompok,
   common,
   activeSlide,
@@ -154,11 +150,6 @@ export default function EkspresiBudayaSection({
       return willOpen ? index : -1;
     });
   };
-
-  const toggleVideo = () => {
-    setIsPlaying((prev) => !prev);
-  };
-
   // Mainkan/jedakan video pada slide aktif sesuai state isPlaying.
   const videoRefs = useRef<Record<string, HTMLVideoElement | null>>({});
 

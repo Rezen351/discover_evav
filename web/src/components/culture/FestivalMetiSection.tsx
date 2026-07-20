@@ -25,7 +25,6 @@ const ICONS: Record<
 };
 
 export default function FestivalMetiSection({
-  lang,
   data,
 }: {
   lang: "id" | "en";

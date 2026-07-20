@@ -14,7 +14,6 @@ if (typeof window !== "undefined") {
 }
 
 export default function BreatherSection({
-  lang,
   data,
 }: {
   lang: "id" | "en";

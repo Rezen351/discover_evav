@@ -9,15 +9,6 @@ if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
 }
 
-type Stat = {
-  value: number;
-  decimals: number;
-  prefix?: string;
-  suffix?: string;
-  label: string;
-  ariaLabel: string;
-};
-
 const COPY = {
   id: {
     ariaLabel: "Statistik Kepulauan Kei",

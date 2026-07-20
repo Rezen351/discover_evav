@@ -30,10 +30,12 @@ export default function FunFactSection({ data }: { data: Dict["home"]["funfact"]
   const tabData = data.tabData as unknown as Record<TabName, { items: typeof data.tabData.Alam.items; ctaText: string }>;
   const [activeTab, setActiveTab] = useState<TabName>("Alam");
   const [activeDest, setActiveDest] = useState<number>(0);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [progress, setProgress] = useState(0);
 
   const activeData = tabData[activeTab];
   const activeItem = activeData.items[activeDest];
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const totalItems = activeData.items.length;
 
   // Menghitung indeks tidak aktif untuk diletakkan di grid kanan
@@ -78,6 +80,7 @@ export default function FunFactSection({ data }: { data: Dict["home"]["funfact"]
       }
     }, step);
     autoplayRef.current = ticker;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {

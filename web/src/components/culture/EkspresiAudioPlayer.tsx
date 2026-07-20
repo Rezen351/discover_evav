@@ -11,7 +11,6 @@ import type { EkspresiTrack } from "@/content/culture";
 import type { getDictionary } from "@/content/dictionaries";
 
 export default function EkspresiAudioPlayer({
-  lang,
   audio,
   tracks,
   fallbackCover,

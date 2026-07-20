@@ -4,8 +4,6 @@ import { useEffect, useRef } from "react";
 import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { ArrowRightIcon } from "@heroicons/react/24/outline";
-import { useSpotlight } from "@/hooks/useSpotlight";
 import { useSlideshow } from "@/hooks/useSlideshow";
 
 if (typeof window !== "undefined") {
@@ -42,9 +40,7 @@ const WERWARAT_PHOTOS: { src: string; altId: string; altEn: string }[] = [
 ];
 
 export default function WerWaratSection({ lang }: { lang: "id" | "en" }) {
-  const ref = useRef<HTMLElement>(null);
-  const { onMouseMove, onMouseLeave } = useSpotlight();
-  const { index: werwaratIndex } = useSlideshow({
+  const ref = useRef<HTMLElement>(null);  const { index: werwaratIndex } = useSlideshow({
     count: WERWARAT_PHOTOS.length,
     interval: 5000,
   });

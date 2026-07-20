@@ -22,13 +22,6 @@ type NewsItem = NewsArticle;
 
 type UmkmItem = UmkmItemType;
 
-const categoryStyle: Record<NewsCategory, string> = {
-  Budaya: "bg-brand/10 text-brand",
-  Event: "bg-[var(--color-primary-teal)]/15 text-[var(--color-primary-navy)]",
-  Infrastruktur: "bg-[var(--color-primary-orange)]/15 text-[var(--color-primary-orange)]",
-  Pengumuman: "bg-[var(--color-primary-green)]/15 text-[var(--color-primary-green)]",
-};
-
 const categoryBadgeWhite: Record<NewsCategory, string> = {
   Budaya: "bg-white text-black",
   Event: "bg-white text-black",

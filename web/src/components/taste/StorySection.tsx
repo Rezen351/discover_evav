@@ -12,7 +12,6 @@ if (typeof window !== "undefined") {
 }
 
 export default function StorySection({
-  lang,
   data,
 }: {
   lang: "id" | "en";

@@ -1,4 +1,3 @@
-import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { CalendarIcon, MapPinIcon, ArrowUpRightIcon } from "@heroicons/react/24/outline";

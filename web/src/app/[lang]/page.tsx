@@ -1,4 +1,3 @@
-import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getDictionary, hasLocale } from "@/content/dictionaries";
 import HeroSection from "@/components/HeroSection";

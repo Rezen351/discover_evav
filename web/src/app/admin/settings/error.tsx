@@ -1,6 +1,6 @@
 "use client";
 
-export default function Error({ error: _error, reset }: { error: Error & { digest?: string }; reset: () => void }) {
+export default function Error({ reset }: { error: Error & { digest?: string }; reset: () => void }) {
   return (
     <div className="flex flex-col gap-4" role="alert">
       <p className="text-black">Terjadi kesalahan saat memuat pengaturan.</p>
