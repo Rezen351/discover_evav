@@ -100,7 +100,7 @@ services:
       - CLOUDFLARE_TUNNEL_TOKEN=${CLOUDFLARE_TUNNEL_TOKEN}
     restart: unless-stopped
     depends_on:
-      # - nginx
+      - nginx
 
 volumes:
   postgres_data:
