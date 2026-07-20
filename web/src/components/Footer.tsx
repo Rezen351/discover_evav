@@ -3,6 +3,7 @@
 import { useState, useEffect, memo } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import SocialIcon from "@/components/SocialIcon";
 import { SOCIAL_LINKS } from "@/content/social";
 
@@ -17,7 +18,6 @@ const allImages = [
   { src: "/images/kuliner/kei_sagu.jpg", alt: "Proses Sagu" },
   { src: "/images/kuliner/kei_umkm_enbal_bunga_2.jpeg", alt: "Wajah UMKM Kei" },
   { src: "/images/kuliner/kei_umkm_kerupuk_enbal_super.jpeg", alt: "Oleh-oleh Kuliner Kei" },
-  { src: "/images/eksplorasi/wer_warat.png", alt: "Pantai Wer Warat" },
   { src: "/images/eksplorasi/kei_ngurbloat.png", alt: "Pantai Ngurbloat" },
 ];
 
@@ -98,7 +98,18 @@ const PuzzleTile = memo(function PuzzleTile({
   );
 });
 
-export default function Footer() {
+type Lang = "id" | "en";
+
+export default function Footer({ lang: langProp }: { lang?: Lang } = {}) {
+  const pathname = usePathname();
+  const currentLang: Lang = langProp
+    ?? (pathname.startsWith("/en")
+      ? "en"
+      : pathname.startsWith("/id")
+        ? "id"
+        : "id");
+  const lang = currentLang;
+
   const [mapping, setMapping] = useState<number[]>(() =>
     Array.from({ length: tileSpans.length }, (_, i) => i)
   );
@@ -144,10 +155,10 @@ export default function Footer() {
         <div className="flex flex-col items-center lg:items-start text-center lg:text-left lg:w-[35%] gap-3">
           <div>
             <span className="text-brand font-bold tracking-[0.25em] uppercase text-[10px] md:text-xs mb-2 inline-block" style={{ fontFamily: "var(--font-sans)" }}>
-              PERJALANAN TAK TERLUPAKAN
+              {lang === "en" ? "AN UNFORGETTABLE JOURNEY" : "PERJALANAN TAK TERLUPAKAN"}
             </span>
             <h2 className="text-2xl md:text-3xl text-white font-normal leading-tight" style={{ fontFamily: "var(--font-serif)" }}>
-              Setiap Momen, Sebuah Cerita
+              {lang === "en" ? "Every Moment, a Story" : "Setiap Momen, Sebuah Cerita"}
             </h2>
           </div>
 
@@ -161,7 +172,9 @@ export default function Footer() {
                 SIMFONI EVAV
               </span>
               <p className="text-[11px] text-white/50 leading-relaxed max-w-[280px] mt-1 font-light" style={{ fontFamily: "var(--font-sans)" }}>
-                Menyatukan alam, budaya, dan teknologi untuk masa depan yang lestari di Kepulauan Kei.
+                {lang === "en"
+                  ? "Uniting nature, culture, and technology for a sustainable future in the Kei Islands."
+                  : "Menyatukan alam, budaya, dan teknologi untuk masa depan yang lestari di Kepulauan Kei."}
               </p>
             </div>
           </div>
@@ -204,39 +217,41 @@ export default function Footer() {
           className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1 mb-2"
         >
           <Link
-            href="/kebijakan-privasi"
+            href={`/${currentLang}/kebijakan-privasi`}
             className="text-[11px] md:text-xs text-white/40 font-light tracking-widest hover:text-brand transition-colors"
             style={{ fontFamily: "var(--font-sans)" }}
           >
-            Kebijakan Privasi
+            {lang === "en" ? "Privacy Policy" : "Kebijakan Privasi"}
           </Link>
           <span className="text-white/15 text-[11px]">·</span>
           <Link
-            href="/syarat-ketentuan"
+            href={`/${currentLang}/syarat-ketentuan`}
             className="text-[11px] md:text-xs text-white/40 font-light tracking-widest hover:text-brand transition-colors"
             style={{ fontFamily: "var(--font-sans)" }}
           >
-            Syarat &amp; Ketentuan
+            {lang === "en" ? "Terms & Conditions" : "Syarat & Ketentuan"}
           </Link>
           <span className="text-white/15 text-[11px]">·</span>
           <Link
-            href="/disclaimer"
+            href={`/${currentLang}/disclaimer`}
             className="text-[11px] md:text-xs text-white/40 font-light tracking-widest hover:text-brand transition-colors"
             style={{ fontFamily: "var(--font-sans)" }}
           >
-            Disclaimer
+            {lang === "en" ? "Disclaimer" : "Disclaimer"}
           </Link>
           <span className="text-white/15 text-[11px]">·</span>
           <Link
-            href="/kebijakan-cookie"
+            href={`/${currentLang}/kebijakan-cookie`}
             className="text-[11px] md:text-xs text-white/40 font-light tracking-widest hover:text-brand transition-colors"
             style={{ fontFamily: "var(--font-sans)" }}
           >
-            Kebijakan Cookie
+            {lang === "en" ? "Cookie Policy" : "Kebijakan Cookie"}
           </Link>
         </nav>
         <p className="text-[11px] md:text-xs text-white/35 font-light tracking-widest" style={{ fontFamily: "var(--font-sans)" }}>
-          &copy; 2026 Simfoni Evav. Semua Hak Dilindungi.
+          {lang === "en"
+            ? "© 2026 Simfoni Evav. All Rights Reserved."
+            : "© 2026 Simfoni Evav. Semua Hak Dilindungi."}
         </p>
       </div>
     </footer>
