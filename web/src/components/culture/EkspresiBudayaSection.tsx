@@ -161,9 +161,18 @@ export default function EkspresiBudayaSection({
       if (!v) return;
       if (isPlaying && it.video && items[activeSlide]?.id === it.id) {
         v.muted = true; // Force muted in DOM to satisfy mobile Safari's policy
+        const targetSrc = it.video;
+        if (!v.src || !v.src.endsWith(targetSrc)) {
+          v.src = targetSrc;
+          v.load();
+        }
         v.play().catch(() => { });
       } else {
         v.pause();
+        if (v.src && v.src !== "") {
+          v.src = "";
+          v.load();
+        }
       }
     });
   }, [isPlaying, activeSlide, activeKelompok, kelompokList]);
@@ -175,7 +184,15 @@ export default function EkspresiBudayaSection({
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (!entry.isIntersecting) {
-          Object.values(videoRefs.current).forEach((v) => v?.pause());
+          Object.values(videoRefs.current).forEach((v) => {
+            if (v) {
+              v.pause();
+              if (v.src && v.src !== "") {
+                v.src = "";
+                v.load();
+              }
+            }
+          });
           setIsPlaying(false);
         }
       },
@@ -244,23 +261,22 @@ export default function EkspresiBudayaSection({
         className="bg-white border border-brand/10 rounded-xl-design overflow-hidden"
       >
         <div className="relative w-full aspect-[4/3] md:aspect-[16/9] bg-black/5">
-          {item.video && videoActive && (
+          {item.video && (
             <video
               ref={(el) => {
                 videoRefs.current[item.id] = el;
               }}
-              className="absolute inset-0 h-full w-full object-cover z-10"
+              className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-500 ${
+                videoActive ? "opacity-100 z-10" : "opacity-0 z-0 pointer-events-none"
+              }`}
               poster={item.images[0]}
-              preload="metadata"
-              autoPlay={true}
+              preload="none"
               muted={true}
               loop={true}
               playsInline={true}
               controls={false}
               aria-label={`Video ${item.title}`}
-            >
-              <source src={item.video} type="video/mp4" />
-            </video>
+            />
           )}
 
           <Image
