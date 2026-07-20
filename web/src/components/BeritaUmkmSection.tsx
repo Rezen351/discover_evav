@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { CalendarIcon, MapPinIcon, ArrowUpRightIcon, ChevronLeftIcon, ChevronRightIcon, StarIcon, ShoppingBagIcon, NewspaperIcon, BuildingStorefrontIcon } from "@heroicons/react/24/outline";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -239,7 +240,7 @@ export default function BeritaUmkmSection() {
 
             {/* CTA Berita */}
             <div className="flex justify-center md:justify-start">
-              <a
+              <Link
                 href="/news"
                 onMouseMove={onMouseMove}
                 onMouseLeave={onMouseLeave}
@@ -248,7 +249,7 @@ export default function BeritaUmkmSection() {
               >
                 Lihat Semua Berita
                 <ArrowUpRightIcon className="w-4 h-4 text-current" />
-              </a>
+              </Link>
             </div>
           </div>
         ) : (
