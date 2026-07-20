@@ -434,15 +434,21 @@ body {
 .cloud-scroll { animation: cloudScroll 11s linear infinite; will-change: transform; }
 .cloud-scroll-slow { animation: cloudScroll 18s linear infinite reverse; will-change: transform; }
 
-/* Ekspresi Budaya (card carousel) pagination dots — aksen brand pink (§3.1) */
-.ekspresi-swiper .swiper-pagination-bullet {
+/* Ekspresi Budaya (card carousel) pagination dots — aksen brand pink (§3.1).
+   Pagination dirender ke elemen eksternal .ekspresi-pagination-* (bukan
+   di dalam .ekspresi-swiper), sehingga pewarnaan ditargetkan ke situ. */
+.ekspresi-pagination {
+  --swiper-theme-color: var(--color-primary-pink);
+  --swiper-pagination-color: var(--color-primary-pink);
+}
+.ekspresi-pagination .swiper-pagination-bullet {
   background: color-mix(in srgb, var(--color-primary-pink) 30%, transparent) !important;
   opacity: 1;
   width: 8px;
   height: 8px;
   transition: width 0.3s ease, background-color 0.3s ease;
 }
-.ekspresi-swiper .swiper-pagination-bullet-active {
+.ekspresi-pagination .swiper-pagination-bullet-active {
   background: var(--color-primary-pink) !important;
   width: 24px;
   border-radius: 9999px;

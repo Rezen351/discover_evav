@@ -7,6 +7,7 @@ import FilosofiSection from "@/components/culture/FilosofiSection";
 import EkspresiBudayaSection from "@/components/culture/EkspresiBudayaSection";
 import BreatherSection from "@/components/culture/BreatherSection";
 import WarisanTakbendaSection from "@/components/culture/WarisanTakbendaSection";
+import FestivalMetiSection from "@/components/culture/FestivalMetiSection";
 import BudayaTimelineSection from "@/components/culture/BudayaTimelineSection";
 
 export const metadata: Metadata = {
@@ -49,6 +50,7 @@ export default function BudayaPage() {
       <EkspresiBudayaSection />
       <BreatherSection />
       <WarisanTakbendaSection />
+      <FestivalMetiSection />
       <BudayaTimelineSection />
       <Footer />
     </>

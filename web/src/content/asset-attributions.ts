@@ -100,6 +100,7 @@ export const assetAttributions: { file: string; source: string; author: string; 
   { file: "images/kuliner/kei_umkm_kue_kering_mocaf_saleha.jpeg", source: "Fotografer Kei (Original)", author: "UMKM Kei", license: "CC BY (lokal)", url: "" },
   { file: "images/kuliner/kei_umkm_piece_enbal.jpeg", source: "Fotografer Kei (Original)", author: "UMKM Kei", license: "CC BY (lokal)", url: "" },
   { file: "images/kuliner/kei_umkm_tepung_mocaf.jpeg", source: "Fotografer Kei (Original)", author: "UMKM Kei", license: "CC BY (lokal)", url: "" },
+  { file: "images/kuliner/kei_umbi_santan.png", source: "Gemini Image Generator", author: "Simfoni Evav (AI Generated)", license: "CC BY (lokal)", url: "" },
 
   // === KATEGORI 6 — SATWA & ALAM ===
   { file: "images/satwa/kei_underwater.png", source: "Wikimedia Commons", author: "Wikimedia user (Moore Reef underwater ReefScape)", license: "CC BY-SA", url: "https://commons.wikimedia.org/wiki/File:Moore_Reef_underwater_ReefScape.jpg" },

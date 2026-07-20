@@ -21,6 +21,7 @@ import { Shirt, Sailboat } from "lucide-react";
 import {
   ekspresiBudaya,
   type EkspresiItem,
+  type EkspresiKelompok,
 } from "@/content/culture";
 import EkspresiAudioPlayer from "./EkspresiAudioPlayer";
 
@@ -39,6 +40,76 @@ const ICONS: Record<
   Mic2: MicrophoneIcon,
   Boat: Sailboat,
 };
+
+// Panel isi satu kelompok: deskripsi + carousel card (Swiper) bila >1 item.
+// Dipisah sebagai komponen tingkat-atas agar tidak dibuat ulang saat render.
+function KelompokPanel({
+  kelompok,
+  activeSlide,
+  onSlideChange,
+  renderCard,
+}: {
+  kelompok: EkspresiKelompok;
+  activeSlide: number;
+  onSlideChange: (index: number) => void;
+  renderCard: (item: EkspresiItem, isActive?: boolean) => React.ReactNode;
+}) {
+  const kItems: EkspresiItem[] = kelompok.items ?? [];
+  const kShowSwipe = kItems.length > 1;
+  return (
+    <>
+      {/* <p className="font-sans text-fluid-body text-black/65 leading-relaxed max-w-3xl mb-6">
+        {kelompok.desc}
+      </p> */}
+
+      {kShowSwipe ? (
+        <Swiper
+          modules={[Pagination, A11y, Keyboard]}
+          slidesPerView={1}
+          spaceBetween={16}
+          keyboard={{ enabled: true }}
+          pagination={{
+            clickable: true,
+            el: `.ekspresi-pagination-${kelompok.id}`,
+          }}
+          onSlideChange={(s) => onSlideChange(s.activeIndex)}
+          className="!pb-2 ekspresi-swiper"
+        >
+          {kItems.map((it, i) => (
+            <SwiperSlide key={it.id} className="!h-auto">
+              {renderCard(it, i === activeSlide)}
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      ) : (
+        kItems[0] && renderCard(kItems[0])
+      )}
+
+      {kShowSwipe && (
+        <>
+          <div
+            className={`ekspresi-pagination-${kelompok.id} flex items-center justify-center gap-2`}
+          />
+          <p className="text-center font-sans text-fluid-small text-black/45">
+            Geser untuk menjelajahi:{" "}
+            {kItems.map((it, i) => (
+              <span key={it.id}>
+                {i > 0 && ", "}
+                <span
+                  className={
+                    i === activeSlide ? "text-brand font-medium" : ""
+                  }
+                >
+                  {it.title}
+                </span>
+              </span>
+            ))}
+          </p>
+        </>
+      )}
+    </>
+  );
+}
 
 export default function EkspresiBudayaSection() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -87,7 +158,7 @@ export default function EkspresiBudayaSection() {
       const v = videoRefs.current[it.id];
       if (!v) return;
       if (isPlaying && it.video && items[activeSlide]?.id === it.id) {
-        v.play().catch(() => {});
+        v.play().catch(() => { });
       } else {
         v.pause();
       }
@@ -150,7 +221,7 @@ export default function EkspresiBudayaSection() {
 
     if (item.tracks && item.tracks.length > 0) {
       return (
-        <div className="bg-white border border-brand/10 rounded-xl-design shadow-card overflow-hidden">
+        <div className="bg-white border border-brand/10 rounded-xl-design overflow-hidden">
           <EkspresiAudioPlayer
             key={item.id}
             tracks={item.tracks}
@@ -165,7 +236,7 @@ export default function EkspresiBudayaSection() {
         id={`ekspresi-card-${item.id}`}
         role="tabpanel"
         aria-labelledby={`ekspresi-tab-${kelompok?.id}`}
-        className="bg-white border border-brand/10 rounded-xl-design shadow-card overflow-hidden"
+        className="bg-white border border-brand/10 rounded-xl-design overflow-hidden"
       >
         <div className="relative w-full aspect-[4/3] md:aspect-[16/9] bg-black/5">
           {videoActive ? (
@@ -204,7 +275,7 @@ export default function EkspresiBudayaSection() {
                   ? `Jeda video ${item.title}`
                   : `Putar video ${item.title}`
               }
-              className="absolute right-3 top-3 z-10 flex h-12 w-12 lg:h-10 lg:w-10 items-center justify-center rounded-full bg-brand text-white shadow-soft transition-transform hover:scale-105 active:press focus-ring"
+              className="absolute right-3 top-3 z-10 flex h-12 w-12 lg:h-10 lg:w-10 items-center justify-center rounded-full bg-brand text-white transition-transform hover:scale-105 active:press focus-ring"
             >
               {videoActive ? (
                 <PauseIcon className="h-5 w-5" aria-hidden="true" />
@@ -270,8 +341,8 @@ export default function EkspresiBudayaSection() {
           </p>
         </div>
 
-        {/* Dropdown kelompok — susunan ke bawah, klik buka panel card */}
-        <div className="ekspresi-reveal flex flex-col gap-3">
+        {/* MOBILE: accordion dropdown — TETAP seperti sebelumnya (jangan diubah). */}
+        <div className="ekspresi-reveal flex flex-col gap-3 lg:hidden">
           {kelompokList.map((k, index) => {
             const Icon = ICONS[k.icon];
             const isOpen = index === activeKelompok;
@@ -290,16 +361,14 @@ export default function EkspresiBudayaSection() {
                   aria-expanded={isOpen}
                   aria-controls={`ekspresi-kelompok-panel-${k.id}`}
                   onClick={() => selectKelompok(index)}
-                  className={`w-full flex items-center gap-3 p-4 md:p-5 text-left transition-colors focus-ring ${
-                    isOpen
-                      ? "bg-white border-b border-brand/15 shadow-soft"
-                      : "bg-white/60 hover:bg-white"
-                  }`}
+                  className={`w-full flex items-center gap-3 p-4 md:p-5 text-left transition-colors focus-ring ${isOpen
+                    ? "bg-white border-b border-brand/15"
+                    : "bg-white/60 hover:bg-white"
+                    }`}
                 >
                   <span
-                    className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full transition-colors ${
-                      isOpen ? "bg-brand text-white" : "bg-brand/10 text-brand"
-                    }`}
+                    className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full transition-colors ${isOpen ? "bg-brand text-white" : "bg-brand/10 text-brand"
+                      }`}
                     aria-hidden="true"
                   >
                     <Icon className="h-5 w-5" />
@@ -308,9 +377,8 @@ export default function EkspresiBudayaSection() {
                     {k.label}
                   </span>
                   <ChevronRightIcon
-                    className={`h-5 w-5 shrink-0 text-brand transition-transform duration-300 ${
-                      isOpen ? "rotate-90" : ""
-                    }`}
+                    className={`h-5 w-5 shrink-0 text-brand transition-transform duration-300 ${isOpen ? "rotate-90" : ""
+                      }`}
                     aria-hidden="true"
                   />
                 </button>
@@ -322,9 +390,9 @@ export default function EkspresiBudayaSection() {
                     aria-labelledby={`ekspresi-kelompok-tab-${k.id}`}
                     className="p-5 md:p-8"
                   >
-                    <p className="font-sans text-fluid-body text-black/65 leading-relaxed max-w-3xl mb-6">
+                    {/* <p className="font-sans text-fluid-body text-black/65 leading-relaxed max-w-3xl mb-6">
                       {k.desc}
-                    </p>
+                    </p> */}
 
                     {kShowSwipe ? (
                       <Swiper
@@ -337,7 +405,7 @@ export default function EkspresiBudayaSection() {
                           el: `.ekspresi-pagination-${k.id}`,
                         }}
                         onSlideChange={(s) => setActiveSlide(s.activeIndex)}
-                        className="!pb-12 max-w-3xl mx-auto ekspresi-swiper"
+                        className="!pb-5 max-w-3xl mx-auto ekspresi-swiper"
                       >
                         {kItems.map((it, i) => (
                           <SwiperSlide key={it.id} className="!h-auto">
@@ -356,9 +424,9 @@ export default function EkspresiBudayaSection() {
                     {kShowSwipe && (
                       <>
                         <div
-                          className={`ekspresi-pagination-${k.id} flex items-center justify-center gap-2 mt-4`}
+                          className={`ekspresi-pagination-${k.id} flex items-center justify-center gap-2`}
                         />
-                        <p className="mt-6 text-center font-sans text-fluid-small text-black/45">
+                        <p className="text-center font-sans text-fluid-small text-black/45">
                           Geser untuk menjelajahi:{" "}
                           {kItems.map((it, i) => (
                             <span key={it.id}>
@@ -380,6 +448,69 @@ export default function EkspresiBudayaSection() {
               </div>
             );
           })}
+        </div>
+
+        {/* DESKTOP (lg+): tab di kiri, frame card di kanan. */}
+        <div className="hidden lg:grid lg:grid-cols-12 gap-6 xl:gap-10 items-start">
+          {/* Kolom kiri: daftar tab kelompok (tanpa panel, klik buka di kanan) */}
+          <div
+            className="lg:col-span-5 xl:col-span-4 flex flex-col gap-3"
+            role="tablist"
+            aria-label="Daftar ekspresi budaya Kei"
+          >
+            {kelompokList.map((k, index) => {
+              const Icon = ICONS[k.icon];
+              const isOpen = index === activeKelompok;
+              return (
+                <button
+                  key={k.id}
+                  id={`ekspresi-kelompok-tab-d-${k.id}`}
+                  type="button"
+                  role="tab"
+                  aria-selected={isOpen}
+                  aria-expanded={isOpen}
+                  aria-controls={`ekspresi-kelompok-panel-d-${k.id}`}
+                  onClick={() => selectKelompok(index)}
+                  className={`flex items-center gap-3 p-4 md:p-5 text-left rounded-xl-design border transition-colors focus-ring ${isOpen
+                    ? "bg-white border-brand/30"
+                    : "bg-white/60 border-brand/10 hover:border-brand/30 hover:bg-white"
+                    }`}
+                >
+                  <span
+                    className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full transition-colors ${isOpen ? "bg-brand text-white" : "bg-brand/10 text-brand"
+                      }`}
+                    aria-hidden="true"
+                  >
+                    <Icon className="h-5 w-5" />
+                  </span>
+                  <span className="flex-1 font-serif text-fluid-h4 text-black/80">
+                    {k.label}
+                  </span>
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Kolom kanan: frame card kelompok yang sedang aktif */}
+          <div className="lg:col-span-7 xl:col-span-8">
+            <div className="sticky top-6">
+              {kelompok && (
+                <div
+                  id={`ekspresi-kelompok-panel-d-${kelompok.id}`}
+                  role="tabpanel"
+                  aria-labelledby={`ekspresi-kelompok-tab-d-${kelompok.id}`}
+                  className="bg-white/60 border border-brand/10 rounded-xl-design p-5 md:p-8"
+                >
+                  <KelompokPanel
+                    kelompok={kelompok}
+                    activeSlide={activeSlide}
+                    onSlideChange={(i) => setActiveSlide(i)}
+                    renderCard={renderCard}
+                  />
+                </div>
+              )}
+            </div>
+          </div>
         </div>
       </div>
     </section>

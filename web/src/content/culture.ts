@@ -445,6 +445,62 @@ export const warisanTakbenda = {
   ] satisfies WarisanItem[],
 } as const;
 
+// ── Festival Pesona Meti Kei (§3.5 · Tradisi → Penggerak) ───────────────────
+// Filosofi: warisan takbenda (meti/sasi) yang "naik kelas" menjadi institusi
+// budaya yang menghidupi warga. Empat pilar: lahir sebagai event (2017),
+// naik skala nasional (KEN, 6x berturut-turut dari 110 event), gerbang promosi
+// kawasan, dan multiplier effect ke rantai ekonomi masyarakat.
+// ⚠️ Validasi angka (tahun mulai, jumlah keterpilihan KEN) dengan informan lokal
+// & sumber resmi Kemenparekraf sebelum production.
+export type FestivalPilar = {
+  id: string;
+  icon: "CalendarHeart" | "Award" | "MapPin" | "Users";
+  title: string;
+  desc: string;
+};
+
+export const festivalMetiKei = {
+  eyebrow: "FESTIVAL PESONA METI KEI",
+  title: "Dari Tradisi Warga Menjadi Panggung Nusantara",
+  intro:
+    "Ketika laut Kei menyingkap dasarnya, warga tak hanya turun memanen — mereka merayakannya. Sejak dikemas menjadi festival tahunan, denyut keseharian Evav berubah menjadi panggung budaya yang menghidupi banyak keluarga: dari nelayan dan penenun hingga pemandu, pelaku UMKM, dan komunitas kreatif.",
+  image: "/images/budaya/festival-pesona-meti-kei-2025-triptrus.jpg",
+  imageAlt:
+    "Kemeriahan Festival Pesona Meti Kei — warga dan wisatawan merayakan surut laut ekstrem di Kepulauan Kei",
+  // Statistik unggulan (badge di atas gambar / kartu sorotan)
+  stat: {
+    value: "6×",
+    label: "Berturut-turut terpilih Kharisma Event Nusantara (KEN) Kemenparekraf",
+    context: "dari 110 event unggulan se-Indonesia",
+  },
+  pilar: [
+    {
+      id: "diangkat-jadi-event",
+      icon: "CalendarHeart",
+      title: "Diangkat Jadi Event Budaya",
+      desc: "Sejak pertama dirayakan di Ngilngof (2017), tradisi meti dikemas menjadi festival tahunan — mengubah aktivitas keseharian warga yang unik menjadi atraksi wisata yang bernilai jual.",
+    },
+    {
+      id: "agenda-nasional",
+      icon: "Award",
+      title: "Agenda Rutin Berskala Nasional",
+      desc: "Didukung penuh pemerintah kabupaten, provinsi, hingga pusat lewat Kharisma Event Nusantara (KEN) Kemenparekraf — 6× berturut-turut terpilih dari 110 event se-Indonesia. Dukungan lintas level ini memastikan festival terus berjalan dari tahun ke tahun dan bisa diandalkan wisatawan.",
+    },
+    {
+      id: "gerbang-promosi",
+      icon: "MapPin",
+      title: "Gerbang Promosi Pariwisata Kei",
+      desc: "Festival mengajak wisatawan menjelajahi destinasi-destinasi lain di Kei sekaligus — menjadikannya pintu masuk promosi seluruh kawasan, bukan sekadar acara satu titik.",
+    },
+    {
+      id: "multiplier-effect",
+      icon: "Users",
+      title: "Multiplier Effect ke Masyarakat",
+      desc: "Pelibatan penuh talenta lokal, pelaku UMKM, dan komunitas kreatif membuat perputaran ekonomi menyebar ke banyak sektor sekaligus: kuliner, kerajinan, transportasi lokal, penginapan, hingga jasa pemandu. Bukan satu pengelola yang untung, melainkan rantai ekonomi warga yang bergerak bersamaan setiap tahun.",
+    },
+  ] satisfies FestivalPilar[],
+} as const;
+
 // ── Timeline / Linimasa (§4) ─────────────────────────────────────────────────
 export type TimelineNode = {
   id: string;

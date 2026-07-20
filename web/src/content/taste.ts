@@ -70,16 +70,8 @@ export const signatureDishes = {
       name: "Sagu",
       desc: "Makanan pokok pengikat keluarga Kei, diolah dari pohon sagu setempat. Lembut, netral, dan siap menyerap rasa laut di setiap piring.",
       tag: "Makanan Pokok",
-  image: "/images/kuliner/kei_culinary_fish.png",
-      imageAlt: "Proses sagu — makanan pokok masyarakat Kepulauan Kei",
-    },
-    {
-      id: "mangrove-stick",
-      name: "Mangrove Stick",
-      desc: "Hasil hutan bakau yang ditusuk dan dibakar perlahan, tekstur kenyal dengan semburat asap. Camilan tepi laut yang jujur dan sederhana.",
-      tag: "Camilan Bakar",
-      image: "/images/kuliner/kei_umkm_kacang_botol_1.jpeg",
-      imageAlt: "Mangrove stick — camilan bakar dari hutan bakau Kei",
+  image: "/images/kuliner/kei_sagu.jpg",
+       imageAlt: "Proses sagu — makanan pokok masyarakat Kepulauan Kei",
     },
     {
       id: "lat",
@@ -128,9 +120,9 @@ export const signatureDishes = {
 export const tasteStory = {
   eyebrow: "FILSOFOSI RASA",
   title: "Dapur Kei adalah Meja Kebersamaan",
-  image: "/images/kuliner/kei_sagu.jpg",
+  image: "/images/kuliner/kei_food_atmosfer.png",
   imageAlt:
-    "Proses memasak bersama di Kepulauan Kei — sagu dan hasil laut diolah secara komunal",
+    "Suasana dapur dan meja kebersamaan Kepulauan Kei — makanan laut dan sagu dihidangkan ramai-ramai di atas pasir",
   paragraphs: [
     "Di Kei, makan tidak pernah sendirian. Laut dijaga lewat sasi — aturan adat yang memberi waktu alam bernapas — sehingga ikan yang sampai ke meja selalu cukup dan sejahtera. Apa yang diambil hari ini adalah janji untuk besok.",
     "Setiap hidangan laut dan sagu disajikan dalam porsi yang memanggil semua orang duduk bersama. Inilah Yelim — memberi dengan tangan dan hati — yang membuat tamu, entah kenal atau baru, selalu disilakan ke meja yang sama.",
@@ -170,7 +162,7 @@ export const bentoTaste = {
       icon: "Coconut",
       title: "Umbi & Santan Gurih",
       desc: "Santan segar yang kental dan umbi-umbian lokal (seperti singkong dan ubi jalar) memberikan kelembutan yang kaya. Mereka menyeimbangkan ketajaman rempah dan rasa laut yang segar.",
-      image: "/images/kuliner/kei_culinary_sirsir.png",
+      image: "/images/kuliner/kei_umbi_santan.png",
       imageAlt: "Umbi-umbian dan santan gurih khas Kepulauan Kei",
       tall: true,
     },

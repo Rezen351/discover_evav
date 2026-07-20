@@ -16,7 +16,7 @@ const allImages = [
   { src: "/images/kuliner/kei_umkm_kacang_botol_1.jpeg", alt: "Olahan Mangrove" },
   { src: "/images/kuliner/kei_sagu.jpg", alt: "Proses Sagu" },
   { src: "/images/kuliner/kei_umkm_enbal_bunga_2.jpeg", alt: "Wajah UMKM Kei" },
-  { src: "/images/kuliner/kei_umkm_kacang_botol_1.jpeg", alt: "Masyarakat Kei" },
+  { src: "/images/kuliner/kei_umkm_kerupuk_enbal_super.jpeg", alt: "Oleh-oleh Kuliner Kei" },
   { src: "/images/eksplorasi/wer_warat.png", alt: "Pantai Wer Warat" },
   { src: "/images/eksplorasi/kei_ngurbloat.png", alt: "Pantai Ngurbloat" },
 ];
